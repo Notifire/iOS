@@ -1,0 +1,16 @@
+//
+//  Debug.xcconfig
+//  Notifire
+//
+//  Created by David Bielik on 30/01/2018.
+//  Copyright © 2018 David Bielik. All rights reserved.
+//
+
+#include "Pods/Target Support Files/Pods-Notifire/Pods-Notifire.debug.xcconfig"
+#include "Pods/Target Support Files/Pods-Notifire-NotificationServiceExtension/Pods-Notifire-NotificationServiceExtension.debug.xcconfig"
+SLASH=/
+API_URL = https:$(SLASH)/api.notifire.dvdblk.com
+
+// App name + bundle ID
+APP_DISPLAY_NAME=Notifire Dev
+PRODUCT_BUNDLE_IDENTIFIER=com.dvdblk.Notifire.dev

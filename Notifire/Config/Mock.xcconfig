@@ -1,0 +1,19 @@
+//
+//  Mock.xcconfig
+//  Notifire
+//
+//  Created by David Bielik on 14/10/2018.
+//  Copyright © 2018 David Bielik. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include "Pods/Target Support Files/Pods-Notifire/Pods-Notifire.mock.xcconfig"
+#include "Pods/Target Support Files/Pods-Notifire-NotificationServiceExtension/Pods-Notifire-NotificationServiceExtension.mock.xcconfig"
+SWIFT_ACTIVE_COMPILATION_CONDITIONS=API_MOCK
+API_URL=none
+
+// App name + bundle ID
+APP_DISPLAY_NAME=Notifire Mock
+PRODUCT_BUNDLE_IDENTIFIER=com.dvdblk.Notifire.mock

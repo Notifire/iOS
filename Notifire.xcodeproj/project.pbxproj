@@ -1,0 +1,1737 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3C0C1CF4657A1D9AEFF79F04 /* Pods_Notifire_NotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1C4C444EF286634E039FF8 /* Pods_Notifire_NotificationServiceExtension.framework */; };
+		6274CD2074727F2E8CF30D2A /* Pods_Notifire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A04DDC493D95926761164B /* Pods_Notifire.framework */; };
+		8906E9742170FB2100D45BCA /* ConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906E9732170FB2100D45BCA /* ConfirmEmailViewController.swift */; };
+		8909A3BC218F24EE00EADD09 /* LocalNotifireNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */; };
+		8920CA702171377900A72BD0 /* RegisterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA6F2171377900A72BD0 /* RegisterCoordinator.swift */; };
+		8920CA7221713D2700A72BD0 /* RegisterSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA7121713D2700A72BD0 /* RegisterSuccessViewController.swift */; };
+		8920CA74217144DF00A72BD0 /* NavigationActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA73217144DF00A72BD0 /* NavigationActionViewController.swift */; };
+		8920CA772171578900A72BD0 /* CenterStackPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA762171578900A72BD0 /* CenterStackPresenting.swift */; };
+		8920CA792171739900A72BD0 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA782171739900A72BD0 /* ActionButton.swift */; };
+		8920CA7B217212B200A72BD0 /* NotifireAPIManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA7A217212B200A72BD0 /* NotifireAPIManagerMock.swift */; };
+		8920CA812172188000A72BD0 /* NotifireAPIManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA802172188000A72BD0 /* NotifireAPIManagerFactory.swift */; };
+		8920CA8521722FF700A72BD0 /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA8421722FF700A72BD0 /* Loadable.swift */; };
+		8920CA892172345B00A72BD0 /* Stylable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA882172345B00A72BD0 /* Stylable.swift */; };
+		8920CA8B21723B9A00A72BD0 /* LoadableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA8A21723B9A00A72BD0 /* LoadableLabel.swift */; };
+		8920CA902172BB1E00A72BD0 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA8F2172BB1E00A72BD0 /* Animation.swift */; };
+		8922E24721988F31001984C4 /* ServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8922E24621988F31001984C4 /* ServiceViewModel.swift */; };
+		8922E2492198AF8D001984C4 /* NotifirePopAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8922E2482198AF8D001984C4 /* NotifirePopAnimationController.swift */; };
+		8922E269219DFB2E001984C4 /* NotifireNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8922E268219DFB2E001984C4 /* NotifireNotificationHandler.swift */; };
+		8922E26D219F3CF6001984C4 /* RealmCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8922E26C219F3CF6001984C4 /* RealmCollectionViewModel.swift */; };
+		8922E26F219F3D0A001984C4 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8922E26E219F3D0A001984C4 /* NotificationsViewModel.swift */; };
+		892B413621C1A5F000D28ABE /* Reselectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413521C1A5F000D28ABE /* Reselectable.swift */; };
+		892B413821C1D47A00D28ABE /* NotificationsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413721C1D47A00D28ABE /* NotificationsEmptyStateView.swift */; };
+		892B413A21C1DFDE00D28ABE /* EmptyStatePresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413921C1DFDE00D28ABE /* EmptyStatePresentable.swift */; };
+		892B413C21C1E1E600D28ABE /* ServicesEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413B21C1E1E600D28ABE /* ServicesEmptyStateView.swift */; };
+		892B413F21C1E40800D28ABE /* APIFailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413E21C1E40800D28ABE /* APIFailable.swift */; };
+		892B414221C1E42B00D28ABE /* APIUserErrorResponding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B414121C1E42B00D28ABE /* APIUserErrorResponding.swift */; };
+		892B415921C4150B00D28ABE /* NotificationLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B415821C4150B00D28ABE /* NotificationLevel.swift */; };
+		892B415A21C415B400D28ABE /* NotificationLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B415821C4150B00D28ABE /* NotificationLevel.swift */; };
+		8933F0AE2140421700645B3A /* NotifireBackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0AD2140421700645B3A /* NotifireBackgroundLayer.swift */; };
+		8933F0B02140424400645B3A /* CAPersistentAnimationsShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0AF2140424400645B3A /* CAPersistentAnimationsShapeLayer.swift */; };
+		8933F0B3214062F300645B3A /* ValidatableTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0B2214062F300645B3A /* ValidatableTextInput.swift */; };
+		8933F0B7214131CF00645B3A /* ValidatableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0B6214131CF00645B3A /* ValidatableComponent.swift */; };
+		8933F0B9214131F900645B3A /* ValidatableComponentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0B8214131F900645B3A /* ValidatableComponentState.swift */; };
+		8933F0BB2141322A00645B3A /* InputValidating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0BA2141322A00645B3A /* InputValidating.swift */; };
+		8933F0BE2141326300645B3A /* ComponentValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0BD2141326300645B3A /* ComponentValidator.swift */; };
+		8933F0C02141329500645B3A /* ComponentRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0BF2141329500645B3A /* ComponentRule.swift */; };
+		8933F0C82141D0C000645B3A /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0C72141D0C000645B3A /* RootViewController.swift */; };
+		8933F0CA2141D93700645B3A /* InputValidatingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0C92141D93700645B3A /* InputValidatingViewModel.swift */; };
+		8933F0CC2141D94700645B3A /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0CB2141D94700645B3A /* RegisterViewModel.swift */; };
+		8933F0CF2141E40900645B3A /* NotifireAPIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0CE2141E40900645B3A /* NotifireAPIHandler.swift */; };
+		8933F0D3214334C000645B3A /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0D2214334C000645B3A /* URLExtension.swift */; };
+		8933F0DD2143360300645B3A /* NotifireAPITypealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0DC2143360300645B3A /* NotifireAPITypealias.swift */; };
+		8933F0DF2143379700645B3A /* HTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0DE2143379700645B3A /* HTTPHeader.swift */; };
+		8933F0E1214337AD00645B3A /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0E0214337AD00645B3A /* HTTPMethod.swift */; };
+		8933F0E3214337D900645B3A /* NotifireAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0E2214337D900645B3A /* NotifireAPIEndpoint.swift */; };
+		8933F0E52143380C00645B3A /* URLRequestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0E42143380C00645B3A /* URLRequestExtension.swift */; };
+		8933F0E72143383300645B3A /* NotifireAPIStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0E62143383300645B3A /* NotifireAPIStatusCode.swift */; };
+		8933F0EC2143388E00645B3A /* NotifireAPIRequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0EB2143388E00645B3A /* NotifireAPIRequestContext.swift */; };
+		8933F0EE2143389F00645B3A /* NotifireAPIResponseContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0ED2143389F00645B3A /* NotifireAPIResponseContext.swift */; };
+		8933F0F0214338B500645B3A /* NotifireAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0EF214338B500645B3A /* NotifireAPIError.swift */; };
+		8933F0F3214338EA00645B3A /* NotifireAPIManagerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0F2214338EA00645B3A /* NotifireAPIManagerBase.swift */; };
+		8933F0F5214338FF00645B3A /* NotifireAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0F4214338FF00645B3A /* NotifireAPIManager.swift */; };
+		8933F0F72143391000645B3A /* NotifireProtectedAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0F62143391000645B3A /* NotifireProtectedAPIManager.swift */; };
+		8933F0FC214339D700645B3A /* NotifireAPIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0FB214339D700645B3A /* NotifireAPIDecodable.swift */; };
+		8933F0FE214339E200645B3A /* NotifireAPIEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0FD214339E200645B3A /* NotifireAPIEncodable.swift */; };
+		8939957F216FE4D800687A79 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939957E216FE4D800687A79 /* Coordinator.swift */; };
+		89399581216FE4E900687A79 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399580216FE4E900687A79 /* AppCoordinator.swift */; };
+		89399585216FEFD500687A79 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399584216FEFD500687A79 /* UIViewExtension.swift */; };
+		89399589216FF3CD00687A79 /* NotifireUserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399588216FF3CD00687A79 /* NotifireUserSession.swift */; };
+		8939958C216FF40A00687A79 /* NotifireUserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939958B216FF40A00687A79 /* NotifireUserSessionManager.swift */; };
+		8939958E2170011100687A79 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939958D2170011100687A79 /* SplashView.swift */; };
+		89399590217002AD00687A79 /* Revealing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939958F217002AD00687A79 /* Revealing.swift */; };
+		893995932170C58400687A79 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995922170C58400687A79 /* TabBarViewController.swift */; };
+		893995972170DEA500687A79 /* NotifireUserSessionManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995962170DEA500687A79 /* NotifireUserSessionManagerMock.swift */; };
+		8939959B2170E52600687A79 /* TabBarCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939959A2170E52600687A79 /* TabBarCollectionCell.swift */; };
+		8939959D2170ED4900687A79 /* NoSessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939959C2170ED4900687A79 /* NoSessionCoordinator.swift */; };
+		8939959F2170ED7900687A79 /* SessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939959E2170ED7900687A79 /* SessionCoordinator.swift */; };
+		893995A12170ED9700687A79 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995A02170ED9700687A79 /* TabBarViewModel.swift */; };
+		893995A32170EDA900687A79 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995A22170EDA900687A79 /* Tab.swift */; };
+		893995A62170EDC900687A79 /* TabbedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995A52170EDC900687A79 /* TabbedCoordinator.swift */; };
+		893995A82170EDDA00687A79 /* NotificationsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995A72170EDDA00687A79 /* NotificationsCoordinator.swift */; };
+		893995AA2170EDE800687A79 /* ServicesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995A92170EDE800687A79 /* ServicesCoordinator.swift */; };
+		893995AC2170EDF300687A79 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995AB2170EDF300687A79 /* SettingsCoordinator.swift */; };
+		893995AE2170EECE00687A79 /* ServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995AD2170EECE00687A79 /* ServicesViewController.swift */; };
+		893995B02170EEE500687A79 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995AF2170EEE500687A79 /* SettingsViewController.swift */; };
+		893FE01D2195E3C1002CD846 /* ServiceCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE01C2195E3C1002CD846 /* ServiceCreationViewController.swift */; };
+		893FE01F21960BCC002CD846 /* ChoiceSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE01E21960BCC002CD846 /* ChoiceSeparatorView.swift */; };
+		893FE02121960BE5002CD846 /* ServiceCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE02021960BE5002CD846 /* ServiceCreationViewModel.swift */; };
+		893FE02421962C3E002CD846 /* ServiceNotificationsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE02321962C3E002CD846 /* ServiceNotificationsHeaderView.swift */; };
+		893FE02621962DC0002CD846 /* ServiceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE02521962DC0002CD846 /* ServiceHeaderView.swift */; };
+		893FE02821964664002CD846 /* DynamicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE02721964664002CD846 /* DynamicTableView.swift */; };
+		893FE02A2197488D002CD846 /* ServiceNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE0292197488C002CD846 /* ServiceNotificationsViewController.swift */; };
+		893FE02D21977FB2002CD846 /* NotificationLevelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE02C21977FB2002CD846 /* NotificationLevelTableViewCell.swift */; };
+		893FE02F21977FD8002CD846 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE02E21977FD8002CD846 /* BaseTableViewCell.swift */; };
+		893FE031219783F0002CD846 /* NotificationLevelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE030219783F0002CD846 /* NotificationLevelModel.swift */; };
+		893FE03321979A34002CD846 /* ServiceAPIKeyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE03221979A34002CD846 /* ServiceAPIKeyTableViewCell.swift */; };
+		893FE0372197C225002CD846 /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE0362197C225002CD846 /* CopyableLabel.swift */; };
+		8948F57221A0AD8200BB6E10 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8948F57121A0AD8200BB6E10 /* RoundedImageView.swift */; };
+		8948F57421A0C00000BB6E10 /* NotifirePoppable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8948F57321A0C00000BB6E10 /* NotifirePoppable.swift */; };
+		895E4019204046EA0062D5FC /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895E4018204046EA0062D5FC /* Config.swift */; };
+		897069C821334E7700D798AA /* ConstrainableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069C721334E7700D798AA /* ConstrainableView.swift */; };
+		897069CA2133597800D798AA /* BottomNavigatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069C92133597800D798AA /* BottomNavigatorViewController.swift */; };
+		897069CC213359A100D798AA /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069CB213359A100D798AA /* BaseViewController.swift */; };
+		897069CE21335C3400D798AA /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069CD21335C3400D798AA /* UIViewControllerExtension.swift */; };
+		897069D021335E9200D798AA /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069CF21335E9200D798AA /* UIColorExtension.swift */; };
+		897069D22133725E00D798AA /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D12133725D00D798AA /* CustomTextField.swift */; };
+		897069D42133730A00D798AA /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D32133730A00D798AA /* Size.swift */; };
+		897069D62133733100D798AA /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D52133733100D798AA /* Theme.swift */; };
+		897069D82133764700D798AA /* NotifireButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D72133764700D798AA /* NotifireButton.swift */; };
+		897069DA21337F7F00D798AA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D921337F7F00D798AA /* Settings.swift */; };
+		897069DF2133885A00D798AA /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069DE2133885A00D798AA /* BaseButton.swift */; };
+		897069E22134051E00D798AA /* KeyboardObserving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069E12134051E00D798AA /* KeyboardObserving.swift */; };
+		897069E42134721300D798AA /* CurvedTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069E32134721300D798AA /* CurvedTopView.swift */; };
+		897069E72134A36700D798AA /* TappableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069E62134A36700D798AA /* TappableLabel.swift */; };
+		897069E92134B25200D798AA /* UITapGestureRecognizerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069E82134B25200D798AA /* UITapGestureRecognizerExtension.swift */; };
+		897069EB2134B4D200D798AA /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069EA2134B4D200D798AA /* RegisterViewController.swift */; };
+		897069EE2134B68300D798AA /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069ED2134B68300D798AA /* LoginViewModel.swift */; };
+		897069F22134BD1200D798AA /* UIStackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069F12134BD1200D798AA /* UIStackViewExtension.swift */; };
+		897069F42134BF4C00D798AA /* KeyboardDismissing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069F32134BF4C00D798AA /* KeyboardDismissing.swift */; };
+		8985338C219F95E000E0A656 /* NotificationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8985338B219F95E000E0A656 /* NotificationDetailViewController.swift */; };
+		89853398219FA46A00E0A656 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 89853391219FA46900E0A656 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		898533B6219FA9F500E0A656 /* NotifireNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8922E268219DFB2E001984C4 /* NotifireNotificationHandler.swift */; };
+		898533B7219FA9FE00E0A656 /* LocalNotifireNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */; };
+		898533BA219FAA1700E0A656 /* LocalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533B9219FAA1700E0A656 /* LocalService.swift */; };
+		898533BB219FAA2700E0A656 /* LocalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533B9219FAA1700E0A656 /* LocalService.swift */; };
+		898533C0219FAAEC00E0A656 /* RealmProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533BF219FAAEC00E0A656 /* RealmProviding.swift */; };
+		898533C1219FAE4100E0A656 /* RealmProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533BF219FAAEC00E0A656 /* RealmProviding.swift */; };
+		898533C3219FAEE300E0A656 /* LocalServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533C2219FAEE300E0A656 /* LocalServiceExtension.swift */; };
+		898533C4219FB94900E0A656 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89853393219FA46A00E0A656 /* NotificationService.swift */; };
+		898533C521A03E3D00E0A656 /* NotifireUserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939958B216FF40A00687A79 /* NotifireUserSessionManager.swift */; };
+		898533C621A03E5100E0A656 /* NotifireUserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399588216FF3CD00687A79 /* NotifireUserSession.swift */; };
+		898533C821A03ED000E0A656 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533C721A03ED000E0A656 /* RealmManager.swift */; };
+		898533C921A03F2E00E0A656 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533C721A03ED000E0A656 /* RealmManager.swift */; };
+		89A9048021B753F100D262E1 /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */; };
+		89A9048121B754A800D262E1 /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */; };
+		89A9048321B8589300D262E1 /* IndicatorStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9048221B8589300D262E1 /* IndicatorStackView.swift */; };
+		89A9048521B858B200D262E1 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9048421B858B200D262E1 /* NotificationTableViewCell.swift */; };
+		89A9049D21BF19EA00D262E1 /* NotifireNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9049C21BF19EA00D262E1 /* NotifireNavigationController.swift */; };
+		89A9049F21C03D2300D262E1 /* CellConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9049E21C03D2300D262E1 /* CellConfigurable.swift */; };
+		89A904A121C03E1400D262E1 /* NotificationDetailCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A904A021C03E1400D262E1 /* NotificationDetailCells.swift */; };
+		89B3EC492020E4900068BA64 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B3EC482020E4900068BA64 /* AppDelegate.swift */; };
+		89B3EC4B2020E4900068BA64 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B3EC4A2020E4900068BA64 /* NotificationsViewController.swift */; };
+		89B3EC532020E4900068BA64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89B3EC522020E4900068BA64 /* Assets.xcassets */; };
+		89B3EC562020E4900068BA64 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89B3EC542020E4900068BA64 /* LaunchScreen.storyboard */; };
+		89B3EC7320232A310068BA64 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B3EC7220232A310068BA64 /* LoginViewController.swift */; };
+		89B3EC7620239D170068BA64 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B3EC7520239D170068BA64 /* StringExtension.swift */; };
+		89BDADD4217922FE000E38FC /* ConfirmEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADD3217922FE000E38FC /* ConfirmEmailViewModel.swift */; };
+		89BDADD6217928A9000E38FC /* CheckValidityOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADD5217928A9000E38FC /* CheckValidityOption.swift */; };
+		89BDADD8217A2596000E38FC /* HairlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADD7217A2596000E38FC /* HairlineView.swift */; };
+		89BDADDA217A5012000E38FC /* DeeplinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADD9217A5012000E38FC /* DeeplinkHandler.swift */; };
+		89BDADDD217A5034000E38FC /* Deeplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADDC217A5034000E38FC /* Deeplink.swift */; };
+		89BDADDF217A520E000E38FC /* NotifireUserSessionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADDE217A520E000E38FC /* NotifireUserSessionHandler.swift */; };
+		89BDADE1217A5230000E38FC /* DeviceTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADE0217A5230000E38FC /* DeviceTokenManager.swift */; };
+		89BDADE3217A5693000E38FC /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADE2217A5693000E38FC /* Service.swift */; };
+		89BDADE5217A5C5B000E38FC /* ServicesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADE4217A5C5B000E38FC /* ServicesViewModel.swift */; };
+		89BDADE7217A921A000E38FC /* ServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADE6217A921A000E38FC /* ServiceViewController.swift */; };
+		89D4E1EF2138A48700630790 /* NotifireAnimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1EE2138A48700630790 /* NotifireAnimatedView.swift */; };
+		89D4E1F12139ED0F00630790 /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F02139ED0F00630790 /* CALayerExtension.swift */; };
+		89D4E1F32139ED3D00630790 /* CAPersistentAnimationsLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F22139ED3D00630790 /* CAPersistentAnimationsLayer.swift */; };
+		89D4E1F52139F43E00630790 /* Observing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F42139F43E00630790 /* Observing.swift */; };
+		89D4E1F72139F47600630790 /* PersistentAnimationsObserving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F62139F47600630790 /* PersistentAnimationsObserving.swift */; };
+		89D4E1FA2139F94000630790 /* BaseLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F92139F94000630790 /* BaseLayer.swift */; };
+		89D4E1FC2139FD2200630790 /* NotifireLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1FB2139FD2200630790 /* NotifireLayer.swift */; };
+		89D4E1FE2139FD3E00630790 /* MultiplePathAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1FD2139FD3E00630790 /* MultiplePathAnimator.swift */; };
+		89D4E2002139FD9A00630790 /* NotifireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1FF2139FD9A00630790 /* NotifireView.swift */; };
+		89D4E2032139FDD100630790 /* FireLayerProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E2022139FDD100630790 /* FireLayerProperties.swift */; };
+		89E777ED2173E9F3009CF3DE /* NoSessionContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E777EC2173E9F3009CF3DE /* NoSessionContainerViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		89853396219FA46A00E0A656 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 89B3EC3D2020E48F0068BA64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 89853390219FA46900E0A656;
+			remoteInfo = NotificationServiceExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8985339D219FA46A00E0A656 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				89853398219FA46A00E0A656 /* NotificationServiceExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0910F7A0575CBE2D1AB27A31 /* Pods-Notifire-NotificationServiceExtension.mock.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire-NotificationServiceExtension.mock.xcconfig"; path = "Target Support Files/Pods-Notifire-NotificationServiceExtension/Pods-Notifire-NotificationServiceExtension.mock.xcconfig"; sourceTree = "<group>"; };
+		0A6884F8483A6D7E17C12CDB /* Pods-Notifire.mocktf.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire.mocktf.xcconfig"; path = "Target Support Files/Pods-Notifire/Pods-Notifire.mocktf.xcconfig"; sourceTree = "<group>"; };
+		1C1C4C444EF286634E039FF8 /* Pods_Notifire_NotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notifire_NotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7036202CA36CDDCEF6D728CE /* Pods-Notifire-NotificationServiceExtension.mock tf.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire-NotificationServiceExtension.mock tf.xcconfig"; path = "Target Support Files/Pods-Notifire-NotificationServiceExtension/Pods-Notifire-NotificationServiceExtension.mock tf.xcconfig"; sourceTree = "<group>"; };
+		7701DE26149E2E0DF73E64CC /* Pods-Notifire.mock tf.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire.mock tf.xcconfig"; path = "Target Support Files/Pods-Notifire/Pods-Notifire.mock tf.xcconfig"; sourceTree = "<group>"; };
+		7D62B41A33C94D46CC64F94B /* Pods-Notifire.mock.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire.mock.xcconfig"; path = "Target Support Files/Pods-Notifire/Pods-Notifire.mock.xcconfig"; sourceTree = "<group>"; };
+		8906E9732170FB2100D45BCA /* ConfirmEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailViewController.swift; sourceTree = "<group>"; };
+		8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifireNotification.swift; sourceTree = "<group>"; };
+		8920CA6F2171377900A72BD0 /* RegisterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCoordinator.swift; sourceTree = "<group>"; };
+		8920CA7121713D2700A72BD0 /* RegisterSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterSuccessViewController.swift; path = Notifire/Controller/Register/RegisterSuccessViewController.swift; sourceTree = SOURCE_ROOT; };
+		8920CA73217144DF00A72BD0 /* NavigationActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationActionViewController.swift; sourceTree = "<group>"; };
+		8920CA762171578900A72BD0 /* CenterStackPresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterStackPresenting.swift; sourceTree = "<group>"; };
+		8920CA782171739900A72BD0 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
+		8920CA7A217212B200A72BD0 /* NotifireAPIManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIManagerMock.swift; sourceTree = "<group>"; };
+		8920CA802172188000A72BD0 /* NotifireAPIManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIManagerFactory.swift; sourceTree = "<group>"; };
+		8920CA8421722FF700A72BD0 /* Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadable.swift; sourceTree = "<group>"; };
+		8920CA882172345B00A72BD0 /* Stylable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stylable.swift; sourceTree = "<group>"; };
+		8920CA8A21723B9A00A72BD0 /* LoadableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableLabel.swift; sourceTree = "<group>"; };
+		8920CA8F2172BB1E00A72BD0 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		89214D0124FD351E000D7B53 /* MockTF.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockTF.xcconfig; sourceTree = "<group>"; };
+		8922E24621988F31001984C4 /* ServiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceViewModel.swift; sourceTree = "<group>"; };
+		8922E2482198AF8D001984C4 /* NotifirePopAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifirePopAnimationController.swift; sourceTree = "<group>"; };
+		8922E268219DFB2E001984C4 /* NotifireNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireNotificationHandler.swift; sourceTree = "<group>"; };
+		8922E26C219F3CF6001984C4 /* RealmCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCollectionViewModel.swift; sourceTree = "<group>"; };
+		8922E26E219F3D0A001984C4 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
+		892B413521C1A5F000D28ABE /* Reselectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reselectable.swift; sourceTree = "<group>"; };
+		892B413721C1D47A00D28ABE /* NotificationsEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsEmptyStateView.swift; sourceTree = "<group>"; };
+		892B413921C1DFDE00D28ABE /* EmptyStatePresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStatePresentable.swift; sourceTree = "<group>"; };
+		892B413B21C1E1E600D28ABE /* ServicesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesEmptyStateView.swift; sourceTree = "<group>"; };
+		892B413E21C1E40800D28ABE /* APIFailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFailable.swift; sourceTree = "<group>"; };
+		892B414121C1E42B00D28ABE /* APIUserErrorResponding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUserErrorResponding.swift; sourceTree = "<group>"; };
+		892B415821C4150B00D28ABE /* NotificationLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationLevel.swift; sourceTree = "<group>"; };
+		8933F0AD2140421700645B3A /* NotifireBackgroundLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireBackgroundLayer.swift; sourceTree = "<group>"; };
+		8933F0AF2140424400645B3A /* CAPersistentAnimationsShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAPersistentAnimationsShapeLayer.swift; sourceTree = "<group>"; };
+		8933F0B2214062F300645B3A /* ValidatableTextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableTextInput.swift; sourceTree = "<group>"; };
+		8933F0B6214131CF00645B3A /* ValidatableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableComponent.swift; sourceTree = "<group>"; };
+		8933F0B8214131F900645B3A /* ValidatableComponentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableComponentState.swift; sourceTree = "<group>"; };
+		8933F0BA2141322A00645B3A /* InputValidating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidating.swift; sourceTree = "<group>"; };
+		8933F0BD2141326300645B3A /* ComponentValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentValidator.swift; sourceTree = "<group>"; };
+		8933F0BF2141329500645B3A /* ComponentRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentRule.swift; sourceTree = "<group>"; };
+		8933F0C72141D0C000645B3A /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		8933F0C92141D93700645B3A /* InputValidatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidatingViewModel.swift; sourceTree = "<group>"; };
+		8933F0CB2141D94700645B3A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		8933F0CE2141E40900645B3A /* NotifireAPIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIHandler.swift; sourceTree = "<group>"; };
+		8933F0D2214334C000645B3A /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
+		8933F0DC2143360300645B3A /* NotifireAPITypealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPITypealias.swift; sourceTree = "<group>"; };
+		8933F0DE2143379700645B3A /* HTTPHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeader.swift; sourceTree = "<group>"; };
+		8933F0E0214337AD00645B3A /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		8933F0E2214337D900645B3A /* NotifireAPIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIEndpoint.swift; sourceTree = "<group>"; };
+		8933F0E42143380C00645B3A /* URLRequestExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestExtension.swift; sourceTree = "<group>"; };
+		8933F0E62143383300645B3A /* NotifireAPIStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIStatusCode.swift; sourceTree = "<group>"; };
+		8933F0EB2143388E00645B3A /* NotifireAPIRequestContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIRequestContext.swift; sourceTree = "<group>"; };
+		8933F0ED2143389F00645B3A /* NotifireAPIResponseContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIResponseContext.swift; sourceTree = "<group>"; };
+		8933F0EF214338B500645B3A /* NotifireAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIError.swift; sourceTree = "<group>"; };
+		8933F0F2214338EA00645B3A /* NotifireAPIManagerBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIManagerBase.swift; sourceTree = "<group>"; };
+		8933F0F4214338FF00645B3A /* NotifireAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIManager.swift; sourceTree = "<group>"; };
+		8933F0F62143391000645B3A /* NotifireProtectedAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireProtectedAPIManager.swift; sourceTree = "<group>"; };
+		8933F0FB214339D700645B3A /* NotifireAPIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIDecodable.swift; sourceTree = "<group>"; };
+		8933F0FD214339E200645B3A /* NotifireAPIEncodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIEncodable.swift; sourceTree = "<group>"; };
+		8939957E216FE4D800687A79 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		89399580216FE4E900687A79 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		89399584216FEFD500687A79 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		89399588216FF3CD00687A79 /* NotifireUserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireUserSession.swift; sourceTree = "<group>"; };
+		8939958B216FF40A00687A79 /* NotifireUserSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireUserSessionManager.swift; sourceTree = "<group>"; };
+		8939958D2170011100687A79 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		8939958F217002AD00687A79 /* Revealing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Revealing.swift; sourceTree = "<group>"; };
+		893995922170C58400687A79 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		893995962170DEA500687A79 /* NotifireUserSessionManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireUserSessionManagerMock.swift; sourceTree = "<group>"; };
+		8939959A2170E52600687A79 /* TabBarCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCollectionCell.swift; sourceTree = "<group>"; };
+		8939959C2170ED4900687A79 /* NoSessionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSessionCoordinator.swift; sourceTree = "<group>"; };
+		8939959E2170ED7900687A79 /* SessionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCoordinator.swift; sourceTree = "<group>"; };
+		893995A02170ED9700687A79 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
+		893995A22170EDA900687A79 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
+		893995A52170EDC900687A79 /* TabbedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbedCoordinator.swift; sourceTree = "<group>"; };
+		893995A72170EDDA00687A79 /* NotificationsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCoordinator.swift; sourceTree = "<group>"; };
+		893995A92170EDE800687A79 /* ServicesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesCoordinator.swift; sourceTree = "<group>"; };
+		893995AB2170EDF300687A79 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
+		893995AD2170EECE00687A79 /* ServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesViewController.swift; sourceTree = "<group>"; };
+		893995AF2170EEE500687A79 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		893FE01C2195E3C1002CD846 /* ServiceCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCreationViewController.swift; sourceTree = "<group>"; };
+		893FE01E21960BCC002CD846 /* ChoiceSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceSeparatorView.swift; sourceTree = "<group>"; };
+		893FE02021960BE5002CD846 /* ServiceCreationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCreationViewModel.swift; sourceTree = "<group>"; };
+		893FE02321962C3E002CD846 /* ServiceNotificationsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceNotificationsHeaderView.swift; sourceTree = "<group>"; };
+		893FE02521962DC0002CD846 /* ServiceHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHeaderView.swift; sourceTree = "<group>"; };
+		893FE02721964664002CD846 /* DynamicTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableView.swift; sourceTree = "<group>"; };
+		893FE0292197488C002CD846 /* ServiceNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceNotificationsViewController.swift; sourceTree = "<group>"; };
+		893FE02C21977FB2002CD846 /* NotificationLevelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationLevelTableViewCell.swift; sourceTree = "<group>"; };
+		893FE02E21977FD8002CD846 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		893FE030219783F0002CD846 /* NotificationLevelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationLevelModel.swift; sourceTree = "<group>"; };
+		893FE03221979A34002CD846 /* ServiceAPIKeyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAPIKeyTableViewCell.swift; sourceTree = "<group>"; };
+		893FE0362197C225002CD846 /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
+		8948F57121A0AD8200BB6E10 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
+		8948F57321A0C00000BB6E10 /* NotifirePoppable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifirePoppable.swift; sourceTree = "<group>"; };
+		895E4018204046EA0062D5FC /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		897069C721334E7700D798AA /* ConstrainableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstrainableView.swift; sourceTree = "<group>"; };
+		897069C92133597800D798AA /* BottomNavigatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigatorViewController.swift; sourceTree = "<group>"; };
+		897069CB213359A100D798AA /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		897069CD21335C3400D798AA /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		897069CF21335E9200D798AA /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		897069D12133725D00D798AA /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		897069D32133730A00D798AA /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
+		897069D52133733100D798AA /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		897069D72133764700D798AA /* NotifireButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireButton.swift; sourceTree = "<group>"; };
+		897069D921337F7F00D798AA /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		897069DE2133885A00D798AA /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
+		897069E12134051E00D798AA /* KeyboardObserving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserving.swift; sourceTree = "<group>"; };
+		897069E32134721300D798AA /* CurvedTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurvedTopView.swift; sourceTree = "<group>"; };
+		897069E62134A36700D798AA /* TappableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableLabel.swift; sourceTree = "<group>"; };
+		897069E82134B25200D798AA /* UITapGestureRecognizerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITapGestureRecognizerExtension.swift; sourceTree = "<group>"; };
+		897069EA2134B4D200D798AA /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		897069ED2134B68300D798AA /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		897069F12134BD1200D798AA /* UIStackViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackViewExtension.swift; sourceTree = "<group>"; };
+		897069F32134BF4C00D798AA /* KeyboardDismissing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDismissing.swift; sourceTree = "<group>"; };
+		8985338B219F95E000E0A656 /* NotificationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailViewController.swift; sourceTree = "<group>"; };
+		89853391219FA46900E0A656 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		89853393219FA46A00E0A656 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		89853395219FA46A00E0A656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		898533B9219FAA1700E0A656 /* LocalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalService.swift; sourceTree = "<group>"; };
+		898533BF219FAAEC00E0A656 /* RealmProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmProviding.swift; sourceTree = "<group>"; };
+		898533C2219FAEE300E0A656 /* LocalServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalServiceExtension.swift; sourceTree = "<group>"; };
+		898533C721A03ED000E0A656 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		898533CA21A041EE00E0A656 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtension.swift; sourceTree = "<group>"; };
+		89A9048221B8589300D262E1 /* IndicatorStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorStackView.swift; sourceTree = "<group>"; };
+		89A9048421B858B200D262E1 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
+		89A9049C21BF19EA00D262E1 /* NotifireNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireNavigationController.swift; sourceTree = "<group>"; };
+		89A9049E21C03D2300D262E1 /* CellConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurable.swift; sourceTree = "<group>"; };
+		89A904A021C03E1400D262E1 /* NotificationDetailCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailCells.swift; sourceTree = "<group>"; };
+		89B3EC452020E4900068BA64 /* Notifire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notifire.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		89B3EC482020E4900068BA64 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		89B3EC4A2020E4900068BA64 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		89B3EC522020E4900068BA64 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		89B3EC552020E4900068BA64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		89B3EC572020E4900068BA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		89B3EC702020E60F0068BA64 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		89B3EC712020E61D0068BA64 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		89B3EC7220232A310068BA64 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		89B3EC74202337E90068BA64 /* Notifire.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Notifire.entitlements; sourceTree = "<group>"; };
+		89B3EC7520239D170068BA64 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		89BDADD3217922FE000E38FC /* ConfirmEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailViewModel.swift; sourceTree = "<group>"; };
+		89BDADD5217928A9000E38FC /* CheckValidityOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckValidityOption.swift; sourceTree = "<group>"; };
+		89BDADD7217A2596000E38FC /* HairlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HairlineView.swift; sourceTree = "<group>"; };
+		89BDADD9217A5012000E38FC /* DeeplinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkHandler.swift; sourceTree = "<group>"; };
+		89BDADDC217A5034000E38FC /* Deeplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deeplink.swift; sourceTree = "<group>"; };
+		89BDADDE217A520E000E38FC /* NotifireUserSessionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireUserSessionHandler.swift; sourceTree = "<group>"; };
+		89BDADE0217A5230000E38FC /* DeviceTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTokenManager.swift; sourceTree = "<group>"; };
+		89BDADE2217A5693000E38FC /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		89BDADE4217A5C5B000E38FC /* ServicesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesViewModel.swift; sourceTree = "<group>"; };
+		89BDADE6217A921A000E38FC /* ServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceViewController.swift; sourceTree = "<group>"; };
+		89D4E1EE2138A48700630790 /* NotifireAnimatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAnimatedView.swift; sourceTree = "<group>"; };
+		89D4E1F02139ED0F00630790 /* CALayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
+		89D4E1F22139ED3D00630790 /* CAPersistentAnimationsLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAPersistentAnimationsLayer.swift; sourceTree = "<group>"; };
+		89D4E1F42139F43E00630790 /* Observing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observing.swift; sourceTree = "<group>"; };
+		89D4E1F62139F47600630790 /* PersistentAnimationsObserving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentAnimationsObserving.swift; sourceTree = "<group>"; };
+		89D4E1F92139F94000630790 /* BaseLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLayer.swift; sourceTree = "<group>"; };
+		89D4E1FB2139FD2200630790 /* NotifireLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireLayer.swift; sourceTree = "<group>"; };
+		89D4E1FD2139FD3E00630790 /* MultiplePathAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplePathAnimator.swift; sourceTree = "<group>"; };
+		89D4E1FF2139FD9A00630790 /* NotifireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireView.swift; sourceTree = "<group>"; };
+		89D4E2022139FDD100630790 /* FireLayerProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireLayerProperties.swift; sourceTree = "<group>"; };
+		89E777EB2173C04C009CF3DE /* Mock.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Mock.xcconfig; sourceTree = "<group>"; };
+		89E777EC2173E9F3009CF3DE /* NoSessionContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSessionContainerViewController.swift; sourceTree = "<group>"; };
+		940630549CAED2693C39B61A /* Pods-Notifire-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-Notifire-NotificationServiceExtension/Pods-Notifire-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		9888DB6CD1F671A6981B42C5 /* Pods-Notifire-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-Notifire-NotificationServiceExtension/Pods-Notifire-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
+		AA44099301EF02EF5EDF3C9D /* Pods-Notifire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire.debug.xcconfig"; path = "Target Support Files/Pods-Notifire/Pods-Notifire.debug.xcconfig"; sourceTree = "<group>"; };
+		ACD6ABE3B766C3B0FC03FBCB /* Pods-Notifire-NotificationServiceExtension.mocktf.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire-NotificationServiceExtension.mocktf.xcconfig"; path = "Target Support Files/Pods-Notifire-NotificationServiceExtension/Pods-Notifire-NotificationServiceExtension.mocktf.xcconfig"; sourceTree = "<group>"; };
+		F375C8D2E4426F4884822957 /* Pods-Notifire.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire.release.xcconfig"; path = "Target Support Files/Pods-Notifire/Pods-Notifire.release.xcconfig"; sourceTree = "<group>"; };
+		F3A04DDC493D95926761164B /* Pods_Notifire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notifire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8985338E219FA46900E0A656 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C0C1CF4657A1D9AEFF79F04 /* Pods_Notifire_NotificationServiceExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89B3EC422020E4900068BA64 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6274CD2074727F2E8CF30D2A /* Pods_Notifire.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4DB0C2C61B3F8DC2A711E3CE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AA44099301EF02EF5EDF3C9D /* Pods-Notifire.debug.xcconfig */,
+				7D62B41A33C94D46CC64F94B /* Pods-Notifire.mock.xcconfig */,
+				F375C8D2E4426F4884822957 /* Pods-Notifire.release.xcconfig */,
+				940630549CAED2693C39B61A /* Pods-Notifire-NotificationServiceExtension.debug.xcconfig */,
+				0910F7A0575CBE2D1AB27A31 /* Pods-Notifire-NotificationServiceExtension.mock.xcconfig */,
+				9888DB6CD1F671A6981B42C5 /* Pods-Notifire-NotificationServiceExtension.release.xcconfig */,
+				7701DE26149E2E0DF73E64CC /* Pods-Notifire.mock tf.xcconfig */,
+				7036202CA36CDDCEF6D728CE /* Pods-Notifire-NotificationServiceExtension.mock tf.xcconfig */,
+				0A6884F8483A6D7E17C12CDB /* Pods-Notifire.mocktf.xcconfig */,
+				ACD6ABE3B766C3B0FC03FBCB /* Pods-Notifire-NotificationServiceExtension.mocktf.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		8920CA75217144E300A72BD0 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				897069EA2134B4D200D798AA /* RegisterViewController.swift */,
+				8920CA73217144DF00A72BD0 /* NavigationActionViewController.swift */,
+				8920CA7121713D2700A72BD0 /* RegisterSuccessViewController.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		8920CA7D217217E300A72BD0 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				8920CA802172188000A72BD0 /* NotifireAPIManagerFactory.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
+		8920CA8C2172BAC500A72BD0 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				8920CA8F2172BB1E00A72BD0 /* Animation.swift */,
+				8922E2482198AF8D001984C4 /* NotifirePopAnimationController.swift */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
+		8922E26A219DFB37001984C4 /* Notifire */ = {
+			isa = PBXGroup;
+			children = (
+				8922E268219DFB2E001984C4 /* NotifireNotificationHandler.swift */,
+				8939958A216FF3FC00687A79 /* Session */,
+			);
+			path = Notifire;
+			sourceTree = "<group>";
+		};
+		892B413D21C1E1EE00D28ABE /* Empty State */ = {
+			isa = PBXGroup;
+			children = (
+				892B413B21C1E1E600D28ABE /* ServicesEmptyStateView.swift */,
+				892B413721C1D47A00D28ABE /* NotificationsEmptyStateView.swift */,
+			);
+			path = "Empty State";
+			sourceTree = "<group>";
+		};
+		892B414021C1E41300D28ABE /* API */ = {
+			isa = PBXGroup;
+			children = (
+				892B413E21C1E40800D28ABE /* APIFailable.swift */,
+				892B414121C1E42B00D28ABE /* APIUserErrorResponding.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		8933F0A8213D7EFC00645B3A /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				89B3EC522020E4900068BA64 /* Assets.xcassets */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		8933F0B12140425400645B3A /* Persistent Animation Layer */ = {
+			isa = PBXGroup;
+			children = (
+				89D4E1F22139ED3D00630790 /* CAPersistentAnimationsLayer.swift */,
+				8933F0AF2140424400645B3A /* CAPersistentAnimationsShapeLayer.swift */,
+			);
+			path = "Persistent Animation Layer";
+			sourceTree = "<group>";
+		};
+		8933F0B4214062FA00645B3A /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				897069D12133725D00D798AA /* CustomTextField.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
+		8933F0BC2141323900645B3A /* Validatable */ = {
+			isa = PBXGroup;
+			children = (
+				8933F0BA2141322A00645B3A /* InputValidating.swift */,
+				8933F0B6214131CF00645B3A /* ValidatableComponent.swift */,
+				8933F0B8214131F900645B3A /* ValidatableComponentState.swift */,
+			);
+			path = Validatable;
+			sourceTree = "<group>";
+		};
+		8933F0C3214132D300645B3A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				8922E26A219DFB37001984C4 /* Notifire */,
+				89BDADDB217A502B000E38FC /* Deeplink */,
+				895E4018204046EA0062D5FC /* Config.swift */,
+				8933F0BD2141326300645B3A /* ComponentValidator.swift */,
+				89D4E1FD2139FD3E00630790 /* MultiplePathAnimator.swift */,
+				89BDADE0217A5230000E38FC /* DeviceTokenManager.swift */,
+				898533C721A03ED000E0A656 /* RealmManager.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		8933F0C42141331500645B3A /* Struct */ = {
+			isa = PBXGroup;
+			children = (
+				897069D921337F7F00D798AA /* Settings.swift */,
+				897069D32133730A00D798AA /* Size.swift */,
+				897069D52133733100D798AA /* Theme.swift */,
+			);
+			path = Struct;
+			sourceTree = "<group>";
+		};
+		8933F0CD2141E3C200645B3A /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				8933F0F1214338E000645B3A /* APIManager */,
+				8933F0EA2143388300645B3A /* Context */,
+				8933F0E82143383D00645B3A /* HTTP */,
+				8933F0FD214339E200645B3A /* NotifireAPIEncodable.swift */,
+				8933F0FB214339D700645B3A /* NotifireAPIDecodable.swift */,
+				8933F0DC2143360300645B3A /* NotifireAPITypealias.swift */,
+				8933F0E62143383300645B3A /* NotifireAPIStatusCode.swift */,
+				8933F0EF214338B500645B3A /* NotifireAPIError.swift */,
+				8933F0E2214337D900645B3A /* NotifireAPIEndpoint.swift */,
+				8933F0CE2141E40900645B3A /* NotifireAPIHandler.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		8933F0E82143383D00645B3A /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				8933F0E0214337AD00645B3A /* HTTPMethod.swift */,
+				8933F0DE2143379700645B3A /* HTTPHeader.swift */,
+			);
+			path = HTTP;
+			sourceTree = "<group>";
+		};
+		8933F0EA2143388300645B3A /* Context */ = {
+			isa = PBXGroup;
+			children = (
+				8933F0EB2143388E00645B3A /* NotifireAPIRequestContext.swift */,
+				8933F0ED2143389F00645B3A /* NotifireAPIResponseContext.swift */,
+			);
+			path = Context;
+			sourceTree = "<group>";
+		};
+		8933F0F1214338E000645B3A /* APIManager */ = {
+			isa = PBXGroup;
+			children = (
+				8933F0F2214338EA00645B3A /* NotifireAPIManagerBase.swift */,
+				8933F0F4214338FF00645B3A /* NotifireAPIManager.swift */,
+				8933F0F62143391000645B3A /* NotifireProtectedAPIManager.swift */,
+			);
+			path = APIManager;
+			sourceTree = "<group>";
+		};
+		8939957D216FE49300687A79 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				893995A42170EDC000687A79 /* Protocol */,
+				89399580216FE4E900687A79 /* AppCoordinator.swift */,
+				8939959C2170ED4900687A79 /* NoSessionCoordinator.swift */,
+				8939959E2170ED7900687A79 /* SessionCoordinator.swift */,
+				893995A72170EDDA00687A79 /* NotificationsCoordinator.swift */,
+				8920CA6F2171377900A72BD0 /* RegisterCoordinator.swift */,
+				893995A92170EDE800687A79 /* ServicesCoordinator.swift */,
+				893995AB2170EDF300687A79 /* SettingsCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		8939958A216FF3FC00687A79 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				89399588216FF3CD00687A79 /* NotifireUserSession.swift */,
+				8939958B216FF40A00687A79 /* NotifireUserSessionManager.swift */,
+				89BDADDE217A520E000E38FC /* NotifireUserSessionHandler.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		89399591217006C600687A79 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				897069C92133597800D798AA /* BottomNavigatorViewController.swift */,
+				897069CB213359A100D798AA /* BaseViewController.swift */,
+				89A9049C21BF19EA00D262E1 /* NotifireNavigationController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		893995952170DE9C00687A79 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				893995962170DEA500687A79 /* NotifireUserSessionManagerMock.swift */,
+				8920CA7A217212B200A72BD0 /* NotifireAPIManagerMock.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		893995982170E51000687A79 /* Collection Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8939959A2170E52600687A79 /* TabBarCollectionCell.swift */,
+			);
+			path = "Collection Cells";
+			sourceTree = "<group>";
+		};
+		893995A42170EDC000687A79 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				8939957E216FE4D800687A79 /* Coordinator.swift */,
+				893995A52170EDC900687A79 /* TabbedCoordinator.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		893FE02221962C26002CD846 /* Table View */ = {
+			isa = PBXGroup;
+			children = (
+				89A9048421B858B200D262E1 /* NotificationTableViewCell.swift */,
+				893FE02721964664002CD846 /* DynamicTableView.swift */,
+				893FE02C21977FB2002CD846 /* NotificationLevelTableViewCell.swift */,
+				893FE03221979A34002CD846 /* ServiceAPIKeyTableViewCell.swift */,
+				893FE02E21977FD8002CD846 /* BaseTableViewCell.swift */,
+				89A904A021C03E1400D262E1 /* NotificationDetailCells.swift */,
+			);
+			path = "Table View";
+			sourceTree = "<group>";
+		};
+		893FE02B21977CD5002CD846 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				89BDADD7217A2596000E38FC /* HairlineView.swift */,
+				893FE01E21960BCC002CD846 /* ChoiceSeparatorView.swift */,
+				897069E32134721300D798AA /* CurvedTopView.swift */,
+				8948F57121A0AD8200BB6E10 /* RoundedImageView.swift */,
+			);
+			path = Misc;
+			sourceTree = "<group>";
+		};
+		895E4017204046C90062D5FC /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				8920CA8C2172BAC500A72BD0 /* Animation */,
+				8920CA7D217217E300A72BD0 /* Factory */,
+				893995952170DE9C00687A79 /* Mock */,
+				8933F0CD2141E3C200645B3A /* Network */,
+				89B3EC7720239D1B0068BA64 /* Extension */,
+				897069E02134050100D798AA /* Protocol */,
+				8933F0C3214132D300645B3A /* Classes */,
+				8933F0C42141331500645B3A /* Struct */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		897069DD2133872F00D798AA /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				897069D72133764700D798AA /* NotifireButton.swift */,
+				897069DE2133885A00D798AA /* BaseButton.swift */,
+				8920CA782171739900A72BD0 /* ActionButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		897069E02134050100D798AA /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				89D4E1F42139F43E00630790 /* Observing.swift */,
+				897069E12134051E00D798AA /* KeyboardObserving.swift */,
+				892B414021C1E41300D28ABE /* API */,
+				89D4E1F62139F47600630790 /* PersistentAnimationsObserving.swift */,
+				897069F32134BF4C00D798AA /* KeyboardDismissing.swift */,
+				8933F0BC2141323900645B3A /* Validatable */,
+				8939958F217002AD00687A79 /* Revealing.swift */,
+				8920CA762171578900A72BD0 /* CenterStackPresenting.swift */,
+				8920CA8421722FF700A72BD0 /* Loadable.swift */,
+				8920CA882172345B00A72BD0 /* Stylable.swift */,
+				898533BF219FAAEC00E0A656 /* RealmProviding.swift */,
+				8948F57321A0C00000BB6E10 /* NotifirePoppable.swift */,
+				89A9049E21C03D2300D262E1 /* CellConfigurable.swift */,
+				892B413521C1A5F000D28ABE /* Reselectable.swift */,
+				892B413921C1DFDE00D28ABE /* EmptyStatePresentable.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		897069E52134A35300D798AA /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				897069E62134A36700D798AA /* TappableLabel.swift */,
+				8920CA8A21723B9A00A72BD0 /* LoadableLabel.swift */,
+				893FE0362197C225002CD846 /* CopyableLabel.swift */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
+		897069EC2134B66E00D798AA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8933F0C92141D93700645B3A /* InputValidatingViewModel.swift */,
+				897069ED2134B68300D798AA /* LoginViewModel.swift */,
+				8933F0CB2141D94700645B3A /* RegisterViewModel.swift */,
+				893995A02170ED9700687A79 /* TabBarViewModel.swift */,
+				89BDADD3217922FE000E38FC /* ConfirmEmailViewModel.swift */,
+				89BDADE4217A5C5B000E38FC /* ServicesViewModel.swift */,
+				8922E24621988F31001984C4 /* ServiceViewModel.swift */,
+				893FE02021960BE5002CD846 /* ServiceCreationViewModel.swift */,
+				8922E26C219F3CF6001984C4 /* RealmCollectionViewModel.swift */,
+				8922E26E219F3D0A001984C4 /* NotificationsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		89853392219FA46A00E0A656 /* NotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				898533CA21A041EE00E0A656 /* NotificationServiceExtension.entitlements */,
+				89853393219FA46A00E0A656 /* NotificationService.swift */,
+				89853395219FA46A00E0A656 /* Info.plist */,
+			);
+			path = NotificationServiceExtension;
+			sourceTree = "<group>";
+		};
+		89B3EC3C2020E48F0068BA64 = {
+			isa = PBXGroup;
+			children = (
+				89B3EC472020E4900068BA64 /* Notifire */,
+				89853392219FA46A00E0A656 /* NotificationServiceExtension */,
+				89B3EC462020E4900068BA64 /* Products */,
+				4DB0C2C61B3F8DC2A711E3CE /* Pods */,
+				CC7A7813572D08E26068BCF2 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		89B3EC462020E4900068BA64 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				89B3EC452020E4900068BA64 /* Notifire.app */,
+				89853391219FA46900E0A656 /* NotificationServiceExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		89B3EC472020E4900068BA64 /* Notifire */ = {
+			isa = PBXGroup;
+			children = (
+				89B3EC482020E4900068BA64 /* AppDelegate.swift */,
+				89B3EC6C2020E5190068BA64 /* Model */,
+				8939957D216FE49300687A79 /* Coordinator */,
+				89D4E1F82139F92200630790 /* Layer */,
+				89B3EC6D2020E5270068BA64 /* View */,
+				897069EC2134B66E00D798AA /* ViewModel */,
+				89B3EC6B2020E50F0068BA64 /* Controller */,
+				895E4017204046C90062D5FC /* Util */,
+				89B3EC6F2020E5E20068BA64 /* Config */,
+				89B3EC6E2020E52F0068BA64 /* Supporting Files */,
+			);
+			path = Notifire;
+			sourceTree = "<group>";
+		};
+		89B3EC6B2020E50F0068BA64 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				89E777EC2173E9F3009CF3DE /* NoSessionContainerViewController.swift */,
+				893FE01C2195E3C1002CD846 /* ServiceCreationViewController.swift */,
+				893995922170C58400687A79 /* TabBarViewController.swift */,
+				89399591217006C600687A79 /* Base */,
+				8933F0C72141D0C000645B3A /* RootViewController.swift */,
+				8920CA75217144E300A72BD0 /* Register */,
+				89B3EC7220232A310068BA64 /* LoginViewController.swift */,
+				89B3EC4A2020E4900068BA64 /* NotificationsViewController.swift */,
+				893995AD2170EECE00687A79 /* ServicesViewController.swift */,
+				89BDADE6217A921A000E38FC /* ServiceViewController.swift */,
+				893995AF2170EEE500687A79 /* SettingsViewController.swift */,
+				8906E9732170FB2100D45BCA /* ConfirmEmailViewController.swift */,
+				893FE0292197488C002CD846 /* ServiceNotificationsViewController.swift */,
+				8985338B219F95E000E0A656 /* NotificationDetailViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		89B3EC6C2020E5190068BA64 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8933F0BF2141329500645B3A /* ComponentRule.swift */,
+				89BDADD5217928A9000E38FC /* CheckValidityOption.swift */,
+				89D4E2022139FDD100630790 /* FireLayerProperties.swift */,
+				893995A22170EDA900687A79 /* Tab.swift */,
+				89BDADE2217A5693000E38FC /* Service.swift */,
+				8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */,
+				893FE030219783F0002CD846 /* NotificationLevelModel.swift */,
+				898533C2219FAEE300E0A656 /* LocalServiceExtension.swift */,
+				898533B9219FAA1700E0A656 /* LocalService.swift */,
+				892B415821C4150B00D28ABE /* NotificationLevel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		89B3EC6D2020E5270068BA64 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				892B413D21C1E1EE00D28ABE /* Empty State */,
+				893FE02221962C26002CD846 /* Table View */,
+				893995982170E51000687A79 /* Collection Cells */,
+				8933F0B2214062F300645B3A /* ValidatableTextInput.swift */,
+				89D4E2012139FDA000630790 /* NotifireAnim */,
+				897069E52134A35300D798AA /* Labels */,
+				897069DD2133872F00D798AA /* Buttons */,
+				8933F0B4214062FA00645B3A /* TextFields */,
+				893FE02B21977CD5002CD846 /* Misc */,
+				897069C721334E7700D798AA /* ConstrainableView.swift */,
+				8939958D2170011100687A79 /* SplashView.swift */,
+				893FE02321962C3E002CD846 /* ServiceNotificationsHeaderView.swift */,
+				893FE02521962DC0002CD846 /* ServiceHeaderView.swift */,
+				89A9048221B8589300D262E1 /* IndicatorStackView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		89B3EC6E2020E52F0068BA64 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8933F0A8213D7EFC00645B3A /* Assets */,
+				89B3EC572020E4900068BA64 /* Info.plist */,
+				89B3EC74202337E90068BA64 /* Notifire.entitlements */,
+				89B3EC542020E4900068BA64 /* LaunchScreen.storyboard */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		89B3EC6F2020E5E20068BA64 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				89B3EC702020E60F0068BA64 /* Debug.xcconfig */,
+				89E777EB2173C04C009CF3DE /* Mock.xcconfig */,
+				89214D0124FD351E000D7B53 /* MockTF.xcconfig */,
+				89B3EC712020E61D0068BA64 /* Release.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		89B3EC7720239D1B0068BA64 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				897069F12134BD1200D798AA /* UIStackViewExtension.swift */,
+				89B3EC7520239D170068BA64 /* StringExtension.swift */,
+				897069E82134B25200D798AA /* UITapGestureRecognizerExtension.swift */,
+				897069CF21335E9200D798AA /* UIColorExtension.swift */,
+				897069CD21335C3400D798AA /* UIViewControllerExtension.swift */,
+				89D4E1F02139ED0F00630790 /* CALayerExtension.swift */,
+				8933F0D2214334C000645B3A /* URLExtension.swift */,
+				8933F0E42143380C00645B3A /* URLRequestExtension.swift */,
+				89399584216FEFD500687A79 /* UIViewExtension.swift */,
+				89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		89BDADDB217A502B000E38FC /* Deeplink */ = {
+			isa = PBXGroup;
+			children = (
+				89BDADD9217A5012000E38FC /* DeeplinkHandler.swift */,
+				89BDADDC217A5034000E38FC /* Deeplink.swift */,
+			);
+			path = Deeplink;
+			sourceTree = "<group>";
+		};
+		89D4E1F82139F92200630790 /* Layer */ = {
+			isa = PBXGroup;
+			children = (
+				89D4E1F92139F94000630790 /* BaseLayer.swift */,
+				89D4E1FB2139FD2200630790 /* NotifireLayer.swift */,
+				8933F0AD2140421700645B3A /* NotifireBackgroundLayer.swift */,
+				8933F0B12140425400645B3A /* Persistent Animation Layer */,
+			);
+			path = Layer;
+			sourceTree = "<group>";
+		};
+		89D4E2012139FDA000630790 /* NotifireAnim */ = {
+			isa = PBXGroup;
+			children = (
+				89D4E1FF2139FD9A00630790 /* NotifireView.swift */,
+				89D4E1EE2138A48700630790 /* NotifireAnimatedView.swift */,
+			);
+			path = NotifireAnim;
+			sourceTree = "<group>";
+		};
+		CC7A7813572D08E26068BCF2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F3A04DDC493D95926761164B /* Pods_Notifire.framework */,
+				1C1C4C444EF286634E039FF8 /* Pods_Notifire_NotificationServiceExtension.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		89853390219FA46900E0A656 /* NotificationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89853399219FA46A00E0A656 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
+			buildPhases = (
+				664A0FC87909C3481DF37818 /* [CP] Check Pods Manifest.lock */,
+				8985338D219FA46900E0A656 /* Sources */,
+				8985338E219FA46900E0A656 /* Frameworks */,
+				8985338F219FA46900E0A656 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationServiceExtension;
+			productName = NotificationServiceExtension;
+			productReference = 89853391219FA46900E0A656 /* NotificationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		89B3EC442020E4900068BA64 /* Notifire */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89B3EC652020E4900068BA64 /* Build configuration list for PBXNativeTarget "Notifire" */;
+			buildPhases = (
+				6E8697CFD736F063B9585C2D /* [CP] Check Pods Manifest.lock */,
+				89B3EC412020E4900068BA64 /* Sources */,
+				89B3EC422020E4900068BA64 /* Frameworks */,
+				89B3EC432020E4900068BA64 /* Resources */,
+				8985339D219FA46A00E0A656 /* Embed App Extensions */,
+				5AFCC69A23C16D0183DE1BD2 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				89853397219FA46A00E0A656 /* PBXTargetDependency */,
+			);
+			name = Notifire;
+			productName = Notifire;
+			productReference = 89B3EC452020E4900068BA64 /* Notifire.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		89B3EC3D2020E48F0068BA64 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = "David Bielik";
+				TargetAttributes = {
+					89853390219FA46900E0A656 = {
+						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
+					};
+					89B3EC442020E4900068BA64 = {
+						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 89B3EC402020E48F0068BA64 /* Build configuration list for PBXProject "Notifire" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 89B3EC3C2020E48F0068BA64;
+			productRefGroup = 89B3EC462020E4900068BA64 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				89B3EC442020E4900068BA64 /* Notifire */,
+				89853390219FA46900E0A656 /* NotificationServiceExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8985338F219FA46900E0A656 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89B3EC432020E4900068BA64 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89B3EC562020E4900068BA64 /* LaunchScreen.storyboard in Resources */,
+				89B3EC532020E4900068BA64 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5AFCC69A23C16D0183DE1BD2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Notifire/Pods-Notifire-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Notifire/Pods-Notifire-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		664A0FC87909C3481DF37818 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Notifire-NotificationServiceExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6E8697CFD736F063B9585C2D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Notifire-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8985338D219FA46900E0A656 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				898533B7219FA9FE00E0A656 /* LocalNotifireNotification.swift in Sources */,
+				898533C921A03F2E00E0A656 /* RealmManager.swift in Sources */,
+				89A9048121B754A800D262E1 /* DateFormatterExtension.swift in Sources */,
+				898533B6219FA9F500E0A656 /* NotifireNotificationHandler.swift in Sources */,
+				898533C1219FAE4100E0A656 /* RealmProviding.swift in Sources */,
+				898533C4219FB94900E0A656 /* NotificationService.swift in Sources */,
+				898533C521A03E3D00E0A656 /* NotifireUserSessionManager.swift in Sources */,
+				892B415A21C415B400D28ABE /* NotificationLevel.swift in Sources */,
+				898533BB219FAA2700E0A656 /* LocalService.swift in Sources */,
+				898533C621A03E5100E0A656 /* NotifireUserSession.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89B3EC412020E4900068BA64 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89399581216FE4E900687A79 /* AppCoordinator.swift in Sources */,
+				89BDADE3217A5693000E38FC /* Service.swift in Sources */,
+				89D4E2032139FDD100630790 /* FireLayerProperties.swift in Sources */,
+				89BDADDF217A520E000E38FC /* NotifireUserSessionHandler.swift in Sources */,
+				89399590217002AD00687A79 /* Revealing.swift in Sources */,
+				897069D22133725E00D798AA /* CustomTextField.swift in Sources */,
+				89BDADE1217A5230000E38FC /* DeviceTokenManager.swift in Sources */,
+				892B413C21C1E1E600D28ABE /* ServicesEmptyStateView.swift in Sources */,
+				893FE01F21960BCC002CD846 /* ChoiceSeparatorView.swift in Sources */,
+				89E777ED2173E9F3009CF3DE /* NoSessionContainerViewController.swift in Sources */,
+				893FE03321979A34002CD846 /* ServiceAPIKeyTableViewCell.swift in Sources */,
+				8939957F216FE4D800687A79 /* Coordinator.swift in Sources */,
+				89A9049D21BF19EA00D262E1 /* NotifireNavigationController.swift in Sources */,
+				8933F0BE2141326300645B3A /* ComponentValidator.swift in Sources */,
+				8909A3BC218F24EE00EADD09 /* LocalNotifireNotification.swift in Sources */,
+				8920CA812172188000A72BD0 /* NotifireAPIManagerFactory.swift in Sources */,
+				89BDADD8217A2596000E38FC /* HairlineView.swift in Sources */,
+				89D4E1EF2138A48700630790 /* NotifireAnimatedView.swift in Sources */,
+				8933F0B3214062F300645B3A /* ValidatableTextInput.swift in Sources */,
+				8985338C219F95E000E0A656 /* NotificationDetailViewController.swift in Sources */,
+				893995932170C58400687A79 /* TabBarViewController.swift in Sources */,
+				8920CA902172BB1E00A72BD0 /* Animation.swift in Sources */,
+				8933F0FC214339D700645B3A /* NotifireAPIDecodable.swift in Sources */,
+				8939959F2170ED7900687A79 /* SessionCoordinator.swift in Sources */,
+				8933F0DD2143360300645B3A /* NotifireAPITypealias.swift in Sources */,
+				89D4E1FA2139F94000630790 /* BaseLayer.swift in Sources */,
+				8920CA74217144DF00A72BD0 /* NavigationActionViewController.swift in Sources */,
+				89B3EC7320232A310068BA64 /* LoginViewController.swift in Sources */,
+				8933F0F0214338B500645B3A /* NotifireAPIError.swift in Sources */,
+				898533C3219FAEE300E0A656 /* LocalServiceExtension.swift in Sources */,
+				895E4019204046EA0062D5FC /* Config.swift in Sources */,
+				89399589216FF3CD00687A79 /* NotifireUserSession.swift in Sources */,
+				893FE02121960BE5002CD846 /* ServiceCreationViewModel.swift in Sources */,
+				897069DA21337F7F00D798AA /* Settings.swift in Sources */,
+				892B413F21C1E40800D28ABE /* APIFailable.swift in Sources */,
+				8933F0FE214339E200645B3A /* NotifireAPIEncodable.swift in Sources */,
+				8933F0F3214338EA00645B3A /* NotifireAPIManagerBase.swift in Sources */,
+				8939958E2170011100687A79 /* SplashView.swift in Sources */,
+				8939959B2170E52600687A79 /* TabBarCollectionCell.swift in Sources */,
+				8948F57421A0C00000BB6E10 /* NotifirePoppable.swift in Sources */,
+				893995B02170EEE500687A79 /* SettingsViewController.swift in Sources */,
+				893FE031219783F0002CD846 /* NotificationLevelModel.swift in Sources */,
+				89B3EC4B2020E4900068BA64 /* NotificationsViewController.swift in Sources */,
+				897069E42134721300D798AA /* CurvedTopView.swift in Sources */,
+				8933F0B02140424400645B3A /* CAPersistentAnimationsShapeLayer.swift in Sources */,
+				8922E26F219F3D0A001984C4 /* NotificationsViewModel.swift in Sources */,
+				898533BA219FAA1700E0A656 /* LocalService.swift in Sources */,
+				8920CA892172345B00A72BD0 /* Stylable.swift in Sources */,
+				893FE02D21977FB2002CD846 /* NotificationLevelTableViewCell.swift in Sources */,
+				8920CA8521722FF700A72BD0 /* Loadable.swift in Sources */,
+				8933F0BB2141322A00645B3A /* InputValidating.swift in Sources */,
+				893FE02A2197488D002CD846 /* ServiceNotificationsViewController.swift in Sources */,
+				893FE02F21977FD8002CD846 /* BaseTableViewCell.swift in Sources */,
+				893FE02821964664002CD846 /* DynamicTableView.swift in Sources */,
+				893FE0372197C225002CD846 /* CopyableLabel.swift in Sources */,
+				8933F0C02141329500645B3A /* ComponentRule.swift in Sources */,
+				8933F0DF2143379700645B3A /* HTTPHeader.swift in Sources */,
+				8933F0D3214334C000645B3A /* URLExtension.swift in Sources */,
+				892B413621C1A5F000D28ABE /* Reselectable.swift in Sources */,
+				89D4E1F52139F43E00630790 /* Observing.swift in Sources */,
+				897069EB2134B4D200D798AA /* RegisterViewController.swift in Sources */,
+				892B415921C4150B00D28ABE /* NotificationLevel.swift in Sources */,
+				893995AA2170EDE800687A79 /* ServicesCoordinator.swift in Sources */,
+				897069D82133764700D798AA /* NotifireButton.swift in Sources */,
+				893995A32170EDA900687A79 /* Tab.swift in Sources */,
+				8933F0AE2140421700645B3A /* NotifireBackgroundLayer.swift in Sources */,
+				8920CA702171377900A72BD0 /* RegisterCoordinator.swift in Sources */,
+				897069E72134A36700D798AA /* TappableLabel.swift in Sources */,
+				892B413821C1D47A00D28ABE /* NotificationsEmptyStateView.swift in Sources */,
+				89BDADDA217A5012000E38FC /* DeeplinkHandler.swift in Sources */,
+				8922E269219DFB2E001984C4 /* NotifireNotificationHandler.swift in Sources */,
+				8948F57221A0AD8200BB6E10 /* RoundedImageView.swift in Sources */,
+				8933F0E72143383300645B3A /* NotifireAPIStatusCode.swift in Sources */,
+				89D4E1F72139F47600630790 /* PersistentAnimationsObserving.swift in Sources */,
+				897069E22134051E00D798AA /* KeyboardObserving.swift in Sources */,
+				8920CA8B21723B9A00A72BD0 /* LoadableLabel.swift in Sources */,
+				89B3EC7620239D170068BA64 /* StringExtension.swift in Sources */,
+				893FE02421962C3E002CD846 /* ServiceNotificationsHeaderView.swift in Sources */,
+				89A904A121C03E1400D262E1 /* NotificationDetailCells.swift in Sources */,
+				893FE02621962DC0002CD846 /* ServiceHeaderView.swift in Sources */,
+				898533C821A03ED000E0A656 /* RealmManager.swift in Sources */,
+				8933F0F72143391000645B3A /* NotifireProtectedAPIManager.swift in Sources */,
+				89BDADDD217A5034000E38FC /* Deeplink.swift in Sources */,
+				897069F22134BD1200D798AA /* UIStackViewExtension.swift in Sources */,
+				8933F0CA2141D93700645B3A /* InputValidatingViewModel.swift in Sources */,
+				89B3EC492020E4900068BA64 /* AppDelegate.swift in Sources */,
+				8939959D2170ED4900687A79 /* NoSessionCoordinator.swift in Sources */,
+				89D4E2002139FD9A00630790 /* NotifireView.swift in Sources */,
+				8922E24721988F31001984C4 /* ServiceViewModel.swift in Sources */,
+				897069DF2133885A00D798AA /* BaseButton.swift in Sources */,
+				898533C0219FAAEC00E0A656 /* RealmProviding.swift in Sources */,
+				8933F0E52143380C00645B3A /* URLRequestExtension.swift in Sources */,
+				897069CC213359A100D798AA /* BaseViewController.swift in Sources */,
+				89399585216FEFD500687A79 /* UIViewExtension.swift in Sources */,
+				897069E92134B25200D798AA /* UITapGestureRecognizerExtension.swift in Sources */,
+				8920CA7221713D2700A72BD0 /* RegisterSuccessViewController.swift in Sources */,
+				897069C821334E7700D798AA /* ConstrainableView.swift in Sources */,
+				8920CA772171578900A72BD0 /* CenterStackPresenting.swift in Sources */,
+				89A9048321B8589300D262E1 /* IndicatorStackView.swift in Sources */,
+				89D4E1FE2139FD3E00630790 /* MultiplePathAnimator.swift in Sources */,
+				89BDADD6217928A9000E38FC /* CheckValidityOption.swift in Sources */,
+				8920CA792171739900A72BD0 /* ActionButton.swift in Sources */,
+				8920CA7B217212B200A72BD0 /* NotifireAPIManagerMock.swift in Sources */,
+				8906E9742170FB2100D45BCA /* ConfirmEmailViewController.swift in Sources */,
+				8933F0CF2141E40900645B3A /* NotifireAPIHandler.swift in Sources */,
+				893995AE2170EECE00687A79 /* ServicesViewController.swift in Sources */,
+				8922E2492198AF8D001984C4 /* NotifirePopAnimationController.swift in Sources */,
+				8933F0E1214337AD00645B3A /* HTTPMethod.swift in Sources */,
+				897069D42133730A00D798AA /* Size.swift in Sources */,
+				893995AC2170EDF300687A79 /* SettingsCoordinator.swift in Sources */,
+				897069CA2133597800D798AA /* BottomNavigatorViewController.swift in Sources */,
+				893FE01D2195E3C1002CD846 /* ServiceCreationViewController.swift in Sources */,
+				892B413A21C1DFDE00D28ABE /* EmptyStatePresentable.swift in Sources */,
+				897069CE21335C3400D798AA /* UIViewControllerExtension.swift in Sources */,
+				8933F0CC2141D94700645B3A /* RegisterViewModel.swift in Sources */,
+				8933F0F5214338FF00645B3A /* NotifireAPIManager.swift in Sources */,
+				897069EE2134B68300D798AA /* LoginViewModel.swift in Sources */,
+				89BDADD4217922FE000E38FC /* ConfirmEmailViewModel.swift in Sources */,
+				892B414221C1E42B00D28ABE /* APIUserErrorResponding.swift in Sources */,
+				89D4E1FC2139FD2200630790 /* NotifireLayer.swift in Sources */,
+				8922E26D219F3CF6001984C4 /* RealmCollectionViewModel.swift in Sources */,
+				8933F0C82141D0C000645B3A /* RootViewController.swift in Sources */,
+				8933F0B9214131F900645B3A /* ValidatableComponentState.swift in Sources */,
+				89BDADE5217A5C5B000E38FC /* ServicesViewModel.swift in Sources */,
+				8939958C216FF40A00687A79 /* NotifireUserSessionManager.swift in Sources */,
+				8933F0B7214131CF00645B3A /* ValidatableComponent.swift in Sources */,
+				89A9049F21C03D2300D262E1 /* CellConfigurable.swift in Sources */,
+				8933F0E3214337D900645B3A /* NotifireAPIEndpoint.swift in Sources */,
+				89D4E1F32139ED3D00630790 /* CAPersistentAnimationsLayer.swift in Sources */,
+				897069D62133733100D798AA /* Theme.swift in Sources */,
+				89A9048521B858B200D262E1 /* NotificationTableViewCell.swift in Sources */,
+				893995A82170EDDA00687A79 /* NotificationsCoordinator.swift in Sources */,
+				89D4E1F12139ED0F00630790 /* CALayerExtension.swift in Sources */,
+				8933F0EE2143389F00645B3A /* NotifireAPIResponseContext.swift in Sources */,
+				89A9048021B753F100D262E1 /* DateFormatterExtension.swift in Sources */,
+				897069F42134BF4C00D798AA /* KeyboardDismissing.swift in Sources */,
+				89BDADE7217A921A000E38FC /* ServiceViewController.swift in Sources */,
+				893995972170DEA500687A79 /* NotifireUserSessionManagerMock.swift in Sources */,
+				897069D021335E9200D798AA /* UIColorExtension.swift in Sources */,
+				893995A62170EDC900687A79 /* TabbedCoordinator.swift in Sources */,
+				893995A12170ED9700687A79 /* TabBarViewModel.swift in Sources */,
+				8933F0EC2143388E00645B3A /* NotifireAPIRequestContext.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		89853397219FA46A00E0A656 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 89853390219FA46900E0A656 /* NotificationServiceExtension */;
+			targetProxy = 89853396219FA46A00E0A656 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		89B3EC542020E4900068BA64 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89B3EC552020E4900068BA64 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8920CA8221721A1B00A72BD0 /* Mock */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89E777EB2173C04C009CF3DE /* Mock.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_PREPROCESS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Mock;
+		};
+		8920CA8321721A1B00A72BD0 /* Mock */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89E777EB2173C04C009CF3DE /* Mock.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Notifire/Notifire.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6QH7E4QW2D;
+				INFOPLIST_FILE = Notifire/Info.plist;
+				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvdblk.Notifire;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Mock;
+		};
+		89214CFE24FD30C7000D7B53 /* MockTF */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89214D0124FD351E000D7B53 /* MockTF.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_PREPROCESS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = MockTF;
+		};
+		89214CFF24FD30C7000D7B53 /* MockTF */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89214D0124FD351E000D7B53 /* MockTF.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Notifire/Notifire.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6QH7E4QW2D;
+				INFOPLIST_FILE = Notifire/Info.plist;
+				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvdblk.Notifire;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = MockTF;
+		};
+		89214D0024FD30C7000D7B53 /* MockTF */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89214D0124FD351E000D7B53 /* MockTF.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6QH7E4QW2D;
+				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvdblk.Notifire.NotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = MockTF;
+		};
+		8985339A219FA46A00E0A656 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89B3EC702020E60F0068BA64 /* Debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6QH7E4QW2D;
+				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvdblk.Notifire.NotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8985339B219FA46A00E0A656 /* Mock */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89E777EB2173C04C009CF3DE /* Mock.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6QH7E4QW2D;
+				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvdblk.Notifire.NotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Mock;
+		};
+		8985339C219FA46A00E0A656 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89B3EC712020E61D0068BA64 /* Release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6QH7E4QW2D;
+				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvdblk.Notifire.NotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		89B3EC632020E4900068BA64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89B3EC702020E60F0068BA64 /* Debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_PREPROCESS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		89B3EC642020E4900068BA64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89B3EC712020E61D0068BA64 /* Release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_PREPROCESS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		89B3EC662020E4900068BA64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89B3EC702020E60F0068BA64 /* Debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Notifire/Notifire.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6QH7E4QW2D;
+				INFOPLIST_FILE = Notifire/Info.plist;
+				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvdblk.Notifire;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		89B3EC672020E4900068BA64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89B3EC712020E61D0068BA64 /* Release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Notifire/Notifire.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6QH7E4QW2D;
+				INFOPLIST_FILE = Notifire/Info.plist;
+				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvdblk.Notifire;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		89853399219FA46A00E0A656 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8985339A219FA46A00E0A656 /* Debug */,
+				8985339B219FA46A00E0A656 /* Mock */,
+				89214D0024FD30C7000D7B53 /* MockTF */,
+				8985339C219FA46A00E0A656 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89B3EC402020E48F0068BA64 /* Build configuration list for PBXProject "Notifire" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89B3EC632020E4900068BA64 /* Debug */,
+				8920CA8221721A1B00A72BD0 /* Mock */,
+				89214CFE24FD30C7000D7B53 /* MockTF */,
+				89B3EC642020E4900068BA64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89B3EC652020E4900068BA64 /* Build configuration list for PBXNativeTarget "Notifire" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89B3EC662020E4900068BA64 /* Debug */,
+				8920CA8321721A1B00A72BD0 /* Mock */,
+				89214CFF24FD30C7000D7B53 /* MockTF */,
+				89B3EC672020E4900068BA64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 89B3EC3D2020E48F0068BA64 /* Project object */;
+}

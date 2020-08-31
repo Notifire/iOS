@@ -1,0 +1,52 @@
+//
+//  RealmProviding.swift
+//  Notifire
+//
+//  Created by David Bielik on 17/11/2018.
+//  Copyright © 2018 David Bielik. All rights reserved.
+//
+
+import Foundation
+import RealmSwift
+
+protocol RealmProviding {
+    var realm: Realm { get }
+}
+
+class RealmProvider: RealmProviding {
+    
+    private let userConfiguration: Realm.Configuration
+    
+    init?(userSession: NotifireUserSession) {
+        guard let configuration = RealmManager.createUserConfiguration(from: userSession) else {
+            return nil
+        }
+        userConfiguration = configuration
+        do {
+            // double check if the realm configuration works.
+            _ = try Realm(configuration: userConfiguration)
+        } catch {
+            // if it doesn't, cancel initialization of the session handler
+            return nil
+        }
+    }
+    
+    var realm: Realm {
+        return try! Realm(configuration: userConfiguration)
+    }
+}
+
+class NotificationReadUnreadManager {
+    
+    static func markNotificationAsRead(notification: LocalNotifireNotification, realm: Realm) {
+        guard !notification.isRead else { return }
+        swapNotificationReadStatus(notification: notification, realm: realm)
+    }
+    
+    static func swapNotificationReadStatus(notification: LocalNotifireNotification, realm: Realm) {
+        let isRead = notification.isRead
+        try? realm.write {
+            notification.isRead = !isRead
+        }
+    }
+}
