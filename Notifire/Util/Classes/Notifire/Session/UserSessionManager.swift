@@ -1,5 +1,5 @@
 //
-//  NotifireUserSessionManager.swift
+//  UserSessionManager.swift
 //  Notifire
 //
 //  Created by David Bielik on 11/10/2018.
@@ -9,7 +9,7 @@
 import Foundation
 import KeychainAccess
 
-class NotifireUserSessionManager {
+class UserSessionManager {
 
     private static let bundleID = "com.dvdblk.Notifire"
     private static let teamID = "6QH7E4QW2D"
@@ -25,7 +25,7 @@ class NotifireUserSessionManager {
         static let firstLaunch = "\(prefix).notifire"
     }
 
-    private lazy var keychain = Keychain(service: "com.dvdblk.Notifire", accessGroup: NotifireUserSessionManager.keychainAccessGroup)
+    private lazy var keychain = Keychain(service: "com.dvdblk.Notifire", accessGroup: UserSessionManager.keychainAccessGroup)
 
     private func key(for username: String, key: String) -> String {
         return "\(username)\(key)"

@@ -8,8 +8,9 @@
 
 import UIKit
 
-class RootViewController: BaseViewController {
+class RootViewController: VMViewController<RootViewModel> {
 
+    /// Change the main child viewcontroller that's in focus with a cycle animation.
     func cycleFrom(oldVC: UIViewController, to newVC: UIViewController, completion: (() -> Void)? = nil) {
         oldVC.willMove(toParent: nil)
         addChild(newVC)

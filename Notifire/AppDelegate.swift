@@ -11,18 +11,18 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    lazy var window: UIWindow? = UIWindow(frame: UIScreen.main.bounds)
-    var appCoordinator: AppCoordinator?
+    // MARK: - Variables
+    var window: UIWindow?
 
+    /// implicitly unwrapped because it is set in the `didFinishLaunchingWithOptions` method
+    var appCoordinator: AppCoordinator!
+
+    // MARK: - AppDelegate
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Create the rootVC
-        let rootViewController = RootViewController()
-        // Inject it to the AppCoordinator
-        appCoordinator = AppCoordinator(rootViewController: rootViewController)
-        appCoordinator?.start()
-        // Set the main window rootVC
-        window?.rootViewController = rootViewController
-        window?.makeKeyAndVisible()
+        let applicationWindow = UIWindow(frame: UIScreen.main.bounds)
+        self.window = applicationWindow
+        appCoordinator = AppCoordinator(window: applicationWindow)
+        appCoordinator.start()
         return true
     }
 

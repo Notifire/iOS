@@ -8,23 +8,35 @@
 
 import UIKit
 
+/// The main `Coordinator` class for the Application.
+/// This coordinator is responsible for switching between Logged in / out states of the app as well as handling deeplinks.
 class AppCoordinator: Coordinator {
 
+    // MARK: - App State
+    /// Describes the application's state. Each state contains the current coordinator responsbile for the view hierarchy.
     enum AppState {
+        /// The user has logged in thus a session is available.
         case sessionAvailable(SessionCoordinator)
+        /// The user is not logged in.
         case noSession(NoSessionCoordinator)
     }
 
     // MARK: - Properties
+    // MARK: UI
+    let window: UIWindow
     let rootViewController: RootViewController
+
+    // MARK: Handlers
     let deeplinkHandler = DeeplinkHandler()
     let notificationsHandler = NotifireNotificationsHandler()
-    private let sessionManager: NotifireUserSessionManager
+
+    // MARK: State
     var appState: AppState? {
         didSet {
             guard let unwrappedState = appState else { return}
             switch unwrappedState {
             case .noSession:
+
                 notificationsHandler.activeRealmProvider = nil
             case .sessionAvailable(let sessionCoordinator):
                 notificationsHandler.activeRealmProvider = sessionCoordinator.userSessionHandler
@@ -32,6 +44,7 @@ class AppCoordinator: Coordinator {
         }
     }
 
+    // MARK: Coordinator
     var sessionCoordinator: SessionCoordinator? {
         guard let unwrappedState = appState, case .sessionAvailable(let sessionCoordinator) = unwrappedState else {
             return nil
@@ -40,12 +53,41 @@ class AppCoordinator: Coordinator {
     }
 
     // MARK: - Initialization
-    init(rootViewController: RootViewController, sessionManager: NotifireUserSessionManager = NotifireUserSessionManager()) {
-        self.rootViewController = rootViewController
-        self.sessionManager = sessionManager
+    init(window: UIWindow) {
+        self.window = window
+
+        // Initialize the RootViewController
+        let rootVM = RootViewModel()
+        self.rootViewController = RootViewController(viewModel: rootVM)
+        // Window
+        window.rootViewController = rootViewController
+        window.makeKeyAndVisible()
     }
 
-    // MARK: - Private
+    // MARK: - Coordinator
+    func start() {
+        // Deeplink handler delegate
+        deeplinkHandler.appCoordinator = self
+
+        // Application reveal logic
+        let revealingViewController: UIViewController & AppRevealing
+        var completion: (() -> Void)?
+
+        if let sessionHandler = rootViewController.viewModel.getSessionHandler() {
+            revealingViewController = createSessionVC(sessionHandler: sessionHandler)
+            completion = {
+                // TODO: Move the registering for push notifications into a new popup VC
+                sessionHandler.deviceTokenManager.registerForPushNotifications()
+            }
+        } else {
+            revealingViewController = createNoSessionVC()
+        }
+        rootViewController.add(childViewController: revealingViewController)
+        revealingViewController.revealContent(completion: completion) // start the initial revealing animation
+    }
+
+    // MARK: Private
+    /// Create a `NoSessionContainerViewController`
     @discardableResult
     private func createNoSessionVC() -> NoSessionContainerViewController {
         let noSessionContainerViewController = NoSessionContainerViewController()
@@ -67,39 +109,19 @@ class AppCoordinator: Coordinator {
         return tabBarViewController
     }
 
-    // MARK: - Internal
-    func start() {
-        notificationsHandler.setAsDelegate() // don't move the call from here (didFinishLaunching...)
-        deeplinkHandler.appCoordinator = self
-        let revealingViewController: UIViewController & AppRevealing
-        var completion: (() -> Void)?
-        if let session = sessionManager.previousSession() {
-            // previous session found
-            guard let sessionHandler = NotifireUserSessionHandler(session: session) else {
-                // remove the session if the realm configuration file doesn't open
-                sessionManager.removeSession(userSession: session)
-                revealingViewController = createNoSessionVC()
-                return
-            }
-            revealingViewController = createSessionVC(sessionHandler: sessionHandler)
-            completion = {
-                sessionHandler.deviceTokenManager.registerForPushNotifications()
-            }
-        } else {
-            // no previous session has been found, present the NoSessionCoordinator
-            revealingViewController = createNoSessionVC()
-        }
-        rootViewController.add(childViewController: revealingViewController)
-        revealingViewController.revealContent(completion: completion) // start the initial revealing animation
-    }
-
+    // MARK: Internal
     @discardableResult
     func switchTo(userSession: NotifireUserSession) -> Bool {
+        // Make sure that we have no session active at the moment.
         guard let state = appState, case .noSession(let noSessionCoordinator) = state, let sessionHandler = NotifireUserSessionHandler(session: userSession) else { return false }
+        // Create new session with a logged in user.
         let sessionVC = createSessionVC(sessionHandler: sessionHandler)
         let completion: (() -> Void) = {
+            // TODO: Move the registering for push notifications into a new popup VC
             sessionHandler.deviceTokenManager.registerForPushNotifications()
         }
+
+        // Handle the case where a deeplink is open
         if deeplinkHandler.currentDeeplink != nil {
             deeplinkHandler.finishDeeplink {
                 self.rootViewController.cycleFrom(oldVC: noSessionCoordinator.noSessionContainerViewController, to: sessionVC, completion: completion)
@@ -120,50 +142,5 @@ class AppCoordinator: Coordinator {
         } else {
             rootViewController.cycleFrom(oldVC: sessionCoordinator.tabBarViewController, to: noSessionVc)
         }
-    }
-}
-
-extension AppCoordinator: ConfirmEmailViewControllerDelegate {
-    func didFinishEmailConfirmation() {
-        deeplinkHandler.finishDeeplink()
-    }
-}
-
-extension AppCoordinator: NotifireUserSessionCreationDelegate {
-    /// called when the user logs in, either by confirming his email or by manually entering his id/pw
-    func didCreate(session: NotifireUserSession) {
-        // don't interrupt any logged in session even when an account gets confirmed
-        guard let state = appState, case .noSession = state else {
-            // just dismiss the vc
-            deeplinkHandler.finishDeeplink()
-            return
-        }
-        guard switchTo(userSession: session) else { return }
-        sessionManager.saveSession(userSession: session)
-    }
-}
-
-extension AppCoordinator: NotifireUserSessionDeletionDelegate {
-    /// called when the session is explicitly deleted (user logs out) or when the session expires (the refresh token changes)
-    func didDelete(session: NotifireUserSession, onPurpose: Bool) {
-        guard let state = appState, case .sessionAvailable(let coordinator) = state else { return }
-        let onCompletion: (() -> Void) = { [unowned self] in
-            self.sessionManager.removeSession(userSession: session)
-            self.switchToLogin()
-            UIApplication.shared.applicationIconBadgeNumber = 0
-            DeviceTokenManager().unregisterFromPushNotifications()
-            coordinator.userSessionHandler.logout()
-        }
-        guard onPurpose else {
-            // forced logout
-            let alertController = UIAlertController(title: "Login required.", message: "Please login again!", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-                onCompletion()
-            }))
-            coordinator.activeCoordinator?.viewController.present(alertController, animated: true, completion: nil)
-            return
-        }
-        // logout
-        onCompletion()
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NotifireUserSessionManagerMock: NotifireUserSessionManager {
+class NotifireUserSessionManagerMock: UserSessionManager {
 
     enum SessionState {
         case mockSession

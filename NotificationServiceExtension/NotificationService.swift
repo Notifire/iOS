@@ -20,7 +20,7 @@ class NotificationService: UNNotificationServiceExtension {
         if let bestAttemptContent = bestAttemptContent {
             // Modify the notification content here...
             let notificationHandler = NotifireNotificationsHandler()
-            let sessionManager = NotifireUserSessionManager()
+            let sessionManager = UserSessionManager()
             guard let previousSession = sessionManager.previousSession() else {
                 contentHandler(bestAttemptContent)
                 return

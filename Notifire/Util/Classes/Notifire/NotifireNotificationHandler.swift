@@ -13,10 +13,6 @@ class NotifireNotificationsHandler: NSObject {
 
     var activeRealmProvider: RealmProviding?
 
-    func setAsDelegate() {
-        UNUserNotificationCenter.current().delegate = self
-    }
-
     enum NotificationHandlingError: Error {
         case unknownContent
         case unknownService
@@ -26,6 +22,12 @@ class NotifireNotificationsHandler: NSObject {
     enum NotificationHandlingResult {
         case successful
         case error(NotificationHandlingError)
+    }
+
+    // MARK: - Initialization
+    override init() {
+        super.init()
+        UNUserNotificationCenter.current().delegate = self
     }
 
     func getNotification(from userInfo: [AnyHashable: Any]) -> LocalNotifireNotification? {
