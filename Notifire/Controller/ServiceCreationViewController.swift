@@ -14,11 +14,11 @@ protocol ServiceCreationDelegate: class {
 }
 
 class ServiceCreationViewController: UIViewController, CenterStackViewPresenting, APIFailableResponding, APIFailableDisplaying, KeyboardObserving {
-    
+
     // MARK: - Properties
     weak var delegate: ServiceCreationDelegate?
     var viewModel: ServiceCreationViewModel
-    
+
     // MARK: KeyboardObserving
     var stackViewCenterCollapsedConstraint: NSLayoutConstraint!
     var stackViewCenterNormalConstraint: NSLayoutConstraint!
@@ -26,14 +26,14 @@ class ServiceCreationViewController: UIViewController, CenterStackViewPresenting
     lazy var keyboardExpandedConstraints: [NSLayoutConstraint] = [stackViewCenterCollapsedConstraint]
     lazy var keyboardCollapsedConstraints: [NSLayoutConstraint] = [stackViewCenterNormalConstraint]
     var keyboardAnimationBlock: ((Bool, TimeInterval) -> Void)?
-    
+
     // MARK: Views
     let newServiceTextField: CustomTextField = {
         let textField = CustomTextField()
         textField.setPlaceholder(text: "Enter the service name")
         return textField
     }()
-    
+
     lazy var createServiceButton: NotifireButton = {
         let button = NotifireButton()
         button.isEnabled = false
@@ -43,7 +43,7 @@ class ServiceCreationViewController: UIViewController, CenterStackViewPresenting
         }
         return button
     }()
-    
+
     lazy var cancelButton: ActionButton = {
         let button = ActionButton(type: .system)
         button.setTitle("Cancel", for: .normal)
@@ -52,7 +52,7 @@ class ServiceCreationViewController: UIViewController, CenterStackViewPresenting
         }
         return button
     }()
-    
+
     lazy var newServiceTextInput: ValidatableTextInput = {
         let input = ValidatableTextInput(textField: newServiceTextField)
         input.rules = [
@@ -61,21 +61,21 @@ class ServiceCreationViewController: UIViewController, CenterStackViewPresenting
         ]
         return input
     }()
-    
+
     lazy var stackView = insertStackView(arrangedSubviews: [newServiceTextInput, createServiceButton, ChoiceSeparatorView(), cancelButton], spacing: Size.componentSpacing)
-    
+
     // MARK: - Initialization
     init(viewModel: ServiceCreationViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) { fatalError() }
-    
+
     deinit {
         removeObservers()
     }
-    
+
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +87,7 @@ class ServiceCreationViewController: UIViewController, CenterStackViewPresenting
         setupObservers()
         layout()
     }
-    
+
     // MARK: - Private
     private func prepareViewModel() {
         viewModel.createComponentValidator(with: [newServiceTextInput])
@@ -108,17 +108,17 @@ class ServiceCreationViewController: UIViewController, CenterStackViewPresenting
             }
         }
     }
-    
+
     private func layout() {
         stackViewCenterNormalConstraint = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         stackViewCenterNormalConstraint.isActive = true
         stackViewCenterCollapsedConstraint = stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Size.componentSpacing*3)
     }
-    
+
     func onKeyboardChange(expanding: Bool, notification: Notification) {
         stackView.spacing = expanding ? Size.textFieldSpacing : Size.componentSpacing
     }
-    
+
     // MARK: TextField
     @objc private func didChange(textField: UITextField) {
         viewModel.serviceName = newServiceTextInput.validatableInput

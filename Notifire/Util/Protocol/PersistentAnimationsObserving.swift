@@ -24,7 +24,7 @@ extension PersistentAnimationsObserving where Self: CALayer {
         return [UIApplication.willEnterForegroundNotification: didBecomeActive,
                 UIApplication.didEnterBackgroundNotification: willResignActive]
     }
-    
+
     func didBecomeActive(notification: Notification) {
         restoreAnimations(withKeys: Array(persistentAnimations.keys))
         persistentAnimations.removeAll()
@@ -32,17 +32,17 @@ extension PersistentAnimationsObserving where Self: CALayer {
             resume()
         }
     }
-    
+
     func willResignActive(notification: Notification) {
         persistentSpeed = speed
-        
+
         speed = 1.0
         persistAnimations(withKeys: animationKeys())
         speed = persistentSpeed
-        
+
         pause()
     }
-    
+
     func persistAnimations(withKeys: [String]?) {
         withKeys?.forEach({ (key) in
             if let animation = animation(forKey: key) {
@@ -50,7 +50,7 @@ extension PersistentAnimationsObserving where Self: CALayer {
             }
         })
     }
-    
+
     func restoreAnimations(withKeys: [String]?) {
         withKeys?.forEach { key in
             if let persistentAnimation = persistentAnimations[key] {

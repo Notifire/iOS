@@ -9,17 +9,17 @@
 import UIKit
 
 class MultiplePathAnimator: NSObject {
-    
+
     // MARK: - Properties
     // MARK: Static
     static let pathKey = "path"
     static let layerKey = "animatedLayer"
-    
+
     // MARK: Animation
     var runningAnimations = [CAAnimation]()
     var pathIterator: IndexingIterator<[CGPath]>?
     var pathsIterators: [CAShapeLayer: IndexingIterator<[CGPath]>] = [:]
-    
+
     func addAnimation(to layer: CAShapeLayer) {
         func getNextPath() -> CGPath? {
             if let result = pathsIterators[layer]?.next() {
@@ -42,7 +42,7 @@ class MultiplePathAnimator: NSObject {
         layer.add(pathAnim, forKey: MultiplePathAnimator.pathKey)
         layer.path = toPath
     }
-    
+
     func animate(layers: [CAShapeLayer], paths: [CGPath]) {
         runningAnimations = []
         pathIterator = paths.makeIterator()
@@ -51,7 +51,7 @@ class MultiplePathAnimator: NSObject {
             addAnimation(to: layer)
         }
     }
-    
+
     func stopAnimating(layers: [CAShapeLayer]) {
         layers.forEach { $0.removeAnimation(forKey: MultiplePathAnimator.pathKey )}
     }

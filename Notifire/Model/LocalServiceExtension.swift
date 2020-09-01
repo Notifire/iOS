@@ -13,7 +13,7 @@ extension LocalService {
         uuid = service.uuid
         updateDataExceptUUID(from: service)
     }
-    
+
     func updateDataExceptUUID(from service: Service) {
         name = service.name
         serviceKey = service.apiKey
@@ -22,12 +22,12 @@ extension LocalService {
         warning = service.levels.warning
         error = service.levels.error
     }
-    
+
     var asService: Service {
         //et validUpdatedAt = updatedAt ?? Date(timeIntervalSince1970: 0)
-        return Service(name: name, uuid: uuid, levels: Service.Levels(info: info, warning: warning, error: error), apiKey: serviceKey,updatedAt: nil)
+        return Service(name: name, uuid: uuid, levels: Service.Levels(info: info, warning: warning, error: error), apiKey: serviceKey, updatedAt: nil)
     }
-    
+
     var asServiceRequestBody: ServiceRequestBody {
         return ServiceRequestBody(name: name, uuid: uuid, levels: Service.Levels(info: info, warning: warning, error: error))
     }

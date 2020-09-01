@@ -13,7 +13,6 @@ protocol Reselectable {
     func reselect() -> ReselectHandled
 }
 
-
 protocol ScrollReselectable: Reselectable {
     var scrollView: UIScrollView { get }
     var topContentOffset: CGPoint { get }
@@ -21,7 +20,7 @@ protocol ScrollReselectable: Reselectable {
 
 extension ScrollReselectable {
     var topContentOffset: CGPoint { return .zero }
-    
+
     func reselect() -> ReselectHandled {
         if !scrollView.isDragging && scrollView.contentOffset != topContentOffset {
             scrollView.setContentOffset(topContentOffset, animated: true)

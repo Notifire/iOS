@@ -11,9 +11,9 @@ import UIKit
 typealias BindableInputValidatingViewModel = InputValidatingViewModel & InputValidatingBindable
 
 final class LoginViewModel: BindableInputValidatingViewModel, APIFailable, UserErrorFailable {
-    
+
     typealias UserError = LoginUserError
-    
+
     func keyPath(for value: KeyPaths) -> ReferenceWritableKeyPath<LoginViewModel, String> {
         switch value {
         case .username:
@@ -28,28 +28,27 @@ final class LoginViewModel: BindableInputValidatingViewModel, APIFailable, UserE
         case password
     }
     typealias EnumDescribingKeyPaths = KeyPaths
-    
-    
+
     // MARK: - Properties
     // MARK: APIFailable
     var onError: ((NotifireAPIManager.ManagerResultError) -> Void)?
     // MARK: UserErrorFailable
     var onUserError: ((LoginUserError) -> Void)?
-    
+
     var loading: Bool = false {
         didSet {
             guard oldValue != loading else { return }
             onLoadingChange?(loading)
         }
     }
-    
+
     var onLogin: ((NotifireUserSession) -> Void)?
     var onLoadingChange: ((Bool) -> Void)?
-    
+
     // MARK: Model
     var username: String = ""
     var password: String = ""
-    
+
     // MARK: - Methods
     func login() {
         guard componentValidator?.allComponentsValid ?? false else { return }
@@ -71,18 +70,18 @@ final class LoginViewModel: BindableInputValidatingViewModel, APIFailable, UserE
             }
         }
     }
-    
+
     func resendEmail() {
         notifireApiManager.resendConfirmEmail(usernameOrEmail: username) { _ in }
     }
-    
+
     func canHandle(userError: LoginUserError) -> Bool {
         switch userError {
         case .notVerified: return true
         case .invalidPassword, .invalidUsernameOrEmail: return true
         }
     }
-    
+
     func shouldHandleManually(userError: UserError) -> Bool {
         switch userError {
         case .notVerified: return true

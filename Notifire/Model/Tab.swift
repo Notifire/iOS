@@ -12,7 +12,7 @@ enum Tab: CaseIterable {
     case services
     case notifications
     case settings
-    
+
     var image: UIImage {
         switch self {
         case .notifications: return #imageLiteral(resourceName: "outline_notifications_black_48pt")
@@ -20,7 +20,7 @@ enum Tab: CaseIterable {
         case .settings: return #imageLiteral(resourceName: "outline_settings_black_48pt")
         }
     }
-    
+
     var highlightedImage: UIImage {
         switch self {
         case .notifications: return #imageLiteral(resourceName: "baseline_notifications_black_48pt")

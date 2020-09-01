@@ -13,29 +13,29 @@ protocol LoginViewControllerDelegate: NotifireUserSessionCreationDelegate {
 }
 
 class LoginViewController: BottomNavigatorViewController, AppRevealing, KeyboardObserving, CenterStackViewPresenting, APIFailableResponding, APIFailableDisplaying, NotifirePoppablePresenting {
-    
+
     // MARK: - APIFailableResponding
     typealias FailableViewModel = LoginViewModel
-    
+
     // MARK: - Properties
     var animatedViewNormalHeightConstraint: NSLayoutConstraint!
     var animatedViewCollapsedHeightConstraint: NSLayoutConstraint!
     let viewModel: LoginViewModel
-    
+
     weak var delegate: LoginViewControllerDelegate?
-    
+
     // MARK: KeyboardObserving
     var observers: [NSObjectProtocol] = []
     lazy var keyboardExpandedConstraints: [NSLayoutConstraint] = [animatedViewCollapsedHeightConstraint]
     lazy var keyboardCollapsedConstraints: [NSLayoutConstraint] = [animatedViewNormalHeightConstraint]
     var keyboardAnimationBlock: ((Bool, TimeInterval) -> Void)?
-    
+
     // MARK: Static
     static let notifireAnimatedViewHeightInRelationToViewHeight: CGFloat = 0.38
-    
+
     // MARK: Views
     let notifireAnimatedView = NotifireAnimatedView()
-    
+
     lazy var usernameEmailTextInput: ValidatableTextInput = {
         let usernameEmailTextField = CustomTextField()
         usernameEmailTextField.setPlaceholder(text: "Username or email")
@@ -47,7 +47,7 @@ class LoginViewController: BottomNavigatorViewController, AppRevealing, Keyboard
         input.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: .username)
         return input
     }()
-    
+
     lazy var passwordTextInput: ValidatableTextInput = {
         let passwordTextField = CustomTextField()
         passwordTextField.isSecureTextEntry = true
@@ -57,7 +57,7 @@ class LoginViewController: BottomNavigatorViewController, AppRevealing, Keyboard
         input.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: .password)
         return input
     }()
-    
+
     lazy var signInButton: NotifireButton = {
         let button = NotifireButton()
         button.isEnabled = false
@@ -67,48 +67,48 @@ class LoginViewController: BottomNavigatorViewController, AppRevealing, Keyboard
         }
         return button
     }()
-    
+
     // MARK: - Initialization
     init(viewModel: LoginViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         viewModel.createComponentValidator(with: [usernameEmailTextInput, passwordTextInput])
     }
-    
+
     required init?(coder aDecoder: NSCoder) { fatalError() }
-    
+
     // MARK: - VC Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupObservers()
         setupUserEvents()
         prepareViewModel()
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         notifireAnimatedView.isAnimating = false
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         notifireAnimatedView.isAnimating = true
     }
-    
+
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard presented is NotifirePoppable else { return nil }
         return NotifirePopAnimationController()
     }
-    
+
     deinit {
         removeObservers()
     }
-    
+
     // MARK: - Inherited
     override func setupSubviews() {
         super.setupSubviews()
-        
+
         let safeArea = view.safeAreaLayoutGuide
         // animated view
         view.addSubview(notifireAnimatedView)
@@ -119,7 +119,7 @@ class LoginViewController: BottomNavigatorViewController, AppRevealing, Keyboard
         animatedViewNormalHeightConstraint.isActive = true
         animatedViewCollapsedHeightConstraint = notifireAnimatedView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier:
             LoginViewController.notifireAnimatedViewHeightInRelationToViewHeight * 0.7)
-        
+
         // loginContainer
         let loginContainerView = CurvedTopView()
         view.addSubview(loginContainerView)
@@ -127,7 +127,7 @@ class LoginViewController: BottomNavigatorViewController, AppRevealing, Keyboard
         loginContainerView.bottomAnchor.constraint(equalTo: bottomNavigator.topAnchor).isActive = true
         loginContainerView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor).isActive = true
         loginContainerView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
-        
+
         // login stack view
         let textFieldStackView = UIStackView(arrangedSubviews: [usernameEmailTextInput, passwordTextInput], spacing: Size.textFieldSpacing)
         let stackView = insertStackView(arrangedSubviews: [textFieldStackView, signInButton], spacing: Size.componentSpacing)
@@ -144,17 +144,17 @@ class LoginViewController: BottomNavigatorViewController, AppRevealing, Keyboard
             }
         }
     }
-    
+
     // MARK: - Private
     private func setupUserEvents() {
         addKeyboardDismissOnTap(to: view)
-        
+
         let textFields = [usernameEmailTextInput.textField, passwordTextInput.textField]
         textFields.forEach {
             $0.addTarget(self, action: #selector(didStopEditing(textField:)), for: .editingDidEndOnExit)
         }
     }
-    
+
     private func prepareViewModel() {
         viewModel.afterValidation = { [weak self] success in
             self?.signInButton.isEnabled = success
@@ -174,16 +174,16 @@ class LoginViewController: BottomNavigatorViewController, AppRevealing, Keyboard
         viewModel.onLogin = { [weak self] session in
             self?.delegate?.didCreate(session: session)
         }
-        
+
         setViewModelOnError()
         setViewModelOnUserError()
     }
-    
+
     // MARK: - Event Handlers
     override open func didTapTappableLabel() {
         delegate?.shouldStartRegisterFlow()
     }
-    
+
     // MARK: TextField
     @objc func didStopEditing(textField: UITextField) {
         if textField == usernameEmailTextInput.textField {
@@ -194,7 +194,7 @@ class LoginViewController: BottomNavigatorViewController, AppRevealing, Keyboard
     }
 }
 
-extension LoginViewController: UserErrorFailableResponding {    
+extension LoginViewController: UserErrorFailableResponding {
     func alertActions(for error: LoginUserError, dismissCallback: @escaping (() -> Void)) -> [NotifireAlertAction]? {
         guard
             viewModel.shouldHandleManually(userError: error) else { return nil }

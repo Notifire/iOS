@@ -13,11 +13,11 @@ struct Size {
     static let componentSpacing: CGFloat = textFieldSpacing * 2.5
     static let componentHeight: CGFloat = 44
     static let componentWidthRelativeToScreenWidth: CGFloat = 0.8
-    
+
     static let iconSize: CGFloat = 32
     static let standardMargin: CGFloat = 16
     static let extendedMargin: CGFloat = 18
-    
+
     struct Image {
         static let smallService: CGFloat = 36
         static let mediumService: CGFloat = 50
@@ -27,7 +27,7 @@ struct Size {
         static let unreadNotificationAlert: CGFloat = 8
         static let indicator: CGFloat = 16
     }
-    
+
     struct Cell {
         static let height: CGFloat = 48
         static let narrowSideMargin: CGFloat = 12
@@ -35,12 +35,12 @@ struct Size {
         static let extendedSideMargin: CGFloat = 18
         static let wideSideMargin: CGFloat = 40
     }
-    
+
     struct Navigator {
         static let height: CGFloat = 48
         static let separatorHeight: CGFloat = 1
     }
-    
+
     struct Tab {
         static let height: CGFloat = 50
     }

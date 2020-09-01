@@ -9,7 +9,7 @@
 import Foundation
 
 struct NotifireAPIManagerFactory {
-    
+
     static func createAPIManager() -> NotifireAPIManager {
         #if API_MOCK
             return NotifireAPIManagerMock()
@@ -17,7 +17,7 @@ struct NotifireAPIManagerFactory {
             return NotifireAPIManager()
         #endif
     }
-    
+
     static func createProtectedAPIManager(session: NotifireUserSession) -> NotifireProtectedAPIManager {
         #if API_MOCK
             return NotifireProtectedAPIManagerMock(session: session)

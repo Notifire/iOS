@@ -11,32 +11,32 @@ import Foundation
 typealias NotifireAPIManagerCallback<Response: NotifireAPIDecodable> = (NotifireAPIManagerBase.ManagerResult<Response>) -> Void
 
 class NotifireAPIManagerBase {
-    
+
     // MARK: - Result Values
     enum ManagerResultError: Error {
         case network
         case server
     }
-    
+
     enum ManagerResult<ResponseBody: NotifireAPIDecodable> {
         case error(ManagerResultError)
         case success(ResponseBody)
     }
-    
+
     // MARK: - Properties
     // MARK: Static
     static let requestTimeout: TimeInterval = 20
     static let baseURL = URL(string: Config.shared.apiUrlString)!
-    
+
     let apiHandler: NotifireAPIHandler
 
     // MARK: - Initialization
     init(apiHandler: NotifireAPIHandler = URLSession.shared) {
         self.apiHandler = apiHandler
     }
-    
+
     // MARK: - Open
-    open func notifireApiRequest<Body>(endpoint: CustomStringConvertible, method: HTTPMethod, body: Body?, parameters: HTTPParameters?) -> NotifireAPIRequest where Body : NotifireAPIEncodable {
+    open func notifireApiRequest<Body>(endpoint: CustomStringConvertible, method: HTTPMethod, body: Body?, parameters: HTTPParameters?) -> NotifireAPIRequest where Body: NotifireAPIEncodable {
         var url = URL(string: endpoint.description, relativeTo: NotifireAPIManager.baseURL) ?? NotifireAPIManager.baseURL
         if let requestParameters = parameters {
             for parameter in requestParameters {
@@ -51,7 +51,7 @@ class NotifireAPIManagerBase {
         request.timeoutInterval = 10
         return request
     }
-    
+
     // MARK: - Internal
     func createApiCompletionHandler<Response: NotifireAPIDecodable>(managerCompletion: @escaping NotifireAPIManagerCallback<Response>) -> ((NotifireAPIResponseContext<Response>) -> Void) {
         return { responseContext in
@@ -71,7 +71,7 @@ class NotifireAPIManagerBase {
             managerCompletion(.success(response))
         }
     }
-    
+
     func perform<Response: NotifireAPIDecodable>(requestContext: NotifireAPIRequestContext<Response>, managerCompletion: @escaping NotifireAPIManagerCallback<Response>) {
         let apiCompletionHandler = createApiCompletionHandler(managerCompletion: managerCompletion)
         apiHandler.perform(requestContext: requestContext, completionHandler: apiCompletionHandler)

@@ -9,7 +9,7 @@
 import UIKit
 
 class NotifireNavigationController: UINavigationController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.heavy) ]
@@ -17,7 +17,7 @@ class NotifireNavigationController: UINavigationController {
         navigationBar.barTintColor = .backgroundAccentColor
         navigationBar.tintColor = .barTintColor
     }
-    
+
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         (viewController as? UIViewController & NavigationBarDisplaying)?.showNavBar()
         super.pushViewController(viewController, animated: animated)

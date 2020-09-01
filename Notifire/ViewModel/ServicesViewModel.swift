@@ -10,23 +10,23 @@ import UIKit
 import RealmSwift
 
 class ServicesViewModel: RealmCollectionViewModel<LocalService>, APIFailable {
-    
+
     enum ViewState: Equatable {
         case fetching(afterInitial: Bool)
         case displayingServices
         case emptyState
         case initial
     }
-    
+
     // MARK: - Properties
     let userSessionHandler: NotifireUserSessionHandler
-    
+
     var protectedApiManager: NotifireProtectedAPIManager {
         return userSessionHandler.notifireProtectedApiManager
     }
-    
+
     var onError: ((NotifireAPIManagerBase.ManagerResultError) -> Void)?
-    
+
     // MARK: Model
     var viewState: ViewState = .initial {
         didSet {
@@ -34,22 +34,22 @@ class ServicesViewModel: RealmCollectionViewModel<LocalService>, APIFailable {
         }
     }
     var isFirstFetch = true
-    
+
     // MARK: Callback
     typealias OldViewState = ViewState
     var onViewStateChange: ((ViewState, OldViewState) -> Void)?
-    
+
     // MARK: - Initialization
     init(sessionHandler: NotifireUserSessionHandler) {
         self.userSessionHandler = sessionHandler
         super.init(realmProvider: sessionHandler)
     }
-    
+
     // MARK: - Inherited
     override func resultsSortOptions() -> RealmCollectionViewModel<LocalService>.SortOptions? {
         return SortOptions(keyPath: LocalService.sortKeyPath, ascending: true)
     }
-    
+
     // MARK: - Private
     override func onResults(change: RealmCollectionChange<Results<LocalService>>) {
         switch change {
@@ -64,14 +64,14 @@ class ServicesViewModel: RealmCollectionViewModel<LocalService>, APIFailable {
         }
         super.onResults(change: change)
     }
-    
+
     // MARK: - Methods
     func firstServicesFetch() {
         guard isFirstFetch else { return }
         isFirstFetch = false
         fetchUserServices()
     }
-    
+
     func fetchUserServices() {
         if case .fetching = viewState { return }
         let isInitialFetch = viewState == .initial
@@ -114,7 +114,7 @@ class ServicesViewModel: RealmCollectionViewModel<LocalService>, APIFailable {
             self?.setupResultsTokenIfNeeded()
         })
     }
-    
+
     func createLocalService(from service: Service) {
         let realm = realmProvider.realm
         try? realm.write {

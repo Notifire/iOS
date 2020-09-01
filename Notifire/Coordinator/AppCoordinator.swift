@@ -9,12 +9,12 @@
 import UIKit
 
 class AppCoordinator: Coordinator {
-    
+
     enum AppState {
         case sessionAvailable(SessionCoordinator)
         case noSession(NoSessionCoordinator)
     }
-    
+
     // MARK: - Properties
     let rootViewController: RootViewController
     let deeplinkHandler = DeeplinkHandler()
@@ -31,20 +31,20 @@ class AppCoordinator: Coordinator {
             }
         }
     }
-    
+
     var sessionCoordinator: SessionCoordinator? {
         guard let unwrappedState = appState, case .sessionAvailable(let sessionCoordinator) = unwrappedState else {
             return nil
         }
         return sessionCoordinator
     }
-    
+
     // MARK: - Initialization
     init(rootViewController: RootViewController, sessionManager: NotifireUserSessionManager = NotifireUserSessionManager()) {
         self.rootViewController = rootViewController
         self.sessionManager = sessionManager
     }
-    
+
     // MARK: - Private
     @discardableResult
     private func createNoSessionVC() -> NoSessionContainerViewController {
@@ -55,7 +55,7 @@ class AppCoordinator: Coordinator {
         appState = .noSession(noSessionCoordinator)
         return noSessionContainerViewController
     }
-    
+
     @discardableResult
     private func createSessionVC(sessionHandler: NotifireUserSessionHandler) -> TabBarViewController {
         let tabBarViewModel = TabBarViewModel(sessionHandler: sessionHandler)
@@ -66,7 +66,7 @@ class AppCoordinator: Coordinator {
         appState = .sessionAvailable(sessionCoordinator)
         return tabBarViewController
     }
-    
+
     // MARK: - Internal
     func start() {
         notificationsHandler.setAsDelegate() // don't move the call from here (didFinishLaunching...)
@@ -92,7 +92,7 @@ class AppCoordinator: Coordinator {
         rootViewController.add(childViewController: revealingViewController)
         revealingViewController.revealContent(completion: completion) // start the initial revealing animation
     }
-    
+
     @discardableResult
     func switchTo(userSession: NotifireUserSession) -> Bool {
         guard let state = appState, case .noSession(let noSessionCoordinator) = state, let sessionHandler = NotifireUserSessionHandler(session: userSession) else { return false }
@@ -109,7 +109,7 @@ class AppCoordinator: Coordinator {
         }
         return true
     }
-    
+
     func switchToLogin() {
         guard let state = appState, case .sessionAvailable(let sessionCoordinator) = state else { return }
         let noSessionVc = createNoSessionVC()

@@ -23,9 +23,9 @@ extension UserErrorFailable {
 // MARK: - Responding
 protocol UserErrorFailableResponding: class, NotifirePoppablePresenting {
     associatedtype FailableViewModel: UserErrorFailable
-    
+
     var viewModel: FailableViewModel { get }
-    
+
     func setViewModelOnUserError()
     func dismissCompletion(error: FailableViewModel.UserError)
     func alertActions(for error: FailableViewModel.UserError, dismissCallback: @escaping (() -> Void)) -> [NotifireAlertAction]?
@@ -33,13 +33,13 @@ protocol UserErrorFailableResponding: class, NotifirePoppablePresenting {
 
 extension UserErrorFailableResponding where Self: UIViewController {
     func dismissCompletion(error: FailableViewModel.UserError) {}
-    
+
     func setViewModelOnUserError() {
         viewModel.onUserError = { [weak self] error in
             self?.present(error: error)
         }
     }
-    
+
     func present(error: FailableViewModel.UserError) {
         let alert = NotifireAlertViewController(alertTitle: "", alertText: error.description)
         let dismissCompletionClosure = {
@@ -55,7 +55,7 @@ extension UserErrorFailableResponding where Self: UIViewController {
         }
         present(alert: alert, animated: true, completion: nil)
     }
-    
+
     func alertActions(for error: FailableViewModel.UserError, dismissCallback: @escaping (() -> Void)) -> [NotifireAlertAction]? {
         return nil
     }

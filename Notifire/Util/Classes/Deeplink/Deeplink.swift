@@ -9,17 +9,17 @@
 import UIKit
 
 class Deeplink {
-    
+
     enum Option {
         case emailConfirmation(token: String)
         case resetPassword(token: String)
         case resetEmail(token: String)
     }
-    
+
     let option: Option
     let window: UIWindow
     let deeplinkPresenter: UIViewController
-    
+
     init(option: Option) {
         self.option = option
         let newWindow = UIWindow(frame: UIScreen.main.bounds)

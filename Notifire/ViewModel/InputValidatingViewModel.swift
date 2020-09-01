@@ -9,7 +9,7 @@
 import Foundation
 
 class InputValidatingViewModel: InputValidating {
-    
+
     // MARK: - Properties
     // MARK: InputValidating
     var isValid: Bool = false {
@@ -20,15 +20,15 @@ class InputValidatingViewModel: InputValidating {
     }
     var componentValidator: ComponentValidator?
     let notifireApiManager: NotifireAPIManager
-    
+
     // MARK: Callbacks
     var afterValidation: ((Bool) -> Void)?
-    
+
     // MARK: - Initialization
     init(notifireApiManager: NotifireAPIManager = NotifireAPIManagerFactory.createAPIManager()) {
         self.notifireApiManager = notifireApiManager
     }
-    
+
     // MARK: - Methods
     func createComponentValidator(with components: [ValidatableComponent]) {
         if let activeComponentValidator = self.componentValidator {

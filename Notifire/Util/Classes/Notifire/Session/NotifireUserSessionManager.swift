@@ -10,7 +10,7 @@ import Foundation
 import KeychainAccess
 
 class NotifireUserSessionManager {
-    
+
     private static let bundleID = "com.dvdblk.Notifire"
     private static let teamID = "6QH7E4QW2D"
     private static let keychainAccessGroup = "\(teamID).\(bundleID)"
@@ -24,13 +24,13 @@ class NotifireUserSessionManager {
         static let username = "\(prefix).username"
         static let firstLaunch = "\(prefix).notifire"
     }
-    
+
     private lazy var keychain = Keychain(service: "com.dvdblk.Notifire", accessGroup: NotifireUserSessionManager.keychainAccessGroup)
-    
+
     private func key(for username: String, key: String) -> String {
         return "\(username)\(key)"
     }
-    
+
     private func loadSession(username: String) -> NotifireUserSession? {
         guard let maybeRefreshToken = try? keychain.getString(key(for: username, key: Keys.refreshToken)), let refreshToken = maybeRefreshToken else { return nil }
         let userSession = NotifireUserSession(refreshToken: refreshToken, username: username)
@@ -39,7 +39,7 @@ class NotifireUserSessionManager {
         }
         return userSession
     }
-    
+
     // MARK: - Session Management
     func previousSession() -> NotifireUserSession? {
 //        var isFirstLaunch = false
@@ -57,12 +57,12 @@ class NotifireUserSessionManager {
 //        }
         return session
     }
-    
+
     func set(userSession: NotifireUserSession, deviceToken: String) {
         userSession.deviceToken = deviceToken
         try? keychain.set(deviceToken, key: key(for: userSession.username, key: Keys.deviceToken))
     }
-    
+
     func saveSession(userSession: NotifireUserSession) {
         try? keychain.set(userSession.username, key: Keys.loggedInUsername)
         try? keychain.set(userSession.username, key: key(for: userSession.username, key: Keys.username))
@@ -71,7 +71,7 @@ class NotifireUserSessionManager {
             try? keychain.set(deviceToken, key: key(for: userSession.username, key: Keys.deviceToken))
         }
     }
-    
+
     func removeSession(userSession: NotifireUserSession) {
         try? keychain.remove(Keys.loggedInUsername)
         for key in [Keys.refreshToken, Keys.deviceToken, Keys.username] {

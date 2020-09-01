@@ -8,15 +8,14 @@
 
 import UIKit
 
-
 class DynamicTableView: UITableView {
-    
+
     override var contentSize: CGSize {
         didSet {
             self.invalidateIntrinsicContentSize()
         }
     }
-    
+
     override var intrinsicContentSize: CGSize {
         layoutIfNeeded()
         return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)

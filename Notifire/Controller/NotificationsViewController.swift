@@ -13,11 +13,11 @@ protocol NotificationsViewControllerDelegate: class {
 }
 
 class NotificationsViewController: UIViewController, NavigationBarDisplaying, EmptyStatePresentable {
-    
+
     // MARK: - Properties
     let viewModel: NotificationsViewModel
     weak var delegate: NotificationsViewControllerDelegate?
-    
+
     // MARK: Views
     lazy var tableView: UITableView = {
         let table = UITableView()
@@ -36,15 +36,15 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
     // MARK: EmptyStatePresentable
     var emptyStateView: NotificationsEmptyStateView?
     typealias EmptyStateView = NotificationsEmptyStateView
-    
+
     // MARK: - Initialization
     init(viewModel: NotificationsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) { fatalError() }
-    
+
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,18 +55,18 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
         layout()
         updateViewStateAppearance(state: viewModel.viewState)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showNavBar()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.backgroundColor = .clear
         navigationController?.navigationBar.isTranslucent = true
     }
-    
+
     // MARK: - Private
     private func layout() {
         view.add(subview: tableView)
@@ -75,14 +75,14 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
-    
+
     private func prepareViewModel() {
         let configurationType = type(of: viewModel).configurationType
         tableView.register(configurationType.cellType, forCellReuseIdentifier: configurationType.reuseIdentifier)
         viewModel.onViewStateChange = { [weak self] state in
             self?.updateViewStateAppearance(state: state)
         }
-        
+
         viewModel.onCollectionUpdate = { [weak self] change in
             guard let tableView = self?.tableView else { return }
             switch change {
@@ -105,7 +105,7 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
             }
         }
     }
-    
+
     private func updateViewStateAppearance(state: NotificationsViewModel.ViewState) {
         switch state {
         case .empty:
@@ -122,11 +122,11 @@ extension NotificationsViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         delegate?.didSelect(notification: viewModel.collection[indexPath.row])
     }
-    
+
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let notification = viewModel.collection[indexPath.row]
         let isRead = notification.isRead
-        let changeReadAction = UIContextualAction(style: .normal, title: isRead ? "Unread" : "Read") { [weak self] (action, view, completion) in
+        let changeReadAction = UIContextualAction(style: .normal, title: isRead ? "Unread" : "Read") { [weak self] (_, _, completion) in
             self?.viewModel.swapNotificationReadUnread(notification: notification)
             completion(true)
             (tableView.cellForRow(at: indexPath) as? NotificationPresenting)?.updateNotificationReadView(from: notification)
@@ -136,11 +136,11 @@ extension NotificationsViewController: UITableViewDelegate {
         let config = UISwipeActionsConfiguration(actions: [changeReadAction])
         return config
     }
-    
+
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         return nil
     }
-    
+
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
     }
@@ -150,7 +150,7 @@ extension NotificationsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.collection.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let configuration = viewModel.cellConfiguration(for: indexPath.row)
         let cell = tableView.dequeueReusableCell(withIdentifier: type(of: configuration).reuseIdentifier, for: indexPath)
@@ -164,4 +164,3 @@ extension NotificationsViewController: ScrollReselectable {
         return tableView
     }
 }
-

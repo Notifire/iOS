@@ -9,17 +9,17 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-    
+
     // MARK: - Inherited
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupSubviews()
     }
-    
+
     // MARK: - Open
     /// Override this function if you want to provide custom view logic (e.g. layout). Called inside `viewDidLoad`. Default implementation does nothing.
     open func setupSubviews() {
-        
+
     }
 }

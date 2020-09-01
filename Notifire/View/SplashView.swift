@@ -9,20 +9,20 @@
 import UIKit
 
 class SplashView: ConstrainableView {
-    
+
     static let logoWidth: CGFloat = 100
     static let logoAspectRatio: CGFloat = 1.355
-    
+
     let iconImageView: UIImageView = {
         let view = UIImageView(image: #imageLiteral(resourceName: "default_service_image").withRenderingMode(.alwaysTemplate))
         view.tintColor = .white
         return view
     }()
-    
+
     // MARK: - Inherited
     override open func setupSubviews() {
         backgroundColor = .notifireMainColor
-        
+
         add(subview: iconImageView)
         iconImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true

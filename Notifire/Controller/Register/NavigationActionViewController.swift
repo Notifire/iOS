@@ -9,11 +9,11 @@
 import UIKit
 
 class NotifireActionNavigationController: UINavigationController {
-    
+
     // MARK: - Inherited
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationBar.barTintColor = .backgroundAccentColor
         navigationBar.prefersLargeTitles = true
         navigationItem.setHidesBackButton(true, animated: false)

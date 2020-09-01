@@ -9,7 +9,7 @@
 import Foundation
 
 class NotifireAPIManager: NotifireAPIManagerBase {
-    
+
     // MARK: - Requests
     // MARK: /account/register
     func register(username: String, email: String, password: String, completion: @escaping NotifireAPIManagerCallback<RegisterResponse>) {
@@ -18,7 +18,7 @@ class NotifireAPIManager: NotifireAPIManagerBase {
         let requestContext = NotifireAPIRequestContext(responseBodyType: RegisterResponse.self, notifireAPIRequest: request)
         perform(requestContext: requestContext, managerCompletion: completion)
     }
-    
+
     // MARK: /account/register/resend
     func resendConfirmEmail(usernameOrEmail: String, completion: @escaping NotifireAPIManagerCallback<ResendConfirmResponse>) {
         let body = ResendConfirmRequestBody(email: usernameOrEmail)
@@ -26,7 +26,7 @@ class NotifireAPIManager: NotifireAPIManagerBase {
         let requestContext = NotifireAPIRequestContext(responseBodyType: ResendConfirmResponse.self, notifireAPIRequest: request)
         perform(requestContext: requestContext, managerCompletion: completion)
     }
-    
+
     // MARK: /account/register/confirm
     func confirmAccount(emailToken: String, completion: @escaping NotifireAPIManagerCallback<VerifyAccountResponse>) {
         let body = ConfirmAccountRequestBody(token: emailToken)
@@ -34,7 +34,7 @@ class NotifireAPIManager: NotifireAPIManagerBase {
         let requestContext = NotifireAPIRequestContext(responseBodyType: VerifyAccountResponse.self, notifireAPIRequest: request)
         perform(requestContext: requestContext, managerCompletion: completion)
     }
-    
+
     // MARK: /account/check
     func checkValidity(option: CheckValidityOption, input: String, completion: @escaping NotifireAPIManagerCallback<CheckValidityResponse>) {
         let parameters = [option.rawValue: input]
@@ -42,7 +42,7 @@ class NotifireAPIManager: NotifireAPIManagerBase {
         let requestContext = NotifireAPIRequestContext(responseBodyType: CheckValidityResponse.self, notifireAPIRequest: request)
         perform(requestContext: requestContext, managerCompletion: completion)
     }
-    
+
     // MARK: /account/login
     func login(usernameOrEmail: String, password: String, completion: @escaping NotifireAPIManagerCallback<LoginResponse>) {
         let body = LoginRequestBody(username: usernameOrEmail, password: password)

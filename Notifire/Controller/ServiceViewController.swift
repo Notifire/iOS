@@ -15,11 +15,11 @@ protocol ServiceViewControllerDelegate: class {
 }
 
 class ServiceViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, NavigationBarDisplaying, NotifirePoppablePresenting {
-    
+
     // MARK: - Properties
     let viewModel: ServiceViewModel
     weak var delegate: ServiceViewControllerDelegate?
-    
+
     // MARK: Views
     let parentScrollView: UIScrollView = {
         let scroll = UIScrollView()
@@ -29,15 +29,15 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         scroll.delaysContentTouches = false
         return scroll
     }()
-    
+
     let titleLabel: UILabel = {
         let label = UILabel(style: .heavyTitle)
         label.alpha = 0
         return label
     }()
-    
+
     let serviceHeaderView = ServiceHeaderView()
-    
+
     lazy var notificationsHeaderView: ServiceNotificationsHeaderView = {
         let view = ServiceNotificationsHeaderView()
         view.notificationsButton.onProperTap = {
@@ -45,7 +45,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         }
         return view
     }()
-    
+
     lazy var tableView: DynamicTableView = {
         let table = DynamicTableView(frame: .zero, style: .grouped)
         table.dataSource = self
@@ -56,18 +56,18 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         table.register(ServiceAPIKeyTableViewCell.self, forCellReuseIdentifier: ServiceAPIKeyTableViewCell.identifier)
         return table
     }()
-    
+
     let tableViewMaskView: UIView = {
         let view = UIView()
         view.isUserInteractionEnabled = false
         view.backgroundColor = .blue
         return view
     }()
-    
+
     var childScrollView: UIScrollView {
         return tableView
     }
-    
+
     func levelCell(level: NotificationLevel, serviceLevelKeyPath: ReferenceWritableKeyPath<LocalService, Bool>) -> NotificationLevelTableViewCell {
         let cell = NotificationLevelTableViewCell()
         cell.model = NotificationLevelModel(level: level, enabled: viewModel.localService[keyPath: serviceLevelKeyPath])
@@ -78,21 +78,21 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         }
         return cell
     }
-    
+
     lazy var infoCell = levelCell(level: .info, serviceLevelKeyPath: \.info)
     lazy var warningCell = levelCell(level: .warning, serviceLevelKeyPath: \.warning)
     lazy var errorCell = levelCell(level: .error, serviceLevelKeyPath: \.error)
-    
+
     var gradientLayer: NotifireBackgroundLayer?
-    
+
     // MARK: - Initialization
     init(viewModel: ServiceViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) { fatalError() }
-    
+
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,7 +106,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "baseline_more_horiz_black_24pt"), style: .plain, target: self, action: #selector(didTapMoreOptions))
         updateUI()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateGradient()
@@ -114,29 +114,29 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         let headerViewTopY = y - notificationsHeaderView.frame.origin.y
         let maskViewY = headerViewTopY - notificationsHeaderView.bounds.height/2
         tableViewMaskView.frame = CGRect(origin: CGPoint(x: 0, y: maskViewY), size: CGSize(width: tableView.bounds.width, height: tableView.bounds.height-maskViewY))
-        
+
         // fix for serviceHeaderView not getting it's correct frame on the first layout pass
         serviceHeaderView.setNeedsLayout()
         serviceHeaderView.layoutIfNeeded()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideNavBar()
-        navigationController?.navigationBar.backgroundColor = .clear        
+        navigationController?.navigationBar.backgroundColor = .clear
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // set the delegate after getting presented to the screen
         parentScrollView.delegate = self
     }
-    
+
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard presented is NotifirePoppable else { return nil }
         return NotifirePopAnimationController()
     }
-    
+
     // MARK: - Private
     private func setupTitleView() {
         let titleLabelContainerView = UIView()
@@ -148,7 +148,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         titleLabelContainerView.translatesAutoresizingMaskIntoConstraints = true
         navigationItem.titleView = titleLabelContainerView
     }
-    
+
     private func prepareViewModel() {
         viewModel.onServiceUpdate = { [weak self] service in
             self?.updateUI()
@@ -158,11 +158,11 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
             self.delegate?.didDelete(service: self.viewModel.localService)
         }
     }
-    
+
     private func layout() {
         view.add(subview: parentScrollView)
         parentScrollView.embed(in: view)
-        
+
         let content = UIView()
         parentScrollView.add(subview: content)
         content.topAnchor.constraint(equalTo: parentScrollView.topAnchor).isActive = true
@@ -176,31 +176,31 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         contentYCenterToScrollViewYCenter.priority = UILayoutPriority(rawValue: 250)
         contentYCenterToScrollViewYCenter.isActive = true
         content.centerXAnchor.constraint(equalTo: parentScrollView.centerXAnchor).isActive = true
-        
+
         content.add(subview: serviceHeaderView)
         serviceHeaderView.topAnchor.constraint(equalTo: content.topAnchor).isActive = true
         serviceHeaderView.leadingAnchor.constraint(equalTo: content.leadingAnchor).isActive = true
         serviceHeaderView.trailingAnchor.constraint(equalTo: content.trailingAnchor).isActive = true
-        
+
         content.add(subview: tableView)
         tableView.leadingAnchor.constraint(equalTo: content.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: content.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: content.bottomAnchor).isActive = true
-        
+
         content.add(subview: notificationsHeaderView)
         notificationsHeaderView.leadingAnchor.constraint(equalTo: content.leadingAnchor).isActive = true
         notificationsHeaderView.trailingAnchor.constraint(equalTo: content.trailingAnchor).isActive = true
         notificationsHeaderView.centerYAnchor.constraint(equalTo: serviceHeaderView.bottomAnchor).isActive = true
         notificationsHeaderView.bottomAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
     }
-    
+
     private func addScrollViewGradientLayer() {
         guard gradientLayer == nil else { return }
         let gradient = NotifireBackgroundLayer()
         view.layer.insertSublayer(gradient, at: 0)
         gradientLayer = gradient
     }
-    
+
     private func updateUI() {
         let service = viewModel.localService
         titleLabel.text = service.name
@@ -210,18 +210,18 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         errorCell.levelSwitch.setOn(service.error, animated: true)
         tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .fade)
     }
-    
+
     // MARK: Event Handlers
     @objc private func didTapMoreOptions() {
         let options = UIAlertController(title: "", message: "Service options", preferredStyle: .actionSheet)
         options.addAction(UIAlertAction(title: "Change service image", style: .default, handler: { _ in
-            
+
         }))
         options.addAction(UIAlertAction(title: "Set default image", style: .default, handler: { _ in
-            
+
         }))
         options.addAction(UIAlertAction(title: "Rename this service", style: .default, handler: { _ in
-            
+
         }))
         options.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
             options.dismiss(animated: true, completion: nil)
@@ -239,11 +239,11 @@ extension ServiceViewController: UITableViewDataSource {
         default: return 0
         }
     }
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
@@ -273,7 +273,7 @@ extension ServiceViewController: UITableViewDataSource {
                 cell.textLabel?.set(style: .notifirePositive)
                 return cell
             }
-            
+
         case 2, 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "serviceTableViewCell") else {
                 return UITableViewCell()
@@ -290,14 +290,14 @@ extension ServiceViewController: UITableViewDataSource {
             return UITableViewCell()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 1 && indexPath.row == 0 {
             return UITableView.automaticDimension
         }
         return Size.Cell.height
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
@@ -308,7 +308,7 @@ extension ServiceViewController: UITableViewDataSource {
             return ""
         }
     }
-    
+
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch section {
         case 0:
@@ -321,14 +321,14 @@ extension ServiceViewController: UITableViewDataSource {
             return ""
         }
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 2 {
             return Size.Cell.height * 2
         }
         return UIView.noIntrinsicMetric
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 2 {
             return UIView()
@@ -345,7 +345,7 @@ extension ServiceViewController: UITableViewDelegate {
             return true
         }
     }
-    
+
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if indexPath.section == 0 || (indexPath.section == 1 && indexPath.row == 0) {
             return nil
@@ -353,7 +353,7 @@ extension ServiceViewController: UITableViewDelegate {
             return indexPath
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 1 && indexPath.row == 1 {
@@ -392,7 +392,7 @@ extension ServiceViewController: UITableViewDelegate {
                         guard let `self` = self else { return }
                         let deleted = self.viewModel.deleteServiceNotifications()
                         let afterDeletionAlert = NotifireAlertViewController(alertTitle: deleted ? "Success!" : "Something went wrong.", alertText: deleted ? "Notifications for \(self.viewModel.localService.name) were deleted." : "Restart the application and try again.")
-                        afterDeletionAlert.add(action:  NotifireAlertAction(title: "Ok", style: .neutral, handler: { _ in
+                        afterDeletionAlert.add(action: NotifireAlertAction(title: "Ok", style: .neutral, handler: { _ in
                             afterDeletionAlert.dismiss(animated: true, completion: nil)
                         }))
                         self.present(alert: afterDeletionAlert, animated: true, completion: nil)
@@ -428,7 +428,7 @@ extension ServiceViewController: UITableViewDelegate {
             // fix for the serviceHeaderView not getting layed out after scrolling too fast
             serviceHeaderView.floatingTopToTopConstraint.constant = 0
         }
-        
+
         // sticky ServiceNotificationsHeaderView
         let shouldStickNotificationsHeaderView = y >= notificationsHeaderView.frame.origin.y
         if shouldStickNotificationsHeaderView {
@@ -441,7 +441,7 @@ extension ServiceViewController: UITableViewDelegate {
             tableViewMaskView.frame = tableView.bounds
         }
         notificationsHeaderView.gradientVisible = shouldStickNotificationsHeaderView
-        
+
         // titleLabel displaying
         let buttonY = view.convert(CGPoint.zero, from: notificationsHeaderView.notificationsButton).y
         let labelY = view.convert(CGPoint.zero, from: serviceHeaderView.serviceNameLabel).y
@@ -455,11 +455,11 @@ extension ServiceViewController: UITableViewDelegate {
         } else {
             titleLabel.alpha = 0
         }
-        
+
         // gradient
         updateGradient()
     }
-    
+
     func updateGradient() {
         let newGradientHeight = notificationsHeaderView.frame.origin.y-parentScrollView.contentOffset.y
         if newGradientHeight >= parentScrollView.adjustedContentInset.top {
@@ -481,7 +481,7 @@ extension ServiceViewController: ScrollReselectable {
     var scrollView: UIScrollView {
         return parentScrollView
     }
-    
+
     var topContentOffset: CGPoint {
         return CGPoint(x: 0, y: -parentScrollView.adjustedContentInset.top)
     }

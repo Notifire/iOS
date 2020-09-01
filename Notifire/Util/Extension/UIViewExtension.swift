@@ -14,14 +14,14 @@ extension UIView {
         addSubview(subview)
         subview.translatesAutoresizingMaskIntoConstraints = false
     }
-    
+
     func embed(in superview: UIView) {
         leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
         trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
         bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
         topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
     }
-    
+
     func toCircle() {
         layer.cornerRadius = bounds.height / 2
         clipsToBounds = true
@@ -46,11 +46,11 @@ extension UITableView {
     func dontShowEmptyCells() {
         tableFooterView = UIView()
     }
-    
+
     func removeLastSeparatorAndDontShowEmptyCells() {
         tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: 1))
     }
-    
+
     func reloadDataWithoutMoving() {
         let beforeContentSize = contentSize
         let beforeContentOffset = contentOffset

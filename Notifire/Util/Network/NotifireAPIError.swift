@@ -15,7 +15,7 @@ enum NotifireAPIError: Error, CustomStringConvertible {
     case invalidStatusCode(Int)
     case invalidResponseBody(NotifireAPIDecodable.Type)
     case urlsession(error: Error)
-    
+
     public var description: String {
         switch self {
         case .unknown: return "unknown"

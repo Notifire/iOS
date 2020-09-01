@@ -1,30 +1,20 @@
 PODS:
   - KeychainAccess (4.2.0)
-  - Realm (5.3.5):
-    - Realm/Headers (= 5.3.5)
-  - Realm/Headers (5.3.5)
-  - RealmSwift (5.3.5):
-    - Realm (= 5.3.5)
   - SwiftLint (0.39.2)
 
 DEPENDENCIES:
   - KeychainAccess (= 4.2.0)
-  - RealmSwift (= 5.3.5)
   - SwiftLint (= 0.39.2)
 
 SPEC REPOS:
   trunk:
     - KeychainAccess
-    - Realm
-    - RealmSwift
     - SwiftLint
 
 SPEC CHECKSUMS:
   KeychainAccess: 3f760109aa99b05d0f231e28b22642da7153e38a
-  Realm: 2b52fcc86fc0ed3d75a56ac0eb1e73c4f1a60e16
-  RealmSwift: a6ea2ea561039fc3833c08dec81371a9a3bb5ca6
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
 
-PODFILE CHECKSUM: 737c1128b9a39da2d5b7a072adfd09187618c1a3
+PODFILE CHECKSUM: ca077e6d891ae14fce3de5b31e3288f414b60826
 
 COCOAPODS: 1.9.3

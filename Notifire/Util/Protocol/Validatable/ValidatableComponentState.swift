@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 enum ValidatableComponentState {
     case neutral
     case validating

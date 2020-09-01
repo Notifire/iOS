@@ -12,4 +12,3 @@ struct HTTPHeader {
     let field: String
     let value: String
 }
-

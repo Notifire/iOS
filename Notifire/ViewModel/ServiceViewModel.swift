@@ -10,12 +10,12 @@ import Foundation
 import RealmSwift
 
 class ServiceViewModel: APIFailable {
-    
+
     enum APIGenerationResult {
         case success
         case wrongPassword
     }
-    
+
     // MARK: - Properties
     let localService: LocalService
     let userSessionHandler: NotifireUserSessionHandler
@@ -26,26 +26,26 @@ class ServiceViewModel: APIFailable {
         return userSessionHandler.realm
     }
     private var serviceToken: NotificationToken?
-    
+
     // MARK: Model
     var isKeyVisible: Bool = false
-    
+
     // MARK: Callbacks
     var onError: ((NotifireAPIManager.ManagerResultError) -> Void)?
     var onServiceUpdate: ((LocalService) -> Void)?
     var onServiceDeletion: (() -> Void)?
-    
+
     // MARK: - Initialization
     init(localService: LocalService, sessionHandler: NotifireUserSessionHandler) {
         self.localService = localService
         self.userSessionHandler = sessionHandler
         setupLocalServicesTokenIfNeeded()
     }
-    
+
     deinit {
         serviceToken?.invalidate()
     }
-    
+
     // MARK: - Private
     private func setupLocalServicesTokenIfNeeded() {
         guard serviceToken == nil else { return }
@@ -61,7 +61,7 @@ class ServiceViewModel: APIFailable {
             }
         })
     }
-    
+
     private func updateLocalServiceFromRemote(service: Service) {
         guard localService.uuid == service.uuid, let localUpdatedAt = localService.updatedAt, let updatedAt = service.updatedAt, localUpdatedAt < updatedAt else {
             return
@@ -70,7 +70,7 @@ class ServiceViewModel: APIFailable {
             self.localService.updateDataExceptUUID(from: service)
         }
     }
-    
+
     private func updateRemoteService() {
         protectedApiManager.update(service: localService) { [weak self] result in
             guard let `self` = self else { return }
@@ -82,15 +82,14 @@ class ServiceViewModel: APIFailable {
             }
         }
     }
-    
+
     private func deleteLocalService() {
         try? realm.write {
             realm.delete(localService.notifications)
             realm.delete(localService)
         }
     }
-    
-    
+
     // MARK: - Methods
     func deleteService() {
         protectedApiManager.delete(service: localService) { [weak self] result in
@@ -115,7 +114,7 @@ class ServiceViewModel: APIFailable {
         try? realm.commitWrite(withoutNotifying: tokens)
         updateRemoteService()
     }
-    
+
     func generateNewAPIKey(password: String, completion: @escaping (APIGenerationResult) -> Void) {
         protectedApiManager.changeApiKey(for: localService, password: password) { [weak self] result in
             switch result {
@@ -126,7 +125,7 @@ class ServiceViewModel: APIFailable {
             }
         }
     }
-    
+
     func deleteServiceNotifications() -> Bool {
         do {
             try realm.write {

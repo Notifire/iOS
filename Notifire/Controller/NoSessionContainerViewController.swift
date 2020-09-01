@@ -9,16 +9,16 @@
 import UIKit
 
 class NoSessionContainerViewController: UIViewController, AppRevealing {
-    
+
     func presentCoverVertical(viewController: UIViewController) {
         viewController.willMove(toParent: self)
         viewController.beginAppearanceTransition(true, animated: true)
         addChild(viewController)
-        
+
         let bounds = view.bounds
         let initialTransform = CGAffineTransform(translationX: 0, y: bounds.height)
         viewController.view.transform = initialTransform
-        
+
         view.addSubview(viewController.view)
         let animator = UIViewPropertyAnimator(duration: Animation.Duration.loginVCCoverVerticalTransition, dampingRatio: 1) {
             viewController.view.transform = .identity
@@ -30,13 +30,13 @@ class NoSessionContainerViewController: UIViewController, AppRevealing {
         }
         animator.startAnimation()
     }
-    
+
     func dismissVertical(viewController: UIViewController) {
         viewController.willMove(toParent: nil)
-        
+
         let bounds = view.bounds
         let finalTransform = CGAffineTransform(translationX: 0, y: bounds.height)
-        
+
         let animator = UIViewPropertyAnimator(duration: Animation.Duration.loginVCCoverVerticalTransition, dampingRatio: 1) {
             viewController.view.transform = finalTransform
         }

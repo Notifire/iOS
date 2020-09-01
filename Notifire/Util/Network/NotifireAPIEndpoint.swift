@@ -14,7 +14,7 @@ enum NotifireAPIEndpoint: String, CustomStringConvertible {
     case resendConfirm = "/account/resend"
     case confirmAccount = "/account/confirm"
     case login = "/account/login"
-    
+
     var description: String {
         return rawValue
     }
@@ -27,7 +27,7 @@ enum NotifireProtectedAPIEndpoint: String, CustomStringConvertible {
     case service = "/service"
     case serviceKey = "/service/key"
     case password = "/password"
-    
+
     var description: String {
         return rawValue
     }

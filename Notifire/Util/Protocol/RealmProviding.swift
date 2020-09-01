@@ -14,9 +14,9 @@ protocol RealmProviding {
 }
 
 class RealmProvider: RealmProviding {
-    
+
     private let userConfiguration: Realm.Configuration
-    
+
     init?(userSession: NotifireUserSession) {
         guard let configuration = RealmManager.createUserConfiguration(from: userSession) else {
             return nil
@@ -30,19 +30,19 @@ class RealmProvider: RealmProviding {
             return nil
         }
     }
-    
+
     var realm: Realm {
         return try! Realm(configuration: userConfiguration)
     }
 }
 
 class NotificationReadUnreadManager {
-    
+
     static func markNotificationAsRead(notification: LocalNotifireNotification, realm: Realm) {
         guard !notification.isRead else { return }
         swapNotificationReadStatus(notification: notification, realm: realm)
     }
-    
+
     static func swapNotificationReadStatus(notification: LocalNotifireNotification, realm: Realm) {
         let isRead = notification.isRead
         try? realm.write {

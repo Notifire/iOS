@@ -9,22 +9,22 @@
 import UIKit
 
 class NotifireAnimatedView: ConstrainableView {
-    
+
     enum BoostIntensity {
         case normal
         case huge
     }
-    
+
     // MARK: - Properties
     let notifireView = NotifireView()
-    
+
     var isAnimating: Bool = false {
         didSet {
             guard isAnimating != oldValue else { return }
             notifireView.isAnimating = isAnimating
         }
     }
-    
+
     // MARK: - Inherited
     override open class var layerClass: AnyClass { return NotifireBackgroundLayer.self }
 
@@ -39,7 +39,7 @@ class NotifireAnimatedView: ConstrainableView {
         notifireView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3).isActive = true
         notifireView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
-    
+
     // MARK: - Public
     public func boost(intensity: BoostIntensity = .normal) {
         notifireView.boostSpeed()

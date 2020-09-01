@@ -9,12 +9,12 @@
 import UIKit
 
 extension UIColor {
-    
+
     convenience init(red: CGFloat, green: CGFloat, blue: CGFloat) {
         let divisor: CGFloat = 255
         self.init(red: red/divisor, green: green/divisor, blue: blue/divisor, alpha: 1.0)
     }
-    
+
     static let backgroundColor = UIColor(red: 255, green: 250, blue: 247)
     static let backgroundAccentColor = UIColor.white
     static let spinnerColor = UIColor(red: 200, green: 200, blue: 200)

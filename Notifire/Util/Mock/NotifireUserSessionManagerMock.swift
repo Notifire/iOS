@@ -9,19 +9,19 @@
 import Foundation
 
 class NotifireUserSessionManagerMock: NotifireUserSessionManager {
-    
+
     enum SessionState {
         case mockSession
         case noSession
     }
-    
+
     let sessionState: SessionState
-    
+
     // MARK: - Initialization
     init(sessionState: SessionState = .mockSession) {
         self.sessionState = sessionState
     }
-    
+
     // MARK: - Inherited
     override func previousSession() -> NotifireUserSession? {
         switch sessionState {

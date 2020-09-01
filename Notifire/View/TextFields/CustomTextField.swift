@@ -9,47 +9,47 @@
 import UIKit
 
 class CustomTextField: UITextField {
-    
+
     // MARK: LayerAppearance
     enum LayerAppearance {
         case neutral
         case negative
         case positive
     }
-    
+
     // MARK: - Properties
     static let padding = UIEdgeInsets(top: 0, left: Theme.defaultCornerRadius*2, bottom: 0, right: Theme.defaultCornerRadius*4)
-    
+
     // MARK: - Inherited
     init() {
         super.init(frame: .zero)
         setup()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-    
+
     override func resignFirstResponder() -> Bool {
         let resigned = super.resignFirstResponder()
         layoutIfNeeded()
         return resigned
     }
-    
+
     // MARK: Sizing
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: Size.componentHeight)
     }
-    
+
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: CustomTextField.padding)
     }
-    
+
     override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: CustomTextField.padding)
     }
-    
+
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: CustomTextField.padding)
     }
@@ -60,20 +60,20 @@ class CustomTextField: UITextField {
         layer.cornerRadius = Theme.defaultCornerRadius
         clearButtonMode = .whileEditing
         autocapitalizationType = .none
-        
+
         // colors
         backgroundColor = .textFieldBackgroundColor
         tintColor = .notifireMainColor
-        
+
         setLayer(appearance: .neutral)
     }
-    
+
     // MARK: - Public
     public func setPlaceholder(text: String) {
         let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]
         attributedPlaceholder = NSAttributedString(string: text, attributes: attributes)
     }
-    
+
     public func setLayer(appearance: LayerAppearance) {
         switch appearance {
         case .neutral:

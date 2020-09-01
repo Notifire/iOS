@@ -14,10 +14,10 @@ protocol KeyboardDismissing {
 
 extension KeyboardDismissing {
     func setupKeyboardDismissing() {
-        
+
     }
 }
 
 extension KeyboardDismissing where Self: UIView {
-    
+
 }

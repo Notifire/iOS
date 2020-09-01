@@ -9,10 +9,10 @@
 import UIKit
 
 class NotificationDetailViewController: UIViewController, NavigationBarDisplaying, NotifirePoppablePresenting {
-    
+
     // MARK: - Properties
     let viewModel: NotificationDetailViewModel
-    
+
     // MARK: Views
     lazy var tableView: UITableView = {
         let table = UITableView()
@@ -24,15 +24,15 @@ class NotificationDetailViewController: UIViewController, NavigationBarDisplayin
         table.alwaysBounceVertical = false
         return table
     }()
-    
+
     // MARK: - Initialization
     init(viewModel: NotificationDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) { fatalError() }
-    
+
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,22 +40,22 @@ class NotificationDetailViewController: UIViewController, NavigationBarDisplayin
         prepareViewModel()
         layout()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideNavBar()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.markNotificationAsRead()
     }
-    
+
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard presented is NotifirePoppable else { return nil }
         return NotifirePopAnimationController()
     }
-    
+
     // MARK: - Private
     private func setTitle() {
         let date = viewModel.notification.date.string(with: .complete)
@@ -72,16 +72,16 @@ class NotificationDetailViewController: UIViewController, NavigationBarDisplayin
         dateLabel.attributedText = dateText
         navigationItem.titleView = dateLabel
     }
-    
+
     private func prepareViewModel() {
         viewModel.items.forEach { tableView.register(type(of: $0).cellType, forCellReuseIdentifier: type(of: $0).reuseIdentifier)}
     }
-    
+
     private func layout() {
         view.add(subview: tableView)
         tableView.embed(in: view)
     }
-    
+
     private func setTapOn(urlCell: NotificationDetailURLCell) {
         urlCell.onURLTap = { url in
             let alert = NotifireAlertViewController(alertTitle: "Warning", alertText: "You are about to be redirected to an external URL. Are you sure you want to proceed?")
@@ -112,9 +112,8 @@ extension NotificationDetailViewController: UITableViewDataSource {
         }
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.items.count
     }
 }
-

@@ -8,23 +8,22 @@
 
 import UIKit
 
-
-class NotifireBackgroundLayer: CAGradientLayer {    
+class NotifireBackgroundLayer: CAGradientLayer {
     // MARK: - Lifecycle
     override init() {
         super.init()
         setup()
     }
-    
+
     override init(layer: Any) {
         super.init(layer: layer)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-    
+
     // MARK: - Private
     private func setup() {
         // gradient setup
@@ -32,7 +31,7 @@ class NotifireBackgroundLayer: CAGradientLayer {
         locations = [0, 0.96]
         opacity = 1
     }
-    
+
     func setFrameWithoutAnimation(_ newFrame: CGRect) {
         CATransaction.withDisabledActions {
             frame = newFrame

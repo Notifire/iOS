@@ -9,7 +9,7 @@
 import Foundation
 
 class ComponentValidator {
-    
+
     // MARK: - Properties
     var allComponentsValid: Bool = false {
         didSet {
@@ -21,23 +21,23 @@ class ComponentValidator {
     var components: [ValidatableComponent]
     var afterValidationCallback: ((Bool) -> Void)?
     let apiManager: NotifireAPIManager
-    
+
     // MARK: - Initialization
     init(components: [ValidatableComponent], apiManager: NotifireAPIManager) {
         self.components = components
         self.apiManager = apiManager
     }
-    
+
     deinit {
         components = []
     }
-    
+
     // MARK: - Validation
     func updateComponentsValidity() {
         let validComponents = components.filter { $0.isValid }.count
         allComponentsValid = validComponents == components.count
     }
-    
+
     func validate(component: ValidatableComponent) {
         let currentText = component.validatableInput
         func setComponent(state: ValidatableComponentState) {
@@ -69,7 +69,7 @@ class ComponentValidator {
         guard let firstRule = ruleIterator.next() else { return }
         isRuleObeyed(rule: firstRule, in: currentText, completion: handler)
     }
-    
+
     ///
     /// returns:
     ///    - `true` if the rule is obeyed, false otherwise

@@ -9,7 +9,7 @@
 import UIKit
 
 class NotificationsCoordinator: TabbedCoordinator {
-    
+
     // MARK: - Properties
     let notificationsViewController: NotificationsViewController
     let navigationController: UINavigationController
@@ -18,7 +18,7 @@ class NotificationsCoordinator: TabbedCoordinator {
     var viewController: UIViewController {
         return navigationController
     }
-    
+
     // MARK: - Initialization
     init(navigationController: UINavigationController, notificationsViewModel: NotificationsViewModel) {
         self.navigationController = navigationController
@@ -27,7 +27,7 @@ class NotificationsCoordinator: TabbedCoordinator {
         self.notificationsViewController = notificationsViewController
         notificationsViewController.delegate = self
     }
-    
+
     func start() {
         guard navigationController.viewControllers.isEmpty else {
             navigationController.pushViewController(notificationsViewController, animated: true)
@@ -36,7 +36,7 @@ class NotificationsCoordinator: TabbedCoordinator {
         // first VC
         navigationController.setViewControllers([notificationsViewController], animated: false)
     }
-    
+
     func showDetailed(notification: LocalNotifireNotification) {
         let notificationDetailVM = NotificationDetailViewModel(realmProvider: realmProvider, notification: notification)
         let notificationDetailVC = NotificationDetailViewController(viewModel: notificationDetailVM)

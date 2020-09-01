@@ -8,37 +8,36 @@
 
 import UIKit
 
-
 class ConfirmEmailViewModel: APIFailable, UserErrorFailable {
-    
+
     typealias UserError = VerifyAccountUserError
-    
+
     // MARK: - Properties
     // MARK: APIFailable
     let notifireApiManager: NotifireAPIManager
     var onError: ((NotifireAPIManager.ManagerResultError) -> Void)?
     var onUserError: ((VerifyAccountUserError) -> Void)?
-    
+
     // MARK: Model
     let token: String
-    
+
     var loading: Bool = false {
         didSet {
             guard oldValue != loading else { return }
             onLoadingChange?(loading)
         }
     }
-    
+
     // MARK: Callbacks
     var onLoadingChange: ((Bool) -> Void)?
     var onConfirmation: ((NotifireUserSession) -> Void)?
-    
+
     // MARK: - Initialization
     init(notifireApiManager: NotifireAPIManager = NotifireAPIManagerFactory.createAPIManager(), token: String) {
         self.notifireApiManager = notifireApiManager
         self.token = token
     }
-    
+
     // MARK: - Methods
     func confirmAccount() {
         loading = true

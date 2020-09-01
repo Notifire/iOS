@@ -14,7 +14,7 @@ protocol RegisterViewControllerDelegate: class {
 }
 
 class RegisterViewController: BottomNavigatorViewController, CenterStackViewPresenting {
-    
+
     // MARK: - Properties
     let viewModel: RegisterViewModel
     weak var delegate: RegisterViewControllerDelegate?
@@ -25,27 +25,27 @@ class RegisterViewController: BottomNavigatorViewController, CenterStackViewPres
         textField.setPlaceholder(text: "Enter your username")
         return textField
     }()
-    
+
     let emailTextField: CustomTextField = {
         let textField = CustomTextField()
         textField.setPlaceholder(text: "Enter your email")
         return textField
     }()
-    
+
     let passwordTextField: CustomTextField = {
         let textField = CustomTextField()
         textField.isSecureTextEntry = true
         textField.setPlaceholder(text: "Password")
         return textField
     }()
-    
+
     let signUpButton: NotifireButton = {
         let button = NotifireButton()
         button.isEnabled = false
         button.setTitle("Sign up", for: .normal)
         return button
     }()
-    
+
     lazy var usernameTextInput: ValidatableTextInput = {
         let input = ValidatableTextInput(textField: usernameTextField)
         input.rules = [
@@ -59,7 +59,7 @@ class RegisterViewController: BottomNavigatorViewController, CenterStackViewPres
         input.showsValidState = true
         return input
     }()
-    
+
     lazy var emailTextInput: ValidatableTextInput = {
         let input = ValidatableTextInput(textField: emailTextField)
         input.rules = [
@@ -70,7 +70,7 @@ class RegisterViewController: BottomNavigatorViewController, CenterStackViewPres
         input.showsValidState = true
         return input
     }()
-    
+
     lazy var passwordTextInput: ValidatableTextInput = {
         let input = ValidatableTextInput(textField: passwordTextField)
         input.rules = [
@@ -79,21 +79,21 @@ class RegisterViewController: BottomNavigatorViewController, CenterStackViewPres
         ]
         return input
     }()
-    
+
     // MARK: - Initialization
     init(viewModel: RegisterViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         viewModel.createComponentValidator(with: [usernameTextInput, emailTextInput, passwordTextInput])
     }
-    
+
     required init?(coder aDecoder: NSCoder) { fatalError() }
-    
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Register"
-        
+
         // gestures
         addKeyboardDismissOnTap(to: view)
         let textFields = [usernameTextField, emailTextField, passwordTextField]
@@ -105,7 +105,7 @@ class RegisterViewController: BottomNavigatorViewController, CenterStackViewPres
         viewModel.afterValidation = { [weak self] success in
             self?.signUpButton.isEnabled = success
         }
-        
+
         signUpButton.onProperTap = { [unowned self] in // unowned when we are tapping
             self.signUpButton.startLoading()
             self.dismissKeyboard()
@@ -136,10 +136,10 @@ class RegisterViewController: BottomNavigatorViewController, CenterStackViewPres
                     }
                 }
             }
-            
+
         }
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         usernameTextField.text = ""
@@ -152,7 +152,7 @@ class RegisterViewController: BottomNavigatorViewController, CenterStackViewPres
         viewModel.password = ""
         viewModel.email = ""
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         usernameTextField.becomeFirstResponder()
@@ -161,19 +161,19 @@ class RegisterViewController: BottomNavigatorViewController, CenterStackViewPres
     // MARK: - Inherited
     override func setupSubviews() {
         super.setupSubviews()
-        
+
         // textfields
         let stackView = insertStackView(arrangedSubviews: [usernameTextInput, emailTextInput, passwordTextInput, signUpButton], spacing: Size.textFieldSpacing)
         stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Size.componentSpacing*3).isActive = true
-        
+
         tappableLabel.setLinked(text: "Already using Notifire? Sign in.", link: "Sign in")
     }
-    
+
     // MARK: - Event Handlers
     override func didTapTappableLabel() {
         delegate?.shouldFinishRegistration()
     }
-    
+
     // MARK: TextField
     @objc func didChange(textField: UITextField) {
         let componentToValidate: ValidatableTextInput
@@ -189,7 +189,7 @@ class RegisterViewController: BottomNavigatorViewController, CenterStackViewPres
         }
         viewModel.validate(component: componentToValidate)
     }
-    
+
     @objc func didStopEditing(textField: UITextField) {
         if textField == usernameTextField {
             emailTextField.becomeFirstResponder()

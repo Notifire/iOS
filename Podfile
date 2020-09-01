@@ -10,7 +10,9 @@ target 'Notifire' do
   # Pods for Notifire
   pod 'SwiftLint', '0.39.2'
   pod 'KeychainAccess', '4.2.0'
-  pod 'RealmSwift', '5.3.5', :inhibit_warnings => true
+
+  target 'Notifire Mock' do
+  end
 
   #target 'NotifireTests' do
   #  inherit! :search_paths

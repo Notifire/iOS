@@ -1,0 +1,18 @@
+//
+//  TestFlight.xcconfig
+//  Notifire
+//
+//  Created by David Bielik on 31/08/2020.
+//  Copyright © 2020 David Bielik. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include "Pods/Target Support Files/Pods-Notifire/Pods-Notifire.testflight.xcconfig"
+SLASH=/
+API_URL = https:$(SLASH)/api.notifire.dvdblk.com
+
+// App name + bundle ID
+APP_DISPLAY_NAME=Notifire TF
+PRODUCT_BUNDLE_IDENTIFIER=com.dvdblk.Notifire.tf

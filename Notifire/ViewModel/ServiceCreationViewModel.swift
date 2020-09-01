@@ -9,16 +9,16 @@
 import Foundation
 
 class ServiceCreationViewModel: InputValidatingViewModel, APIFailable {
-    
+
     // MARK: - Properties
     let protectedApiManager: NotifireProtectedAPIManager
-    
+
     // MARK: Callbacks
     var onSuccess: ((Service) -> Void)?
     var onLoadingChange: ((Bool) -> Void)?
     // MARK: APIFailable
     var onError: ((NotifireAPIManager.ManagerResultError) -> Void)?
-    
+
     // MARK: Model
     var serviceName: String = ""
     var loading: Bool = false {
@@ -29,12 +29,12 @@ class ServiceCreationViewModel: InputValidatingViewModel, APIFailable {
     }
     // TODO: image
     let image: String = ""
-    
+
     // MARK: - Initialization
     init(protectedApiManager: NotifireProtectedAPIManager) {
         self.protectedApiManager = protectedApiManager
     }
-    
+
     // MARK: - Methods
     func createService() {
         guard !loading else { return }

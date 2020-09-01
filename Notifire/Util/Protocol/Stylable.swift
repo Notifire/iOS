@@ -29,18 +29,18 @@ enum LabelStyle {
 
 protocol Stylable {
     associatedtype Style
-    
+
     func set(style: Style)
 }
 
 extension UILabel: Stylable {
     typealias Style = LabelStyle
-    
+
     convenience init(style: LabelStyle) {
         self.init(frame: .zero)
         set(style: style)
     }
-    
+
     func set(style: UILabel.Style) {
         numberOfLines = 0
         switch style {

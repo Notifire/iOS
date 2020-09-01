@@ -12,7 +12,7 @@ enum NotificationLevel: String, CustomStringConvertible, Decodable {
     case info = "info"
     case warning = "warning"
     case error = "error"
-    
+
     var emoji: String {
         switch self {
         case .info: return "ℹ️"
@@ -20,7 +20,7 @@ enum NotificationLevel: String, CustomStringConvertible, Decodable {
         case .error: return "❗️"
         }
     }
-    
+
     var description: String {
         switch self {
         case .info: return "Information"

@@ -9,7 +9,7 @@
 import UIKit
 
 class ServicesEmptyStateView: ConstrainableView, CenterStackViewPresenting {
-    
+
     // MARK: - Properties
     // MARK: Views
     let titleLabel: UILabel = {
@@ -19,31 +19,31 @@ class ServicesEmptyStateView: ConstrainableView, CenterStackViewPresenting {
         label.numberOfLines = 1
         return label
     }()
-    
+
     let textLabel: UILabel = {
         let label = UILabel(style: .dimmedInformation)
         label.text = "What are you waiting for?"
         label.textAlignment = .center
         return label
     }()
-    
+
     let serviceButton: UIButton = {
         let button = NotifireButton()
         button.setTitle("Create a service", for: .normal)
         return button
     }()
-    
+
     // MARK: - Inherited
     override func setupSubviews() {
         layout()
         backgroundColor = .backgroundColor
     }
-    
+
     private func layout() {
         let stackView = insertStackView(arrangedSubviews: [titleLabel, textLabel, serviceButton], spacing: Size.textFieldSpacing)
         stackView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         stackView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
+
         stackView.setCustomSpacing(Size.componentSpacing * 2, after: textLabel)
     }
 }

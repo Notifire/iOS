@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1160"
-   version = "1.3">
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "#!/bin/bash&#10;&#10;buildID=${PRODUCT_BUNDLE_IDENTIFIER}&#10;extId=&quot;NotificationServiceExtension&quot;&#10;&#10;/usr/libexec/PlistBuddy -c &quot;Set :CFBundleIdentifier $buildID.$extId&quot; &quot;${SRCROOT}/${extId}/Info.plist&quot;&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "89B3EC442020E4900068BA64"
+                     BuildableName = "Notifire.app"
+                     BlueprintName = "Notifire"
+                     ReferencedContainer = "container:Notifire.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"

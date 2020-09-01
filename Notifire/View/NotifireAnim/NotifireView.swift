@@ -9,12 +9,12 @@
 import UIKit
 
 class NotifireView: ConstrainableView {
-    
+
     // MARK: - Properties
     private var timer: Timer?
-    
+
     override open class var layerClass: AnyClass { return NotifireLayer.self }
-    
+
     var isAnimating = false {
         didSet {
             guard isAnimating != oldValue, let layer = layer as? NotifireLayer else { return }
@@ -25,7 +25,7 @@ class NotifireView: ConstrainableView {
             }
         }
     }
-    
+
     // MARK: - Inherited
     override func setupSubviews() {
         (layer as? NotifireLayer)?.fireLayersSettings = [
@@ -34,12 +34,12 @@ class NotifireView: ConstrainableView {
             FireLayerProperties(fillColor: .yellow, opacity: 1, translationY: 20, relativeScaleFactor: (0.5, 0.5))
         ]
     }
-    
+
     deinit {
         // cleanup
         timer?.invalidate()
     }
-    
+
     // MARK: - Private
     private func startDecreasingSpeedIfNeeded() {
         guard self.timer == nil else { return }
@@ -54,7 +54,7 @@ class NotifireView: ConstrainableView {
             }
         })
     }
-    
+
     // MARK: - Public
     func boostSpeed() {
         let speedBoost: Float = 1.2

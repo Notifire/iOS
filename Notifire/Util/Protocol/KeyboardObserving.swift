@@ -11,9 +11,9 @@ import UIKit
 protocol KeyboardObserving: Observing {
     var keyboardExpandedConstraints: [NSLayoutConstraint] { get }
     var keyboardCollapsedConstraints: [NSLayoutConstraint] { get }
-    
+
     var keyboardAnimationBlock: ((Bool, TimeInterval) -> Void)? { get set }
-    
+
     func onKeyboardChange(expanding: Bool, notification: Notification)
 }
 
@@ -21,22 +21,22 @@ extension KeyboardObserving {
     var notificationNames: [NSNotification.Name] {
         return [UIResponder.keyboardWillShowNotification, UIResponder.keyboardWillHideNotification]
     }
-    
+
     func onKeyboardChange(expanding: Bool, notification: Notification) {}
 }
 
 extension KeyboardObserving where Self: UIViewController {
-    var notificationHandlers: [NSNotification.Name: ((Notification) -> ())] {
+    var notificationHandlers: [NSNotification.Name: ((Notification) -> Void)] {
         return [UIResponder.keyboardWillShowNotification: keyboardWillShow,
                 UIResponder.keyboardWillHideNotification: keyboardWillHide]
     }
-    
+
     // MARK: Private
     private func handle(notification: Notification, expanding: Bool, activate: [NSLayoutConstraint], deactivate: [NSLayoutConstraint]) {
         guard let userInfo = notification.userInfo,
             let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
             let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber else { return }
-        
+
         deactivate.forEach { $0.isActive = false }
         activate.forEach { $0.isActive = true }
         onKeyboardChange(expanding: expanding, notification: notification)
@@ -46,14 +46,14 @@ extension KeyboardObserving where Self: UIViewController {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
-    
+
     // MARK: Notification Handlers
     func keyboardWillShow(notification: Notification) {
         handle(notification: notification, expanding: true, activate: keyboardExpandedConstraints, deactivate: keyboardCollapsedConstraints)
     }
-    
+
     func keyboardWillHide(notification: Notification) {
         handle(notification: notification, expanding: false, activate: keyboardCollapsedConstraints, deactivate: keyboardExpandedConstraints)
     }
-    
+
 }

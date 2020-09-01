@@ -15,10 +15,10 @@ protocol APIFailable: class {
 // MARK: - Responding
 protocol APIFailableResponding: class {
     associatedtype FailableViewModel: APIFailable
-    
+
     var viewModel: FailableViewModel { get }
     var failableDisplaying: APIFailableDisplaying { get }
-    
+
     func setViewModelOnError()
 }
 

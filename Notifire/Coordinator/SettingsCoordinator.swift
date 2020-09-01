@@ -9,22 +9,21 @@
 import UIKit
 
 class SettingsCoordinator: TabbedCoordinator {
-    
+
     // MARK: - Properties
     let settingsViewController: SettingsViewController
-    
+
     // MARK: TabbedCoordinator
     var viewController: UIViewController {
         return settingsViewController
     }
-    
-    
+
     // MARK: - Initialization
     init(settingsViewController: SettingsViewController) {
         self.settingsViewController = settingsViewController
     }
-    
+
     func start() {
-        
+
     }
 }

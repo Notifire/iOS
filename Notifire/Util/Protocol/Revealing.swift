@@ -20,9 +20,9 @@ protocol AppRevealing {
     func customCompletion()
 }
 
-extension AppRevealing where Self : UIViewController {
+extension AppRevealing where Self: UIViewController {
     func customCompletion() {}
-    
+
     func revealContent(completion: (() -> Void)? = nil) {
         let splashView = SplashView()
         view.transform = CGAffineTransform.identity.scaledBy(x: 1.1, y: 1.1)

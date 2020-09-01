@@ -11,9 +11,9 @@ import UIKit
 class NotifireUserSession {
     var refreshToken: String
     let username: String
-    var deviceToken: String? = nil
-    var accessToken: String? = nil
-    
+    var deviceToken: String?
+    var accessToken: String?
+
     init(refreshToken: String, username: String) {
         self.refreshToken = refreshToken
         self.username = username

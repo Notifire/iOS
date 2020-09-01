@@ -17,9 +17,9 @@ struct NotificationDetailHeader {
 }
 
 class NotificationDetailHeaderCell: BaseTableViewCell, CellConfigurable {
-    
+
     typealias DataType = NotificationDetailHeader
-    
+
     // MARK: - Properties
     // MARK: Views
     let serviceImageView = RoundedEmojiImageView(image: nil)
@@ -28,17 +28,17 @@ class NotificationDetailHeaderCell: BaseTableViewCell, CellConfigurable {
         label.numberOfLines = 0
         return label
     }()
-    
+
     override func setup() {
         layout()
     }
-    
+
     func configure(data: DataType) {
         serviceImageView.image = data.serviceImage
         serviceNameLabel.text = data.serviceName
         serviceImageView.set(level: data.notificationLevel)
     }
-    
+
     private func layout() {
         contentView.add(subview: serviceImageView)
         serviceImageView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
@@ -48,7 +48,7 @@ class NotificationDetailHeaderCell: BaseTableViewCell, CellConfigurable {
         serviceImageView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
         serviceImageView.heightAnchor.constraint(equalTo: serviceImageView.widthAnchor).isActive = true
         serviceImageView.widthAnchor.constraint(equalToConstant: Size.Image.normalService).isActive = true
-        
+
         contentView.add(subview: serviceNameLabel)
         serviceNameLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
         serviceNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
@@ -62,19 +62,19 @@ struct NotificationDetailTitleBody {
 
 class NotificationDetailTitleBodyCell: BaseTableViewCell, CellConfigurable {
     typealias DataType = NotificationDetailTitleBody
-    
+
     // MARK: - Properties
     // MARK: Views
     let notificationBodyLabel = CopyableLabel(style: .informationHeader)
-    
+
     override func setup() {
         layout()
     }
-    
+
     func configure(data: DataType) {
         notificationBodyLabel.text = data.body
     }
-    
+
     private func layout() {
         contentView.add(subview: notificationBodyLabel)
         notificationBodyLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
@@ -103,7 +103,7 @@ extension NotificationDetailOptionallyDisplaying where Self: BaseTableViewCell {
 
 class NotificationDetailAdditionalTextCell: BaseTableViewCell, CellConfigurable, NotificationDetailOptionallyDisplaying {
     typealias DataType = String
-    
+
     // MARK: - Properties
     // MARK: NotificationDetailIndicatorCell
     static var indicatorImage: UIImage {
@@ -111,29 +111,29 @@ class NotificationDetailAdditionalTextCell: BaseTableViewCell, CellConfigurable,
     }
     // MARK: Views
     let additionalTextLabel = CopyableLabel(style: .informationHeader)
-    
+
     override func setup() {
         layout()
     }
-    
+
     func configure(data: DataType) {
         additionalTextLabel.text = data
     }
-    
+
     private func layout() {
         contentView.add(subview: additionalTextLabel)
         additionalTextLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
         additionalTextLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         additionalTextLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
         additionalTextLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
-        
+
         addIndicatorImageView()
     }
 }
 
 class NotificationDetailURLCell: BaseTableViewCell, CellConfigurable, NotificationDetailOptionallyDisplaying {
     typealias DataType = URL
-    
+
     // MARK: - Properties
     var url: DataType?
     // MARK: NotificationDetailIndicatorCell
@@ -142,20 +142,20 @@ class NotificationDetailURLCell: BaseTableViewCell, CellConfigurable, Notificati
     }
     // MARK: Views
     let urlLabel = TappableLabel(fontSize: 15)
-    
+
     // MARK: Callback
     var onURLTap: ((URL) -> Void)?
-    
+
     override func setup() {
         layout()
         setupLabelGestures()
     }
-    
+
     func configure(data: DataType) {
         urlLabel.setLinked(text: data.absoluteString, link: data.absoluteString)
         url = data
     }
-    
+
     private func layout() {
         contentView.add(subview: urlLabel)
         urlLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
@@ -168,14 +168,14 @@ class NotificationDetailURLCell: BaseTableViewCell, CellConfigurable, Notificati
         bottomConstraint.isActive = true
         urlLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
         urlLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: Size.componentHeight).isActive = true
-        
+
         addIndicatorImageView()
     }
-    
+
     private func setupLabelGestures() {
         urlLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLabel(recognizer:))))
     }
-    
+
     @objc private func didTapLabel(recognizer: UITapGestureRecognizer) {
         guard recognizer.didTapAttributedText(in: urlLabel), let safeUrl = url else { return }
         onURLTap?(safeUrl)
@@ -192,20 +192,20 @@ protocol NotificationDetailViewModelDelegate: class {
 }
 
 class NotificationDetailViewModel {
-    
+
     let realmProvider: RealmProviding
     let notification: LocalNotifireNotification
     var token: NotificationToken?
     weak var delegate: NotificationDetailViewModelDelegate?
     var items: [CellConfiguring] = []
-    
+
     init(realmProvider: RealmProviding, notification: LocalNotifireNotification) {
         self.realmProvider = realmProvider
         self.notification = notification
         self.items = NotificationDetailViewModel.createItems(from: notification)
         setupDeleteToken()
     }
-    
+
     private func setupDeleteToken() {
         guard token == nil else { return }
         token = notification.observe({ [weak self] change in
@@ -213,28 +213,28 @@ class NotificationDetailViewModel {
             self?.delegate?.onNotificationDeletion()
         })
     }
-    
+
     private static func createItems(from notification: LocalNotifireNotification) -> [CellConfiguring] {
         guard let service = notification.service.first else { return [] }
         var result = [CellConfiguring]()
-        
+
         let notificationDetailHeader = NotificationDetailHeader(serviceName: service.name, serviceImage: service.image, notificationDate: notification.date, notificationLevel: notification.level)
         result.append(NotificationDetailHeaderConfiguration(item: notificationDetailHeader))
-        
+
         let notificationTitleBody = NotificationDetailTitleBody(body: notification.body)
         result.append(NotificationDetailTitleBodyConfiguration(item: notificationTitleBody))
-        
+
         if let additionalText = notification.text {
             result.append(NotificationDetailAdditionalTextConfiguration(item: additionalText))
         }
-        
+
         if let url = notification.additionalURL {
             result.append(NotificationDetailURLConfiguration(item: url))
         }
-        
+
         return result
     }
-    
+
     func markNotificationAsRead() {
         NotificationReadUnreadManager.markNotificationAsRead(notification: notification, realm: realmProvider.realm)
     }

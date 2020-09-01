@@ -9,23 +9,23 @@
 import UIKit
 
 class ServicesCoordinator: TabbedCoordinator {
-    
+
     // MARK: - Properties
     let navigationController: UINavigationController
     let servicesViewController: ServicesViewController
     let userSessionHandler: NotifireUserSessionHandler
     var notificationsCoordinator: NotificationsCoordinator?
     private var presentedServiceController: ServiceViewController?
-    
+
     private var protectedApiManager: NotifireProtectedAPIManager {
         return servicesViewController.viewModel.protectedApiManager
     }
-    
+
     // MARK: TabbedCoordinator
     var viewController: UIViewController {
         return navigationController
     }
-    
+
     // MARK: - Initialization
     init(servicesNavigationController: UINavigationController, sessionHandler: NotifireUserSessionHandler) {
         self.userSessionHandler = sessionHandler
@@ -34,11 +34,11 @@ class ServicesCoordinator: TabbedCoordinator {
         self.servicesViewController = ServicesViewController(viewModel: servicesViewModel)
         servicesViewController.delegate = self
     }
-    
+
     func start() {
         navigationController.setViewControllers([servicesViewController], animated: false)
     }
-    
+
     func showServiceCreation() {
         guard navigationController.presentedViewController == nil else { return }
         let serviceCreationVC = ServiceCreationViewController(viewModel: ServiceCreationViewModel(protectedApiManager: protectedApiManager))
@@ -46,7 +46,7 @@ class ServicesCoordinator: TabbedCoordinator {
         serviceCreationVC.delegate = self
         navigationController.present(serviceNavigation, animated: true, completion: nil)
     }
-    
+
     func show(service: LocalService) {
         let serviceViewModel = ServiceViewModel(localService: service, sessionHandler: userSessionHandler)
         let serviceViewController = ServiceViewController(viewModel: serviceViewModel)
@@ -54,12 +54,12 @@ class ServicesCoordinator: TabbedCoordinator {
         presentedServiceController = serviceViewController
         navigationController.pushViewController(serviceViewController, animated: true)
     }
-    
+
     func dismiss(service: LocalService) {
         guard let serviceViewController = presentedServiceController, navigationController.topViewController == serviceViewController else { return }
         navigationController.popViewController(animated: true)
     }
-    
+
     func dismissServiceCreation(service: Service? = nil) {
         guard navigationController.presentedViewController != nil else { return }
         if let service = service {
@@ -67,7 +67,7 @@ class ServicesCoordinator: TabbedCoordinator {
         }
         navigationController.dismiss(animated: true, completion: nil)
     }
-    
+
     func showNotifications(service: LocalService) {
         let serviceNotificationsViewModel = ServiceNotificationsViewModel(realmProvider: userSessionHandler, service: service)
         let notificationsCoordinator = NotificationsCoordinator(navigationController: navigationController, notificationsViewModel: serviceNotificationsViewModel)
@@ -81,7 +81,7 @@ extension ServicesCoordinator: ServicesViewControllerDelegate {
     func didSelect(service: LocalService) {
         show(service: service)
     }
-    
+
     func didSelectCreateService() {
         showServiceCreation()
     }
@@ -91,7 +91,7 @@ extension ServicesCoordinator: ServiceViewControllerDelegate {
     func didDelete(service: LocalService) {
         dismiss(service: service)
     }
-    
+
     func shouldShowNotifications(for service: LocalService) {
         showNotifications(service: service)
     }
@@ -102,7 +102,7 @@ extension ServicesCoordinator: ServiceCreationDelegate {
     func didCreate(service: Service) {
        dismissServiceCreation(service: service)
     }
-    
+
     func didCancelCreation() {
         dismissServiceCreation()
     }

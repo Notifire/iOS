@@ -9,41 +9,41 @@
 import UIKit
 
 class CurvedTopView: ConstrainableView {
-    
+
     // MARK: - Properties
     static let expandedCurveMidXDistanceFromTop: CGFloat = 10
     static let collapsedCurveMidXDistanceFromTop: CGFloat = 2
-    
+
     private var expandedCurvePath: CGPath!
     private var collapsedCurvePath: CGPath!
     private var shapeLayer = CAShapeLayer()
     private var isFirstAppearance = true
-    
+
     // MARK: - Inherited
     override func setupSubviews() {
         layer.addSublayer(shapeLayer)
         shapeLayer.fillColor = UIColor.backgroundColor.cgColor
         backgroundColor = .backgroundColor
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         shapeLayer.frame = layer.bounds
         setupTopCurvePaths()
         setFirstPath()
     }
-    
+
     // MARK: - Private
     private func setupTopCurvePaths() {
         let width = bounds.size.width
-        
+
         let yOffset: CGFloat = 5 // prevents bottom line flickering
         let leftPoint = CGPoint(x: 0, y: 0)
         let midPoint = CGPoint(x: width/2, y: -CurvedTopView.collapsedCurveMidXDistanceFromTop*2)
         let midPointExpanded = CGPoint(x: width/2, y: -CurvedTopView.expandedCurveMidXDistanceFromTop*2)
         let rightPoint = CGPoint(x: width, y: 0)
-        
+
         let pathWithMidPoint: ((CGPoint) -> UIBezierPath) = { middle in
             let path = UIBezierPath()
             path.move(to: leftPoint)
@@ -53,20 +53,20 @@ class CurvedTopView: ConstrainableView {
             path.close()
             return path
         }
-        
+
         let collapsedBezierPath = pathWithMidPoint(midPoint)
         let expandedBezierPath = pathWithMidPoint(midPointExpanded)
-        
+
         expandedCurvePath = expandedBezierPath.cgPath
         collapsedCurvePath = collapsedBezierPath.cgPath
     }
-    
+
     private func setFirstPath() {
         guard isFirstAppearance else { return }
         isFirstAppearance = false
         shapeLayer.path = collapsedCurvePath
     }
-    
+
     // MARK: - Public
     public func switchPaths(expanded: Bool, duration: TimeInterval) {
         let newPath = expanded ? expandedCurvePath : collapsedCurvePath
@@ -78,6 +78,5 @@ class CurvedTopView: ConstrainableView {
         shapeLayer.path = newPath
         shapeLayer.add(pathAnimation, forKey: "animatePath")
     }
-    
-    
+
 }

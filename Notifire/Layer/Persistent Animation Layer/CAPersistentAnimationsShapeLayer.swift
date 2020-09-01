@@ -13,31 +13,31 @@ class CAPersistentAnimationsShapeLayer: CAShapeLayer, PersistentAnimationsObserv
     var observers = [NSObjectProtocol]()
     var persistentAnimations: [String: CAAnimation] = [:]
     var persistentSpeed: Float = 0.0
-    
+
     // MARK: - Inherited
     override init() {
         super.init()
         setupSublayers()
     }
-    
+
     override init(layer: Any) {
         super.init(layer: layer)
         setupSublayers()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupSublayers()
     }
-    
+
     override func hitTest(_ p: CGPoint) -> CALayer? {
         return super.hitTest(p)
     }
-    
+
     deinit {
         removeObservers()
     }
-    
+
     // MARK: - Private
     private func setupSublayers() {
         setupObservers()

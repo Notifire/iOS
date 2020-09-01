@@ -28,7 +28,7 @@ extension EmptyStatePresentable where Self: UIViewController {
         tableView.showsVerticalScrollIndicator = true
         return emptyStateView
     }
-    
+
     func removeEmptyState() {
         emptyStateView?.removeFromSuperview()
         emptyStateView = nil

@@ -20,7 +20,7 @@ protocol Loadable: class {
     var spinnerSuperview: UIView { get }
     var spinnerStyle: UIActivityIndicatorView.Style { get }
     var spinnerPosition: LoadableSpinnerPosition { get }
-    
+
     func startLoading() -> UIActivityIndicatorView?
     func stopLoading()
     func onLoadingStart()
@@ -31,19 +31,19 @@ extension Loadable {
     var spinnerStyle: UIActivityIndicatorView.Style {
         return .gray
     }
-    
+
     var spinnerPosition: LoadableSpinnerPosition {
         return .right
     }
-    
+
     func onLoadingStart() {}     // optional
     func onLoadingFinished() {}  // optional
-    
+
     private func activeSpinner() -> LoadableSpinner? {
         let maybeSpinner = spinnerSuperview.subviews.first { $0 is LoadableSpinner }
         return maybeSpinner as? LoadableSpinner
     }
-    
+
     @discardableResult
     func startLoading() -> UIActivityIndicatorView? {
         let maybeActive = activeSpinner()
@@ -65,7 +65,7 @@ extension Loadable {
         onLoadingStart()
         return spinner
     }
-    
+
     func stopLoading() {
         let maybeSpinner = activeSpinner()
         guard let activeSpinner = maybeSpinner else { return }
@@ -84,7 +84,7 @@ extension Loadable where Self: UIControl {
     func onLoadingStart() {
         isEnabled = false
     }
-    
+
     func onLoadingFinished() {
         isEnabled = true
     }

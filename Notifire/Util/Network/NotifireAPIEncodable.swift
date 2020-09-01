@@ -57,7 +57,6 @@ struct ServiceRequestBody: NotifireAPIEncodable {
     let levels: Service.Levels
 }
 
-
 struct ChangeServiceKeyBody: NotifireAPIEncodable {
     let service: Service
     let password: String

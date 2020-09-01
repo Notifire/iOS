@@ -17,6 +17,6 @@ class BaseTableViewCell: UITableViewCell {
     }
 
     required init?(coder aDecoder: NSCoder) { fatalError() }
-    
+
     open func setup() {}
 }

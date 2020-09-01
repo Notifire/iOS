@@ -14,17 +14,17 @@ protocol TabBarViewControllerDelegate: class {
 }
 
 class TabBarViewController: UIViewController, AppRevealing {
-    
+
     // MARK: - Properties
     // MARK: ViewModel
     let viewModel: TabBarViewModel
-    
+
     // MARK: Delegate
     weak var delegate: TabBarViewControllerDelegate?
-    
+
     // MARK: Views
     let containerView = UIView()
-    
+
     lazy var tabBarStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
@@ -48,10 +48,10 @@ class TabBarViewController: UIViewController, AppRevealing {
         }
         return view
     }()
-    
+
     var notificationsAlertView: UIView?
     var notificationsButton: UIButton?
-    
+
     // MARK: - Initialization
     init(viewModel: TabBarViewModel) {
         self.viewModel = viewModel
@@ -64,9 +64,9 @@ class TabBarViewController: UIViewController, AppRevealing {
             self.delegate?.didReselect(tab: tab)
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) { fatalError() }
-    
+
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +74,7 @@ class TabBarViewController: UIViewController, AppRevealing {
         prepareViewModel()
         updateTabBarStackViewSize()
     }
-    
+
     // MARK: - Private
     private func prepareViewModel() {
         viewModel.onNotificationsAlertStateChange = { [weak self] state in
@@ -89,7 +89,7 @@ class TabBarViewController: UIViewController, AppRevealing {
         }
         viewModel.setupResultsTokenIfNeeded()
     }
-    
+
     private func addNotificationsAlertViewIfNeeded() {
         guard notificationsAlertView == nil, let notificationsButton = notificationsButton, let imageView = notificationsButton.imageView else { return }
         let circleView = UIView()
@@ -109,7 +109,7 @@ class TabBarViewController: UIViewController, AppRevealing {
         animator.startAnimation()
         notificationsAlertView = circleView
     }
-    
+
     private func removeNotificationsAlertViewIfNeeded() {
         guard let activeAlertView = notificationsAlertView else { return }
         UIView.animateKeyframes(withDuration: 0.4, delay: 0, options: [.calculationModeLinear, .beginFromCurrentState], animations: {
@@ -124,7 +124,7 @@ class TabBarViewController: UIViewController, AppRevealing {
             self?.notificationsAlertView = nil
         }
     }
-    
+
     // MARK: Layout
     private func layout() {
         // child vc (tab) container
@@ -141,7 +141,7 @@ class TabBarViewController: UIViewController, AppRevealing {
         buttonsContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         buttonsContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         buttonsContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Size.Tab.height).isActive = true
-        
+
         // collection view
         view.add(subview: tabBarStackView)
         tabBarStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -149,7 +149,7 @@ class TabBarViewController: UIViewController, AppRevealing {
         tabBarStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tabBarStackView.topAnchor.constraint(equalTo: buttonsContainerView.topAnchor).isActive = true
         containerView.bottomAnchor.constraint(equalTo: buttonsContainerView.topAnchor).isActive = true
-        
+
         // separator
         let hairlineView = HairlineView()
         view.addSubview(hairlineView)
@@ -157,7 +157,7 @@ class TabBarViewController: UIViewController, AppRevealing {
         hairlineView.trailingAnchor.constraint(equalTo: buttonsContainerView.trailingAnchor).isActive = true
         hairlineView.bottomAnchor.constraint(equalTo: buttonsContainerView.topAnchor).isActive = true
     }
-    
+
     // MARK: Appearance
     private func updateAppearance(with tab: Tab) {
         guard let tabIndex = viewModel.tabs.firstIndex(of: tab) else { return }
@@ -170,7 +170,7 @@ class TabBarViewController: UIViewController, AppRevealing {
             selected.isSelected = true
         }
     }
-    
+
     private func updateTabBarStackViewSize() {
         let imageWidth = Size.Image.tabBarIcon
         let width = UIScreen.main.bounds.width
@@ -179,7 +179,7 @@ class TabBarViewController: UIViewController, AppRevealing {
         let insets = UIEdgeInsets(top: 0, left: horizontalInset, bottom: 0, right: horizontalInset)
         tabBarStackView.arrangedSubviews.forEach { ($0 as? UIButton)?.imageEdgeInsets = insets }
     }
-    
+
     // MARK: Events
     @objc private func didPressTabBarButton(button: UIButton) {
         let selectedTab = viewModel.tabs[button.tag]

@@ -26,16 +26,16 @@ extension CellConfiguring {
     }
 }
 
-struct CellConfiguration<CellType: UITableViewCell & CellConfigurable , DataType>: CellConfiguring where CellType.DataType == DataType {
+struct CellConfiguration<CellType: UITableViewCell & CellConfigurable, DataType>: CellConfiguring where CellType.DataType == DataType {
     static var reuseIdentifier: String { return String(describing: cellType) }
     static var cellType: UITableViewCell.Type { return CellType.self }
-    
+
     let item: DataType
-    
+
     init(item: DataType) {
         self.item = item
     }
-    
+
     func configure(cell: UITableViewCell) {
         (cell as? CellType)?.configure(data: item)
     }

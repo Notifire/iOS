@@ -10,9 +10,9 @@ import UIKit
 import UserNotifications
 
 class DeviceTokenManager {
-    
+
     var isAlreadyRegistered = false
-    
+
     func registerForPushNotifications() {
         guard !isAlreadyRegistered else { return }
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .carPlay, .sound]) { _, _ in
@@ -24,7 +24,7 @@ class DeviceTokenManager {
             }
         }
     }
-    
+
     func unregisterFromPushNotifications() {
         UIApplication.shared.unregisterForRemoteNotifications()
     }

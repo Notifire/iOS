@@ -9,7 +9,7 @@
 import UIKit
 
 class TabBarCollectionCell: UICollectionViewCell {
-    
+
     // MARK: - Properties
     static let selectedColor: UIColor = .notifireMainColor
     static let deselectedColor: UIColor = .backgroundColor
@@ -20,23 +20,23 @@ class TabBarCollectionCell: UICollectionViewCell {
             updateAppearance()
         }
     }
-    
+
     // MARK: Views
     let label: UILabel = {
         let label = UILabel()
         label.textColor = .black
         return label
     }()
-    
+
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = TabBarCollectionCell.deselectedColor
         layout()
     }
-    
+
     required init?(coder aDecoder: NSCoder) { fatalError() }
-    
+
     // MARK: - Inherited
     override var isSelected: Bool {
         didSet {
@@ -46,14 +46,14 @@ class TabBarCollectionCell: UICollectionViewCell {
             }, completion: nil)
         }
     }
-    
+
     // MARK: - Private
     private func layout() {
         contentView.add(subview: label)
         label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
     }
-    
+
     private func updateAppearance() {
         guard let model = model else { return }
         switch model {

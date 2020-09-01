@@ -7,7 +7,6 @@
 //
 
 #include "Pods/Target Support Files/Pods-Notifire/Pods-Notifire.debug.xcconfig"
-#include "Pods/Target Support Files/Pods-Notifire-NotificationServiceExtension/Pods-Notifire-NotificationServiceExtension.debug.xcconfig"
 SLASH=/
 API_URL = https:$(SLASH)/api.notifire.dvdblk.com
 

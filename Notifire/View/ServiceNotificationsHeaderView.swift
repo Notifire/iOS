@@ -9,22 +9,22 @@
 import UIKit
 
 class CustomGradientLayer: CAGradientLayer {
-    
+
     // MARK: - Lifecycle
     override init() {
         super.init()
         setup()
     }
-    
+
     override init(layer: Any) {
         super.init(layer: layer)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-    
+
     // MARK: - Private
     private func setup() {
         // gradient setup
@@ -37,14 +37,14 @@ class GradientView: ConstrainableView {
 
     let gradientLayer = CustomGradientLayer()
     let opaqueBackgroundLayer = CALayer()
-    
+
     override func setupSubviews() {
         backgroundColor = .clear
         opaqueBackgroundLayer.backgroundColor = UIColor.backgroundColor.cgColor
         layer.addSublayer(opaqueBackgroundLayer)
         layer.addSublayer(gradientLayer)
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         let width = bounds.width
@@ -54,9 +54,8 @@ class GradientView: ConstrainableView {
     }
 }
 
-
 class ServiceNotificationsHeaderView: ConstrainableView {
-    
+
     // MARK: - Properties
     var floatingTopToTopConstraint: NSLayoutConstraint!
     var gradientVisible: Bool = false {
@@ -65,31 +64,31 @@ class ServiceNotificationsHeaderView: ConstrainableView {
             updateAppearance()
         }
     }
-    
+
     // MARK: Views
     let gradientView = GradientView()
     let floatingContentView = UIView()
-    
+
     let notificationsButton: NotifireButton = {
         let button = NotifireButton()
         button.setTitle("Notifications", for: .normal)
         return button
     }()
-    
+
     // MARK: - Lifecycle
     override func setupSubviews() {
         layout()
-        
+
         floatingContentView.layoutIfNeeded() // fix for the initial corner radius of notificationButton
-        
+
         updateAppearance()
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         notificationsButton.layer.cornerRadius = notificationsButton.bounds.height / 2
     }
-    
+
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if clipsToBounds || isHidden || alpha == 0 {
             return nil
@@ -100,21 +99,21 @@ class ServiceNotificationsHeaderView: ConstrainableView {
         }
         return nil
     }
-    
+
     // MARK: - Private
     private func layout() {
         heightAnchor.constraint(equalToConstant: Size.componentHeight).isActive = true
-        
+
         add(subview: floatingContentView)
         floatingTopToTopConstraint = floatingContentView.topAnchor.constraint(equalTo: topAnchor)
         floatingTopToTopConstraint.isActive = true
         floatingContentView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         floatingContentView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         floatingContentView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
-        
+
         floatingContentView.add(subview: gradientView)
         gradientView.embed(in: floatingContentView)
-        
+
         floatingContentView.add(subview: notificationsButton)
         let centerY = notificationsButton.centerYAnchor.constraint(equalTo: floatingContentView.centerYAnchor)
         centerY.priority = UILayoutPriority(750)
@@ -122,7 +121,7 @@ class ServiceNotificationsHeaderView: ConstrainableView {
         notificationsButton.centerXAnchor.constraint(equalTo: floatingContentView.centerXAnchor).isActive = true
         notificationsButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.56).isActive = true
     }
-    
+
     private func updateAppearance() {
         gradientView.isHidden = !gradientVisible
         backgroundColor = gradientVisible ? .clear : .backgroundColor

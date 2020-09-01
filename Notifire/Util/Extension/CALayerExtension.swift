@@ -17,11 +17,11 @@ extension CALayer {
             self.timeOffset = pausedTime
         }
     }
-    
+
     var isPaused: Bool {
         return self.speed == 0.0
     }
-    
+
     func resume() {
         let pausedTime: CFTimeInterval = self.timeOffset
         self.speed = 1.0
@@ -45,7 +45,7 @@ extension CALayer {
         beginTime = CACurrentMediaTime()
         speed = newSpeed
     }
-    
+
     func multiplySpeed(by: Float) {
         let newSpeed = speed * by
         changeSpeed(to: newSpeed)

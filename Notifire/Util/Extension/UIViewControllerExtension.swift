@@ -9,11 +9,11 @@
 import UIKit
 
 extension UIViewController {
-    
+
     /// Convenience function that embeds a subview into viewcontroller's safeAreaLayoutGuide
     func embedInSafeAreaLayoutGuide(subview: UIView) {
         let safeGuide = view.safeAreaLayoutGuide
-        
+
         NSLayoutConstraint.activate([
             subview.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor),
             subview.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor),
@@ -21,7 +21,7 @@ extension UIViewController {
             safeGuide.bottomAnchor.constraint(equalTo: subview.bottomAnchor)
             ])
     }
-    
+
     /// Convenience function for adding a child view controller to the hierarchy
     func add(childViewController child: UIViewController, superview: UIView? = nil) {
         addChild(child)
@@ -29,7 +29,7 @@ extension UIViewController {
         vcSuperview.addSubview(child.view)
         child.didMove(toParent: self)
     }
-    
+
     /// Convenience function for removing a child view controller from viewcontroller's view hierarchy
     func remove(childViewController child: UIViewController) {
         child.willMove(toParent: nil)
@@ -39,7 +39,7 @@ extension UIViewController {
 }
 
 extension UIViewController {
-    
+
     /// Adds a tap gesture recognizer which causes the keyboard to be dismissed to the parameter.
     @discardableResult
     func addKeyboardDismissOnTap(to hideOnTouchView: UIView) -> UIGestureRecognizer {
@@ -47,7 +47,7 @@ extension UIViewController {
         hideOnTouchView.addGestureRecognizer(tapRecognizer)
         return tapRecognizer
     }
-    
+
     /// Dismisses the keyboard.
     @objc func dismissKeyboard() {
         view.endEditing(true)
@@ -56,20 +56,20 @@ extension UIViewController {
 
 protocol NavigationBarDisplaying {}
 
-extension NavigationBarDisplaying where Self : UIViewController {
+extension NavigationBarDisplaying where Self: UIViewController {
     func hideNavBar() {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.backgroundColor = .clear
     }
-    
+
     func showNavBar() {
         navigationController?.navigationBar.shadowImage = nil
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.backgroundColor = .backgroundAccentColor
     }
-    
+
     func removeNavigationItemBackButtonTitle() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }

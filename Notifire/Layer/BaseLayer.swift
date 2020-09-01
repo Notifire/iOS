@@ -9,24 +9,24 @@
 import UIKit
 
 class BaseLayer: CALayer {
-    
+
     // MARK: - Inherited
     override init() {
         super.init()
         setupSublayers()
     }
-    
+
     override init(layer: Any) {
         super.init(layer: layer)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupSublayers()
     }
-    
+
     // MARK: - Open
     open func setupSublayers() {
-        
+
     }
 }

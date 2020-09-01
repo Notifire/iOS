@@ -9,19 +9,18 @@
 import UIKit
 
 class CAPersistentAnimationsLayer: BaseLayer, PersistentAnimationsObserving {
-    
+
     // MARK: - Properties
     var observers = [NSObjectProtocol]()
     var persistentAnimations: [String: CAAnimation] = [:]
     var persistentSpeed: Float = 0.0
-    
+
     // MARK: - Inherited
     override func setupSublayers() {
         setupObservers()
     }
-    
+
     deinit {
         removeObservers()
     }
 }
-

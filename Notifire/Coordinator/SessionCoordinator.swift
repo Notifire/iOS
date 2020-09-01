@@ -16,20 +16,20 @@ protocol NotifireUserSessionDeletionDelegate: class {
 }
 
 class SessionCoordinator: Coordinator {
-    
+
     // MARK: - Properties
     let tabBarViewController: TabBarViewController
     var activeCoordinator: TabbedCoordinator?
     var childCoordinators: [Tab: TabbedCoordinator] = [:]
     let userSessionHandler: NotifireUserSessionHandler
     weak var delegate: NotifireUserSessionDeletionDelegate?
-    
+
     // MARK: - Initialization
     init(tabBarViewController: TabBarViewController, sessionHandler: NotifireUserSessionHandler) {
         self.tabBarViewController = tabBarViewController
         self.userSessionHandler = sessionHandler
     }
-    
+
     // MARK: - Coordination
     func start() {
         userSessionHandler.notifireProtectedApiManager.onRefreshTokenInvalidation = { [weak self] in
@@ -40,7 +40,7 @@ class SessionCoordinator: Coordinator {
         // the initial tab
         tabBarViewController.viewModel.updateTab(to: .services)
     }
-    
+
     func exitSession(onPurposeByUser flag: Bool) {
         delegate?.didDelete(session: userSessionHandler.userSession, onPurpose: flag)
     }

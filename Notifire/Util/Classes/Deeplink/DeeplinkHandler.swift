@@ -9,16 +9,16 @@
 import UIKit
 
 class DeeplinkHandler {
-    
+
     var currentDeeplink: Deeplink?
     weak var appCoordinator: AppCoordinator?
-    
+
     func switchToAppropriateDeeplink(from url: URL) -> Bool {
         var comp = url.pathComponents
         guard !comp.isEmpty else {
             return false
         }
-        
+
         let token = comp.removeLast()
         switch comp {
         case ["/", "account", "confirm"]:
@@ -33,7 +33,7 @@ class DeeplinkHandler {
         }
         return true
     }
-    
+
     func switchTo(deeplinkOption: Deeplink.Option) {
         // dismiss any presented deeplink
         if let activeDeeplink = currentDeeplink {
@@ -57,7 +57,7 @@ class DeeplinkHandler {
         newDeeplink.deeplinkPresenter.present(deeplinkViewController, animated: true, completion: nil)
         self.currentDeeplink = newDeeplink
     }
-    
+
     func finishDeeplink(completion: (() -> Void)? = nil) {
         guard let activeDeeplink = currentDeeplink else { return }
         activeDeeplink.deeplinkPresenter.presentedViewController?.dismiss(animated: true, completion: {

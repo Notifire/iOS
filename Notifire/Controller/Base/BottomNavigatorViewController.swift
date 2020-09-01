@@ -9,7 +9,7 @@
 import UIKit
 
 class BottomNavigatorViewController: BaseViewController {
-    
+
     // MARK: - Properties
     // MARK: Views
     let bottomNavigator: ConstrainableView = {
@@ -19,13 +19,13 @@ class BottomNavigatorViewController: BaseViewController {
         view.layer.cornerRadius = 4
         return view
     }()
-    
+
     let tappableLabel = TappableLabel(fontSize: 13)
-    
+
     // MARK: - Inherited
     override func setupSubviews() {
         view.backgroundColor = .backgroundColor
-      
+
         // navigator
         view.addSubview(bottomNavigator)
         bottomNavigator.backgroundColor = .backgroundAccentColor
@@ -40,7 +40,7 @@ class BottomNavigatorViewController: BaseViewController {
         hairlineView.leadingAnchor.constraint(equalTo: bottomNavigator.leadingAnchor).isActive = true
         hairlineView.trailingAnchor.constraint(equalTo: bottomNavigator.trailingAnchor).isActive = true
         hairlineView.topAnchor.constraint(equalTo: bottomNavigator.topAnchor).isActive = true
-        
+
         // Tappable Label
         bottomNavigator.addSubview(tappableLabel)
         tappableLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -48,15 +48,15 @@ class BottomNavigatorViewController: BaseViewController {
         tappableLabel.centerYAnchor.constraint(equalTo: bottomNavigator.centerYAnchor).isActive = true
         tappableLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLabel(recognizer:))))
     }
-    
+
     // MARK: - Event Handlers
     @objc private func didTapLabel(recognizer: UITapGestureRecognizer) {
         guard recognizer.didTapAttributedText(in: tappableLabel) else { return }
         didTapTappableLabel()
     }
-    
+
     // MARK: - Open
     open func didTapTappableLabel() {
-        
+
     }
 }

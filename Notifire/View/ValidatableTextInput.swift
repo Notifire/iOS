@@ -16,10 +16,10 @@ protocol InputValidatingBindable {
 }
 
 class ValidatingViewModelBinder {
-    
+
     private let updateViewModelKeyPath: ((String, ValidatableComponent) -> Void)
     let willUpdateKeyPathValue: ((String) -> Void)?
-    
+
     init<VM: InputValidatingViewModel & InputValidatingBindable>(viewModel: VM, for value: VM.EnumDescribingKeyPaths, onUpdate: ((String) -> Void)? = nil) {
         let keyPath = viewModel.keyPath(for: value)
         self.updateViewModelKeyPath = { string, component in
@@ -28,7 +28,7 @@ class ValidatingViewModelBinder {
         }
         self.willUpdateKeyPathValue = onUpdate
     }
-    
+
     func updateKeyPathAndValidate(component: ValidatableComponent) {
         let string = component.validatableInput
         willUpdateKeyPathValue?(string)
@@ -37,17 +37,17 @@ class ValidatingViewModelBinder {
 }
 
 class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
-    
+
     // MARK: - Properties
     let textField: CustomTextField
     var errorLabel: UILabel?
-    
+
     private var maximumLength: Int?
     var validatingViewModelBinder: ValidatingViewModelBinder?
-    
+
     // MARK: Constraints
     var textFieldToViewBottomConstraint: NSLayoutConstraint!
-    
+
     // MARK: ValidatableComponent
     var showsValidState = false
     var rules: [ComponentRule] = [] {
@@ -65,11 +65,11 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
             updateAppearance()
         }
     }
-    
+
     var validatableInput: String {
         return textField.text ?? textField.attributedText?.string ?? ""
     }
-    
+
     // MARK: - Initialization
     init(textField: CustomTextField? = nil) {
         if let safeTextField = textField {
@@ -80,16 +80,16 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
         super.init()
         self.textField.delegate = self
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         self.textField = CustomTextField()
         super.init(coder: aDecoder)
     }
-    
+
     // MARK: - Inherited
     override func setupSubviews() {
         textField.addTarget(self, action: #selector(didChangeTextField), for: .editingChanged)
-        
+
         add(subview: textField)
         textField.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         textField.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
@@ -97,7 +97,7 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
         textFieldToViewBottomConstraint = textField.bottomAnchor.constraint(equalTo: bottomAnchor)
         textFieldToViewBottomConstraint.isActive = true
     }
-    
+
     // MARK: - Private
     private func updateAppearance() {
         let newAppearance: CustomTextField.LayerAppearance?
@@ -128,9 +128,9 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
             }, completion: nil)
         }
     }
-    
+
     var errorLabelBottomConstraint: NSLayoutConstraint?
-    
+
     private func addErrorLabel() -> UILabel {
         textFieldToViewBottomConstraint.isActive = false
         let label = UILabel(style: .negative)
@@ -152,7 +152,7 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
         }, completion: nil)
         return label
     }
-    
+
     private func removeErrorLabel() {
         if let label = errorLabel {
             label.heightAnchor.constraint(equalToConstant: 0).isActive = true
@@ -167,17 +167,17 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
             }
         }
     }
-    
+
     private func addSmallSpinner() {
         guard let spinner = startLoading() else { return }
         spinner.color = .spinnerColor
         spinner.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
     }
-    
+
     private func removeSpinner() {
         stopLoading()
     }
-    
+
     @objc private func didChangeTextField(textField: UITextField) {
         validatingViewModelBinder?.updateKeyPathAndValidate(component: self)
     }

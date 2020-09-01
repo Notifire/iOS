@@ -13,10 +13,10 @@ protocol SettingsViewControllerDelegate: class {
 }
 
 class SettingsViewController: UIViewController {
-    
+
     // MARK: - Properties
     weak var delegate: SettingsViewControllerDelegate?
-    
+
     // MARK: Views
     lazy var logoutButton: ActionButton = {
         let button = ActionButton(type: .system)
@@ -26,22 +26,22 @@ class SettingsViewController: UIViewController {
         }
         return button
     }()
-    
+
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundColor
-        
+
         layout()
     }
-    
+
     // MARK: - Private
     private func layout() {
         view.add(subview: logoutButton)
         logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         logoutButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
-    
+
     private func promptLogout() {
         let logoutAlert = UIAlertController(title: "Logout from Notifire?", message: "Are you sure? You won't receive any notifications after logging out.", preferredStyle: .alert)
         logoutAlert.addAction(UIAlertAction(title: "Yes", style: .cancel, handler: { _ in

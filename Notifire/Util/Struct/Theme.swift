@@ -11,7 +11,7 @@ import UIKit
 struct Theme {
     static let defaultCornerRadius: CGFloat = 5
     static let defaultBorderWidth: CGFloat = 1
-    
+
     struct Shadow {
         static let radius: CGFloat = 3
         static let opacity: Float = 0.4

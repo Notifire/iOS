@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 class NotifireUserSessionHandler: RealmProviding {
-    
+
     private static let registerDeviceFailureRetryTime: TimeInterval = 15
     let deviceTokenManager = DeviceTokenManager()
     let userSession: NotifireUserSession
@@ -19,14 +19,14 @@ class NotifireUserSessionHandler: RealmProviding {
     var realm: Realm {
         return realmProvider.realm
     }
-    
+
     init?(session: NotifireUserSession) {
         userSession = session
         notifireProtectedApiManager = NotifireAPIManagerFactory.createProtectedAPIManager(session: session)
         guard let realmProvider = RealmProvider(userSession: session) else { return nil }
         self.realmProvider = realmProvider
     }
-    
+
     // MARK: - Public
     /// registers the device token with the Notifire API
     func registerDevice(with deviceToken: String) {
@@ -42,7 +42,7 @@ class NotifireUserSessionHandler: RealmProviding {
             }
         }
     }
-    
+
     /// informs the notifire API that the user has logged out
     func logout() {
         guard let currentDeviceToken = userSession.deviceToken else { return }

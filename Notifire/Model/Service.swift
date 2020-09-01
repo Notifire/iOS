@@ -14,11 +14,10 @@ struct Service: NotifireAPIDecodable, NotifireAPIEncodable, Equatable {
         let warning: Bool
         let error: Bool
     }
-    
+
     let name: String
     let uuid: String
     let levels: Levels
     let apiKey: String
     let updatedAt: Date?
 }
-

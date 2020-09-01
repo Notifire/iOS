@@ -23,10 +23,10 @@ struct ComponentRule {
         case equalToString(String)
         case validity(CheckValidityOption)
     }
-    
+
     let kind: Kind
     let showIfBroken: Bool
-    
+
     static var passwordRules: [ComponentRule] {
         return [
             ComponentRule(kind: .minimum(length: Settings.Text.minimumPasswordLength), showIfBroken: false),
@@ -46,4 +46,3 @@ extension ComponentRule: CustomStringConvertible {
         }
     }
 }
-

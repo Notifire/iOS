@@ -13,7 +13,7 @@ extension URLRequest {
     mutating func add(header: HTTPHeader) {
         addValue(header.value, forHTTPHeaderField: header.field)
     }
-    
+
     /// convenience function for adding a request body
     /// - returns: true if serialization passed, false otherwise
     @discardableResult

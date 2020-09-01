@@ -10,7 +10,6 @@ import Foundation
 
 typealias NotifireAPIDecodable = Decodable      // represents decodable ResponseBody
 
-
 // MARK: - Success Response
 
 struct NotifireAPIPlainSuccessResponse: NotifireAPIDecodable {
@@ -44,7 +43,7 @@ struct VerifyAccountSuccessResponse: NotifireAPIDecodable {
 enum VerifyAccountUserError: Int, UserErroRepresenting {
     case alreadyVerified = 1
     case expired = 2
-    
+
     var description: String {
         switch self {
         case .alreadyVerified: return "This account is verified already!"
@@ -82,7 +81,7 @@ enum LoginUserError: Int, UserErroRepresenting {
     case invalidUsernameOrEmail = 1
     case invalidPassword = 2
     case notVerified = 3
-    
+
     var description: String {
         switch self {
         case .invalidUsernameOrEmail: return "Username or email you've entered was not recognized by the server."

@@ -9,12 +9,12 @@
 import Foundation
 
 protocol Observing: class {
-    typealias NotificationHandlers = [NSNotification.Name: ((Notification) -> ())]
-    
+    typealias NotificationHandlers = [NSNotification.Name: ((Notification) -> Void)]
+
     var observers: [NSObjectProtocol] { get set }
     var notificationNames: [NSNotification.Name] { get }
     var notificationHandlers: NotificationHandlers { get }
-    
+
     func setupObservers()
     func removeObservers()
 }
@@ -30,7 +30,7 @@ extension Observing {
             observers.append(newObserver)
         }
     }
-    
+
     func removeObservers() {
         observers.forEach { NotificationCenter.default.removeObserver($0) }
     }

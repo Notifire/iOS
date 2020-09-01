@@ -9,7 +9,7 @@
 import UIKit
 
 class ActionButton: BaseButton, Loadable {
-    
+
     // MARK: - Inherited
     override open func setup() {
         tintColor = .notifireMainColor

@@ -10,24 +10,24 @@ import UserNotifications
 import UIKit
 
 class NotifireNotificationsHandler: NSObject {
-    
+
     var activeRealmProvider: RealmProviding?
-    
+
     func setAsDelegate() {
         UNUserNotificationCenter.current().delegate = self
     }
-    
+
     enum NotificationHandlingError: Error {
         case unknownContent
         case unknownService
         case noActiveUserSession
     }
-    
+
     enum NotificationHandlingResult {
         case successful
         case error(NotificationHandlingError)
     }
-    
+
     func getNotification(from userInfo: [AnyHashable: Any]) -> LocalNotifireNotification? {
         guard let userInfoData = try? JSONSerialization.data(withJSONObject: userInfo, options: []),
             let notifireNotification = try? JSONDecoder().decode(LocalNotifireNotification.self, from: userInfoData) else {
@@ -35,7 +35,7 @@ class NotifireNotificationsHandler: NSObject {
         }
         return notifireNotification
     }
-    
+
     func handle(content: UNNotificationContent) throws -> (LocalService, LocalNotifireNotification) {
         let userInfoDict = content.userInfo
         guard let notifireNotification = getNotification(from: userInfoDict) else {
@@ -52,7 +52,7 @@ class NotifireNotificationsHandler: NSObject {
         }
         return (service, notifireNotification)
     }
-    
+
     func numberOfUnreadNotifications() -> Int? {
         guard let realm = activeRealmProvider?.realm else {
             return nil
