@@ -26,7 +26,7 @@ class NotifireAPIManagerBase {
     // MARK: - Properties
     // MARK: Static
     static let requestTimeout: TimeInterval = 20
-    static let baseURL = URL(string: Config.shared.apiUrlString)!
+    static let baseURL = URL(string: Config.apiUrlString)!
 
     let apiHandler: NotifireAPIHandler
 
