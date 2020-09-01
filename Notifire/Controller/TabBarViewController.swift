@@ -30,9 +30,9 @@ class TabBarViewController: UIViewController, AppRevealing {
         view.axis = .horizontal
         view.distribution = .fillEqually
         view.alignment = .center
-        for (i, tab) in viewModel.tabs.enumerated() {
+        for (index, tab) in viewModel.tabs.enumerated() {
             let button = UIButton()
-            button.tag = i
+            button.tag = index
             button.tintColor = .tabBarButtonDeselectedColor
             button.setImage(tab.image.withRenderingMode(.alwaysTemplate), for: .normal)
             let selectedImg = tab.highlightedImage.withRenderingMode(.alwaysTemplate)

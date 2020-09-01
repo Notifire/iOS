@@ -1135,11 +1135,11 @@
 			buildConfigurationList = 89576B3624FD412A0097BF87 /* Build configuration list for PBXNativeTarget "Notifire Mock" */;
 			buildPhases = (
 				B04BB5B7A696924831F55129 /* [CP] Check Pods Manifest.lock */,
+				89250B0024FE6B1600BC7C2C /* ShellScript */,
 				89576A9F24FD412A0097BF87 /* Sources */,
 				89576B2E24FD412A0097BF87 /* Frameworks */,
 				89576B3024FD412A0097BF87 /* Resources */,
 				89576B3324FD412A0097BF87 /* Embed App Extensions */,
-				89250B0024FE6B1600BC7C2C /* ShellScript */,
 				50CBD049ED71C19F191D1E6B /* [CP] Embed Pods Frameworks */,
 				89250B0E24FE710D00BC7C2C /* ShellScript */,
 			);
@@ -1178,11 +1178,11 @@
 			buildConfigurationList = 89B3EC652020E4900068BA64 /* Build configuration list for PBXNativeTarget "Notifire" */;
 			buildPhases = (
 				6E8697CFD736F063B9585C2D /* [CP] Check Pods Manifest.lock */,
+				89250AFF24FE6B0B00BC7C2C /* Run Script */,
 				89B3EC412020E4900068BA64 /* Sources */,
 				89B3EC422020E4900068BA64 /* Frameworks */,
 				89B3EC432020E4900068BA64 /* Resources */,
 				8985339D219FA46A00E0A656 /* Embed App Extensions */,
-				89250AFF24FE6B0B00BC7C2C /* ShellScript */,
 				89250B0A24FE6F7D00BC7C2C /* Embed Frameworks */,
 				89250B0D24FE6FC100BC7C2C /* ShellScript */,
 				5A51395105D301DFAB90C610 /* [CP] Embed Pods Frameworks */,
@@ -1212,6 +1212,7 @@
 					};
 					89853390219FA46900E0A656 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1160;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1224,7 +1225,7 @@
 					};
 					89B3EC442020E4900068BA64 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1160;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1375,7 +1376,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		89250AFF24FE6B0B00BC7C2C /* ShellScript */ = {
+		89250AFF24FE6B0B00BC7C2C /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1384,13 +1385,14 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint autocorrect && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		89250B0024FE6B1600BC7C2C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1407,7 +1409,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint autocorrect && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		89250B0D24FE6FC100BC7C2C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1959,7 +1961,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = TestFlight;
@@ -2008,7 +2010,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = TestFlight;
@@ -2035,7 +2037,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2061,7 +2063,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2202,7 +2204,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2228,7 +2230,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

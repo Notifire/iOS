@@ -32,9 +32,9 @@ class NotifireUserSessionManager {
     }
 
     private func loadSession(username: String) -> NotifireUserSession? {
-        guard let maybeRefreshToken = try? keychain.getString(key(for: username, key: Keys.refreshToken)), let refreshToken = maybeRefreshToken else { return nil }
+        guard let maybeRefreshToken = ((try? keychain.getString(key(for: username, key: Keys.refreshToken))) as String??), let refreshToken = maybeRefreshToken else { return nil }
         let userSession = NotifireUserSession(refreshToken: refreshToken, username: username)
-        if let deviceToken = try? keychain.getString(key(for: username, key: Keys.deviceToken)) {
+        if let deviceToken = ((try? keychain.getString(key(for: username, key: Keys.deviceToken))) as String??) {
             userSession.deviceToken = deviceToken
         }
         return userSession
@@ -49,7 +49,7 @@ class NotifireUserSessionManager {
 //                isFirstLaunch = true
 //            }
 //        }
-        guard let maybeUsername = try? keychain.getString(Keys.loggedInUsername), let username = maybeUsername,
+        guard let maybeUsername = ((try? keychain.getString(Keys.loggedInUsername)) as String??), let username = maybeUsername,
         let session = loadSession(username: username) else { return nil }
 //        if isFirstLaunch {
 //            removeSession(userSession: session)

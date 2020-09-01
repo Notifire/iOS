@@ -33,7 +33,7 @@ struct RealmManager {
         guard let configuration = createUserConfiguration(from: userSession) else { return nil }
         do {
             return try Realm(configuration: configuration)
-        } catch let e {
+        } catch {
             return nil
         }
     }

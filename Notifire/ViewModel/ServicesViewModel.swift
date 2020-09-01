@@ -100,7 +100,7 @@ class ServicesViewModel: RealmCollectionViewModel<LocalService>, APIFailable {
                 if localServicesToUpdate.isEmpty {
                     self?.viewState = .displayingServices
                 } else {
-                    try? self?.realmProvider.realm.write {
+                    ((try? self?.realmProvider.realm.write {
                         for (outdatedLocalService, maybeService) in localServicesToUpdate {
                             if let service = maybeService {
                                 outdatedLocalService.updateDataExceptUUID(from: service)
@@ -108,7 +108,7 @@ class ServicesViewModel: RealmCollectionViewModel<LocalService>, APIFailable {
                                 self?.realmProvider.realm.add(outdatedLocalService, update: .all)
                             }
                         }
-                    }
+                    }) as ()??)
                 }
             }
             self?.setupResultsTokenIfNeeded()

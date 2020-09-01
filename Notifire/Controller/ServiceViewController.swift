@@ -107,6 +107,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         updateUI()
     }
 
+    // swiftlint:disable identifier_name
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateGradient()
@@ -119,6 +120,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         serviceHeaderView.setNeedsLayout()
         serviceHeaderView.layoutIfNeeded()
     }
+    // swiftlint:enable identifier_name
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -420,19 +422,19 @@ extension ServiceViewController: UITableViewDelegate {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let y = parentScrollView.contentOffset.y + parentScrollView.adjustedContentInset.top
+        let yPos = parentScrollView.contentOffset.y + parentScrollView.adjustedContentInset.top
         // sticky ServiceHeaderView
-        if y >= 0 {
-            serviceHeaderView.floatingTopToTopConstraint.constant = y
+        if yPos >= 0 {
+            serviceHeaderView.floatingTopToTopConstraint.constant = yPos
         } else {
             // fix for the serviceHeaderView not getting layed out after scrolling too fast
             serviceHeaderView.floatingTopToTopConstraint.constant = 0
         }
 
         // sticky ServiceNotificationsHeaderView
-        let shouldStickNotificationsHeaderView = y >= notificationsHeaderView.frame.origin.y
+        let shouldStickNotificationsHeaderView = yPos >= notificationsHeaderView.frame.origin.y
         if shouldStickNotificationsHeaderView {
-            let headerViewTopY = y - notificationsHeaderView.frame.origin.y
+            let headerViewTopY = yPos - notificationsHeaderView.frame.origin.y
             notificationsHeaderView.floatingTopToTopConstraint.constant = headerViewTopY
             let maskViewY = headerViewTopY - notificationsHeaderView.bounds.height/2
             tableViewMaskView.frame = CGRect(origin: CGPoint(x: 0, y: maskViewY), size: CGSize(width: tableView.bounds.width, height: tableView.bounds.height-maskViewY))

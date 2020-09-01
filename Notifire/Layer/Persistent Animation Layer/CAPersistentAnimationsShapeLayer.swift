@@ -30,8 +30,8 @@ class CAPersistentAnimationsShapeLayer: CAShapeLayer, PersistentAnimationsObserv
         setupSublayers()
     }
 
-    override func hitTest(_ p: CGPoint) -> CALayer? {
-        return super.hitTest(p)
+    override func hitTest(_ point: CGPoint) -> CALayer? {
+        return super.hitTest(point)
     }
 
     deinit {

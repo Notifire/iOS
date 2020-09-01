@@ -32,7 +32,9 @@ class RealmProvider: RealmProviding {
     }
 
     var realm: Realm {
+        // swiftlint:disable force_try
         return try! Realm(configuration: userConfiguration)
+        // swiftlint:enable force_try
     }
 }
 
