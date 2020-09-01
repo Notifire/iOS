@@ -107,7 +107,6 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         updateUI()
     }
 
-    // swiftlint:disable identifier_name
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateGradient()
@@ -120,7 +119,6 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         serviceHeaderView.setNeedsLayout()
         serviceHeaderView.layoutIfNeeded()
     }
-    // swiftlint:enable identifier_name
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

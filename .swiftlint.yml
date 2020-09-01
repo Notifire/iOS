@@ -8,6 +8,11 @@ cyclomatic_complexity:
 identifier_name:
   excluded:
     - id
+    - vc
+    - i
+    - x
+    - y
+    - tv
 
 # paths to ignore during linting.
 excluded: 

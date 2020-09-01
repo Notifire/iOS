@@ -55,7 +55,7 @@ extension URLSession: NotifireAPIHandler {
                 }
                 finish(response, nil)
             case .noContent:
-                let emptyJsonData = Data(bytes: [0x7B, 0x7D]) // "{}" empty json data
+                let emptyJsonData = Data(_: [0x7B, 0x7D]) // "{}" empty json data
                 guard let response = try? JSONDecoder().decode(requestContext.responseBodyType, from: emptyJsonData) else {
                     finish(nil, .invalidResponseBody(requestContext.responseBodyType))
                     return

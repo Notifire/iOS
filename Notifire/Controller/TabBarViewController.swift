@@ -119,10 +119,10 @@ class TabBarViewController: UIViewController, AppRevealing {
             UIView.addKeyframe(withRelativeStartTime: 0.55, relativeDuration: 0.45, animations: {
                 activeAlertView.transform = activeAlertView.transform.scaledBy(x: 0.01, y: 0.01)
             })
-        }) { [weak self] _ in
+        }, completion: ({ [weak self] _ in
             activeAlertView.removeFromSuperview()
             self?.notificationsAlertView = nil
-        }
+        }))
     }
 
     // MARK: Layout

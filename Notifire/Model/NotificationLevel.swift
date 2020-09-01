@@ -9,9 +9,9 @@
 import Foundation
 
 enum NotificationLevel: String, CustomStringConvertible, Decodable {
-    case info = "info"
-    case warning = "warning"
-    case error = "error"
+    case info
+    case warning
+    case error
 
     var emoji: String {
         switch self {

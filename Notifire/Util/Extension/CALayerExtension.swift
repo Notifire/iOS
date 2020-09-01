@@ -46,8 +46,8 @@ extension CALayer {
         speed = newSpeed
     }
 
-    func multiplySpeed(by: Float) {
-        let newSpeed = speed * by
+    func multiplySpeed(by factor: Float) {
+        let newSpeed = speed * factor
         changeSpeed(to: newSpeed)
     }
 }

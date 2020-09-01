@@ -41,6 +41,7 @@ extension UILabel: Stylable {
         set(style: style)
     }
 
+    // swiftlint:disable function_body_length
     func set(style: UILabel.Style) {
         numberOfLines = 0
         switch style {
@@ -103,4 +104,6 @@ extension UILabel: Stylable {
             textAlignment = .center
         }
     }
+    // swiftlint:enable function_body_length
+
 }

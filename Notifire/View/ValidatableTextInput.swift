@@ -160,11 +160,11 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
             textFieldToViewBottomConstraint.isActive = true
             UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState], animations: {
                 self.layoutIfNeeded()
-            }) { finished in
+            }, completion: ({ finished in
                 guard finished else { return }
                 label.removeFromSuperview()
                 self.errorLabel = nil
-            }
+            }))
         }
     }
 

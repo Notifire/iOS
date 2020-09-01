@@ -43,6 +43,7 @@ class TappableLabel: UILabel {
         case .failed, .cancelled, .ended:
             onLabelLongPressEnded()
         case .changed, .possible: break
+        @unknown default: break
         }
     }
 
