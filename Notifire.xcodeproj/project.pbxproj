@@ -206,7 +206,6 @@
 		89576AFB24FD412A0097BF87 /* URLRequestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0E42143380C00645B3A /* URLRequestExtension.swift */; };
 		89576AFC24FD412A0097BF87 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069CB213359A100D798AA /* BaseViewController.swift */; };
 		89576AFD24FD412A0097BF87 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399584216FEFD500687A79 /* UIViewExtension.swift */; };
-		89576AFE24FD412A0097BF87 /* UITapGestureRecognizerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069E82134B25200D798AA /* UITapGestureRecognizerExtension.swift */; };
 		89576AFF24FD412A0097BF87 /* RegisterSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA7121713D2700A72BD0 /* RegisterSuccessViewController.swift */; };
 		89576B0024FD412A0097BF87 /* ConstrainableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069C721334E7700D798AA /* ConstrainableView.swift */; };
 		89576B0124FD412A0097BF87 /* CenterStackPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA762171578900A72BD0 /* CenterStackPresenting.swift */; };
@@ -272,7 +271,6 @@
 		897069E22134051E00D798AA /* KeyboardObserving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069E12134051E00D798AA /* KeyboardObserving.swift */; };
 		897069E42134721300D798AA /* CurvedTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069E32134721300D798AA /* CurvedTopView.swift */; };
 		897069E72134A36700D798AA /* TappableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069E62134A36700D798AA /* TappableLabel.swift */; };
-		897069E92134B25200D798AA /* UITapGestureRecognizerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069E82134B25200D798AA /* UITapGestureRecognizerExtension.swift */; };
 		897069EB2134B4D200D798AA /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069EA2134B4D200D798AA /* RegisterViewController.swift */; };
 		897069EE2134B68300D798AA /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069ED2134B68300D798AA /* LoginViewModel.swift */; };
 		897069F22134BD1200D798AA /* UIStackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069F12134BD1200D798AA /* UIStackViewExtension.swift */; };
@@ -330,6 +328,8 @@
 		89E6B6BE24FF0E3E00F7A79C /* AppCoordinator+NotifireUserSessionDeletionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6BC24FF0E3E00F7A79C /* AppCoordinator+NotifireUserSessionDeletionDelegate.swift */; };
 		89E6B6C024FF0E5300F7A79C /* AppCoordinator+ConfirmEmailViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6BF24FF0E5300F7A79C /* AppCoordinator+ConfirmEmailViewControllerDelegate.swift */; };
 		89E6B6C124FF0E5300F7A79C /* AppCoordinator+ConfirmEmailViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6BF24FF0E5300F7A79C /* AppCoordinator+ConfirmEmailViewControllerDelegate.swift */; };
+		89E6B6C424FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6C324FF0FBD00F7A79C /* UIColor+AppColors.swift */; };
+		89E6B6C524FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6C324FF0FBD00F7A79C /* UIColor+AppColors.swift */; };
 		89E777ED2173E9F3009CF3DE /* NoSessionContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E777EC2173E9F3009CF3DE /* NoSessionContainerViewController.swift */; };
 		8C41DB562E858E4A2667FAE0 /* Pods_Notifire_Notifire_Mock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE25B015C96B4223AF4F6B4 /* Pods_Notifire_Notifire_Mock.framework */; };
 /* End PBXBuildFile section */
@@ -514,7 +514,6 @@
 		8948F57121A0AD8200BB6E10 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
 		8948F57321A0C00000BB6E10 /* NotifirePoppable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifirePoppable.swift; sourceTree = "<group>"; };
 		89576B3B24FD412A0097BF87 /* Notifire Mock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Notifire Mock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		89576B3C24FD412A0097BF87 /* Notifire copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Notifire copy-Info.plist"; path = "/Users/dvdblk/Documents/Code/_Projects/Notifire/_main/ios/Notifire copy-Info.plist"; sourceTree = "<absolute>"; };
 		89576B3D24FD42FD0097BF87 /* TestFlight.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = TestFlight.xcconfig; sourceTree = "<group>"; };
 		895E4018204046EA0062D5FC /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		897069C721334E7700D798AA /* ConstrainableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstrainableView.swift; sourceTree = "<group>"; };
@@ -531,7 +530,6 @@
 		897069E12134051E00D798AA /* KeyboardObserving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserving.swift; sourceTree = "<group>"; };
 		897069E32134721300D798AA /* CurvedTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurvedTopView.swift; sourceTree = "<group>"; };
 		897069E62134A36700D798AA /* TappableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableLabel.swift; sourceTree = "<group>"; };
-		897069E82134B25200D798AA /* UITapGestureRecognizerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITapGestureRecognizerExtension.swift; sourceTree = "<group>"; };
 		897069EA2134B4D200D798AA /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		897069ED2134B68300D798AA /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		897069F12134BD1200D798AA /* UIStackViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackViewExtension.swift; sourceTree = "<group>"; };
@@ -585,6 +583,7 @@
 		89E6B6B924FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+NotifireUserSessionCreationDelegate.swift"; sourceTree = "<group>"; };
 		89E6B6BC24FF0E3E00F7A79C /* AppCoordinator+NotifireUserSessionDeletionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+NotifireUserSessionDeletionDelegate.swift"; sourceTree = "<group>"; };
 		89E6B6BF24FF0E5300F7A79C /* AppCoordinator+ConfirmEmailViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+ConfirmEmailViewControllerDelegate.swift"; sourceTree = "<group>"; };
+		89E6B6C324FF0FBD00F7A79C /* UIColor+AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColors.swift"; sourceTree = "<group>"; };
 		89E777EB2173C04C009CF3DE /* Mock.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Mock.xcconfig; sourceTree = "<group>"; };
 		89E777EC2173E9F3009CF3DE /* NoSessionContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSessionContainerViewController.swift; sourceTree = "<group>"; };
 		940630549CAED2693C39B61A /* Pods-Notifire-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-Notifire-NotificationServiceExtension/Pods-Notifire-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -729,6 +728,7 @@
 			isa = PBXGroup;
 			children = (
 				89250B2324FEEB7000BC7C2C /* ViewController */,
+				89E6B6C224FF0FAB00F7A79C /* Extension */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -1049,7 +1049,6 @@
 				89B3EC462020E4900068BA64 /* Products */,
 				4DB0C2C61B3F8DC2A711E3CE /* Pods */,
 				CC7A7813572D08E26068BCF2 /* Frameworks */,
-				89576B3C24FD412A0097BF87 /* Notifire copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1168,7 +1167,6 @@
 			children = (
 				897069F12134BD1200D798AA /* UIStackViewExtension.swift */,
 				89B3EC7520239D170068BA64 /* StringExtension.swift */,
-				897069E82134B25200D798AA /* UITapGestureRecognizerExtension.swift */,
 				897069CF21335E9200D798AA /* UIColorExtension.swift */,
 				897069CD21335C3400D798AA /* UIViewControllerExtension.swift */,
 				89D4E1F02139ED0F00630790 /* CALayerExtension.swift */,
@@ -1207,6 +1205,14 @@
 				89D4E1EE2138A48700630790 /* NotifireAnimatedView.swift */,
 			);
 			path = NotifireAnim;
+			sourceTree = "<group>";
+		};
+		89E6B6C224FF0FAB00F7A79C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				89E6B6C324FF0FBD00F7A79C /* UIColor+AppColors.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		CC7A7813572D08E26068BCF2 /* Frameworks */ = {
@@ -1634,6 +1640,7 @@
 				89576AC524FD412A0097BF87 /* SplashView.swift in Sources */,
 				89576AC624FD412A0097BF87 /* TabBarCollectionCell.swift in Sources */,
 				89576AC724FD412A0097BF87 /* NotifirePoppable.swift in Sources */,
+				89E6B6C524FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */,
 				89576AC824FD412A0097BF87 /* SettingsViewController.swift in Sources */,
 				89250B2124FEEB4800BC7C2C /* RootViewModel.swift in Sources */,
 				89576AC924FD412A0097BF87 /* NotificationLevelModel.swift in Sources */,
@@ -1692,7 +1699,6 @@
 				89576AFB24FD412A0097BF87 /* URLRequestExtension.swift in Sources */,
 				89576AFC24FD412A0097BF87 /* BaseViewController.swift in Sources */,
 				89576AFD24FD412A0097BF87 /* UIViewExtension.swift in Sources */,
-				89576AFE24FD412A0097BF87 /* UITapGestureRecognizerExtension.swift in Sources */,
 				89576AFF24FD412A0097BF87 /* RegisterSuccessViewController.swift in Sources */,
 				89576B0024FD412A0097BF87 /* ConstrainableView.swift in Sources */,
 				89576B0124FD412A0097BF87 /* CenterStackPresenting.swift in Sources */,
@@ -1805,6 +1811,7 @@
 				8939958E2170011100687A79 /* SplashView.swift in Sources */,
 				8939959B2170E52600687A79 /* TabBarCollectionCell.swift in Sources */,
 				8948F57421A0C00000BB6E10 /* NotifirePoppable.swift in Sources */,
+				89E6B6C424FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */,
 				893995B02170EEE500687A79 /* SettingsViewController.swift in Sources */,
 				89250B2024FEEB4800BC7C2C /* RootViewModel.swift in Sources */,
 				893FE031219783F0002CD846 /* NotificationLevelModel.swift in Sources */,
@@ -1863,7 +1870,6 @@
 				8933F0E52143380C00645B3A /* URLRequestExtension.swift in Sources */,
 				897069CC213359A100D798AA /* BaseViewController.swift in Sources */,
 				89399585216FEFD500687A79 /* UIViewExtension.swift in Sources */,
-				897069E92134B25200D798AA /* UITapGestureRecognizerExtension.swift in Sources */,
 				8920CA7221713D2700A72BD0 /* RegisterSuccessViewController.swift in Sources */,
 				897069C821334E7700D798AA /* ConstrainableView.swift in Sources */,
 				8920CA772171578900A72BD0 /* CenterStackPresenting.swift in Sources */,
@@ -1955,7 +1961,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "Notifire copy-Info.plist";
+				INFOPLIST_FILE = Notifire/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1981,7 +1987,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "Notifire copy-Info.plist";
+				INFOPLIST_FILE = Notifire/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2095,7 +2101,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "Notifire copy-Info.plist";
+				INFOPLIST_FILE = Notifire/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

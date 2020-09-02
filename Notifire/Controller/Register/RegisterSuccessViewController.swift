@@ -51,7 +51,7 @@ protocol RegisterSuccessViewControllerDelegate: class {
     func shouldStartNewRegistration()
 }
 
-class RegisterSuccessViewController: BottomNavigatorViewController, CenterStackViewPresenting {
+class RegisterSuccessViewController: BottomNavigatorLabelViewController, CenterStackViewPresenting {
 
     // MARK: - Properties
     weak var delegate: RegisterSuccessViewControllerDelegate?
@@ -98,7 +98,12 @@ class RegisterSuccessViewController: BottomNavigatorViewController, CenterStackV
         navigationItem.setHidesBackButton(true, animated: false)
 
         // buttons
-        tappableLabel.setLinked(text: "Already using Notifire? Sign in.", link: "Sign in")
+        tappableLabel.onHypertextTapped = { [unowned self] in
+            self.delegate?.didFinishRegister()
+        }
+        let hyperText = "Sign in"
+        let text = "Already using Notifire? \(hyperText)."
+        tappableLabel.set(hypertext: hyperText, in: text)
 
         // viewModel
         viewModel.onResendButtonStateChange = { newState in
@@ -111,11 +116,6 @@ class RegisterSuccessViewController: BottomNavigatorViewController, CenterStackV
         }
 
         layout()
-    }
-
-    // MARK: - Inherited
-    override func didTapTappableLabel() {
-        delegate?.didFinishRegister()
     }
 
     // MARK: - Private

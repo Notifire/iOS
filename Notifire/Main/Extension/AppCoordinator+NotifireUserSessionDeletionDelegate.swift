@@ -6,7 +6,7 @@
 //  Copyright © 2020 David Bielik. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension AppCoordinator: NotifireUserSessionDeletionDelegate {
     /// called when the session is explicitly deleted (user logs out) or when the session expires (the refresh token changes)

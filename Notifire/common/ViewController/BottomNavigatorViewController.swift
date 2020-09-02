@@ -8,31 +8,38 @@
 
 import UIKit
 
+/// A view controller class that generalizes view controllers that contain some navigation in the bottom "Tab bar"
 class BottomNavigatorViewController: BaseViewController {
 
     // MARK: - Properties
     // MARK: Views
     let bottomNavigator: ConstrainableView = {
         let view = ConstrainableView()
-        view.backgroundColor = .backgroundColor
+        view.backgroundColor = .compatibleSystemBackground
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.layer.cornerRadius = 4
         return view
     }()
 
-    let tappableLabel = TappableLabel(fontSize: 13)
-
     // MARK: - Inherited
     override func setupSubviews() {
-        view.backgroundColor = .backgroundColor
+        view.backgroundColor = .compatibleSystemBackground
 
-        // navigator
-        view.addSubview(bottomNavigator)
-        bottomNavigator.backgroundColor = .backgroundAccentColor
-        bottomNavigator.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        bottomNavigator.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        // Bottom Navigator container
+        let navigatorContainer = UIView()
+        navigatorContainer.backgroundColor = .compatibleSystemBackground
+        view.add(subview: navigatorContainer)
+        navigatorContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        navigatorContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        navigatorContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        navigatorContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Size.Tab.height).isActive = true
+
+        // Bottom Navigator
+        view.add(subview: bottomNavigator)
+        bottomNavigator.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        bottomNavigator.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bottomNavigator.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        bottomNavigator.heightAnchor.constraint(equalToConstant: Size.Navigator.height).isActive = true
+        bottomNavigator.topAnchor.constraint(equalTo: navigatorContainer.topAnchor).isActive = true
 
         // separator
         let hairlineView = HairlineView()
@@ -40,23 +47,26 @@ class BottomNavigatorViewController: BaseViewController {
         hairlineView.leadingAnchor.constraint(equalTo: bottomNavigator.leadingAnchor).isActive = true
         hairlineView.trailingAnchor.constraint(equalTo: bottomNavigator.trailingAnchor).isActive = true
         hairlineView.topAnchor.constraint(equalTo: bottomNavigator.topAnchor).isActive = true
+    }
+}
+
+class BottomNavigatorLabelViewController: BottomNavigatorViewController {
+
+    // MARK: - Properties
+    lazy var tappableLabel: TappableLabel = {
+        let label = TappableLabel()
+        label.set(style: .primary)
+        return label
+    }()
+
+    // MARK: - Inherited
+    override func setupSubviews() {
+        super.setupSubviews()
 
         // Tappable Label
         bottomNavigator.addSubview(tappableLabel)
         tappableLabel.translatesAutoresizingMaskIntoConstraints = false
         tappableLabel.centerXAnchor.constraint(equalTo: bottomNavigator.centerXAnchor).isActive = true
         tappableLabel.centerYAnchor.constraint(equalTo: bottomNavigator.centerYAnchor).isActive = true
-        tappableLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLabel(recognizer:))))
-    }
-
-    // MARK: - Event Handlers
-    @objc private func didTapLabel(recognizer: UITapGestureRecognizer) {
-        guard recognizer.didTapAttributedText(in: tappableLabel) else { return }
-        didTapTappableLabel()
-    }
-
-    // MARK: - Open
-    open func didTapTappableLabel() {
-
     }
 }

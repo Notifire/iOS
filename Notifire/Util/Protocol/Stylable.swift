@@ -9,6 +9,7 @@
 import UIKit
 
 enum LabelStyle {
+    case primary
     case largeTitle
     case title
     case heavyTitle
@@ -45,6 +46,9 @@ extension UILabel: Stylable {
     func set(style: UILabel.Style) {
         numberOfLines = 0
         switch style {
+        case .primary:
+            textColor = .black
+            font = UIFont.systemFont(ofSize: 14)
         case .largeTitle:
             textColor = .black
             font = UIFont.systemFont(ofSize: 28, weight: .bold)

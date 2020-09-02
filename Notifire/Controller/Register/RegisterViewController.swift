@@ -13,7 +13,7 @@ protocol RegisterViewControllerDelegate: class {
     func didRegisterSuccessfully()
 }
 
-class RegisterViewController: BottomNavigatorViewController, CenterStackViewPresenting {
+class RegisterViewController: BottomNavigatorLabelViewController, CenterStackViewPresenting {
 
     // MARK: - Properties
     let viewModel: RegisterViewModel
@@ -166,14 +166,15 @@ class RegisterViewController: BottomNavigatorViewController, CenterStackViewPres
         let stackView = insertStackView(arrangedSubviews: [usernameTextInput, emailTextInput, passwordTextInput, signUpButton], spacing: Size.textFieldSpacing)
         stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Size.componentSpacing*3).isActive = true
 
-        tappableLabel.setLinked(text: "Already using Notifire? Sign in.", link: "Sign in")
+        tappableLabel.onHypertextTapped = { [unowned self] in
+            self.delegate?.shouldFinishRegistration()
+        }
+        let hyperText = "Sign in"
+        let text = "Already using Notifire? \(hyperText)."
+        tappableLabel.set(hypertext: hyperText, in: text)
     }
 
     // MARK: - Event Handlers
-    override func didTapTappableLabel() {
-        delegate?.shouldFinishRegistration()
-    }
-
     // MARK: TextField
     @objc func didChange(textField: UITextField) {
         let componentToValidate: ValidatableTextInput

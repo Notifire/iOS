@@ -141,18 +141,21 @@ class NotificationDetailURLCell: BaseTableViewCell, CellConfigurable, Notificati
         return #imageLiteral(resourceName: "baseline_link_black_48pt")
     }
     // MARK: Views
-    let urlLabel = TappableLabel(fontSize: 15)
+    let urlLabel = TappableLabel()
 
     // MARK: Callback
     var onURLTap: ((URL) -> Void)?
 
     override func setup() {
         layout()
-        setupLabelGestures()
+        urlLabel.onHypertextTapped = { [unowned self] in
+            guard let safeUrl = self.url else { return }
+            self.onURLTap?(safeUrl)
+        }
     }
 
     func configure(data: DataType) {
-        urlLabel.setLinked(text: data.absoluteString, link: data.absoluteString)
+        urlLabel.set(hypertext: data.absoluteString, in: data.absoluteString)
         url = data
     }
 
@@ -170,15 +173,6 @@ class NotificationDetailURLCell: BaseTableViewCell, CellConfigurable, Notificati
         urlLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: Size.componentHeight).isActive = true
 
         addIndicatorImageView()
-    }
-
-    private func setupLabelGestures() {
-        urlLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLabel(recognizer:))))
-    }
-
-    @objc private func didTapLabel(recognizer: UITapGestureRecognizer) {
-        guard recognizer.didTapAttributedText(in: urlLabel), let safeUrl = url else { return }
-        onURLTap?(safeUrl)
     }
 }
 

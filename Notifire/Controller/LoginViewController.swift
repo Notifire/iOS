@@ -12,7 +12,7 @@ protocol LoginViewControllerDelegate: NotifireUserSessionCreationDelegate {
     func shouldStartRegisterFlow()
 }
 
-class LoginViewController: BottomNavigatorViewController, AppRevealing, KeyboardObserving, CenterStackViewPresenting, APIFailableResponding, APIFailableDisplaying, NotifirePoppablePresenting {
+class LoginViewController: BottomNavigatorLabelViewController, AppRevealing, KeyboardObserving, CenterStackViewPresenting, APIFailableResponding, APIFailableDisplaying, NotifirePoppablePresenting {
 
     // MARK: - APIFailableResponding
     typealias FailableViewModel = LoginViewModel
@@ -133,7 +133,12 @@ class LoginViewController: BottomNavigatorViewController, AppRevealing, Keyboard
         let stackView = insertStackView(arrangedSubviews: [textFieldStackView, signInButton], spacing: Size.componentSpacing)
         stackView.topAnchor.constraint(equalTo: loginContainerView.topAnchor, constant: Size.componentSpacing).isActive = true
 
-        tappableLabel.setLinked(text: "New to Notifire? Sign up instead.", link: "Sign up")
+        tappableLabel.onHypertextTapped = { [unowned self] in
+            self.delegate?.shouldStartRegisterFlow()
+        }
+        let hyperText = "Sign up"
+        let text = "New to Notifire? \(hyperText) instead."
+        tappableLabel.set(hypertext: hyperText, in: text)
 
         keyboardAnimationBlock = { expanded, duration in
             loginContainerView.switchPaths(expanded: expanded, duration: duration)
@@ -180,10 +185,6 @@ class LoginViewController: BottomNavigatorViewController, AppRevealing, Keyboard
     }
 
     // MARK: - Event Handlers
-    override open func didTapTappableLabel() {
-        delegate?.shouldStartRegisterFlow()
-    }
-
     // MARK: TextField
     @objc func didStopEditing(textField: UITextField) {
         if textField == usernameEmailTextInput.textField {

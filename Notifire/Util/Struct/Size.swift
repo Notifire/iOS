@@ -44,4 +44,9 @@ struct Size {
     struct Tab {
         static let height: CGFloat = 50
     }
+
+    struct Font {
+        static let `default`: CGFloat = 14
+        static let action: CGFloat = 16
+    }
 }
