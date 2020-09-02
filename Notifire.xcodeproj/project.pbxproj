@@ -727,6 +727,7 @@
 		89250B2224FEEB6900BC7C2C /* common */ = {
 			isa = PBXGroup;
 			children = (
+				89E6B6C624FF209600F7A79C /* View */,
 				89250B2324FEEB7000BC7C2C /* ViewController */,
 				89E6B6C224FF0FAB00F7A79C /* Extension */,
 			);
@@ -946,17 +947,6 @@
 			path = "Table View";
 			sourceTree = "<group>";
 		};
-		893FE02B21977CD5002CD846 /* Misc */ = {
-			isa = PBXGroup;
-			children = (
-				89BDADD7217A2596000E38FC /* HairlineView.swift */,
-				893FE01E21960BCC002CD846 /* ChoiceSeparatorView.swift */,
-				897069E32134721300D798AA /* CurvedTopView.swift */,
-				8948F57121A0AD8200BB6E10 /* RoundedImageView.swift */,
-			);
-			path = Misc;
-			sourceTree = "<group>";
-		};
 		895E4017204046C90062D5FC /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -1007,7 +997,6 @@
 		897069E52134A35300D798AA /* Labels */ = {
 			isa = PBXGroup;
 			children = (
-				897069E62134A36700D798AA /* TappableLabel.swift */,
 				8920CA8A21723B9A00A72BD0 /* LoadableLabel.swift */,
 				893FE0362197C225002CD846 /* CopyableLabel.swift */,
 			);
@@ -1129,7 +1118,6 @@
 				897069E52134A35300D798AA /* Labels */,
 				897069DD2133872F00D798AA /* Buttons */,
 				8933F0B4214062FA00645B3A /* TextFields */,
-				893FE02B21977CD5002CD846 /* Misc */,
 				897069C721334E7700D798AA /* ConstrainableView.swift */,
 				8939958D2170011100687A79 /* SplashView.swift */,
 				893FE02321962C3E002CD846 /* ServiceNotificationsHeaderView.swift */,
@@ -1213,6 +1201,18 @@
 				89E6B6C324FF0FBD00F7A79C /* UIColor+AppColors.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		89E6B6C624FF209600F7A79C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				89BDADD7217A2596000E38FC /* HairlineView.swift */,
+				893FE01E21960BCC002CD846 /* ChoiceSeparatorView.swift */,
+				897069E32134721300D798AA /* CurvedTopView.swift */,
+				8948F57121A0AD8200BB6E10 /* RoundedImageView.swift */,
+				897069E62134A36700D798AA /* TappableLabel.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		CC7A7813572D08E26068BCF2 /* Frameworks */ = {
