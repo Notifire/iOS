@@ -7,13 +7,28 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 class DeeplinkHandler {
 
     var currentDeeplink: Deeplink?
     weak var appCoordinator: AppCoordinator?
 
-    func switchToAppropriateDeeplink(from url: URL) -> Bool {
+    // MARK: - Private
+    enum URLOrigin {
+        case google
+        case notifire
+    }
+
+    private func determineURLOrigin(url: URL) -> URLOrigin {
+        if url.host?.contains("google") ?? false {
+            return .google
+        } else {
+            return .notifire
+        }
+    }
+
+    private func switchToAppropriateNotifireDeeplink(from url: URL) -> Bool {
         var comp = url.pathComponents
         guard !comp.isEmpty else {
             return false
@@ -32,6 +47,19 @@ class DeeplinkHandler {
             return false
         }
         return true
+    }
+
+    private func handleGoogleDeeplink(from url: URL) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
+    }
+
+    // MARK: - Internal
+    // MARK: Handlers
+    func switchToAppropriateDeeplink(from url: URL) -> Bool {
+        switch determineURLOrigin(url: url) {
+        case .google: return handleGoogleDeeplink(from: url)
+        case .notifire: return switchToAppropriateNotifireDeeplink(from: url)
+        }
     }
 
     func switchTo(deeplinkOption: Deeplink.Option) {

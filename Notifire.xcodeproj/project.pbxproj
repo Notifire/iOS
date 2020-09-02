@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C0C1CF4657A1D9AEFF79F04 /* Pods_Notifire_NotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1C4C444EF286634E039FF8 /* Pods_Notifire_NotificationServiceExtension.framework */; };
-		6274CD2074727F2E8CF30D2A /* Pods_Notifire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A04DDC493D95926761164B /* Pods_Notifire.framework */; };
+		0E98CF4D8A6187E9159916CE /* Pods_Abst_NotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F7F669C4334997C1F82D76 /* Pods_Abst_NotificationServiceExtension.framework */; };
+		7C99F51A7641D94DD3AB2A3C /* Pods_Abst_Notifire_Mock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A5838B78DE5CCCCEC9C7D03 /* Pods_Abst_Notifire_Mock.framework */; };
 		8906E9742170FB2100D45BCA /* ConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906E9732170FB2100D45BCA /* ConfirmEmailViewController.swift */; };
 		8909A3BC218F24EE00EADD09 /* LocalNotifireNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */; };
 		8920CA702171377900A72BD0 /* RegisterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA6F2171377900A72BD0 /* RegisterCoordinator.swift */; };
@@ -331,7 +331,7 @@
 		89E6B6C424FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6C324FF0FBD00F7A79C /* UIColor+AppColors.swift */; };
 		89E6B6C524FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6C324FF0FBD00F7A79C /* UIColor+AppColors.swift */; };
 		89E777ED2173E9F3009CF3DE /* NoSessionContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E777EC2173E9F3009CF3DE /* NoSessionContainerViewController.swift */; };
-		8C41DB562E858E4A2667FAE0 /* Pods_Notifire_Notifire_Mock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE25B015C96B4223AF4F6B4 /* Pods_Notifire_Notifire_Mock.framework */; };
+		91A4C865A6FF77FCF5F5FE14 /* Pods_Abst_Notifire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF48406CF4114A37FB479C6B /* Pods_Abst_Notifire.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -413,15 +413,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		05CB7FAEDC3EAE29797F5C1C /* Pods-Notifire.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire.testflight.xcconfig"; path = "Target Support Files/Pods-Notifire/Pods-Notifire.testflight.xcconfig"; sourceTree = "<group>"; };
-		0910F7A0575CBE2D1AB27A31 /* Pods-Notifire-NotificationServiceExtension.mock.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire-NotificationServiceExtension.mock.xcconfig"; path = "Target Support Files/Pods-Notifire-NotificationServiceExtension/Pods-Notifire-NotificationServiceExtension.mock.xcconfig"; sourceTree = "<group>"; };
-		0A6884F8483A6D7E17C12CDB /* Pods-Notifire.mocktf.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire.mocktf.xcconfig"; path = "Target Support Files/Pods-Notifire/Pods-Notifire.mocktf.xcconfig"; sourceTree = "<group>"; };
-		10CB46E2DF5754200CC83E17 /* Pods-Notifire-Notifire Mock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire-Notifire Mock.debug.xcconfig"; path = "Target Support Files/Pods-Notifire-Notifire Mock/Pods-Notifire-Notifire Mock.debug.xcconfig"; sourceTree = "<group>"; };
-		16EB883854C59DDC8D8299B9 /* Pods-Notifire-Notifire Mock.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire-Notifire Mock.testflight.xcconfig"; path = "Target Support Files/Pods-Notifire-Notifire Mock/Pods-Notifire-Notifire Mock.testflight.xcconfig"; sourceTree = "<group>"; };
-		1C1C4C444EF286634E039FF8 /* Pods_Notifire_NotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notifire_NotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7036202CA36CDDCEF6D728CE /* Pods-Notifire-NotificationServiceExtension.mock tf.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire-NotificationServiceExtension.mock tf.xcconfig"; path = "Target Support Files/Pods-Notifire-NotificationServiceExtension/Pods-Notifire-NotificationServiceExtension.mock tf.xcconfig"; sourceTree = "<group>"; };
-		7701DE26149E2E0DF73E64CC /* Pods-Notifire.mock tf.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire.mock tf.xcconfig"; path = "Target Support Files/Pods-Notifire/Pods-Notifire.mock tf.xcconfig"; sourceTree = "<group>"; };
-		7D62B41A33C94D46CC64F94B /* Pods-Notifire.mock.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire.mock.xcconfig"; path = "Target Support Files/Pods-Notifire/Pods-Notifire.mock.xcconfig"; sourceTree = "<group>"; };
+		00B1319CA36593090BDBE2AB /* Pods-Abst-Notifire Mock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire Mock.debug.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire Mock/Pods-Abst-Notifire Mock.debug.xcconfig"; sourceTree = "<group>"; };
+		0162B92DAB5020E803869527 /* Pods-Abst-Notifire Mock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire Mock.release.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire Mock/Pods-Abst-Notifire Mock.release.xcconfig"; sourceTree = "<group>"; };
+		030BC637980C2A6C98337BB7 /* Pods-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
+		2A5838B78DE5CCCCEC9C7D03 /* Pods_Abst_Notifire_Mock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Abst_Notifire_Mock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CB99005B83A65FF306B2F1A /* Pods-Abst-Notifire.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire.testflight.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire.testflight.xcconfig"; sourceTree = "<group>"; };
 		8906E9732170FB2100D45BCA /* ConfirmEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailViewController.swift; sourceTree = "<group>"; };
 		8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifireNotification.swift; sourceTree = "<group>"; };
 		8920CA6F2171377900A72BD0 /* RegisterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCoordinator.swift; sourceTree = "<group>"; };
@@ -586,15 +582,16 @@
 		89E6B6C324FF0FBD00F7A79C /* UIColor+AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColors.swift"; sourceTree = "<group>"; };
 		89E777EB2173C04C009CF3DE /* Mock.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Mock.xcconfig; sourceTree = "<group>"; };
 		89E777EC2173E9F3009CF3DE /* NoSessionContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSessionContainerViewController.swift; sourceTree = "<group>"; };
-		940630549CAED2693C39B61A /* Pods-Notifire-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-Notifire-NotificationServiceExtension/Pods-Notifire-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		9888DB6CD1F671A6981B42C5 /* Pods-Notifire-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-Notifire-NotificationServiceExtension/Pods-Notifire-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
-		9AE25B015C96B4223AF4F6B4 /* Pods_Notifire_Notifire_Mock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notifire_Notifire_Mock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA44099301EF02EF5EDF3C9D /* Pods-Notifire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire.debug.xcconfig"; path = "Target Support Files/Pods-Notifire/Pods-Notifire.debug.xcconfig"; sourceTree = "<group>"; };
-		ACD6ABE3B766C3B0FC03FBCB /* Pods-Notifire-NotificationServiceExtension.mocktf.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire-NotificationServiceExtension.mocktf.xcconfig"; path = "Target Support Files/Pods-Notifire-NotificationServiceExtension/Pods-Notifire-NotificationServiceExtension.mocktf.xcconfig"; sourceTree = "<group>"; };
-		B78B8DD13761876BA555D69F /* Pods-Notifire-Notifire Mock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire-Notifire Mock.release.xcconfig"; path = "Target Support Files/Pods-Notifire-Notifire Mock/Pods-Notifire-Notifire Mock.release.xcconfig"; sourceTree = "<group>"; };
-		EC72C52DFF432800B2BA122B /* Pods-Notifire-NotificationServiceExtension.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire-NotificationServiceExtension.testflight.xcconfig"; path = "Target Support Files/Pods-Notifire-NotificationServiceExtension/Pods-Notifire-NotificationServiceExtension.testflight.xcconfig"; sourceTree = "<group>"; };
-		F375C8D2E4426F4884822957 /* Pods-Notifire.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notifire.release.xcconfig"; path = "Target Support Files/Pods-Notifire/Pods-Notifire.release.xcconfig"; sourceTree = "<group>"; };
-		F3A04DDC493D95926761164B /* Pods_Notifire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notifire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		928D68240DE9EDF7C6F0C4A6 /* Pods-Abst-Notifire Mock.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire Mock.testflight.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire Mock/Pods-Abst-Notifire Mock.testflight.xcconfig"; sourceTree = "<group>"; };
+		A3DC1CAF7E5B0E0CC05B7278 /* Pods-Abst-Notifire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire.debug.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire.debug.xcconfig"; sourceTree = "<group>"; };
+		B0AC8ED83A2EB61385EC7413 /* Pods-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		B9C62771C2A93ABA92BA2123 /* Pods-Abst-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-Abst-NotificationServiceExtension/Pods-Abst-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		CAB038CCBC103BB726CA33A8 /* Pods-Abst-Notifire.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire.release.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire.release.xcconfig"; sourceTree = "<group>"; };
+		CD10F1A1C7F7180433E8FF1F /* Pods-Abst-NotificationServiceExtension.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-NotificationServiceExtension.testflight.xcconfig"; path = "Target Support Files/Pods-Abst-NotificationServiceExtension/Pods-Abst-NotificationServiceExtension.testflight.xcconfig"; sourceTree = "<group>"; };
+		CF48406CF4114A37FB479C6B /* Pods_Abst_Notifire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Abst_Notifire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D24810658C9796A6B96C1922 /* Pods-Abst-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-Abst-NotificationServiceExtension/Pods-Abst-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
+		E8F7F669C4334997C1F82D76 /* Pods_Abst_NotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Abst_NotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2A2CBC61351755171EE279F /* Pods-NotificationServiceExtension.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.testflight.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.testflight.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -603,8 +600,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				89250B1524FED17800BC7C2C /* Realm.framework in Frameworks */,
-				8C41DB562E858E4A2667FAE0 /* Pods_Notifire_Notifire_Mock.framework in Frameworks */,
 				89250B1724FED17800BC7C2C /* RealmSwift.framework in Frameworks */,
+				7C99F51A7641D94DD3AB2A3C /* Pods_Abst_Notifire_Mock.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,8 +610,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				89250B0F24FE713F00BC7C2C /* Realm.framework in Frameworks */,
-				3C0C1CF4657A1D9AEFF79F04 /* Pods_Notifire_NotificationServiceExtension.framework in Frameworks */,
 				89250B1124FE713F00BC7C2C /* RealmSwift.framework in Frameworks */,
+				0E98CF4D8A6187E9159916CE /* Pods_Abst_NotificationServiceExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,8 +620,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				89250B0824FE6F7C00BC7C2C /* Realm.framework in Frameworks */,
-				6274CD2074727F2E8CF30D2A /* Pods_Notifire.framework in Frameworks */,
 				89250B0B24FE6F7E00BC7C2C /* RealmSwift.framework in Frameworks */,
+				91A4C865A6FF77FCF5F5FE14 /* Pods_Abst_Notifire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,21 +631,18 @@
 		4DB0C2C61B3F8DC2A711E3CE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				AA44099301EF02EF5EDF3C9D /* Pods-Notifire.debug.xcconfig */,
-				7D62B41A33C94D46CC64F94B /* Pods-Notifire.mock.xcconfig */,
-				F375C8D2E4426F4884822957 /* Pods-Notifire.release.xcconfig */,
-				940630549CAED2693C39B61A /* Pods-Notifire-NotificationServiceExtension.debug.xcconfig */,
-				0910F7A0575CBE2D1AB27A31 /* Pods-Notifire-NotificationServiceExtension.mock.xcconfig */,
-				9888DB6CD1F671A6981B42C5 /* Pods-Notifire-NotificationServiceExtension.release.xcconfig */,
-				7701DE26149E2E0DF73E64CC /* Pods-Notifire.mock tf.xcconfig */,
-				7036202CA36CDDCEF6D728CE /* Pods-Notifire-NotificationServiceExtension.mock tf.xcconfig */,
-				0A6884F8483A6D7E17C12CDB /* Pods-Notifire.mocktf.xcconfig */,
-				ACD6ABE3B766C3B0FC03FBCB /* Pods-Notifire-NotificationServiceExtension.mocktf.xcconfig */,
-				05CB7FAEDC3EAE29797F5C1C /* Pods-Notifire.testflight.xcconfig */,
-				EC72C52DFF432800B2BA122B /* Pods-Notifire-NotificationServiceExtension.testflight.xcconfig */,
-				10CB46E2DF5754200CC83E17 /* Pods-Notifire-Notifire Mock.debug.xcconfig */,
-				16EB883854C59DDC8D8299B9 /* Pods-Notifire-Notifire Mock.testflight.xcconfig */,
-				B78B8DD13761876BA555D69F /* Pods-Notifire-Notifire Mock.release.xcconfig */,
+				A3DC1CAF7E5B0E0CC05B7278 /* Pods-Abst-Notifire.debug.xcconfig */,
+				4CB99005B83A65FF306B2F1A /* Pods-Abst-Notifire.testflight.xcconfig */,
+				CAB038CCBC103BB726CA33A8 /* Pods-Abst-Notifire.release.xcconfig */,
+				00B1319CA36593090BDBE2AB /* Pods-Abst-Notifire Mock.debug.xcconfig */,
+				928D68240DE9EDF7C6F0C4A6 /* Pods-Abst-Notifire Mock.testflight.xcconfig */,
+				0162B92DAB5020E803869527 /* Pods-Abst-Notifire Mock.release.xcconfig */,
+				B0AC8ED83A2EB61385EC7413 /* Pods-NotificationServiceExtension.debug.xcconfig */,
+				F2A2CBC61351755171EE279F /* Pods-NotificationServiceExtension.testflight.xcconfig */,
+				030BC637980C2A6C98337BB7 /* Pods-NotificationServiceExtension.release.xcconfig */,
+				B9C62771C2A93ABA92BA2123 /* Pods-Abst-NotificationServiceExtension.debug.xcconfig */,
+				CD10F1A1C7F7180433E8FF1F /* Pods-Abst-NotificationServiceExtension.testflight.xcconfig */,
+				D24810658C9796A6B96C1922 /* Pods-Abst-NotificationServiceExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1142,10 +1136,10 @@
 			isa = PBXGroup;
 			children = (
 				89B3EC702020E60F0068BA64 /* Debug.xcconfig */,
-				89E777EB2173C04C009CF3DE /* Mock.xcconfig */,
-				89214D0124FD351E000D7B53 /* MockTF.xcconfig */,
 				89576B3D24FD42FD0097BF87 /* TestFlight.xcconfig */,
 				89B3EC712020E61D0068BA64 /* Release.xcconfig */,
+				89E777EB2173C04C009CF3DE /* Mock.xcconfig */,
+				89214D0124FD351E000D7B53 /* MockTF.xcconfig */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1220,9 +1214,9 @@
 			children = (
 				89250B0124FE6F5A00BC7C2C /* Realm.framework */,
 				89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */,
-				F3A04DDC493D95926761164B /* Pods_Notifire.framework */,
-				1C1C4C444EF286634E039FF8 /* Pods_Notifire_NotificationServiceExtension.framework */,
-				9AE25B015C96B4223AF4F6B4 /* Pods_Notifire_Notifire_Mock.framework */,
+				CF48406CF4114A37FB479C6B /* Pods_Abst_Notifire.framework */,
+				2A5838B78DE5CCCCEC9C7D03 /* Pods_Abst_Notifire_Mock.framework */,
+				E8F7F669C4334997C1F82D76 /* Pods_Abst_NotificationServiceExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1234,15 +1228,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 89576B3624FD412A0097BF87 /* Build configuration list for PBXNativeTarget "Notifire Mock" */;
 			buildPhases = (
-				B04BB5B7A696924831F55129 /* [CP] Check Pods Manifest.lock */,
+				221EA5BDBF18FF108064E9DA /* [CP] Check Pods Manifest.lock */,
 				89250B0024FE6B1600BC7C2C /* ShellScript */,
 				89576A9F24FD412A0097BF87 /* Sources */,
 				89576B2E24FD412A0097BF87 /* Frameworks */,
 				89576B3024FD412A0097BF87 /* Resources */,
 				89576B3324FD412A0097BF87 /* Embed App Extensions */,
-				50CBD049ED71C19F191D1E6B /* [CP] Embed Pods Frameworks */,
 				89250B0E24FE710D00BC7C2C /* ShellScript */,
 				89250B1924FED17900BC7C2C /* Embed Frameworks */,
+				079C8F93276AE2405DB76C32 /* [CP] Embed Pods Frameworks */,
+				1674ECC70134AE3DFFDDF875 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1258,7 +1253,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 89853399219FA46A00E0A656 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
 			buildPhases = (
-				664A0FC87909C3481DF37818 /* [CP] Check Pods Manifest.lock */,
+				99D86DBA956927866DB4024C /* [CP] Check Pods Manifest.lock */,
 				8985338D219FA46900E0A656 /* Sources */,
 				8985338E219FA46900E0A656 /* Frameworks */,
 				8985338F219FA46900E0A656 /* Resources */,
@@ -1278,7 +1273,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 89B3EC652020E4900068BA64 /* Build configuration list for PBXNativeTarget "Notifire" */;
 			buildPhases = (
-				6E8697CFD736F063B9585C2D /* [CP] Check Pods Manifest.lock */,
+				D0CFEE0675E3A6E153F3DE71 /* [CP] Check Pods Manifest.lock */,
 				89250AFF24FE6B0B00BC7C2C /* Run Script */,
 				89B3EC412020E4900068BA64 /* Sources */,
 				89B3EC422020E4900068BA64 /* Frameworks */,
@@ -1286,7 +1281,8 @@
 				8985339D219FA46A00E0A656 /* Embed App Extensions */,
 				89250B0A24FE6F7D00BC7C2C /* Embed Frameworks */,
 				89250B0D24FE6FC100BC7C2C /* ShellScript */,
-				5A51395105D301DFAB90C610 /* [CP] Embed Pods Frameworks */,
+				62889FEA49136180BFBE6193 /* [CP] Embed Pods Frameworks */,
+				E3BEC60BA3178E138421AB99 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1398,43 +1394,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		50CBD049ED71C19F191D1E6B /* [CP] Embed Pods Frameworks */ = {
+		079C8F93276AE2405DB76C32 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Notifire-Notifire Mock/Pods-Notifire-Notifire Mock-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Abst-Notifire Mock/Pods-Abst-Notifire Mock-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Notifire-Notifire Mock/Pods-Notifire-Notifire Mock-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Abst-Notifire Mock/Pods-Abst-Notifire Mock-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5A51395105D301DFAB90C610 /* [CP] Embed Pods Frameworks */ = {
+		1674ECC70134AE3DFFDDF875 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Notifire/Pods-Notifire-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-Abst-Notifire Mock/Pods-Abst-Notifire Mock-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Notifire/Pods-Notifire-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Abst-Notifire Mock/Pods-Abst-Notifire Mock-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		664A0FC87909C3481DF37818 /* [CP] Check Pods Manifest.lock */ = {
+		221EA5BDBF18FF108064E9DA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1449,33 +1451,35 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Notifire-NotificationServiceExtension-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Abst-Notifire Mock-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6E8697CFD736F063B9585C2D /* [CP] Check Pods Manifest.lock */ = {
+		62889FEA49136180BFBE6193 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
+				"${PODS_ROOT}/Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Notifire-checkManifestLockResult.txt",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		89250AFF24FE6B0B00BC7C2C /* Run Script */ = {
@@ -1570,7 +1574,7 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
-		B04BB5B7A696924831F55129 /* [CP] Check Pods Manifest.lock */ = {
+		99D86DBA956927866DB4024C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1585,11 +1589,51 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Notifire-Notifire Mock-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Abst-NotificationServiceExtension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D0CFEE0675E3A6E153F3DE71 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Abst-Notifire-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3BEC60BA3178E138421AB99 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1975,7 +2019,7 @@
 		};
 		89576B3A24FD412A0097BF87 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B78B8DD13761876BA555D69F /* Pods-Notifire-Notifire Mock.release.xcconfig */;
+			baseConfigurationReference = 0162B92DAB5020E803869527 /* Pods-Abst-Notifire Mock.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2115,7 +2159,7 @@
 		};
 		89576B4124FD44CA0097BF87 /* TestFlight */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC72C52DFF432800B2BA122B /* Pods-Notifire-NotificationServiceExtension.testflight.xcconfig */;
+			baseConfigurationReference = CD10F1A1C7F7180433E8FF1F /* Pods-Abst-NotificationServiceExtension.testflight.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
@@ -2142,7 +2186,7 @@
 		};
 		8985339A219FA46A00E0A656 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 940630549CAED2693C39B61A /* Pods-Notifire-NotificationServiceExtension.debug.xcconfig */;
+			baseConfigurationReference = B9C62771C2A93ABA92BA2123 /* Pods-Abst-NotificationServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
@@ -2169,7 +2213,7 @@
 		};
 		8985339C219FA46A00E0A656 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9888DB6CD1F671A6981B42C5 /* Pods-Notifire-NotificationServiceExtension.release.xcconfig */;
+			baseConfigurationReference = D24810658C9796A6B96C1922 /* Pods-Abst-NotificationServiceExtension.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;

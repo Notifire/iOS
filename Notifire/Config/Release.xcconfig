@@ -6,7 +6,7 @@
 //  Copyright © 2018 David Bielik. All rights reserved.
 //
 
-#include "Pods/Target Support Files/Pods-Notifire/Pods-Notifire.release.xcconfig"
+#include "Pods/Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire.release.xcconfig"
 SLASH=/
 API_URL = https:$(SLASH)/api.notifire.dvdblk.com
 

@@ -8,6 +8,46 @@
 
 import UIKit
 
+import GoogleSignIn
+
+class SSOManager: NSObject, GIDSignInDelegate {
+
+    // MARK: - Initialization
+    override init() {
+        super.init()
+        // Google
+        // Initialize sign-in
+        GIDSignIn.sharedInstance().clientID = "117989498999-jtrgruedprrjdhji1uu4kv0qur1s5lfd.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().delegate = self
+
+    }
+
+    // MARK: - Google
+    // MARK: GIDSignInDelegate
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+          if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
+            print("The user has not signed in before or they have since signed out.")
+          } else {
+            print("\(error.localizedDescription)")
+          }
+          return
+        }
+        // Perform any operations on signed in user here.
+        let userId = user.userID                  // For client-side use only!
+        let idToken = user.authentication.idToken // Safe to send to the server
+        let fullName = user.profile.name
+        let givenName = user.profile.givenName
+        let familyName = user.profile.familyName
+        let email = user.profile.email
+
+    }
+
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+
+    }
+}
+
 typealias BindableInputValidatingViewModel = InputValidatingViewModel & InputValidatingBindable
 
 final class LoginViewModel: BindableInputValidatingViewModel, APIFailable, UserErrorFailable {
@@ -30,6 +70,7 @@ final class LoginViewModel: BindableInputValidatingViewModel, APIFailable, UserE
     typealias EnumDescribingKeyPaths = KeyPaths
 
     // MARK: - Properties
+    let ssoManager = SSOManager()
     // MARK: APIFailable
     var onError: ((NotifireAPIManager.ManagerResultError) -> Void)?
     // MARK: UserErrorFailable

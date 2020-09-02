@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 protocol LoginViewControllerDelegate: NotifireUserSessionCreationDelegate {
     func shouldStartRegisterFlow()
@@ -63,7 +64,8 @@ class LoginViewController: BottomNavigatorLabelViewController, AppRevealing, Key
         button.isEnabled = false
         button.setTitle("Sign in", for: .normal)
         button.onProperTap = { [unowned self] in
-            self.viewModel.login()
+            //self.viewModel.login()
+            GIDSignIn.sharedInstance()?.signIn()
         }
         return button
     }()
@@ -80,7 +82,7 @@ class LoginViewController: BottomNavigatorLabelViewController, AppRevealing, Key
     // MARK: - VC Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        GIDSignIn.sharedInstance()?.presentingViewController = self
         setupObservers()
         setupUserEvents()
         prepareViewModel()

@@ -9,7 +9,7 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
-#include "Pods/Target Support Files/Pods-Notifire/Pods-Notifire.testflight.xcconfig"
+#include "Pods/Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire.testflight.xcconfig"
 SLASH=/
 API_URL = https:$(SLASH)/api.notifire.dvdblk.com
 

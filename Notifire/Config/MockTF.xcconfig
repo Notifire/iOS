@@ -9,7 +9,7 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
-#include "Pods/Target Support Files/Pods-Notifire-Notifire Mock/Pods-Notifire-Notifire Mock.testflight.xcconfig"
+#include "Pods/Target Support Files/Pods-Abst-Notifire Mock/Pods-Abst-Notifire Mock.testflight.xcconfig"
 SWIFT_ACTIVE_COMPILATION_CONDITIONS=API_MOCK
 API_URL=none
 

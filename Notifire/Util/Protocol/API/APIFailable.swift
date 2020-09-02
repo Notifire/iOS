@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: Rename to APIErrorPossible, same with UserErrorPossible
 protocol APIFailable: class {
     var onError: ((NotifireAPIManager.ManagerResultError) -> Void)? { get set }
 }

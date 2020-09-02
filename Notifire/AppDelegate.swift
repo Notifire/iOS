@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - AppDelegate
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let applicationWindow = UIWindow(frame: UIScreen.main.bounds)
+        // App Coordinator
         self.window = applicationWindow
         appCoordinator = AppCoordinator(window: applicationWindow)
         appCoordinator.start()
