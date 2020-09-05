@@ -53,6 +53,9 @@ class LoginRegisterSplitterViewController: VMViewController<LoginRegisterSplitte
         label.set(style: .primary)
         let hyperText = "Sign up"
         label.set(hypertext: hyperText, in: "Don't have an account yet? Sign up instead.")
+        label.onHypertextTapped = { [weak self] in
+            self?.delegate?.shouldStartManualRegisterFlow()
+        }
         return label
     }()
 
