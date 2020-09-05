@@ -17,14 +17,15 @@ struct NotifireAPIPlainSuccessResponse: NotifireAPIDecodable {
 }
 
 /// A type that conforms to this protocol is able to represent some sort of error (used by different enums for each request)
-protocol UserErroRepresenting: NotifireAPIDecodable, CustomStringConvertible {}
+protocol UserErrorRepresenting: CustomStringConvertible {}
+typealias DecodableUserErrorRepresenting = UserErrorRepresenting & NotifireAPIDecodable
 
-struct NotifireAPIUserError<RequestSpecificError: UserErroRepresenting>: NotifireAPIDecodable {
+struct NotifireAPIUserError<RequestSpecificError: DecodableUserErrorRepresenting>: NotifireAPIDecodable {
     let code: RequestSpecificError
     let message: String
 }
 
-struct NotifireAPISuccessResponse<Payload: NotifireAPIDecodable, RequestSpecificError: UserErroRepresenting>: NotifireAPIDecodable {
+struct NotifireAPISuccessResponse<Payload: NotifireAPIDecodable, RequestSpecificError: DecodableUserErrorRepresenting>: NotifireAPIDecodable {
     let success: Bool
     let payload: Payload?
     let error: NotifireAPIUserError<RequestSpecificError>?
@@ -40,7 +41,7 @@ struct VerifyAccountSuccessResponse: NotifireAPIDecodable {
     let accessToken: String
 }
 
-enum VerifyAccountUserError: Int, UserErroRepresenting {
+enum VerifyAccountUserError: Int, DecodableUserErrorRepresenting {
     case alreadyVerified = 1
     case expired = 2
 
@@ -72,12 +73,12 @@ typealias RegisterDeviceResponse = EmptyRequestBody
 
 // MARK: - /account/login
 struct LoginSuccessResponse: NotifireAPIDecodable {
-    let username: String
+    let email: String
     let refreshToken: String
     let accessToken: String
 }
 
-enum LoginUserError: Int, UserErroRepresenting {
+enum LoginUserError: Int, DecodableUserErrorRepresenting {
     case invalidUsernameOrEmail = 1
     case invalidPassword = 2
     case notVerified = 3
@@ -92,6 +93,9 @@ enum LoginUserError: Int, UserErroRepresenting {
 }
 
 typealias LoginResponse = NotifireAPISuccessResponse<LoginSuccessResponse, LoginUserError>
+
+// MARK: - /account/login/{provider}
+typealias SSOLoginResponse = LoginSuccessResponse
 
 // MARK: - /account/send/reset/password
 typealias SendResetPasswordResponse = NotifireAPIPlainSuccessResponse

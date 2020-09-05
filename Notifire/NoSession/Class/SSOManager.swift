@@ -28,7 +28,7 @@ class SSOManager: NSObject, GIDSignInDelegate {
 
     }
 
-    func signIn(with provider: AuthenticationProvider) {
+    func signIn(with provider: SSOAuthenticationProvider) {
         // Create new authentication attempt
         let newAuthAttempt = SSOAuthenticationAttempt(provider: provider)
         // Verify, that we are not already authenticating
@@ -42,7 +42,7 @@ class SSOManager: NSObject, GIDSignInDelegate {
         switch provider {
         case .google:
             GIDSignIn.sharedInstance()?.signIn()
-        case .apple, .email, .github, .twitter:
+        case .apple, .github, .twitter:
             // FIXME: implement the above providers sign in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 self?.finishAuthenticationAttempt()
@@ -83,17 +83,17 @@ class SSOManager: NSObject, GIDSignInDelegate {
         } else {
             // Perform any operations on signed in user here.
             //let userId = user.userID                  // For client-side use only!
-            let idToken = user.authentication.idToken // Safe to send to the server
+            let maybeIdToken = user.authentication.idToken // Safe to send to the server
             //let fullName = user.profile.name
             //let givenName = user.profile.givenName
             //let familyName = user.profile.familyName
             //let email = user.profile.email
 
-            guard let accessToken = idToken else {
+            guard let idToken = maybeIdToken else {
                 currentAuthAttempt.state = .error(.unableToRetrieveAccessToken)
                 return
             }
-            currentAuthAttempt.state = .finished(accessToken: accessToken)
+            currentAuthAttempt.state = .finished(accessToken: idToken)
         }
     }
 

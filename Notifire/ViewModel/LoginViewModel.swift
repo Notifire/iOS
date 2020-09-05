@@ -61,7 +61,7 @@ final class LoginViewModel: BindableInputValidatingViewModel, APIFailable, UserE
                 self.onError?(error)
             case .success(let response):
                 if let loginSuccessResponse = response.payload {
-                    let session = NotifireUserSession(refreshToken: loginSuccessResponse.refreshToken, username: loginSuccessResponse.username)
+                    let session = NotifireUserSession(refreshToken: loginSuccessResponse.refreshToken, email: loginSuccessResponse.email)
                     session.accessToken = loginSuccessResponse.accessToken
                     self.onLogin?(session)
                 } else if let loginErrorResponse = response.error {

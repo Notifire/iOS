@@ -8,8 +8,17 @@
 
 import Foundation
 
+/// The Delegate Class for SSOManager
 protocol SSOManagerDelegate: class {
+
+    /// Called right when the SSOAuthenticationAttempt is instantiated.
     func willStart(authenticationAttempt: SSOAuthenticationAttempt)
+
+    /// Called when the SSOAuthenticationAttempt is started successfully.
     func didStart(authenticationAttempt: SSOAuthenticationAttempt)
+
+    /// Called whenever the authentication attempt is finished.
+    /// - Note:
+    ///     - To check if the attempt finished successfully read the `SSOAuthenticationAttempt.state` variable.
     func didFinish(authenticationAttempt: SSOAuthenticationAttempt)
 }

@@ -41,6 +41,10 @@ struct LoginRequestBody: NotifireAPIEncodable {
     let password: String
 }
 
+struct LoginProviderRequestBody: NotifireAPIEncodable {
+    let idToken: String
+}
+
 struct ServiceCreationBody: NotifireAPIEncodable {
     let name: String
     let image: String

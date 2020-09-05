@@ -44,7 +44,11 @@ class NotifireAPIManagerMock: NotifireAPIManager, NotifireAPIManagerMocking {
     }
 
     override func login(usernameOrEmail: String, password: String, completion: @escaping NotifireAPIManagerCallback<LoginResponse>) {
-        returnSuccessAfter(completion: completion, response: LoginResponse(success: true, payload: LoginSuccessResponse(username: "xDD", refreshToken: "LUL", accessToken: "ojgsdljgksjdfg"), error: nil))
+        returnSuccessAfter(completion: completion, response: LoginResponse(success: true, payload: LoginSuccessResponse(email: "xDD", refreshToken: "LUL", accessToken: "ojgsdljgksjdfg"), error: nil))
+    }
+
+    override func login(token: String, ssoProvider: SSOAuthenticationProvider, completion: @escaping NotifireAPIManagerCallback<SSOLoginResponse>) {
+        returnSuccessAfter(completion: completion, response: SSOLoginResponse(email: "testicek@testicek.testicek", refreshToken: "xdddddd", accessToken: "KEKW"))
     }
 
     override func sendResetPassword(email: String, completion: @escaping NotifireAPIManagerCallback<SendResetPasswordResponse>) {

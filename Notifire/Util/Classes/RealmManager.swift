@@ -15,7 +15,7 @@ struct RealmManager {
     private static let appGroupIdentifier = "group.com.dvdblk.Notifire"
 
     static func realmConfigurationFile(for userSession: NotifireUserSession) -> String {
-        return "\(userSession.username).\(realmFileExtension)"
+        return "\(userSession.email).\(realmFileExtension)"
     }
 
     static func createUserConfiguration(from userSession: NotifireUserSession) -> Realm.Configuration? {

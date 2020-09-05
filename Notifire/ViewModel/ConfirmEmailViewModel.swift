@@ -51,7 +51,7 @@ class ConfirmEmailViewModel: APIFailable, UserErrorFailable {
                 if let userError = response.error {
                     self.onUserError?(userError.code)
                 } else if let verifyAccountSuccessResponse = response.payload {
-                    let session = NotifireUserSession(refreshToken: verifyAccountSuccessResponse.refreshToken, username: verifyAccountSuccessResponse.username)
+                    let session = NotifireUserSession(refreshToken: verifyAccountSuccessResponse.refreshToken, email: verifyAccountSuccessResponse.username)
                     session.accessToken = verifyAccountSuccessResponse.accessToken
                     self.onConfirmation?(session)
                 } else {

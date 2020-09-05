@@ -10,12 +10,12 @@ import UIKit
 
 class NotifireUserSession {
     var refreshToken: String
-    let username: String
+    let email: String
     var deviceToken: String?
     var accessToken: String?
 
-    init(refreshToken: String, username: String) {
+    init(refreshToken: String, email: String) {
         self.refreshToken = refreshToken
-        self.username = username
+        self.email = email
     }
 }

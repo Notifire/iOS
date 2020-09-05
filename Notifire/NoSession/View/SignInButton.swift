@@ -31,7 +31,7 @@ class SignInButton: NotifireButton {
         setImage(provider.providerImage, for: .normal)
         if provider == .email {
            imageView?.tintColor = .primary
-        } else if provider == .github {
+        } else if provider == .sso(.github) {
            imageView?.tintColor = .compatibleGithubColor
         }
     }

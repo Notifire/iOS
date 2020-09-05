@@ -50,6 +50,14 @@ class NotifireAPIManager: NotifireAPIManagerBase {
         perform(requestContext: requestContext, managerCompletion: completion)
     }
 
+    // MARK: - /account/login/{provider}
+    func login(token: String, ssoProvider: SSOAuthenticationProvider, completion: @escaping NotifireAPIManagerCallback<SSOLoginResponse>) {
+        let body = LoginProviderRequestBody(idToken: token)
+        let request = notifireApiRequest(endpoint: NotifireAPIEndpoint.login(ssoProvider: ssoProvider), method: .post, body: body, parameters: nil)
+        let requestContext = NotifireAPIRequestContext(responseBodyType: SSOLoginResponse.self, notifireAPIRequest: request)
+        perform(requestContext: requestContext, managerCompletion: completion)
+    }
+
     // MARK: - /account/send/reset/password
     func sendResetPassword(email: String, completion: @escaping NotifireAPIManagerCallback<SendResetPasswordResponse>) {
         let parameters = ["email": email]

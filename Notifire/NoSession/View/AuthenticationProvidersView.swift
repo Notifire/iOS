@@ -59,7 +59,7 @@ class AuthenticationProvidersView: VMView<AuthenticationProvidersViewModel>, Cen
         // For each provider create a sign in button
         for provider in providers {
             let providerControl: UIControl
-            if provider == .apple {
+            if provider == .sso(.apple) {
                 providerControl = createAppleSignInButton()
             } else {
                 providerControl = createSignInButton(for: provider)
@@ -83,14 +83,14 @@ class AuthenticationProvidersView: VMView<AuthenticationProvidersViewModel>, Cen
     private func createSignInButton(for provider: AuthenticationProvider) -> UIControl {
         let providerButton = SignInButton()
         providerButton.tag = viewModel.tagFrom(provider: provider)
-        if provider.requiresExternalSSO {
+        if let ssoProvider = provider.getExternalSSOProvider() {
             providerButton.onProperTap = { [unowned self] btn in
                 // Start the loading animation in the button
                 (btn as? NotifireButton)?.startLoading()
                 // Disable interaction with other buttons until we finish the flow
                 self.isUserInteractionEnabled = false
                 // Start the authentication flow
-                self.viewModel.startAuthenticationFlow(with: provider)
+                self.viewModel.startAuthenticationFlow(with: ssoProvider)
             }
         }
         providerButton.updateUI(for: provider)

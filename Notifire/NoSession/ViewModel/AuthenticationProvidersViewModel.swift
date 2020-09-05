@@ -38,20 +38,16 @@ class AuthenticationProvidersViewModel {
     }
 
     // MARK: - Public
-    func providerFrom(tag: Int) -> AuthenticationProvider {
-        return tagToProviders[tag] ?? .apple
-    }
-
     func tagFrom(provider: AuthenticationProvider) -> Int {
         return providerToTags[provider] ?? 0
     }
 
-    func startAuthenticationFlow(with provider: AuthenticationProvider) {
+    func startAuthenticationFlow(with provider: SSOAuthenticationProvider) {
         ssoManager.signIn(with: provider)
     }
 
-    func finishAuthenticationFlow(with provider: AuthenticationProvider) {
-        let tag = tagFrom(provider: provider)
+    func finishAuthenticationFlow(with provider: SSOAuthenticationProvider) {
+        let tag = tagFrom(provider: .sso(provider))
         onAuthenticationFinished?(tag)
     }
 }

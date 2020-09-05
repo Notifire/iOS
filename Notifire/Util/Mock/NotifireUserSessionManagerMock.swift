@@ -26,7 +26,7 @@ class NotifireUserSessionManagerMock: UserSessionManager {
     override func previousSession() -> NotifireUserSession? {
         switch sessionState {
         case .mockSession:
-            return NotifireUserSession(refreshToken: "xDDD", username: "TestTestTest")
+            return NotifireUserSession(refreshToken: "xDDD", email: "TestTestTest")
         case .noSession:
             return nil
         }

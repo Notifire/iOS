@@ -98,7 +98,7 @@ class ConfirmEmailViewController: UIViewController, CenterStackViewPresenting, A
 }
 
 extension ConfirmEmailViewController: NotifirePoppablePresenting {
-    func dismissCompletion(error: UserErroRepresenting) {
+    func dismissCompletion(error: UserErrorRepresenting) {
         view.isUserInteractionEnabled = false
         delegate?.didFinishEmailConfirmation()
     }

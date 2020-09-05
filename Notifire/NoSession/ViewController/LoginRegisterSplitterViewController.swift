@@ -20,7 +20,7 @@ This ViewController allows the user to choose between signing up and logging int
 - Sign in with Twitter
 - Already using Notifire? Login here instead.
  */
-class LoginRegisterSplitterViewController: VMViewController<LoginRegisterSplitterViewModel>, BottomNavigatorLabelContaining {
+class LoginRegisterSplitterViewController: VMViewController<LoginRegisterSplitterViewModel>, BottomNavigatorLabelContaining, UserErrorFailableResponding, APIFailableResponding, APIFailableDisplaying {
 
     // MARK: - Properties
     weak var delegate: LoginRegisterSplitterViewControllerDelegate?
@@ -28,7 +28,7 @@ class LoginRegisterSplitterViewController: VMViewController<LoginRegisterSplitte
     // MARK: UI
     /// The View containing a stackview of sign in UIButtons
     let authProvidersView = AuthenticationProvidersView(
-        viewModel: AuthenticationProvidersViewModel(providers: AuthenticationProvider.allCases)
+        viewModel: AuthenticationProvidersViewModel(providers: AuthenticationProvider.providers)
     )
 
     let headerLabel: UILabel = {
@@ -63,6 +63,13 @@ class LoginRegisterSplitterViewController: VMViewController<LoginRegisterSplitte
         // ViewModel Settings 
         viewModel.authenticationProvidersVM = authProvidersView.viewModel
         authProvidersView.viewModel.ssoManager.delegate = viewModel
+
+        viewModel.onLogin = { [weak self] session in
+            self?.delegate?.didCreate(session: session)
+        }
+
+        setViewModelOnError()
+        setViewModelOnUserError()
 
         // View Settings
         view.backgroundColor = .compatibleBackgroundAccent

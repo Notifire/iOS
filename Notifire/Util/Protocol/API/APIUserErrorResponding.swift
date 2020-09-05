@@ -9,7 +9,7 @@
 import UIKit
 
 protocol UserErrorFailable: class {
-    associatedtype UserError: UserErroRepresenting
+    associatedtype UserError: UserErrorRepresenting
     var onUserError: ((UserError) -> Void)? { get set }
     func shouldHandleManually(userError: UserError) -> Bool
 }

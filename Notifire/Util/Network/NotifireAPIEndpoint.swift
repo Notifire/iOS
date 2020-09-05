@@ -19,6 +19,11 @@ enum NotifireAPIEndpoint: String, CustomStringConvertible {
     var description: String {
         return rawValue
     }
+
+    /// Return the endpoint for each provider
+    static func login(ssoProvider: SSOAuthenticationProvider) -> String {
+        return Self.login.description + "/" + ssoProvider.rawValue
+    }
 }
 
 enum NotifireProtectedAPIEndpoint: String, CustomStringConvertible {

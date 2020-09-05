@@ -33,7 +33,7 @@ class UserSessionManager {
 
     private func loadSession(username: String) -> NotifireUserSession? {
         guard let maybeRefreshToken = ((try? keychain.getString(key(for: username, key: Keys.refreshToken))) as String??), let refreshToken = maybeRefreshToken else { return nil }
-        let userSession = NotifireUserSession(refreshToken: refreshToken, username: username)
+        let userSession = NotifireUserSession(refreshToken: refreshToken, email: username)
         if let deviceToken = ((try? keychain.getString(key(for: username, key: Keys.deviceToken))) as String??) {
             userSession.deviceToken = deviceToken
         }
@@ -60,22 +60,22 @@ class UserSessionManager {
 
     func set(userSession: NotifireUserSession, deviceToken: String) {
         userSession.deviceToken = deviceToken
-        try? keychain.set(deviceToken, key: key(for: userSession.username, key: Keys.deviceToken))
+        try? keychain.set(deviceToken, key: key(for: userSession.email, key: Keys.deviceToken))
     }
 
     func saveSession(userSession: NotifireUserSession) {
-        try? keychain.set(userSession.username, key: Keys.loggedInUsername)
-        try? keychain.set(userSession.username, key: key(for: userSession.username, key: Keys.username))
-        try? keychain.set(userSession.refreshToken, key: key(for: userSession.username, key: Keys.refreshToken))
+        try? keychain.set(userSession.email, key: Keys.loggedInUsername)
+        try? keychain.set(userSession.email, key: key(for: userSession.email, key: Keys.username))
+        try? keychain.set(userSession.refreshToken, key: key(for: userSession.email, key: Keys.refreshToken))
         if let deviceToken = userSession.deviceToken {
-            try? keychain.set(deviceToken, key: key(for: userSession.username, key: Keys.deviceToken))
+            try? keychain.set(deviceToken, key: key(for: userSession.email, key: Keys.deviceToken))
         }
     }
 
     func removeSession(userSession: NotifireUserSession) {
         try? keychain.remove(Keys.loggedInUsername)
         for key in [Keys.refreshToken, Keys.deviceToken, Keys.username] {
-            try? keychain.remove(self.key(for: userSession.username, key: key))
+            try? keychain.remove(self.key(for: userSession.email, key: key))
         }
     }
 }
