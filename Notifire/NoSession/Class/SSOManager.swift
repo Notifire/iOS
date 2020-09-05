@@ -29,7 +29,16 @@ class SSOManager: NSObject {
 
     }
 
-    func signIn(with provider: SSOAuthenticationProvider) {
+    // MARK: - Private
+    private func finishAuthenticationAttempt() {
+        guard let currentAuthAttempt = ssoAuthenticationAttempt else { return }
+        ssoAuthenticationAttempt = nil
+        delegate?.didFinish(authenticationAttempt: currentAuthAttempt)
+    }
+
+    // MARK: - Public
+    /// Starts a sign in attempt from a specified `SSOAuthenticationProvider`
+    public func signIn(with provider: SSOAuthenticationProvider) {
         // Create new authentication attempt
         let newAuthAttempt = SSOAuthenticationAttempt(provider: provider)
         // Verify, that we are not already authenticating
@@ -56,12 +65,10 @@ class SSOManager: NSObject {
         delegate?.didStart(authenticationAttempt: newAuthAttempt)
     }
 
-    private func finishAuthenticationAttempt() {
-        guard let currentAuthAttempt = ssoAuthenticationAttempt else { return }
-        ssoAuthenticationAttempt = nil
-        delegate?.didFinish(authenticationAttempt: currentAuthAttempt)
+    /// Returns true if an authentication attempt is currently in progress
+    public var attemptInProgress: Bool {
+        return ssoAuthenticationAttempt != nil
     }
-
 }
 
 // MARK: - Google
@@ -127,8 +134,8 @@ extension SSOManager: ASAuthorizationControllerDelegate {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             // Create an account in your system.
             let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
-            let email = appleIDCredential.email
+            //let fullName = appleIDCredential.fullName
+            //let email = appleIDCredential.email
             currentAuthAttempt.state = .finished(accessToken: userIdentifier)
         default:
             currentAuthAttempt.state = .error(.unknown)

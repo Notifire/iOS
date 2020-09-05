@@ -72,7 +72,10 @@ extension LoginRegisterSplitterViewModel: SSOManagerDelegate {
             authenticationProvidersVM?.finishAuthenticationFlow(with: authenticationAttempt.provider)
         case .error(let userError):
             authenticationProvidersVM?.finishAuthenticationFlow(with: authenticationAttempt.provider)
-            onUserError?(userError)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.22) { [weak self] in
+                guard !(self?.authenticationProvidersVM?.ssoManager.attemptInProgress ?? true) else { return }
+                self?.onUserError?(userError)
+            }
         case .finished(let idToken):
             login(token: idToken, ssoProvider: authenticationAttempt.provider) { [weak self] in
                 self?.authenticationProvidersVM?.finishAuthenticationFlow(with: authenticationAttempt.provider)
