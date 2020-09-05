@@ -40,7 +40,7 @@ class ConfirmEmailViewController: UIViewController, CenterStackViewPresenting, A
     lazy var cancelButton: ActionButton = {
         let button = ActionButton(type: .system)
         button.setTitle("Cancel", for: .normal)
-        button.onProperTap = { [unowned self] in
+        button.onProperTap = { [unowned self] _ in
             self.delegate?.didFinishEmailConfirmation()
         }
         return button

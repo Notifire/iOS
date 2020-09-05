@@ -53,24 +53,3 @@ extension UIViewController {
         view.endEditing(true)
     }
 }
-
-protocol NavigationBarDisplaying {}
-
-extension NavigationBarDisplaying where Self: UIViewController {
-    func hideNavBar() {
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.backgroundColor = .clear
-    }
-
-    func showNavBar() {
-        navigationController?.navigationBar.shadowImage = nil
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.backgroundColor = .backgroundAccentColor
-    }
-
-    func removeNavigationItemBackButtonTitle() {
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-    }
-}

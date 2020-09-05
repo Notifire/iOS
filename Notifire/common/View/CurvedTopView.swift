@@ -22,8 +22,8 @@ class CurvedTopView: ConstrainableView {
     // MARK: - Inherited
     override func setupSubviews() {
         layer.addSublayer(shapeLayer)
-        shapeLayer.fillColor = UIColor.backgroundColor.cgColor
-        backgroundColor = .backgroundColor
+        shapeLayer.fillColor = UIColor.compatibleBackgroundAccent.cgColor
+        backgroundColor = .compatibleBackgroundAccent
     }
 
     override func layoutSubviews() {

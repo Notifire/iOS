@@ -45,7 +45,7 @@ class TappableLabel: UILabel {
         lineBreakMode = .byTruncatingMiddle
         // Enable user interaction
         isUserInteractionEnabled = true
-        textColor = .systemGray
+        set(style: .primary)
 
         // Add gesture recognizer for tapping on the hypertext
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(recognizer:)))
@@ -94,9 +94,10 @@ class TappableLabel: UILabel {
     // MARK: Bounding Box
     private func setLinkedAttributedText(text: String, link: String, color: UIColor) {
         let defaultFont = font ?? UIFont.systemFont(ofSize: Size.Font.default)
+        let defaultColor: UIColor = textColor ?? .customSecondaryLabel
         let attributedString = NSMutableAttributedString(string: text, attributes: [
             NSAttributedString.Key.font: defaultFont,
-            NSAttributedString.Key.foregroundColor: UIColor.customSecondaryLabel
+            NSAttributedString.Key.foregroundColor: defaultColor
         ])
         let rangeOfLinkedText = attributedString.mutableString.range(of: link)
 

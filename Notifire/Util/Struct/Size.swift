@@ -15,6 +15,7 @@ struct Size {
     static let componentWidthRelativeToScreenWidth: CGFloat = 0.8
 
     static let iconSize: CGFloat = 32
+    static let smallMargin: CGFloat = 8
     static let standardMargin: CGFloat = 16
     static let extendedMargin: CGFloat = 18
 
@@ -37,6 +38,7 @@ struct Size {
     }
 
     struct Navigator {
+        static let symbolSize: CGSize = CGSize(equal: 14)
         static let height: CGFloat = 48
         static let separatorHeight: CGFloat = 1
     }
@@ -46,6 +48,7 @@ struct Size {
     }
 
     struct Font {
+        static let placeholder: CGFloat = 12
         static let `default`: CGFloat = 14
         static let action: CGFloat = 16
     }

@@ -27,18 +27,10 @@
 		8922E269219DFB2E001984C4 /* NotifireNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8922E268219DFB2E001984C4 /* NotifireNotificationHandler.swift */; };
 		8922E26D219F3CF6001984C4 /* RealmCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8922E26C219F3CF6001984C4 /* RealmCollectionViewModel.swift */; };
 		8922E26F219F3D0A001984C4 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8922E26E219F3D0A001984C4 /* NotificationsViewModel.swift */; };
-		89250B0824FE6F7C00BC7C2C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0124FE6F5A00BC7C2C /* Realm.framework */; };
-		89250B0924FE6F7C00BC7C2C /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0124FE6F5A00BC7C2C /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		89250B0B24FE6F7E00BC7C2C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */; };
-		89250B0C24FE6F7E00BC7C2C /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		89250B0F24FE713F00BC7C2C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0124FE6F5A00BC7C2C /* Realm.framework */; };
-		89250B1024FE713F00BC7C2C /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0124FE6F5A00BC7C2C /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		89250B1124FE713F00BC7C2C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */; };
-		89250B1224FE713F00BC7C2C /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		89250B1524FED17800BC7C2C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0124FE6F5A00BC7C2C /* Realm.framework */; };
-		89250B1624FED17800BC7C2C /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0124FE6F5A00BC7C2C /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		89250B1724FED17800BC7C2C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */; };
-		89250B1824FED17800BC7C2C /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		89250A1425004F2A00F00630 /* BottomNavigatorContaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89250A1325004F2A00F00630 /* BottomNavigatorContaining.swift */; };
+		89250A1525004F2A00F00630 /* BottomNavigatorContaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89250A1325004F2A00F00630 /* BottomNavigatorContaining.swift */; };
+		89250A1725005BCE00F00630 /* UILabel+Stylable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89250A1625005BCE00F00630 /* UILabel+Stylable.swift */; };
+		89250A1825005BCE00F00630 /* UILabel+Stylable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89250A1625005BCE00F00630 /* UILabel+Stylable.swift */; };
 		89250B2024FEEB4800BC7C2C /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89250B1F24FEEB4800BC7C2C /* RootViewModel.swift */; };
 		89250B2124FEEB4800BC7C2C /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89250B1F24FEEB4800BC7C2C /* RootViewModel.swift */; };
 		89250B2524FEF66A00BC7C2C /* VMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89250B2424FEF66A00BC7C2C /* VMViewController.swift */; };
@@ -129,7 +121,6 @@
 		89576AAE24FD412A0097BF87 /* LocalNotifireNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */; };
 		89576AAF24FD412A0097BF87 /* NotifireAPIManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA802172188000A72BD0 /* NotifireAPIManagerFactory.swift */; };
 		89576AB024FD412A0097BF87 /* HairlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADD7217A2596000E38FC /* HairlineView.swift */; };
-		89576AB124FD412A0097BF87 /* NotifireAnimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1EE2138A48700630790 /* NotifireAnimatedView.swift */; };
 		89576AB224FD412A0097BF87 /* ValidatableTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0B2214062F300645B3A /* ValidatableTextInput.swift */; };
 		89576AB324FD412A0097BF87 /* NotificationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8985338B219F95E000E0A656 /* NotificationDetailViewController.swift */; };
 		89576AB424FD412A0097BF87 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995922170C58400687A79 /* TabBarViewController.swift */; };
@@ -175,7 +166,6 @@
 		89576ADC24FD412A0097BF87 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069EA2134B4D200D798AA /* RegisterViewController.swift */; };
 		89576ADD24FD412A0097BF87 /* NotificationLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B415821C4150B00D28ABE /* NotificationLevel.swift */; };
 		89576ADE24FD412A0097BF87 /* ServicesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995A92170EDE800687A79 /* ServicesCoordinator.swift */; };
-		89576ADF24FD412A0097BF87 /* NotifireButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D72133764700D798AA /* NotifireButton.swift */; };
 		89576AE024FD412A0097BF87 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995A22170EDA900687A79 /* Tab.swift */; };
 		89576AE124FD412A0097BF87 /* NotifireBackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0AD2140421700645B3A /* NotifireBackgroundLayer.swift */; };
 		89576AE224FD412A0097BF87 /* RegisterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA6F2171377900A72BD0 /* RegisterCoordinator.swift */; };
@@ -199,7 +189,6 @@
 		89576AF424FD412A0097BF87 /* InputValidatingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0C92141D93700645B3A /* InputValidatingViewModel.swift */; };
 		89576AF524FD412A0097BF87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B3EC482020E4900068BA64 /* AppDelegate.swift */; };
 		89576AF624FD412A0097BF87 /* NoSessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939959C2170ED4900687A79 /* NoSessionCoordinator.swift */; };
-		89576AF724FD412A0097BF87 /* NotifireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1FF2139FD9A00630790 /* NotifireView.swift */; };
 		89576AF824FD412A0097BF87 /* ServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8922E24621988F31001984C4 /* ServiceViewModel.swift */; };
 		89576AF924FD412A0097BF87 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069DE2133885A00D798AA /* BaseButton.swift */; };
 		89576AFA24FD412A0097BF87 /* RealmProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533BF219FAAEC00E0A656 /* RealmProviding.swift */; };
@@ -256,7 +245,63 @@
 		89576B3124FD412A0097BF87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89B3EC542020E4900068BA64 /* LaunchScreen.storyboard */; };
 		89576B3224FD412A0097BF87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89B3EC522020E4900068BA64 /* Assets.xcassets */; };
 		89576B3424FD412A0097BF87 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 89853391219FA46900E0A656 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		895A3B772500609B000A7B50 /* BottomNavigatorLabelContaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B762500609B000A7B50 /* BottomNavigatorLabelContaining.swift */; };
+		895A3B782500609B000A7B50 /* BottomNavigatorLabelContaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B762500609B000A7B50 /* BottomNavigatorLabelContaining.swift */; };
+		895A3B7B25006D58000A7B50 /* LoginRegisterSplitterViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B7A25006D58000A7B50 /* LoginRegisterSplitterViewControllerDelegate.swift */; };
+		895A3B7C25006D58000A7B50 /* LoginRegisterSplitterViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B7A25006D58000A7B50 /* LoginRegisterSplitterViewControllerDelegate.swift */; };
+		895A3B7F25006D6F000A7B50 /* AuthenticationProvidersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B7E25006D6F000A7B50 /* AuthenticationProvidersView.swift */; };
+		895A3B8025006D6F000A7B50 /* AuthenticationProvidersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B7E25006D6F000A7B50 /* AuthenticationProvidersView.swift */; };
+		895A3B8225006D97000A7B50 /* AuthenticationProvidersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B8125006D97000A7B50 /* AuthenticationProvidersViewModel.swift */; };
+		895A3B8325006D97000A7B50 /* AuthenticationProvidersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B8125006D97000A7B50 /* AuthenticationProvidersViewModel.swift */; };
+		895A3B8625006DB4000A7B50 /* AuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B8525006DB4000A7B50 /* AuthenticationProvider.swift */; };
+		895A3B8725006DB4000A7B50 /* AuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B8525006DB4000A7B50 /* AuthenticationProvider.swift */; };
+		895A3B8925006DC5000A7B50 /* LoginRegisterSplitterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B8825006DC5000A7B50 /* LoginRegisterSplitterViewModel.swift */; };
+		895A3B8A25006DC5000A7B50 /* LoginRegisterSplitterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B8825006DC5000A7B50 /* LoginRegisterSplitterViewModel.swift */; };
+		895A3B8C25008A26000A7B50 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B8B25008A26000A7B50 /* UIImage+Resize.swift */; };
+		895A3B8D25008A26000A7B50 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B8B25008A26000A7B50 /* UIImage+Resize.swift */; };
+		895A3B8F25008A35000A7B50 /* CGSize+Equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B8E25008A35000A7B50 /* CGSize+Equal.swift */; };
+		895A3B9025008A35000A7B50 /* CGSize+Equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B8E25008A35000A7B50 /* CGSize+Equal.swift */; };
+		895A3B9325008C51000A7B50 /* SSOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B9225008C51000A7B50 /* SSOManager.swift */; };
+		895A3B9425008C51000A7B50 /* SSOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B9225008C51000A7B50 /* SSOManager.swift */; };
+		895A3B9625008C73000A7B50 /* SSOAuthenticationAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B9525008C73000A7B50 /* SSOAuthenticationAttempt.swift */; };
+		895A3B9725008C73000A7B50 /* SSOAuthenticationAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B9525008C73000A7B50 /* SSOAuthenticationAttempt.swift */; };
+		895A3B9925008C8C000A7B50 /* SSOManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B9825008C8C000A7B50 /* SSOManagerDelegate.swift */; };
+		895A3B9A25008C8C000A7B50 /* SSOManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B9825008C8C000A7B50 /* SSOManagerDelegate.swift */; };
 		895E4019204046EA0062D5FC /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895E4018204046EA0062D5FC /* Config.swift */; };
+		896167CF25011709007BF3F1 /* NotifireButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167CE25011709007BF3F1 /* NotifireButton.swift */; };
+		896167D02501170B007BF3F1 /* NotifireButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167CE25011709007BF3F1 /* NotifireButton.swift */; };
+		896167D22501182D007BF3F1 /* SignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167D12501182D007BF3F1 /* SignInButton.swift */; };
+		896167D32501182D007BF3F1 /* SignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167D12501182D007BF3F1 /* SignInButton.swift */; };
+		896167D725012F06007BF3F1 /* NotifireBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167D525012F05007BF3F1 /* NotifireBackgroundView.swift */; };
+		896167D825012F06007BF3F1 /* NotifireBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167D525012F05007BF3F1 /* NotifireBackgroundView.swift */; };
+		896167DB2501443C007BF3F1 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */; };
+		896167DC2501443C007BF3F1 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		896167DD2501443C007BF3F1 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0124FE6F5A00BC7C2C /* Realm.framework */; };
+		896167DE2501443C007BF3F1 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0124FE6F5A00BC7C2C /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		896167E025014445007BF3F1 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */; };
+		896167E125014445007BF3F1 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		896167E225014445007BF3F1 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0124FE6F5A00BC7C2C /* Realm.framework */; };
+		896167E325014445007BF3F1 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0124FE6F5A00BC7C2C /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		896167E52501444D007BF3F1 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */; };
+		896167E62501444D007BF3F1 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		896167E72501444D007BF3F1 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0124FE6F5A00BC7C2C /* Realm.framework */; };
+		896167E82501444D007BF3F1 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0124FE6F5A00BC7C2C /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		896167EB25016EF1007BF3F1 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167EA25016EF1007BF3F1 /* NavigationCoordinator.swift */; };
+		896167EC25016EF1007BF3F1 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167EA25016EF1007BF3F1 /* NavigationCoordinator.swift */; };
+		896167EE250174FA007BF3F1 /* GenericCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167ED250174FA007BF3F1 /* GenericCoordinator.swift */; };
+		896167EF250174FA007BF3F1 /* GenericCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167ED250174FA007BF3F1 /* GenericCoordinator.swift */; };
+		896167F125017794007BF3F1 /* NavigationBarProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167F025017794007BF3F1 /* NavigationBarProviding.swift */; };
+		896167F225017794007BF3F1 /* NavigationBarProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167F025017794007BF3F1 /* NavigationBarProviding.swift */; };
+		896167F425017889007BF3F1 /* LoginNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167F325017889007BF3F1 /* LoginNavigationController.swift */; };
+		896167F525017889007BF3F1 /* LoginNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167F325017889007BF3F1 /* LoginNavigationController.swift */; };
+		896167F725018561007BF3F1 /* LoginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167F625018561007BF3F1 /* LoginViewControllerDelegate.swift */; };
+		896167F825018561007BF3F1 /* LoginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167F625018561007BF3F1 /* LoginViewControllerDelegate.swift */; };
+		896167FA2501AB9A007BF3F1 /* ForgotPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167F92501AB9A007BF3F1 /* ForgotPasswordCoordinator.swift */; };
+		896167FB2501AB9A007BF3F1 /* ForgotPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167F92501AB9A007BF3F1 /* ForgotPasswordCoordinator.swift */; };
+		896167FD2501ABAE007BF3F1 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167FC2501ABAE007BF3F1 /* ForgotPasswordViewController.swift */; };
+		896167FE2501ABAE007BF3F1 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167FC2501ABAE007BF3F1 /* ForgotPasswordViewController.swift */; };
+		896168002501B3A3007BF3F1 /* UIView+Embed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167FF2501B3A3007BF3F1 /* UIView+Embed.swift */; };
+		896168012501B3A3007BF3F1 /* UIView+Embed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167FF2501B3A3007BF3F1 /* UIView+Embed.swift */; };
 		897069C821334E7700D798AA /* ConstrainableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069C721334E7700D798AA /* ConstrainableView.swift */; };
 		897069CA2133597800D798AA /* BottomNavigatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069C92133597800D798AA /* BottomNavigatorViewController.swift */; };
 		897069CC213359A100D798AA /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069CB213359A100D798AA /* BaseViewController.swift */; };
@@ -265,7 +310,6 @@
 		897069D22133725E00D798AA /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D12133725D00D798AA /* CustomTextField.swift */; };
 		897069D42133730A00D798AA /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D32133730A00D798AA /* Size.swift */; };
 		897069D62133733100D798AA /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D52133733100D798AA /* Theme.swift */; };
-		897069D82133764700D798AA /* NotifireButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D72133764700D798AA /* NotifireButton.swift */; };
 		897069DA21337F7F00D798AA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D921337F7F00D798AA /* Settings.swift */; };
 		897069DF2133885A00D798AA /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069DE2133885A00D798AA /* BaseButton.swift */; };
 		897069E22134051E00D798AA /* KeyboardObserving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069E12134051E00D798AA /* KeyboardObserving.swift */; };
@@ -312,7 +356,6 @@
 		89BDADE3217A5693000E38FC /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADE2217A5693000E38FC /* Service.swift */; };
 		89BDADE5217A5C5B000E38FC /* ServicesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADE4217A5C5B000E38FC /* ServicesViewModel.swift */; };
 		89BDADE7217A921A000E38FC /* ServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADE6217A921A000E38FC /* ServiceViewController.swift */; };
-		89D4E1EF2138A48700630790 /* NotifireAnimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1EE2138A48700630790 /* NotifireAnimatedView.swift */; };
 		89D4E1F12139ED0F00630790 /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F02139ED0F00630790 /* CALayerExtension.swift */; };
 		89D4E1F32139ED3D00630790 /* CAPersistentAnimationsLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F22139ED3D00630790 /* CAPersistentAnimationsLayer.swift */; };
 		89D4E1F52139F43E00630790 /* Observing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F42139F43E00630790 /* Observing.swift */; };
@@ -320,8 +363,11 @@
 		89D4E1FA2139F94000630790 /* BaseLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F92139F94000630790 /* BaseLayer.swift */; };
 		89D4E1FC2139FD2200630790 /* NotifireLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1FB2139FD2200630790 /* NotifireLayer.swift */; };
 		89D4E1FE2139FD3E00630790 /* MultiplePathAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1FD2139FD3E00630790 /* MultiplePathAnimator.swift */; };
-		89D4E2002139FD9A00630790 /* NotifireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1FF2139FD9A00630790 /* NotifireView.swift */; };
 		89D4E2032139FDD100630790 /* FireLayerProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E2022139FDD100630790 /* FireLayerProperties.swift */; };
+		89D616982502FE1600287331 /* KeyboardObserverHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616972502FE1600287331 /* KeyboardObserverHandler.swift */; };
+		89D616992502FE1600287331 /* KeyboardObserverHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616972502FE1600287331 /* KeyboardObserverHandler.swift */; };
+		89D6169B2503002A00287331 /* NavigationBarDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D6169A2503002A00287331 /* NavigationBarDisplaying.swift */; };
+		89D6169C2503002A00287331 /* NavigationBarDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D6169A2503002A00287331 /* NavigationBarDisplaying.swift */; };
 		89E6B6BA24FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6B924FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift */; };
 		89E6B6BB24FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6B924FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift */; };
 		89E6B6BD24FF0E3E00F7A79C /* AppCoordinator+NotifireUserSessionDeletionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6BC24FF0E3E00F7A79C /* AppCoordinator+NotifireUserSessionDeletionDelegate.swift */; };
@@ -330,7 +376,17 @@
 		89E6B6C124FF0E5300F7A79C /* AppCoordinator+ConfirmEmailViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6BF24FF0E5300F7A79C /* AppCoordinator+ConfirmEmailViewControllerDelegate.swift */; };
 		89E6B6C424FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6C324FF0FBD00F7A79C /* UIColor+AppColors.swift */; };
 		89E6B6C524FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6C324FF0FBD00F7A79C /* UIColor+AppColors.swift */; };
+		89E6B6CC25001B6C00F7A79C /* LoginRegisterSplitterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6CB25001B6B00F7A79C /* LoginRegisterSplitterViewController.swift */; };
+		89E6B6CD25001B6C00F7A79C /* LoginRegisterSplitterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6CB25001B6B00F7A79C /* LoginRegisterSplitterViewController.swift */; };
+		89E6B6D0250041F300F7A79C /* ChildCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6CF250041F300F7A79C /* ChildCoordinator.swift */; };
+		89E6B6D1250041F300F7A79C /* ChildCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6CF250041F300F7A79C /* ChildCoordinator.swift */; };
+		89E6B6D42500434F00F7A79C /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6D32500434F00F7A79C /* LoginCoordinator.swift */; };
+		89E6B6D52500434F00F7A79C /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6D32500434F00F7A79C /* LoginCoordinator.swift */; };
+		89E6B6D7250049F700F7A79C /* VMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6D6250049F700F7A79C /* VMView.swift */; };
+		89E6B6D8250049F700F7A79C /* VMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6D6250049F700F7A79C /* VMView.swift */; };
 		89E777ED2173E9F3009CF3DE /* NoSessionContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E777EC2173E9F3009CF3DE /* NoSessionContainerViewController.swift */; };
+		89E8B865250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */; };
+		89E8B866250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */; };
 		91A4C865A6FF77FCF5F5FE14 /* Pods_Abst_Notifire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF48406CF4114A37FB479C6B /* Pods_Abst_Notifire.framework */; };
 /* End PBXBuildFile section */
 
@@ -352,42 +408,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		89250B0A24FE6F7D00BC7C2C /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				89250B0C24FE6F7E00BC7C2C /* RealmSwift.framework in Embed Frameworks */,
-				89250B0924FE6F7C00BC7C2C /* Realm.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		89250B1324FE713F00BC7C2C /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				89250B1224FE713F00BC7C2C /* RealmSwift.framework in Embed Frameworks */,
-				89250B1024FE713F00BC7C2C /* Realm.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		89250B1924FED17900BC7C2C /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				89250B1824FED17800BC7C2C /* RealmSwift.framework in Embed Frameworks */,
-				89250B1624FED17800BC7C2C /* Realm.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		89576B3324FD412A0097BF87 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -397,6 +417,42 @@
 				89576B3424FD412A0097BF87 /* NotificationServiceExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		896167DF2501443C007BF3F1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				896167DE2501443C007BF3F1 /* Realm.framework in Embed Frameworks */,
+				896167DC2501443C007BF3F1 /* RealmSwift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		896167E425014445007BF3F1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				896167E325014445007BF3F1 /* Realm.framework in Embed Frameworks */,
+				896167E125014445007BF3F1 /* RealmSwift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		896167E92501444D007BF3F1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				896167E82501444D007BF3F1 /* Realm.framework in Embed Frameworks */,
+				896167E62501444D007BF3F1 /* RealmSwift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8985339D219FA46A00E0A656 /* Embed App Extensions */ = {
@@ -437,6 +493,8 @@
 		8922E268219DFB2E001984C4 /* NotifireNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireNotificationHandler.swift; sourceTree = "<group>"; };
 		8922E26C219F3CF6001984C4 /* RealmCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCollectionViewModel.swift; sourceTree = "<group>"; };
 		8922E26E219F3D0A001984C4 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
+		89250A1325004F2A00F00630 /* BottomNavigatorContaining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigatorContaining.swift; sourceTree = "<group>"; };
+		89250A1625005BCE00F00630 /* UILabel+Stylable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Stylable.swift"; sourceTree = "<group>"; };
 		89250B0124FE6F5A00BC7C2C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		89250B1F24FEEB4800BC7C2C /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
@@ -511,7 +569,29 @@
 		8948F57321A0C00000BB6E10 /* NotifirePoppable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifirePoppable.swift; sourceTree = "<group>"; };
 		89576B3B24FD412A0097BF87 /* Notifire Mock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Notifire Mock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89576B3D24FD42FD0097BF87 /* TestFlight.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = TestFlight.xcconfig; sourceTree = "<group>"; };
+		895A3B762500609B000A7B50 /* BottomNavigatorLabelContaining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigatorLabelContaining.swift; sourceTree = "<group>"; };
+		895A3B7A25006D58000A7B50 /* LoginRegisterSplitterViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterSplitterViewControllerDelegate.swift; sourceTree = "<group>"; };
+		895A3B7E25006D6F000A7B50 /* AuthenticationProvidersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationProvidersView.swift; sourceTree = "<group>"; };
+		895A3B8125006D97000A7B50 /* AuthenticationProvidersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationProvidersViewModel.swift; sourceTree = "<group>"; };
+		895A3B8525006DB4000A7B50 /* AuthenticationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationProvider.swift; sourceTree = "<group>"; };
+		895A3B8825006DC5000A7B50 /* LoginRegisterSplitterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterSplitterViewModel.swift; sourceTree = "<group>"; };
+		895A3B8B25008A26000A7B50 /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
+		895A3B8E25008A35000A7B50 /* CGSize+Equal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Equal.swift"; sourceTree = "<group>"; };
+		895A3B9225008C51000A7B50 /* SSOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSOManager.swift; sourceTree = "<group>"; };
+		895A3B9525008C73000A7B50 /* SSOAuthenticationAttempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSOAuthenticationAttempt.swift; sourceTree = "<group>"; };
+		895A3B9825008C8C000A7B50 /* SSOManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSOManagerDelegate.swift; sourceTree = "<group>"; };
 		895E4018204046EA0062D5FC /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		896167CE25011709007BF3F1 /* NotifireButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireButton.swift; sourceTree = "<group>"; };
+		896167D12501182D007BF3F1 /* SignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButton.swift; sourceTree = "<group>"; };
+		896167D525012F05007BF3F1 /* NotifireBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotifireBackgroundView.swift; sourceTree = "<group>"; };
+		896167EA25016EF1007BF3F1 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
+		896167ED250174FA007BF3F1 /* GenericCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCoordinator.swift; sourceTree = "<group>"; };
+		896167F025017794007BF3F1 /* NavigationBarProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarProviding.swift; sourceTree = "<group>"; };
+		896167F325017889007BF3F1 /* LoginNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNavigationController.swift; sourceTree = "<group>"; };
+		896167F625018561007BF3F1 /* LoginViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerDelegate.swift; sourceTree = "<group>"; };
+		896167F92501AB9A007BF3F1 /* ForgotPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordCoordinator.swift; sourceTree = "<group>"; };
+		896167FC2501ABAE007BF3F1 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		896167FF2501B3A3007BF3F1 /* UIView+Embed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Embed.swift"; sourceTree = "<group>"; };
 		897069C721334E7700D798AA /* ConstrainableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstrainableView.swift; sourceTree = "<group>"; };
 		897069C92133597800D798AA /* BottomNavigatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigatorViewController.swift; sourceTree = "<group>"; };
 		897069CB213359A100D798AA /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -520,7 +600,6 @@
 		897069D12133725D00D798AA /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		897069D32133730A00D798AA /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		897069D52133733100D798AA /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		897069D72133764700D798AA /* NotifireButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireButton.swift; sourceTree = "<group>"; };
 		897069D921337F7F00D798AA /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		897069DE2133885A00D798AA /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		897069E12134051E00D798AA /* KeyboardObserving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserving.swift; sourceTree = "<group>"; };
@@ -566,7 +645,6 @@
 		89BDADE2217A5693000E38FC /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		89BDADE4217A5C5B000E38FC /* ServicesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesViewModel.swift; sourceTree = "<group>"; };
 		89BDADE6217A921A000E38FC /* ServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceViewController.swift; sourceTree = "<group>"; };
-		89D4E1EE2138A48700630790 /* NotifireAnimatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAnimatedView.swift; sourceTree = "<group>"; };
 		89D4E1F02139ED0F00630790 /* CALayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
 		89D4E1F22139ED3D00630790 /* CAPersistentAnimationsLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAPersistentAnimationsLayer.swift; sourceTree = "<group>"; };
 		89D4E1F42139F43E00630790 /* Observing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observing.swift; sourceTree = "<group>"; };
@@ -574,14 +652,20 @@
 		89D4E1F92139F94000630790 /* BaseLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLayer.swift; sourceTree = "<group>"; };
 		89D4E1FB2139FD2200630790 /* NotifireLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireLayer.swift; sourceTree = "<group>"; };
 		89D4E1FD2139FD3E00630790 /* MultiplePathAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplePathAnimator.swift; sourceTree = "<group>"; };
-		89D4E1FF2139FD9A00630790 /* NotifireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireView.swift; sourceTree = "<group>"; };
 		89D4E2022139FDD100630790 /* FireLayerProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireLayerProperties.swift; sourceTree = "<group>"; };
+		89D616972502FE1600287331 /* KeyboardObserverHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserverHandler.swift; sourceTree = "<group>"; };
+		89D6169A2503002A00287331 /* NavigationBarDisplaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarDisplaying.swift; sourceTree = "<group>"; };
 		89E6B6B924FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+NotifireUserSessionCreationDelegate.swift"; sourceTree = "<group>"; };
 		89E6B6BC24FF0E3E00F7A79C /* AppCoordinator+NotifireUserSessionDeletionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+NotifireUserSessionDeletionDelegate.swift"; sourceTree = "<group>"; };
 		89E6B6BF24FF0E5300F7A79C /* AppCoordinator+ConfirmEmailViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+ConfirmEmailViewControllerDelegate.swift"; sourceTree = "<group>"; };
 		89E6B6C324FF0FBD00F7A79C /* UIColor+AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColors.swift"; sourceTree = "<group>"; };
+		89E6B6CB25001B6B00F7A79C /* LoginRegisterSplitterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterSplitterViewController.swift; sourceTree = "<group>"; };
+		89E6B6CF250041F300F7A79C /* ChildCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCoordinator.swift; sourceTree = "<group>"; };
+		89E6B6D32500434F00F7A79C /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		89E6B6D6250049F700F7A79C /* VMView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMView.swift; sourceTree = "<group>"; };
 		89E777EB2173C04C009CF3DE /* Mock.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Mock.xcconfig; sourceTree = "<group>"; };
 		89E777EC2173E9F3009CF3DE /* NoSessionContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSessionContainerViewController.swift; sourceTree = "<group>"; };
+		89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotifireButton+Loadable.swift"; sourceTree = "<group>"; };
 		928D68240DE9EDF7C6F0C4A6 /* Pods-Abst-Notifire Mock.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire Mock.testflight.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire Mock/Pods-Abst-Notifire Mock.testflight.xcconfig"; sourceTree = "<group>"; };
 		A3DC1CAF7E5B0E0CC05B7278 /* Pods-Abst-Notifire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire.debug.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire.debug.xcconfig"; sourceTree = "<group>"; };
 		B0AC8ED83A2EB61385EC7413 /* Pods-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -599,8 +683,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89250B1524FED17800BC7C2C /* Realm.framework in Frameworks */,
-				89250B1724FED17800BC7C2C /* RealmSwift.framework in Frameworks */,
+				896167E225014445007BF3F1 /* Realm.framework in Frameworks */,
+				896167E025014445007BF3F1 /* RealmSwift.framework in Frameworks */,
 				7C99F51A7641D94DD3AB2A3C /* Pods_Abst_Notifire_Mock.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -609,8 +693,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89250B0F24FE713F00BC7C2C /* Realm.framework in Frameworks */,
-				89250B1124FE713F00BC7C2C /* RealmSwift.framework in Frameworks */,
+				896167E72501444D007BF3F1 /* Realm.framework in Frameworks */,
+				896167E52501444D007BF3F1 /* RealmSwift.framework in Frameworks */,
 				0E98CF4D8A6187E9159916CE /* Pods_Abst_NotificationServiceExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -619,8 +703,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89250B0824FE6F7C00BC7C2C /* Realm.framework in Frameworks */,
-				89250B0B24FE6F7E00BC7C2C /* RealmSwift.framework in Frameworks */,
+				896167DD2501443C007BF3F1 /* Realm.framework in Frameworks */,
+				896167DB2501443C007BF3F1 /* RealmSwift.framework in Frameworks */,
 				91A4C865A6FF77FCF5F5FE14 /* Pods_Abst_Notifire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -683,6 +767,19 @@
 			path = Notifire;
 			sourceTree = "<group>";
 		};
+		89250A1225004E9900F00630 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				89D4E1F42139F43E00630790 /* Observing.swift */,
+				897069E12134051E00D798AA /* KeyboardObserving.swift */,
+				89250A1325004F2A00F00630 /* BottomNavigatorContaining.swift */,
+				895A3B762500609B000A7B50 /* BottomNavigatorLabelContaining.swift */,
+				896167F025017794007BF3F1 /* NavigationBarProviding.swift */,
+				89D6169A2503002A00287331 /* NavigationBarDisplaying.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		89250B1B24FEE7A300BC7C2C /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -723,6 +820,10 @@
 			children = (
 				89E6B6C624FF209600F7A79C /* View */,
 				89250B2324FEEB7000BC7C2C /* ViewController */,
+				89E6B6CE250041E500F7A79C /* Coordinator */,
+				89D616962502FE0300287331 /* Class */,
+				89250A1225004E9900F00630 /* Protocol */,
+				89D4E1F82139F92200630790 /* Layer */,
 				89E6B6C224FF0FAB00F7A79C /* Extension */,
 			);
 			path = common;
@@ -745,6 +846,7 @@
 				89E6B6B924FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift */,
 				89E6B6BC24FF0E3E00F7A79C /* AppCoordinator+NotifireUserSessionDeletionDelegate.swift */,
 				89E6B6BF24FF0E5300F7A79C /* AppCoordinator+ConfirmEmailViewControllerDelegate.swift */,
+				896167FF2501B3A3007BF3F1 /* UIView+Embed.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -874,11 +976,8 @@
 		8939957D216FE49300687A79 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				893995A42170EDC000687A79 /* Protocol */,
-				8939959C2170ED4900687A79 /* NoSessionCoordinator.swift */,
 				8939959E2170ED7900687A79 /* SessionCoordinator.swift */,
 				893995A72170EDDA00687A79 /* NotificationsCoordinator.swift */,
-				8920CA6F2171377900A72BD0 /* RegisterCoordinator.swift */,
 				893995A92170EDE800687A79 /* ServicesCoordinator.swift */,
 				893995AB2170EDF300687A79 /* SettingsCoordinator.swift */,
 			);
@@ -919,15 +1018,6 @@
 			path = "Collection Cells";
 			sourceTree = "<group>";
 		};
-		893995A42170EDC000687A79 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				8939957E216FE4D800687A79 /* Coordinator.swift */,
-				893995A52170EDC900687A79 /* TabbedCoordinator.swift */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
 		893FE02221962C26002CD846 /* Table View */ = {
 			isa = PBXGroup;
 			children = (
@@ -939,6 +1029,42 @@
 				89A904A021C03E1400D262E1 /* NotificationDetailCells.swift */,
 			);
 			path = "Table View";
+			sourceTree = "<group>";
+		};
+		895A3B7925006D3B000A7B50 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				895A3B7A25006D58000A7B50 /* LoginRegisterSplitterViewControllerDelegate.swift */,
+				895A3B9825008C8C000A7B50 /* SSOManagerDelegate.swift */,
+				896167F625018561007BF3F1 /* LoginViewControllerDelegate.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		895A3B7D25006D67000A7B50 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				895A3B7E25006D6F000A7B50 /* AuthenticationProvidersView.swift */,
+				896167D12501182D007BF3F1 /* SignInButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		895A3B8425006DAC000A7B50 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				895A3B8525006DB4000A7B50 /* AuthenticationProvider.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		895A3B9125008C47000A7B50 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				895A3B9225008C51000A7B50 /* SSOManager.swift */,
+				895A3B9525008C73000A7B50 /* SSOAuthenticationAttempt.swift */,
+			);
+			path = Class;
 			sourceTree = "<group>";
 		};
 		895E4017204046C90062D5FC /* Util */ = {
@@ -959,9 +1085,9 @@
 		897069DD2133872F00D798AA /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				897069D72133764700D798AA /* NotifireButton.swift */,
 				897069DE2133885A00D798AA /* BaseButton.swift */,
 				8920CA782171739900A72BD0 /* ActionButton.swift */,
+				896167CE25011709007BF3F1 /* NotifireButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -969,8 +1095,6 @@
 		897069E02134050100D798AA /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				89D4E1F42139F43E00630790 /* Observing.swift */,
-				897069E12134051E00D798AA /* KeyboardObserving.swift */,
 				892B414021C1E41300D28ABE /* API */,
 				89D4E1F62139F47600630790 /* PersistentAnimationsObserving.swift */,
 				897069F32134BF4C00D798AA /* KeyboardDismissing.swift */,
@@ -1050,10 +1174,10 @@
 			children = (
 				89B3EC482020E4900068BA64 /* AppDelegate.swift */,
 				89250B1B24FEE7A300BC7C2C /* Main */,
+				89E6B6C72500030900F7A79C /* NoSession */,
 				89250B2224FEEB6900BC7C2C /* common */,
 				89B3EC6C2020E5190068BA64 /* Model */,
 				8939957D216FE49300687A79 /* Coordinator */,
-				89D4E1F82139F92200630790 /* Layer */,
 				89B3EC6D2020E5270068BA64 /* View */,
 				897069EC2134B66E00D798AA /* ViewModel */,
 				89B3EC6B2020E50F0068BA64 /* Controller */,
@@ -1108,11 +1232,8 @@
 				893FE02221962C26002CD846 /* Table View */,
 				893995982170E51000687A79 /* Collection Cells */,
 				8933F0B2214062F300645B3A /* ValidatableTextInput.swift */,
-				89D4E2012139FDA000630790 /* NotifireAnim */,
 				897069E52134A35300D798AA /* Labels */,
-				897069DD2133872F00D798AA /* Buttons */,
 				8933F0B4214062FA00645B3A /* TextFields */,
-				897069C721334E7700D798AA /* ConstrainableView.swift */,
 				8939958D2170011100687A79 /* SplashView.swift */,
 				893FE02321962C3E002CD846 /* ServiceNotificationsHeaderView.swift */,
 				893FE02521962DC0002CD846 /* ServiceHeaderView.swift */,
@@ -1180,19 +1301,22 @@
 			path = Layer;
 			sourceTree = "<group>";
 		};
-		89D4E2012139FDA000630790 /* NotifireAnim */ = {
+		89D616962502FE0300287331 /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				89D4E1FF2139FD9A00630790 /* NotifireView.swift */,
-				89D4E1EE2138A48700630790 /* NotifireAnimatedView.swift */,
+				89D616972502FE1600287331 /* KeyboardObserverHandler.swift */,
 			);
-			path = NotifireAnim;
+			path = Class;
 			sourceTree = "<group>";
 		};
 		89E6B6C224FF0FAB00F7A79C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				89E6B6C324FF0FBD00F7A79C /* UIColor+AppColors.swift */,
+				89250A1625005BCE00F00630 /* UILabel+Stylable.swift */,
+				895A3B8B25008A26000A7B50 /* UIImage+Resize.swift */,
+				895A3B8E25008A35000A7B50 /* CGSize+Equal.swift */,
+				89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1200,13 +1324,73 @@
 		89E6B6C624FF209600F7A79C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				897069DD2133872F00D798AA /* Buttons */,
+				897069C721334E7700D798AA /* ConstrainableView.swift */,
 				89BDADD7217A2596000E38FC /* HairlineView.swift */,
 				893FE01E21960BCC002CD846 /* ChoiceSeparatorView.swift */,
 				897069E32134721300D798AA /* CurvedTopView.swift */,
 				8948F57121A0AD8200BB6E10 /* RoundedImageView.swift */,
 				897069E62134A36700D798AA /* TappableLabel.swift */,
+				896167D525012F05007BF3F1 /* NotifireBackgroundView.swift */,
+				89E6B6D6250049F700F7A79C /* VMView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		89E6B6C72500030900F7A79C /* NoSession */ = {
+			isa = PBXGroup;
+			children = (
+				895A3B8425006DAC000A7B50 /* Model */,
+				895A3B7D25006D67000A7B50 /* View */,
+				89E6B6CA2500033800F7A79C /* ViewModel */,
+				89E6B6C82500031500F7A79C /* ViewController */,
+				895A3B9125008C47000A7B50 /* Class */,
+				895A3B7925006D3B000A7B50 /* Protocol */,
+				89E6B6D22500433D00F7A79C /* Coordinator */,
+			);
+			path = NoSession;
+			sourceTree = "<group>";
+		};
+		89E6B6C82500031500F7A79C /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				89E6B6CB25001B6B00F7A79C /* LoginRegisterSplitterViewController.swift */,
+				896167F325017889007BF3F1 /* LoginNavigationController.swift */,
+				896167FC2501ABAE007BF3F1 /* ForgotPasswordViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		89E6B6CA2500033800F7A79C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				895A3B8125006D97000A7B50 /* AuthenticationProvidersViewModel.swift */,
+				895A3B8825006DC5000A7B50 /* LoginRegisterSplitterViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		89E6B6CE250041E500F7A79C /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				8939957E216FE4D800687A79 /* Coordinator.swift */,
+				89E6B6CF250041F300F7A79C /* ChildCoordinator.swift */,
+				896167EA25016EF1007BF3F1 /* NavigationCoordinator.swift */,
+				893995A52170EDC900687A79 /* TabbedCoordinator.swift */,
+				896167ED250174FA007BF3F1 /* GenericCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		89E6B6D22500433D00F7A79C /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				8939959C2170ED4900687A79 /* NoSessionCoordinator.swift */,
+				89E6B6D32500434F00F7A79C /* LoginCoordinator.swift */,
+				8920CA6F2171377900A72BD0 /* RegisterCoordinator.swift */,
+				896167F92501AB9A007BF3F1 /* ForgotPasswordCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		CC7A7813572D08E26068BCF2 /* Frameworks */ = {
@@ -1235,9 +1419,9 @@
 				89576B3024FD412A0097BF87 /* Resources */,
 				89576B3324FD412A0097BF87 /* Embed App Extensions */,
 				89250B0E24FE710D00BC7C2C /* ShellScript */,
-				89250B1924FED17900BC7C2C /* Embed Frameworks */,
 				079C8F93276AE2405DB76C32 /* [CP] Embed Pods Frameworks */,
 				1674ECC70134AE3DFFDDF875 /* [CP] Copy Pods Resources */,
+				896167E425014445007BF3F1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1257,8 +1441,8 @@
 				8985338D219FA46900E0A656 /* Sources */,
 				8985338E219FA46900E0A656 /* Frameworks */,
 				8985338F219FA46900E0A656 /* Resources */,
-				89250B1324FE713F00BC7C2C /* Embed Frameworks */,
 				89250B1424FE714400BC7C2C /* ShellScript */,
+				896167E92501444D007BF3F1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1279,10 +1463,10 @@
 				89B3EC422020E4900068BA64 /* Frameworks */,
 				89B3EC432020E4900068BA64 /* Resources */,
 				8985339D219FA46A00E0A656 /* Embed App Extensions */,
-				89250B0A24FE6F7D00BC7C2C /* Embed Frameworks */,
 				89250B0D24FE6FC100BC7C2C /* ShellScript */,
 				62889FEA49136180BFBE6193 /* [CP] Embed Pods Frameworks */,
 				E3BEC60BA3178E138421AB99 /* [CP] Copy Pods Resources */,
+				896167DF2501443C007BF3F1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1656,35 +1840,45 @@
 				89576AAA24FD412A0097BF87 /* ServiceAPIKeyTableViewCell.swift in Sources */,
 				89576AAB24FD412A0097BF87 /* Coordinator.swift in Sources */,
 				89576AAC24FD412A0097BF87 /* NotifireNavigationController.swift in Sources */,
+				895A3B8D25008A26000A7B50 /* UIImage+Resize.swift in Sources */,
 				89576AAD24FD412A0097BF87 /* ComponentValidator.swift in Sources */,
 				89E6B6C124FF0E5300F7A79C /* AppCoordinator+ConfirmEmailViewControllerDelegate.swift in Sources */,
 				89576AAE24FD412A0097BF87 /* LocalNotifireNotification.swift in Sources */,
 				89576AAF24FD412A0097BF87 /* NotifireAPIManagerFactory.swift in Sources */,
 				89576AB024FD412A0097BF87 /* HairlineView.swift in Sources */,
-				89576AB124FD412A0097BF87 /* NotifireAnimatedView.swift in Sources */,
 				89576AB224FD412A0097BF87 /* ValidatableTextInput.swift in Sources */,
 				89576AB324FD412A0097BF87 /* NotificationDetailViewController.swift in Sources */,
 				89576AB424FD412A0097BF87 /* TabBarViewController.swift in Sources */,
+				89E6B6D8250049F700F7A79C /* VMView.swift in Sources */,
 				89576AB524FD412A0097BF87 /* Animation.swift in Sources */,
 				89576AB624FD412A0097BF87 /* NotifireAPIDecodable.swift in Sources */,
 				89576AB724FD412A0097BF87 /* SessionCoordinator.swift in Sources */,
+				895A3B9725008C73000A7B50 /* SSOAuthenticationAttempt.swift in Sources */,
+				895A3B8725006DB4000A7B50 /* AuthenticationProvider.swift in Sources */,
 				89576AB824FD412A0097BF87 /* NotifireAPITypealias.swift in Sources */,
 				89576AB924FD412A0097BF87 /* BaseLayer.swift in Sources */,
 				89576ABA24FD412A0097BF87 /* NavigationActionViewController.swift in Sources */,
 				89576ABB24FD412A0097BF87 /* LoginViewController.swift in Sources */,
+				896167D02501170B007BF3F1 /* NotifireButton.swift in Sources */,
 				89576ABC24FD412A0097BF87 /* NotifireAPIError.swift in Sources */,
+				896167D32501182D007BF3F1 /* SignInButton.swift in Sources */,
+				895A3B8025006D6F000A7B50 /* AuthenticationProvidersView.swift in Sources */,
 				89576ABD24FD412A0097BF87 /* LocalServiceExtension.swift in Sources */,
 				89576ABE24FD412A0097BF87 /* Config.swift in Sources */,
 				89576ABF24FD412A0097BF87 /* NotifireUserSession.swift in Sources */,
 				89576AC024FD412A0097BF87 /* ServiceCreationViewModel.swift in Sources */,
 				89576AC124FD412A0097BF87 /* Settings.swift in Sources */,
 				89576AC224FD412A0097BF87 /* APIFailable.swift in Sources */,
+				895A3B782500609B000A7B50 /* BottomNavigatorLabelContaining.swift in Sources */,
 				89576AC324FD412A0097BF87 /* NotifireAPIEncodable.swift in Sources */,
+				896167EC25016EF1007BF3F1 /* NavigationCoordinator.swift in Sources */,
 				89576AC424FD412A0097BF87 /* NotifireAPIManagerBase.swift in Sources */,
 				89576AC524FD412A0097BF87 /* SplashView.swift in Sources */,
 				89576AC624FD412A0097BF87 /* TabBarCollectionCell.swift in Sources */,
 				89576AC724FD412A0097BF87 /* NotifirePoppable.swift in Sources */,
 				89E6B6C524FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */,
+				89E6B6D52500434F00F7A79C /* LoginCoordinator.swift in Sources */,
+				89250A1525004F2A00F00630 /* BottomNavigatorContaining.swift in Sources */,
 				89576AC824FD412A0097BF87 /* SettingsViewController.swift in Sources */,
 				89250B2124FEEB4800BC7C2C /* RootViewModel.swift in Sources */,
 				89576AC924FD412A0097BF87 /* NotificationLevelModel.swift in Sources */,
@@ -1697,8 +1891,10 @@
 				89576AD024FD412A0097BF87 /* NotificationLevelTableViewCell.swift in Sources */,
 				89576AD124FD412A0097BF87 /* Loadable.swift in Sources */,
 				89576AD224FD412A0097BF87 /* InputValidating.swift in Sources */,
+				89D6169C2503002A00287331 /* NavigationBarDisplaying.swift in Sources */,
 				89576AD324FD412A0097BF87 /* ServiceNotificationsViewController.swift in Sources */,
 				89576AD424FD412A0097BF87 /* BaseTableViewCell.swift in Sources */,
+				89250A1825005BCE00F00630 /* UILabel+Stylable.swift in Sources */,
 				89576AD524FD412A0097BF87 /* DynamicTableView.swift in Sources */,
 				89576AD624FD412A0097BF87 /* CopyableLabel.swift in Sources */,
 				89576AD724FD412A0097BF87 /* ComponentRule.swift in Sources */,
@@ -1708,21 +1904,25 @@
 				89576ADA24FD412A0097BF87 /* Reselectable.swift in Sources */,
 				89576ADB24FD412A0097BF87 /* Observing.swift in Sources */,
 				89576ADC24FD412A0097BF87 /* RegisterViewController.swift in Sources */,
+				895A3B9425008C51000A7B50 /* SSOManager.swift in Sources */,
 				89576ADD24FD412A0097BF87 /* NotificationLevel.swift in Sources */,
 				89576ADE24FD412A0097BF87 /* ServicesCoordinator.swift in Sources */,
-				89576ADF24FD412A0097BF87 /* NotifireButton.swift in Sources */,
 				89576AE024FD412A0097BF87 /* Tab.swift in Sources */,
 				89576AE124FD412A0097BF87 /* NotifireBackgroundLayer.swift in Sources */,
 				89576AE224FD412A0097BF87 /* RegisterCoordinator.swift in Sources */,
 				89576AE324FD412A0097BF87 /* TappableLabel.swift in Sources */,
+				895A3B8325006D97000A7B50 /* AuthenticationProvidersViewModel.swift in Sources */,
 				89576AE424FD412A0097BF87 /* NotificationsEmptyStateView.swift in Sources */,
+				89D616992502FE1600287331 /* KeyboardObserverHandler.swift in Sources */,
 				89E6B6BE24FF0E3E00F7A79C /* AppCoordinator+NotifireUserSessionDeletionDelegate.swift in Sources */,
+				896167F225017794007BF3F1 /* NavigationBarProviding.swift in Sources */,
 				89576AE524FD412A0097BF87 /* DeeplinkHandler.swift in Sources */,
 				89576AE624FD412A0097BF87 /* NotifireNotificationHandler.swift in Sources */,
 				89576AE724FD412A0097BF87 /* RoundedImageView.swift in Sources */,
 				89576AE824FD412A0097BF87 /* NotifireAPIStatusCode.swift in Sources */,
 				89576AE924FD412A0097BF87 /* PersistentAnimationsObserving.swift in Sources */,
 				89576AEA24FD412A0097BF87 /* KeyboardObserving.swift in Sources */,
+				896167EF250174FA007BF3F1 /* GenericCoordinator.swift in Sources */,
 				89576AEB24FD412A0097BF87 /* LoadableLabel.swift in Sources */,
 				89576AEC24FD412A0097BF87 /* StringExtension.swift in Sources */,
 				89576AED24FD412A0097BF87 /* ServiceNotificationsHeaderView.swift in Sources */,
@@ -1731,18 +1931,21 @@
 				89576AF024FD412A0097BF87 /* RealmManager.swift in Sources */,
 				89576AF124FD412A0097BF87 /* NotifireProtectedAPIManager.swift in Sources */,
 				89250B2624FEF66A00BC7C2C /* VMViewController.swift in Sources */,
+				89E8B866250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */,
 				89576AF224FD412A0097BF87 /* Deeplink.swift in Sources */,
 				89576AF324FD412A0097BF87 /* UIStackViewExtension.swift in Sources */,
 				89576AF424FD412A0097BF87 /* InputValidatingViewModel.swift in Sources */,
 				89576AF524FD412A0097BF87 /* AppDelegate.swift in Sources */,
+				895A3B7C25006D58000A7B50 /* LoginRegisterSplitterViewControllerDelegate.swift in Sources */,
 				89576AF624FD412A0097BF87 /* NoSessionCoordinator.swift in Sources */,
-				89576AF724FD412A0097BF87 /* NotifireView.swift in Sources */,
 				89576AF824FD412A0097BF87 /* ServiceViewModel.swift in Sources */,
+				895A3B8A25006DC5000A7B50 /* LoginRegisterSplitterViewModel.swift in Sources */,
 				89576AF924FD412A0097BF87 /* BaseButton.swift in Sources */,
 				89576AFA24FD412A0097BF87 /* RealmProviding.swift in Sources */,
 				89576AFB24FD412A0097BF87 /* URLRequestExtension.swift in Sources */,
 				89576AFC24FD412A0097BF87 /* BaseViewController.swift in Sources */,
 				89576AFD24FD412A0097BF87 /* UIViewExtension.swift in Sources */,
+				896168012501B3A3007BF3F1 /* UIView+Embed.swift in Sources */,
 				89576AFF24FD412A0097BF87 /* RegisterSuccessViewController.swift in Sources */,
 				89576B0024FD412A0097BF87 /* ConstrainableView.swift in Sources */,
 				89576B0124FD412A0097BF87 /* CenterStackPresenting.swift in Sources */,
@@ -1756,7 +1959,9 @@
 				89576B0924FD412A0097BF87 /* ServicesViewController.swift in Sources */,
 				89576B0A24FD412A0097BF87 /* NotifirePopAnimationController.swift in Sources */,
 				89576B0B24FD412A0097BF87 /* HTTPMethod.swift in Sources */,
+				89E6B6D1250041F300F7A79C /* ChildCoordinator.swift in Sources */,
 				89576B0C24FD412A0097BF87 /* Size.swift in Sources */,
+				896167FB2501AB9A007BF3F1 /* ForgotPasswordCoordinator.swift in Sources */,
 				89576B0D24FD412A0097BF87 /* SettingsCoordinator.swift in Sources */,
 				89576B0E24FD412A0097BF87 /* BottomNavigatorViewController.swift in Sources */,
 				89576B0F24FD412A0097BF87 /* ServiceCreationViewController.swift in Sources */,
@@ -1768,6 +1973,8 @@
 				89576B1524FD412A0097BF87 /* ConfirmEmailViewModel.swift in Sources */,
 				89576B1624FD412A0097BF87 /* APIUserErrorResponding.swift in Sources */,
 				89576B1724FD412A0097BF87 /* NotifireLayer.swift in Sources */,
+				896167D825012F06007BF3F1 /* NotifireBackgroundView.swift in Sources */,
+				896167FE2501ABAE007BF3F1 /* ForgotPasswordViewController.swift in Sources */,
 				89576B1824FD412A0097BF87 /* RealmCollectionViewModel.swift in Sources */,
 				89576B1924FD412A0097BF87 /* RootViewController.swift in Sources */,
 				89576B1A24FD412A0097BF87 /* ValidatableComponentState.swift in Sources */,
@@ -1775,13 +1982,18 @@
 				89576B1C24FD412A0097BF87 /* UserSessionManager.swift in Sources */,
 				89576B1D24FD412A0097BF87 /* ValidatableComponent.swift in Sources */,
 				89576B1E24FD412A0097BF87 /* CellConfigurable.swift in Sources */,
+				89E6B6CD25001B6C00F7A79C /* LoginRegisterSplitterViewController.swift in Sources */,
 				89576B1F24FD412A0097BF87 /* NotifireAPIEndpoint.swift in Sources */,
+				895A3B9025008A35000A7B50 /* CGSize+Equal.swift in Sources */,
 				89576B2024FD412A0097BF87 /* CAPersistentAnimationsLayer.swift in Sources */,
 				89576B2124FD412A0097BF87 /* Theme.swift in Sources */,
 				89576B2224FD412A0097BF87 /* NotificationTableViewCell.swift in Sources */,
 				89576B2324FD412A0097BF87 /* NotificationsCoordinator.swift in Sources */,
+				896167F525017889007BF3F1 /* LoginNavigationController.swift in Sources */,
 				89576B2424FD412A0097BF87 /* CALayerExtension.swift in Sources */,
+				895A3B9A25008C8C000A7B50 /* SSOManagerDelegate.swift in Sources */,
 				89576B2524FD412A0097BF87 /* NotifireAPIResponseContext.swift in Sources */,
+				896167F825018561007BF3F1 /* LoginViewControllerDelegate.swift in Sources */,
 				89576B2624FD412A0097BF87 /* DateFormatterExtension.swift in Sources */,
 				89576B2724FD412A0097BF87 /* KeyboardDismissing.swift in Sources */,
 				89576B2824FD412A0097BF87 /* ServiceViewController.swift in Sources */,
@@ -1827,35 +2039,45 @@
 				893FE03321979A34002CD846 /* ServiceAPIKeyTableViewCell.swift in Sources */,
 				8939957F216FE4D800687A79 /* Coordinator.swift in Sources */,
 				89A9049D21BF19EA00D262E1 /* NotifireNavigationController.swift in Sources */,
+				895A3B8C25008A26000A7B50 /* UIImage+Resize.swift in Sources */,
 				8933F0BE2141326300645B3A /* ComponentValidator.swift in Sources */,
 				89E6B6C024FF0E5300F7A79C /* AppCoordinator+ConfirmEmailViewControllerDelegate.swift in Sources */,
 				8909A3BC218F24EE00EADD09 /* LocalNotifireNotification.swift in Sources */,
 				8920CA812172188000A72BD0 /* NotifireAPIManagerFactory.swift in Sources */,
 				89BDADD8217A2596000E38FC /* HairlineView.swift in Sources */,
-				89D4E1EF2138A48700630790 /* NotifireAnimatedView.swift in Sources */,
 				8933F0B3214062F300645B3A /* ValidatableTextInput.swift in Sources */,
 				8985338C219F95E000E0A656 /* NotificationDetailViewController.swift in Sources */,
 				893995932170C58400687A79 /* TabBarViewController.swift in Sources */,
+				89E6B6D7250049F700F7A79C /* VMView.swift in Sources */,
 				8920CA902172BB1E00A72BD0 /* Animation.swift in Sources */,
 				8933F0FC214339D700645B3A /* NotifireAPIDecodable.swift in Sources */,
 				8939959F2170ED7900687A79 /* SessionCoordinator.swift in Sources */,
+				895A3B9625008C73000A7B50 /* SSOAuthenticationAttempt.swift in Sources */,
+				895A3B8625006DB4000A7B50 /* AuthenticationProvider.swift in Sources */,
 				8933F0DD2143360300645B3A /* NotifireAPITypealias.swift in Sources */,
 				89D4E1FA2139F94000630790 /* BaseLayer.swift in Sources */,
 				8920CA74217144DF00A72BD0 /* NavigationActionViewController.swift in Sources */,
 				89B3EC7320232A310068BA64 /* LoginViewController.swift in Sources */,
+				896167CF25011709007BF3F1 /* NotifireButton.swift in Sources */,
 				8933F0F0214338B500645B3A /* NotifireAPIError.swift in Sources */,
+				896167D22501182D007BF3F1 /* SignInButton.swift in Sources */,
+				895A3B7F25006D6F000A7B50 /* AuthenticationProvidersView.swift in Sources */,
 				898533C3219FAEE300E0A656 /* LocalServiceExtension.swift in Sources */,
 				895E4019204046EA0062D5FC /* Config.swift in Sources */,
 				89399589216FF3CD00687A79 /* NotifireUserSession.swift in Sources */,
 				893FE02121960BE5002CD846 /* ServiceCreationViewModel.swift in Sources */,
 				897069DA21337F7F00D798AA /* Settings.swift in Sources */,
 				892B413F21C1E40800D28ABE /* APIFailable.swift in Sources */,
+				895A3B772500609B000A7B50 /* BottomNavigatorLabelContaining.swift in Sources */,
 				8933F0FE214339E200645B3A /* NotifireAPIEncodable.swift in Sources */,
+				896167EB25016EF1007BF3F1 /* NavigationCoordinator.swift in Sources */,
 				8933F0F3214338EA00645B3A /* NotifireAPIManagerBase.swift in Sources */,
 				8939958E2170011100687A79 /* SplashView.swift in Sources */,
 				8939959B2170E52600687A79 /* TabBarCollectionCell.swift in Sources */,
 				8948F57421A0C00000BB6E10 /* NotifirePoppable.swift in Sources */,
 				89E6B6C424FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */,
+				89E6B6D42500434F00F7A79C /* LoginCoordinator.swift in Sources */,
+				89250A1425004F2A00F00630 /* BottomNavigatorContaining.swift in Sources */,
 				893995B02170EEE500687A79 /* SettingsViewController.swift in Sources */,
 				89250B2024FEEB4800BC7C2C /* RootViewModel.swift in Sources */,
 				893FE031219783F0002CD846 /* NotificationLevelModel.swift in Sources */,
@@ -1868,8 +2090,10 @@
 				893FE02D21977FB2002CD846 /* NotificationLevelTableViewCell.swift in Sources */,
 				8920CA8521722FF700A72BD0 /* Loadable.swift in Sources */,
 				8933F0BB2141322A00645B3A /* InputValidating.swift in Sources */,
+				89D6169B2503002A00287331 /* NavigationBarDisplaying.swift in Sources */,
 				893FE02A2197488D002CD846 /* ServiceNotificationsViewController.swift in Sources */,
 				893FE02F21977FD8002CD846 /* BaseTableViewCell.swift in Sources */,
+				89250A1725005BCE00F00630 /* UILabel+Stylable.swift in Sources */,
 				893FE02821964664002CD846 /* DynamicTableView.swift in Sources */,
 				893FE0372197C225002CD846 /* CopyableLabel.swift in Sources */,
 				8933F0C02141329500645B3A /* ComponentRule.swift in Sources */,
@@ -1879,21 +2103,25 @@
 				892B413621C1A5F000D28ABE /* Reselectable.swift in Sources */,
 				89D4E1F52139F43E00630790 /* Observing.swift in Sources */,
 				897069EB2134B4D200D798AA /* RegisterViewController.swift in Sources */,
+				895A3B9325008C51000A7B50 /* SSOManager.swift in Sources */,
 				892B415921C4150B00D28ABE /* NotificationLevel.swift in Sources */,
 				893995AA2170EDE800687A79 /* ServicesCoordinator.swift in Sources */,
-				897069D82133764700D798AA /* NotifireButton.swift in Sources */,
 				893995A32170EDA900687A79 /* Tab.swift in Sources */,
 				8933F0AE2140421700645B3A /* NotifireBackgroundLayer.swift in Sources */,
 				8920CA702171377900A72BD0 /* RegisterCoordinator.swift in Sources */,
 				897069E72134A36700D798AA /* TappableLabel.swift in Sources */,
+				895A3B8225006D97000A7B50 /* AuthenticationProvidersViewModel.swift in Sources */,
 				892B413821C1D47A00D28ABE /* NotificationsEmptyStateView.swift in Sources */,
+				89D616982502FE1600287331 /* KeyboardObserverHandler.swift in Sources */,
 				89E6B6BD24FF0E3E00F7A79C /* AppCoordinator+NotifireUserSessionDeletionDelegate.swift in Sources */,
+				896167F125017794007BF3F1 /* NavigationBarProviding.swift in Sources */,
 				89BDADDA217A5012000E38FC /* DeeplinkHandler.swift in Sources */,
 				8922E269219DFB2E001984C4 /* NotifireNotificationHandler.swift in Sources */,
 				8948F57221A0AD8200BB6E10 /* RoundedImageView.swift in Sources */,
 				8933F0E72143383300645B3A /* NotifireAPIStatusCode.swift in Sources */,
 				89D4E1F72139F47600630790 /* PersistentAnimationsObserving.swift in Sources */,
 				897069E22134051E00D798AA /* KeyboardObserving.swift in Sources */,
+				896167EE250174FA007BF3F1 /* GenericCoordinator.swift in Sources */,
 				8920CA8B21723B9A00A72BD0 /* LoadableLabel.swift in Sources */,
 				89B3EC7620239D170068BA64 /* StringExtension.swift in Sources */,
 				893FE02421962C3E002CD846 /* ServiceNotificationsHeaderView.swift in Sources */,
@@ -1902,18 +2130,21 @@
 				898533C821A03ED000E0A656 /* RealmManager.swift in Sources */,
 				8933F0F72143391000645B3A /* NotifireProtectedAPIManager.swift in Sources */,
 				89250B2524FEF66A00BC7C2C /* VMViewController.swift in Sources */,
+				89E8B865250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */,
 				89BDADDD217A5034000E38FC /* Deeplink.swift in Sources */,
 				897069F22134BD1200D798AA /* UIStackViewExtension.swift in Sources */,
 				8933F0CA2141D93700645B3A /* InputValidatingViewModel.swift in Sources */,
 				89B3EC492020E4900068BA64 /* AppDelegate.swift in Sources */,
+				895A3B7B25006D58000A7B50 /* LoginRegisterSplitterViewControllerDelegate.swift in Sources */,
 				8939959D2170ED4900687A79 /* NoSessionCoordinator.swift in Sources */,
-				89D4E2002139FD9A00630790 /* NotifireView.swift in Sources */,
 				8922E24721988F31001984C4 /* ServiceViewModel.swift in Sources */,
+				895A3B8925006DC5000A7B50 /* LoginRegisterSplitterViewModel.swift in Sources */,
 				897069DF2133885A00D798AA /* BaseButton.swift in Sources */,
 				898533C0219FAAEC00E0A656 /* RealmProviding.swift in Sources */,
 				8933F0E52143380C00645B3A /* URLRequestExtension.swift in Sources */,
 				897069CC213359A100D798AA /* BaseViewController.swift in Sources */,
 				89399585216FEFD500687A79 /* UIViewExtension.swift in Sources */,
+				896168002501B3A3007BF3F1 /* UIView+Embed.swift in Sources */,
 				8920CA7221713D2700A72BD0 /* RegisterSuccessViewController.swift in Sources */,
 				897069C821334E7700D798AA /* ConstrainableView.swift in Sources */,
 				8920CA772171578900A72BD0 /* CenterStackPresenting.swift in Sources */,
@@ -1927,7 +2158,9 @@
 				893995AE2170EECE00687A79 /* ServicesViewController.swift in Sources */,
 				8922E2492198AF8D001984C4 /* NotifirePopAnimationController.swift in Sources */,
 				8933F0E1214337AD00645B3A /* HTTPMethod.swift in Sources */,
+				89E6B6D0250041F300F7A79C /* ChildCoordinator.swift in Sources */,
 				897069D42133730A00D798AA /* Size.swift in Sources */,
+				896167FA2501AB9A007BF3F1 /* ForgotPasswordCoordinator.swift in Sources */,
 				893995AC2170EDF300687A79 /* SettingsCoordinator.swift in Sources */,
 				897069CA2133597800D798AA /* BottomNavigatorViewController.swift in Sources */,
 				893FE01D2195E3C1002CD846 /* ServiceCreationViewController.swift in Sources */,
@@ -1939,6 +2172,8 @@
 				89BDADD4217922FE000E38FC /* ConfirmEmailViewModel.swift in Sources */,
 				892B414221C1E42B00D28ABE /* APIUserErrorResponding.swift in Sources */,
 				89D4E1FC2139FD2200630790 /* NotifireLayer.swift in Sources */,
+				896167D725012F06007BF3F1 /* NotifireBackgroundView.swift in Sources */,
+				896167FD2501ABAE007BF3F1 /* ForgotPasswordViewController.swift in Sources */,
 				8922E26D219F3CF6001984C4 /* RealmCollectionViewModel.swift in Sources */,
 				8933F0C82141D0C000645B3A /* RootViewController.swift in Sources */,
 				8933F0B9214131F900645B3A /* ValidatableComponentState.swift in Sources */,
@@ -1946,13 +2181,18 @@
 				8939958C216FF40A00687A79 /* UserSessionManager.swift in Sources */,
 				8933F0B7214131CF00645B3A /* ValidatableComponent.swift in Sources */,
 				89A9049F21C03D2300D262E1 /* CellConfigurable.swift in Sources */,
+				89E6B6CC25001B6C00F7A79C /* LoginRegisterSplitterViewController.swift in Sources */,
 				8933F0E3214337D900645B3A /* NotifireAPIEndpoint.swift in Sources */,
+				895A3B8F25008A35000A7B50 /* CGSize+Equal.swift in Sources */,
 				89D4E1F32139ED3D00630790 /* CAPersistentAnimationsLayer.swift in Sources */,
 				897069D62133733100D798AA /* Theme.swift in Sources */,
 				89A9048521B858B200D262E1 /* NotificationTableViewCell.swift in Sources */,
 				893995A82170EDDA00687A79 /* NotificationsCoordinator.swift in Sources */,
+				896167F425017889007BF3F1 /* LoginNavigationController.swift in Sources */,
 				89D4E1F12139ED0F00630790 /* CALayerExtension.swift in Sources */,
+				895A3B9925008C8C000A7B50 /* SSOManagerDelegate.swift in Sources */,
 				8933F0EE2143389F00645B3A /* NotifireAPIResponseContext.swift in Sources */,
+				896167F725018561007BF3F1 /* LoginViewControllerDelegate.swift in Sources */,
 				89A9048021B753F100D262E1 /* DateFormatterExtension.swift in Sources */,
 				897069F42134BF4C00D798AA /* KeyboardDismissing.swift in Sources */,
 				89BDADE7217A921A000E38FC /* ServiceViewController.swift in Sources */,

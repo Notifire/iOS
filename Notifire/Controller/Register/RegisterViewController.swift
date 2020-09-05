@@ -62,11 +62,7 @@ class RegisterViewController: BottomNavigatorLabelViewController, CenterStackVie
 
     lazy var emailTextInput: ValidatableTextInput = {
         let input = ValidatableTextInput(textField: emailTextField)
-        input.rules = [
-            ComponentRule(kind: .minimum(length: 1), showIfBroken: false),
-            ComponentRule(kind: .maximum(length: Settings.Text.maximumUsernameLength), showIfBroken: true),
-            ComponentRule(kind: .validity(.email), showIfBroken: true)
-        ]
+        input.rules = ComponentRule.createEmailRules
         input.showsValidState = true
         return input
     }()
@@ -106,7 +102,7 @@ class RegisterViewController: BottomNavigatorLabelViewController, CenterStackVie
             self?.signUpButton.isEnabled = success
         }
 
-        signUpButton.onProperTap = { [unowned self] in // unowned when we are tapping
+        signUpButton.onProperTap = { [unowned self] _ in // unowned when we are tapping
             self.signUpButton.startLoading()
             self.dismissKeyboard()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in // weak, because the vc might get dismissed

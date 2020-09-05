@@ -40,7 +40,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
 
     lazy var notificationsHeaderView: ServiceNotificationsHeaderView = {
         let view = ServiceNotificationsHeaderView()
-        view.notificationsButton.onProperTap = {
+        view.notificationsButton.onProperTap = { _ in
             self.delegate?.shouldShowNotifications(for: self.viewModel.localService)
         }
         return view
@@ -98,7 +98,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         super.viewDidLoad()
         view.backgroundColor = .backgroundColor
         navigationController?.navigationBar.tintColor = .black
-        removeNavigationItemBackButtonTitle()
+        hideNavigationBarBackButtonText()
         setupTitleView()
         prepareViewModel()
         layout()
@@ -122,7 +122,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        hideNavBar()
+        hideNavigationBar()
         navigationController?.navigationBar.backgroundColor = .clear
     }
 
@@ -369,7 +369,7 @@ extension ServiceViewController: UITableViewDelegate {
                         switch result {
                         case .success:
                             newAlert.alertTitle = "Success!"
-                            newAlert.alertText = "Don't forget to swap your old API key for a new one in your services!"
+                            newAlert.alertText = "Don't forget to swap your old API key for a new one in your clients!"
                         case .wrongPassword:
                             newAlert.alertTitle = "API Key generation has failed."
                             newAlert.alertText = "The password you've entered was incorrect."

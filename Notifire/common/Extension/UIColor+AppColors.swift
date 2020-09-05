@@ -37,6 +37,9 @@ extension UIColor {
     public static let tabBarButtonDeselected: UIColor = #colorLiteral(red: 0.7843137255, green: 0.7843137255, blue: 0.7843137255, alpha: 1)
     public static let outlineGray: UIColor = UIColor(r: 140, g: 140, b: 141)
 
+    // MARK: Misc
+    public static let compatibleGithubColor: UIColor = UIColor(named: "github_color") ?? .yellow
+
     // MARK: Backgrounds
     // Sub iOS 13.0 backwards compatible colors
     public static var compatibleSystemBackground: UIColor = {
@@ -44,10 +47,10 @@ extension UIColor {
         return .systemBackground
     }()
 
-    public static var backgroundAccent: UIColor = {
+    public static var compatibleBackgroundAccent: UIColor = {
         let diff: CGFloat = 6
         let max: CGFloat = 255
-        return from(light: UIColor(same: max-diff), dark: UIColor(same: 2*diff))
+        return from(light: UIColor(same: max-diff), dark: UIColor(same: 3*diff))
     }()
 
     public static var compatibleSystemGroupedBackground: UIColor = {

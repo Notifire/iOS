@@ -39,7 +39,7 @@ class ConfirmEmailViewModel: APIFailable, UserErrorFailable {
     }
 
     // MARK: - Methods
-    func confirmAccount() {
+    func confirmAccount(_ btn: UIButton) {
         loading = true
         notifireApiManager.confirmAccount(emailToken: token) { [weak self] result in
             guard let `self` = self else { return }

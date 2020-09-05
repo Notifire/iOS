@@ -115,7 +115,8 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
             guard rule.showIfBroken else { return }
             let label = errorLabel ?? addErrorLabel()
             //layoutIfNeeded()
-            label.text = rule.description
+            setNeedsLayout()
+            label.text = rule.brokenRuleDescription ?? rule.description
             newAppearance = .negative
         case .valid:
             removeErrorLabel()
@@ -134,13 +135,15 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
     private func addErrorLabel() -> UILabel {
         textFieldToViewBottomConstraint.isActive = false
         let label = UILabel(style: .negative)
+        label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
         label.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: Size.textFieldSpacing*0.75).isActive = true
         let bottomConstraint = label.bottomAnchor.constraint(equalTo: bottomAnchor)
         bottomConstraint.isActive = true
         errorLabelBottomConstraint = bottomConstraint
-        label.leadingAnchor.constraint(equalTo: textField.leadingAnchor).isActive = true
+        label.leadingAnchor.constraint(equalTo: textField.leadingAnchor, constant: Size.smallMargin).isActive = true
+        label.trailingAnchor.constraint(equalTo: textField.trailingAnchor, constant: Size.smallMargin).isActive = true
         let height = label.heightAnchor.constraint(equalToConstant: 0)
         height.priority = UILayoutPriority(rawValue: 980)
         height.isActive = true
@@ -189,4 +192,10 @@ extension ValidatableTextInput: UITextFieldDelegate {
         let newLength = currentText.count + string.count - range.length
         return newLength <= allowedMaxLength
     }
+
+    // TODO: If this returns false, the textfield can't resignFirstResponder.
+    // Use this to avoid hiding the keyboard in some VCs (e.g. ForgotPasswordViewController)
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        return false
+//    }
 }

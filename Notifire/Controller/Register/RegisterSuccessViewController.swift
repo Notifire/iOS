@@ -75,7 +75,7 @@ class RegisterSuccessViewController: BottomNavigatorLabelViewController, CenterS
     lazy var resendConfirmationEmailButton: NotifireButton = {
         let button = NotifireButton()
         button.setTitle("Resend confirmation email", for: .normal)
-        button.onProperTap = { [unowned self] in
+        button.onProperTap = { [unowned self] _ in
             self.viewModel.resendEmail()
         }
         return button
@@ -84,7 +84,7 @@ class RegisterSuccessViewController: BottomNavigatorLabelViewController, CenterS
     lazy var newRegistrationButton: ActionButton = {
         let button = ActionButton(type: .system)
         button.setTitle("New registration", for: .normal)
-        button.onProperTap = { [unowned self] in
+        button.onProperTap = { [unowned self] _ in
             self.delegate?.shouldStartNewRegistration()
         }
         return button

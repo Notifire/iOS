@@ -122,6 +122,7 @@ class ServiceViewModel: APIFailable {
                 self?.onError?(error)
             case .success(let response):
                 self?.updateLocalServiceFromRemote(service: response)
+                completion(.success)
             }
         }
     }

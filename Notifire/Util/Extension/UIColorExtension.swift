@@ -18,7 +18,6 @@ extension UIColor {
     static let backgroundColor = UIColor(red: 255, green: 250, blue: 247)
     static let backgroundAccentColor = UIColor.white
     static let spinnerColor = UIColor(red: 200, green: 200, blue: 200)
-    static let separatorColor = UIColor(red: 175, green: 175, blue: 175)
     static let textFieldBorderColor = UIColor(red: 234, green: 234, blue: 234)
     static let textFieldBackgroundColor = UIColor(red: 247, green: 242, blue: 239)
     static let notifireMainColor = UIColor(red: 255, green: 119, blue: 0)

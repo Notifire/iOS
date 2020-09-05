@@ -22,10 +22,7 @@ class ServiceCreationViewController: UIViewController, CenterStackViewPresenting
     // MARK: KeyboardObserving
     var stackViewCenterCollapsedConstraint: NSLayoutConstraint!
     var stackViewCenterNormalConstraint: NSLayoutConstraint!
-    var observers: [NSObjectProtocol] = []
-    lazy var keyboardExpandedConstraints: [NSLayoutConstraint] = [stackViewCenterCollapsedConstraint]
-    lazy var keyboardCollapsedConstraints: [NSLayoutConstraint] = [stackViewCenterNormalConstraint]
-    var keyboardAnimationBlock: ((Bool, TimeInterval) -> Void)?
+    let keyboardObserverHandler = KeyboardObserverHandler()
 
     // MARK: Views
     let newServiceTextField: CustomTextField = {
@@ -38,7 +35,7 @@ class ServiceCreationViewController: UIViewController, CenterStackViewPresenting
         let button = NotifireButton()
         button.isEnabled = false
         button.setTitle("Create", for: .normal)
-        button.onProperTap = { [unowned self] in
+        button.onProperTap = { [unowned self] _ in
             self.viewModel.createService()
         }
         return button
@@ -47,7 +44,7 @@ class ServiceCreationViewController: UIViewController, CenterStackViewPresenting
     lazy var cancelButton: ActionButton = {
         let button = ActionButton(type: .system)
         button.setTitle("Cancel", for: .normal)
-        button.onProperTap = { [unowned self] in
+        button.onProperTap = { [unowned self] _ in
             self.delegate?.didCancelCreation()
         }
         return button
@@ -86,6 +83,12 @@ class ServiceCreationViewController: UIViewController, CenterStackViewPresenting
         prepareViewModel()
         setupObservers()
         layout()
+
+        keyboardObserverHandler.onKeyboardNotificationCallback = { [weak self] expanding, notification in
+            self?.stackView.spacing = expanding ? Size.textFieldSpacing : Size.componentSpacing
+        }
+        keyboardObserverHandler.keyboardCollapsedConstraints = [stackViewCenterCollapsedConstraint]
+        keyboardObserverHandler.keyboardExpandedConstraints = [stackViewCenterNormalConstraint]
     }
 
     // MARK: - Private
@@ -113,10 +116,6 @@ class ServiceCreationViewController: UIViewController, CenterStackViewPresenting
         stackViewCenterNormalConstraint = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         stackViewCenterNormalConstraint.isActive = true
         stackViewCenterCollapsedConstraint = stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Size.componentSpacing*3)
-    }
-
-    func onKeyboardChange(expanding: Bool, notification: Notification) {
-        stackView.spacing = expanding ? Size.textFieldSpacing : Size.componentSpacing
     }
 
     // MARK: TextField

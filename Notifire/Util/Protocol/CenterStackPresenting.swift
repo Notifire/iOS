@@ -16,7 +16,8 @@ protocol CenterStackViewPresenting {
 extension CenterStackViewPresenting {
 
     /// convenience function for adding a stackview that has equal centerXanchor with it's superview
-    func insertStackView(arrangedSubviews: [UIView], spacing: CGFloat) -> UIStackView {
+    @discardableResult
+    func insertStackView(arrangedSubviews: [UIView], spacing: CGFloat = Size.componentSpacing) -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: arrangedSubviews, spacing: spacing)
         stackViewSuperview.add(subview: stackView)
         stackView.centerXAnchor.constraint(equalTo: stackViewSuperview.centerXAnchor).isActive = true

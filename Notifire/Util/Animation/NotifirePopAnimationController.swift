@@ -109,7 +109,7 @@ class NotifireAlertViewController: NotifirePoppableViewController {
         guard actionViewsStackView.superview == containerView else { return }
         let newActionControl = ActionButton(type: .system)
         newActionControl.setTitle(action.title, for: .normal)
-        newActionControl.onProperTap = {
+        newActionControl.onProperTap = { _ in
             action.handler?(action)
         }
         if case .neutral = action.style {
@@ -193,6 +193,15 @@ class NotifireInputAlertViewController: NotifireAlertViewController, KeyboardObs
         addKeyboardDismissOnTap(to: view)
         setupObservers()
         setupValidatingAction()
+
+        keyboardObserverHandler.onKeyboardNotificationCallback = { [weak self] expanding, notification in
+            if expanding {
+                guard let keyboardHeight = self?.keyboardObserverHandler.keyboardHeight(from: notification) else { return }
+                self?.containerCenterYConstraint.constant = -0.5*keyboardHeight
+            } else {
+                self?.containerCenterYConstraint.constant = 0
+            }
+        }
     }
 
     override func layout() {
@@ -231,23 +240,7 @@ class NotifireInputAlertViewController: NotifireAlertViewController, KeyboardObs
     }
 
     // MARK: - KeyboardObserving
-    var observers: [NSObjectProtocol] = []
-    lazy var keyboardExpandedConstraints: [NSLayoutConstraint] = []
-    lazy var keyboardCollapsedConstraints: [NSLayoutConstraint] = []
-    var keyboardAnimationBlock: ((Bool, TimeInterval) -> Void)?
-
-    func onKeyboardChange(expanding: Bool, notification: Notification) {
-        if expanding {
-            guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
-                return
-            }
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            containerCenterYConstraint.constant = -0.5*keyboardHeight
-        } else {
-            containerCenterYConstraint.constant = 0
-        }
-    }
+    var keyboardObserverHandler = KeyboardObserverHandler()
 }
 
 final class NotifireAlertViewModel: BindableInputValidatingViewModel {

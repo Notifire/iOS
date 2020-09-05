@@ -36,7 +36,6 @@ class AppCoordinator: Coordinator {
             guard let unwrappedState = appState else { return}
             switch unwrappedState {
             case .noSession:
-
                 notificationsHandler.activeRealmProvider = nil
             case .sessionAvailable(let sessionCoordinator):
                 notificationsHandler.activeRealmProvider = sessionCoordinator.userSessionHandler

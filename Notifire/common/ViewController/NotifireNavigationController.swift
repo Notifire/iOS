@@ -19,13 +19,13 @@ class NotifireNavigationController: UINavigationController {
     }
 
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        (viewController as? UIViewController & NavigationBarDisplaying)?.showNavBar()
+        (viewController as? UIViewController & NavigationBarDisplaying)?.showNavigationBar()
         super.pushViewController(viewController, animated: animated)
     }
 
     override func popViewController(animated: Bool) -> UIViewController? {
         let popped = super.popViewController(animated: animated)
-        (popped as? UIViewController & NavigationBarDisplaying)?.hideNavBar()
+        (popped as? UIViewController & NavigationBarDisplaying)?.hideNavigationBar()
         return popped
     }
 }

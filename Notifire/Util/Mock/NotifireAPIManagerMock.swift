@@ -16,17 +16,23 @@ extension NotifireAPIManagerMocking {
             completion(.success(response))
         }
     }
+
+    fileprivate func returnPlainSuccessResponseAfter(duration: TimeInterval = 1.5, completion: @escaping NotifireAPIManagerCallback<NotifireAPIPlainSuccessResponse>) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+            completion(.success(NotifireAPIPlainSuccessResponse(success: true)))
+        }
+    }
 }
 
 class NotifireAPIManagerMock: NotifireAPIManager, NotifireAPIManagerMocking {
 
     // MARK: - Inherited
     override func register(username: String, email: String, password: String, completion: @escaping NotifireAPIManagerCallback<RegisterResponse>) {
-        returnSuccessAfter(duration: 0.3, completion: completion, response: RegisterResponse(success: true))
+        returnPlainSuccessResponseAfter(duration: 0.3, completion: completion)
     }
 
     override func resendConfirmEmail(usernameOrEmail: String, completion: @escaping NotifireAPIManagerCallback<ResendConfirmResponse>) {
-        returnSuccessAfter(duration: 1, completion: completion, response: ResendConfirmResponse(success: true))
+        returnPlainSuccessResponseAfter(completion: completion)
     }
 
     override func confirmAccount(emailToken: String, completion: @escaping NotifireAPIManagerCallback<VerifyAccountResponse>) {
@@ -39,6 +45,10 @@ class NotifireAPIManagerMock: NotifireAPIManager, NotifireAPIManagerMocking {
 
     override func login(usernameOrEmail: String, password: String, completion: @escaping NotifireAPIManagerCallback<LoginResponse>) {
         returnSuccessAfter(completion: completion, response: LoginResponse(success: true, payload: LoginSuccessResponse(username: "xDD", refreshToken: "LUL", accessToken: "ojgsdljgksjdfg"), error: nil))
+    }
+
+    override func sendResetPassword(email: String, completion: @escaping NotifireAPIManagerCallback<SendResetPasswordResponse>) {
+        returnPlainSuccessResponseAfter(completion: completion)
     }
 }
 

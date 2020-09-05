@@ -70,7 +70,7 @@ struct GenerateAccessTokenResponse: NotifireAPIDecodable {
 // MARK: - /register/device
 typealias RegisterDeviceResponse = EmptyRequestBody
 
-// MARK: - /login
+// MARK: - /account/login
 struct LoginSuccessResponse: NotifireAPIDecodable {
     let username: String
     let refreshToken: String
@@ -92,6 +92,9 @@ enum LoginUserError: Int, UserErroRepresenting {
 }
 
 typealias LoginResponse = NotifireAPISuccessResponse<LoginSuccessResponse, LoginUserError>
+
+// MARK: - /account/send/reset/password
+typealias SendResetPasswordResponse = NotifireAPIPlainSuccessResponse
 
 // MARK: - /services
 typealias ServicesResponse = [Service]

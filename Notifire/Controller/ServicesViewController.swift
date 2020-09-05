@@ -47,7 +47,7 @@ class ServicesViewController: UIViewController, NavigationBarDisplaying, EmptySt
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        removeNavigationItemBackButtonTitle()
+        hideNavigationBarBackButtonText()
         view.backgroundColor = .backgroundColor
         title = "Services"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didSelectAddNewService))
@@ -58,7 +58,7 @@ class ServicesViewController: UIViewController, NavigationBarDisplaying, EmptySt
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showNavBar()
+        showNavigationBar()
         DispatchQueue.main.asyncAfter(deadline: .now() + AppRevealSettings.delay + AppRevealSettings.smallScaleUpDuration + AppRevealSettings.scaleDownDuration + AppRevealSettings.finalDuration) {
             self.viewModel.firstServicesFetch()
         }

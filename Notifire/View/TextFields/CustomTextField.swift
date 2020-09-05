@@ -60,8 +60,12 @@ class CustomTextField: UITextField {
         layer.cornerRadius = Theme.defaultCornerRadius
         clearButtonMode = .whileEditing
         autocapitalizationType = .none
+        inputAssistantItem.leadingBarButtonGroups = []
+        inputAssistantItem.trailingBarButtonGroups = []
+        autocorrectionType = .no
 
         // colors
+        textColor = .customLabel
         backgroundColor = .textFieldBackgroundColor
         tintColor = .notifireMainColor
 
@@ -70,7 +74,7 @@ class CustomTextField: UITextField {
 
     // MARK: - Public
     public func setPlaceholder(text: String) {
-        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: Size.Font.placeholder)]
         attributedPlaceholder = NSAttributedString(string: text, attributes: attributes)
     }
 

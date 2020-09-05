@@ -50,7 +50,7 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
         super.viewDidLoad()
         title = viewModel.title()
         view.backgroundColor = .backgroundAccentColor
-        removeNavigationItemBackButtonTitle()
+        hideNavigationBarBackButtonText()
         prepareViewModel()
         layout()
         updateViewStateAppearance(state: viewModel.viewState)
@@ -58,7 +58,7 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showNavBar()
+        showNavigationBar()
     }
 
     override func viewWillAppear(_ animated: Bool) {

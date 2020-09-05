@@ -43,7 +43,7 @@ class NotificationDetailViewController: UIViewController, NavigationBarDisplayin
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        hideNavBar()
+        hideNavigationBar()
     }
 
     override func viewDidAppear(_ animated: Bool) {

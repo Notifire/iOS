@@ -21,7 +21,7 @@ class SettingsViewController: UIViewController {
     lazy var logoutButton: ActionButton = {
         let button = ActionButton(type: .system)
         button.setTitle("logout", for: .normal)
-        button.onProperTap = { [unowned self] in
+        button.onProperTap = { [unowned self] _ in
             self.promptLogout()
         }
         return button

@@ -7,39 +7,48 @@
 //
 
 import UIKit
-import GoogleSignIn
 
-protocol LoginViewControllerDelegate: NotifireUserSessionCreationDelegate {
-    func shouldStartRegisterFlow()
-}
-
-class LoginViewController: BottomNavigatorLabelViewController, AppRevealing, KeyboardObserving, CenterStackViewPresenting, APIFailableResponding, APIFailableDisplaying, NotifirePoppablePresenting {
+class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, NavigationBarDisplaying, CenterStackViewPresenting, APIFailableResponding, APIFailableDisplaying, NotifirePoppablePresenting {
 
     // MARK: - APIFailableResponding
     typealias FailableViewModel = LoginViewModel
 
     // MARK: - Properties
+    /// Determines if the view is appearing for the first time
+    var firstTimeAppearing: Bool = true
+
+    var backgroundViewExpandedHeightConstraint: NSLayoutConstraint!
+    var stackViewKeyboardBottomConstraint: NSLayoutConstraint!
     var animatedViewNormalHeightConstraint: NSLayoutConstraint!
-    var animatedViewCollapsedHeightConstraint: NSLayoutConstraint!
+
     let viewModel: LoginViewModel
 
     weak var delegate: LoginViewControllerDelegate?
 
+    // MARK: Actions
+    var onForgotPassword: (() -> Void)?
+
     // MARK: KeyboardObserving
-    var observers: [NSObjectProtocol] = []
-    lazy var keyboardExpandedConstraints: [NSLayoutConstraint] = [animatedViewCollapsedHeightConstraint]
-    lazy var keyboardCollapsedConstraints: [NSLayoutConstraint] = [animatedViewNormalHeightConstraint]
-    var keyboardAnimationBlock: ((Bool, TimeInterval) -> Void)?
+    var keyboardObserverHandler = KeyboardObserverHandler()
 
     // MARK: Static
-    static let notifireAnimatedViewHeightInRelationToViewHeight: CGFloat = 0.38
+    static let notifireBackgroundViewHeightInRelationToViewHeight: CGFloat = 0.38
 
     // MARK: Views
-    let notifireAnimatedView = NotifireAnimatedView()
+    let notifireBackgroundView = NotifireBackgroundView()
+
+    let headerLabel: UILabel = {
+        let label = UILabel(style: .title)
+        label.text = "Continue to your account"
+        return label
+    }()
+
+    var stackView: UIStackView?
 
     lazy var usernameEmailTextInput: ValidatableTextInput = {
         let usernameEmailTextField = CustomTextField()
-        usernameEmailTextField.setPlaceholder(text: "Username or email")
+        usernameEmailTextField.setPlaceholder(text: "Enter your e-mail")
+        usernameEmailTextField.keyboardType = .emailAddress
         let input = ValidatableTextInput(textField: usernameEmailTextField)
         input.rules = [
             ComponentRule(kind: .minimum(length: 1), showIfBroken: false),
@@ -52,20 +61,30 @@ class LoginViewController: BottomNavigatorLabelViewController, AppRevealing, Key
     lazy var passwordTextInput: ValidatableTextInput = {
         let passwordTextField = CustomTextField()
         passwordTextField.isSecureTextEntry = true
-        passwordTextField.setPlaceholder(text: "Password")
+        passwordTextField.setPlaceholder(text: "Enter your password")
         let input = ValidatableTextInput(textField: passwordTextField)
         input.rules = ComponentRule.passwordRules
         input.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: .password)
         return input
     }()
 
+    lazy var forgotPasswordContainerView = ConstrainableView()
+
+    lazy var forgotPasswordButton: ActionButton = {
+        let button = ActionButton.createActionButton(text: "Forgot your password?") { [unowned self] _ in
+            self.onForgotPassword?()
+        }
+        button.titleLabel?.font = UIFont.systemFont(ofSize: Size.Font.placeholder)
+        button.contentHorizontalAlignment = .right
+        return button
+    }()
+
     lazy var signInButton: NotifireButton = {
         let button = NotifireButton()
         button.isEnabled = false
         button.setTitle("Sign in", for: .normal)
-        button.onProperTap = { [unowned self] in
-            //self.viewModel.login()
-            GIDSignIn.sharedInstance()?.signIn()
+        button.onProperTap = { [unowned self] _ in
+            self.viewModel.login()
         }
         return button
     }()
@@ -82,20 +101,27 @@ class LoginViewController: BottomNavigatorLabelViewController, AppRevealing, Key
     // MARK: - VC Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        GIDSignIn.sharedInstance()?.presentingViewController = self
+
+        hideNavigationBarBackButtonText()
         setupObservers()
         setupUserEvents()
         prepareViewModel()
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        notifireAnimatedView.isAnimating = false
-    }
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        notifireAnimatedView.isAnimating = true
+        // Add observers if the view is about to appear
+        setupObservers()
+
+        guard !usernameEmailTextInput.textField.isFirstResponder && !passwordTextInput.textField.isFirstResponder && firstTimeAppearing else { return }
+        firstTimeAppearing = false
+        usernameEmailTextInput.textField.becomeFirstResponder()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Remove keyboard observers when the view is about to disappear
+        removeObservers()
     }
 
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -111,51 +137,89 @@ class LoginViewController: BottomNavigatorLabelViewController, AppRevealing, Key
     override func setupSubviews() {
         super.setupSubviews()
 
+        let image = UIImage(imageLiteralResourceName: "cross_symbol").resized(to: Size.Navigator.symbolSize)
+        navigationItem.leftBarButtonItem = ActionButton.createActionBarButtonItem(image: image, target: self, action: #selector(didPressCloseButton))
+
         let safeArea = view.safeAreaLayoutGuide
         // animated view
-        view.addSubview(notifireAnimatedView)
-        notifireAnimatedView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        notifireAnimatedView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor).isActive = true
-        notifireAnimatedView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
-        animatedViewNormalHeightConstraint = notifireAnimatedView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: LoginViewController.notifireAnimatedViewHeightInRelationToViewHeight)
+        view.addSubview(notifireBackgroundView)
+        notifireBackgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        notifireBackgroundView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor).isActive = true
+        notifireBackgroundView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
+        animatedViewNormalHeightConstraint = notifireBackgroundView.heightAnchor.constraint(lessThanOrEqualTo: view.heightAnchor, multiplier: LoginViewController.notifireBackgroundViewHeightInRelationToViewHeight)
         animatedViewNormalHeightConstraint.isActive = true
-        animatedViewCollapsedHeightConstraint = notifireAnimatedView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier:
-            LoginViewController.notifireAnimatedViewHeightInRelationToViewHeight * 0.7)
+        backgroundViewExpandedHeightConstraint = notifireBackgroundView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: LoginViewController.notifireBackgroundViewHeightInRelationToViewHeight)
+        backgroundViewExpandedHeightConstraint.priority = .init(300)
+        backgroundViewExpandedHeightConstraint.isActive = true
 
         // loginContainer
         let loginContainerView = CurvedTopView()
         view.addSubview(loginContainerView)
-        loginContainerView.topAnchor.constraint(equalTo: notifireAnimatedView.bottomAnchor).isActive = true
-        loginContainerView.bottomAnchor.constraint(equalTo: bottomNavigator.topAnchor).isActive = true
+        loginContainerView.topAnchor.constraint(equalTo: notifireBackgroundView.bottomAnchor).isActive = true
+        loginContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         loginContainerView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor).isActive = true
         loginContainerView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
 
         // login stack view
-        let textFieldStackView = UIStackView(arrangedSubviews: [usernameEmailTextInput, passwordTextInput], spacing: Size.textFieldSpacing)
-        let stackView = insertStackView(arrangedSubviews: [textFieldStackView, signInButton], spacing: Size.componentSpacing)
+        let textFieldStackView = UIStackView(arrangedSubviews: [usernameEmailTextInput, passwordTextInput, forgotPasswordContainerView], spacing: Size.textFieldSpacing)
+        let stackView = insertStackView(arrangedSubviews: [textFieldStackView, signInButton], spacing: Size.componentSpacing * 1.5)
         stackView.topAnchor.constraint(equalTo: loginContainerView.topAnchor, constant: Size.componentSpacing).isActive = true
+        self.stackView = stackView
 
-        tappableLabel.onHypertextTapped = { [unowned self] in
-            self.delegate?.shouldStartRegisterFlow()
-        }
-        let hyperText = "Sign up"
-        let text = "New to Notifire? \(hyperText) instead."
-        tappableLabel.set(hypertext: hyperText, in: text)
+        // Forgot Password
+        forgotPasswordContainerView.add(subview: forgotPasswordButton)
+        forgotPasswordButton.topAnchor.constraint(equalTo: forgotPasswordContainerView.topAnchor).isActive = true
+        forgotPasswordButton.trailingAnchor.constraint(equalTo: forgotPasswordContainerView.trailingAnchor).isActive = true
+        forgotPasswordButton.bottomAnchor.constraint(equalTo: forgotPasswordContainerView.bottomAnchor).isActive = true
 
-        keyboardAnimationBlock = { expanded, duration in
-            loginContainerView.switchPaths(expanded: expanded, duration: duration)
-            if expanded {
+        // Header label
+        view.add(subview: headerLabel)
+        headerLabel.bottomAnchor.constraint(equalTo: loginContainerView.topAnchor, constant: -Size.componentSpacing).isActive = true
+        headerLabel.embedSides(in: forgotPasswordContainerView)
+
+        // StackView - keyboard constraint
+        stackViewKeyboardBottomConstraint = stackView.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor)
+        stackViewKeyboardBottomConstraint.priority = UILayoutPriority.init(rawValue: 950)
+
+        keyboardObserverHandler.onKeyboardNotificationAnimationCallback = { expanding, duration in
+            loginContainerView.switchPaths(expanded: expanding, duration: duration)
+            if expanding {
                 stackView.spacing = Size.componentSpacing * 0.5
             } else {
                 stackView.spacing = Size.componentSpacing
+            }
+        }
+
+        keyboardObserverHandler.onKeyboardNotificationCallback = { [weak self] expanding, notification in
+            guard let keyboardHeight = self?.keyboardObserverHandler.keyboardHeight(from: notification) else { return }
+            if expanding {
+                self?.stackViewKeyboardBottomConstraint.constant = -keyboardHeight - Size.componentSpacing
+            } else {
+                self?.stackViewKeyboardBottomConstraint.constant = 0
+            }
+        }
+
+        keyboardObserverHandler.keyboardCollapsedConstraints = [backgroundViewExpandedHeightConstraint]
+        keyboardObserverHandler.keyboardExpandedConstraints = [stackViewKeyboardBottomConstraint]
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+
+        // Dismiss the keyboard if the touch event is outside of the stackView that contains
+        // the textfields & sign in button.
+        if let event = event, event.type == .touches, let touch = touches.first {
+            let location = touch.location(in: view)
+
+            guard let viewThatGotTouched = view.hitTest(location, with: event), let stackView = stackView else { return }
+            if !(viewThatGotTouched === stackView) {
+                view.endEditing(true)
             }
         }
     }
 
     // MARK: - Private
     private func setupUserEvents() {
-        addKeyboardDismissOnTap(to: view)
-
         let textFields = [usernameEmailTextInput.textField, passwordTextInput.textField]
         textFields.forEach {
             $0.addTarget(self, action: #selector(didStopEditing(textField:)), for: .editingDidEndOnExit)
@@ -194,6 +258,11 @@ class LoginViewController: BottomNavigatorLabelViewController, AppRevealing, Key
         } else {
             viewModel.login()
         }
+    }
+
+    @objc private func didPressCloseButton() {
+        view.endEditing(true)
+        delegate?.shouldDismissLogin()
     }
 }
 
