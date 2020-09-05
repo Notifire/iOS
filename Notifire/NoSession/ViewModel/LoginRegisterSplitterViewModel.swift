@@ -72,8 +72,11 @@ extension LoginRegisterSplitterViewModel: SSOManagerDelegate {
             authenticationProvidersVM?.finishAuthenticationFlow(with: authenticationAttempt.provider)
         case .error(let userError):
             authenticationProvidersVM?.finishAuthenticationFlow(with: authenticationAttempt.provider)
+            // Delay the user error alert for UI smoothness
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.22) { [weak self] in
+                // check if alerting is still relevant
                 guard !(self?.authenticationProvidersVM?.ssoManager.attemptInProgress ?? true) else { return }
+                // alert the user of his error
                 self?.onUserError?(userError)
             }
         case .finished(let idToken):
