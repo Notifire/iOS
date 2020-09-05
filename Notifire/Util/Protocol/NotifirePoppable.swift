@@ -18,6 +18,7 @@ protocol NotifirePoppablePresenting: UIViewControllerTransitioningDelegate {
 
     var poppablePresentingViewController: UIViewController { get }
 
+    func animationController(forPresented presented: UIViewController) -> UIViewControllerAnimatedTransitioning?
     func present(alert: NotifireAlertViewController, animated: Bool, completion: (() -> Void)?)
 }
 
@@ -28,7 +29,7 @@ extension NotifirePoppablePresenting {
         poppablePresentingViewController.present(alert, animated: animated, completion: completion)
     }
 
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresented presented: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard presented is NotifirePoppable else { return nil }
         return NotifirePopAnimationController()
     }

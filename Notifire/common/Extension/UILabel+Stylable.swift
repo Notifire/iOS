@@ -43,16 +43,16 @@ extension UILabel: Stylable {
         numberOfLines = 0
         switch style {
         case .primary:
-            textColor = .customLabel
+            textColor = .compatibleLabel
             font = UIFont.systemFont(ofSize: 15)
         case .secondary:
-            textColor = .customSecondaryLabel
+            textColor = .compatibleSecondaryLabel
             font = UIFont.systemFont(ofSize: 14)
         case .largeTitle:
-            textColor = .customLabel
+            textColor = .compatibleLabel
             font = UIFont.systemFont(ofSize: 28, weight: .bold)
         case .title:
-            textColor = .customLabel
+            textColor = .compatibleLabel
             font = UIFont.systemFont(ofSize: 20, weight: .bold)
         case .negative:
             textColor = UIColor.red.withAlphaComponent(0.9)

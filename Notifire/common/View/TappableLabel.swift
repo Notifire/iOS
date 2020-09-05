@@ -94,7 +94,7 @@ class TappableLabel: UILabel {
     // MARK: Bounding Box
     private func setLinkedAttributedText(text: String, link: String, color: UIColor) {
         let defaultFont = font ?? UIFont.systemFont(ofSize: Size.Font.default)
-        let defaultColor: UIColor = textColor ?? .customSecondaryLabel
+        let defaultColor: UIColor = textColor ?? .compatibleSecondaryLabel
         let attributedString = NSMutableAttributedString(string: text, attributes: [
             NSAttributedString.Key.font: defaultFont,
             NSAttributedString.Key.foregroundColor: defaultColor

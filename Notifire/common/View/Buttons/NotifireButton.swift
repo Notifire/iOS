@@ -17,7 +17,7 @@ class NotifireButton: BaseButton {
         static let durationUp: TimeInterval = 0.08
 
         static let downscale: CGFloat = 0.96
-        static let overlayColor = UIColor.customLabel
+        static let overlayColor = UIColor.compatibleLabel
         static let overlayMaxAlpha: CGFloat = 0.25
     }
 
@@ -48,7 +48,7 @@ class NotifireButton: BaseButton {
 
     override var isEnabled: Bool {
         didSet {
-            let newAlpha: CGFloat = isEnabled ? 1 : 0.65
+            let newAlpha: CGFloat = isEnabled ? 1 : 0.5
             // Use layer.opacity instead of alpha here to include the alpha of the layer.borderColor :)
             alpha = newAlpha
         }

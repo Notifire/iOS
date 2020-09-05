@@ -27,9 +27,14 @@ class NotifireBackgroundLayer: CAGradientLayer {
     // MARK: - Private
     private func setup() {
         // gradient setup
-        colors = [UIColor.notifireMainColor.cgColor, UIColor.backgroundColor.cgColor]
+        resetGradientColors()
         locations = [0, 0.96]
         opacity = 1
+    }
+
+    /// Used for trait collection color appearance changes
+    func resetGradientColors() {
+        colors = [UIColor.notifireMainColor.cgColor, UIColor.compatibleBackgroundAccent.cgColor]
     }
 
     func setFrameWithoutAnimation(_ newFrame: CGRect) {

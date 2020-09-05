@@ -33,7 +33,7 @@ class ActionButton: BaseButton, Loadable {
         let button = ActionButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
-        button.tintColor = .customLabel
+        button.tintColor = .compatibleLabel
         button.imageView?.contentMode = .scaleAspectFit
         if let selector = action {
             button.addTarget(target, action: selector, for: .touchUpInside)
@@ -52,7 +52,7 @@ class ActionButton: BaseButton, Loadable {
     public static func createActionBarButtonItem(image: UIImage, target: Any?, action: Selector?) -> UIBarButtonItem {
         let barImage = image.withRenderingMode(.alwaysTemplate)
         let button = UIBarButtonItem(image: barImage, style: .plain, target: target, action: action)
-        button.tintColor = .customLabel
+        button.tintColor = .compatibleLabel
         return button
     }
 }

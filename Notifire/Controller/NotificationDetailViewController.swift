@@ -52,8 +52,7 @@ class NotificationDetailViewController: UIViewController, NavigationBarDisplayin
     }
 
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard presented is NotifirePoppable else { return nil }
-        return NotifirePopAnimationController()
+        return animationController(forPresented: presented)
     }
 
     // MARK: - Private

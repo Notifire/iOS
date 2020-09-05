@@ -16,4 +16,13 @@ class NotifireBackgroundView: ConstrainableView {
     override func setupSubviews() {
         backgroundColor = .backgroundColor
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if #available(iOS 13.0, *) {
+            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+                (layer as? NotifireBackgroundLayer)?.resetGradientColors()
+                setNeedsDisplay()
+            }
+        }
+    }
 }

@@ -20,6 +20,9 @@ class CustomTextField: UITextField {
     // MARK: - Properties
     static let padding = UIEdgeInsets(top: 0, left: Theme.defaultCornerRadius*2, bottom: 0, right: Theme.defaultCornerRadius*4)
 
+    // MARK: Private
+    private var lastAppearance: LayerAppearance?
+
     // MARK: - Inherited
     init() {
         super.init(frame: .zero)
@@ -54,6 +57,15 @@ class CustomTextField: UITextField {
         return bounds.inset(by: CustomTextField.padding)
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if #available(iOS 13.0, *) {
+            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+                guard let lastAppearance = lastAppearance else { return }
+                setLayer(appearance: lastAppearance)
+            }
+        }
+    }
+
     // MARK: - Private
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
@@ -65,8 +77,8 @@ class CustomTextField: UITextField {
         autocorrectionType = .no
 
         // colors
-        textColor = .customLabel
-        backgroundColor = .textFieldBackgroundColor
+        textColor = .compatibleLabel
+        backgroundColor = .compatibleTextField
         tintColor = .notifireMainColor
 
         setLayer(appearance: .neutral)
@@ -74,15 +86,19 @@ class CustomTextField: UITextField {
 
     // MARK: - Public
     public func setPlaceholder(text: String) {
-        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: Size.Font.placeholder)]
+        let attributes = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: Size.Font.placeholder),
+            NSAttributedString.Key.foregroundColor: UIColor.compatibleTertiaryLabel
+        ]
         attributedPlaceholder = NSAttributedString(string: text, attributes: attributes)
     }
 
     public func setLayer(appearance: LayerAppearance) {
+        lastAppearance = appearance
         switch appearance {
         case .neutral:
             layer.borderWidth = 1
-            layer.borderColor = UIColor.textFieldBorderColor.cgColor
+            layer.borderColor = UIColor.compatibleTextFieldBorder.cgColor
         case .positive:
             layer.borderWidth = 1
             layer.borderColor = UIColor.green.cgColor

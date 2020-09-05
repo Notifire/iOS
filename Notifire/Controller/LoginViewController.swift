@@ -124,11 +124,6 @@ class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, 
         removeObservers()
     }
 
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard presented is NotifirePoppable else { return nil }
-        return NotifirePopAnimationController()
-    }
-
     deinit {
         removeObservers()
     }
@@ -263,6 +258,10 @@ class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, 
     @objc private func didPressCloseButton() {
         view.endEditing(true)
         delegate?.shouldDismissLogin()
+    }
+
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return animationController(forPresented: presented)
     }
 }
 

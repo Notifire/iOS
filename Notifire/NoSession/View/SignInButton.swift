@@ -13,13 +13,13 @@ class SignInButton: NotifireButton {
     // MARK: - Inherited
     override open func setup() {
         super.setup()
-        borderColor = .customLabel
+        borderColor = .compatibleLabel
         shouldAnimateScale = false
         backgroundColor = .compatibleSystemBackground
-        setTitleColor(.customLabel, for: .normal)
+        setTitleColor(.compatibleLabel, for: .normal)
         titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         imageView?.contentMode = .scaleAspectFit
-        layer.borderColor = UIColor.customLabel.cgColor
+        layer.borderColor = UIColor.compatibleLabel.cgColor
         let spacing: CGFloat = 8
         imageEdgeInsets = UIEdgeInsets(top: Size.smallMargin, left: 0, bottom: Size.smallMargin, right: spacing)
         titleEdgeInsets = UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: 0)

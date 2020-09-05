@@ -20,7 +20,7 @@ This ViewController allows the user to choose between signing up and logging int
 - Sign in with Twitter
 - Already using Notifire? Login here instead.
  */
-class LoginRegisterSplitterViewController: VMViewController<LoginRegisterSplitterViewModel>, BottomNavigatorLabelContaining, UserErrorFailableResponding, APIFailableResponding, APIFailableDisplaying {
+class LoginRegisterSplitterViewController: VMViewController<LoginRegisterSplitterViewModel>, BottomNavigatorLabelContaining, UserErrorFailableResponding, APIFailableResponding, APIFailableDisplaying, NotifirePoppablePresenting {
 
     // MARK: - Properties
     weak var delegate: LoginRegisterSplitterViewControllerDelegate?
@@ -105,5 +105,9 @@ class LoginRegisterSplitterViewController: VMViewController<LoginRegisterSplitte
         headerSecondaryLabel.centerXAnchor.constraint(equalTo: headerLabel.centerXAnchor).isActive = true
         headerSecondaryLabel.widthAnchor.constraint(equalTo: headerLabel.widthAnchor).isActive = true
         headerSecondaryLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: Size.componentSpacing).isActive = true
+    }
+
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return animationController(forPresented: presented)
     }
 }

@@ -64,7 +64,7 @@ class ForgotPasswordViewController: VMViewController<ForgotPasswordViewModel>, N
         super.viewDidLoad()
 
         // View Setup
-        view.backgroundColor = .compatibleBackgroundAccent
+        view.backgroundColor = .compatibleSystemBackground
         setupSubviews()
 
         // User Events
@@ -164,4 +164,8 @@ class ForgotPasswordViewController: VMViewController<ForgotPasswordViewModel>, N
         }
     }
 
+    // MARK: - UIViewControllerAnimatedTransitioning
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return animationController(forPresented: presented)
+    }
 }

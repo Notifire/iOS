@@ -16,6 +16,6 @@ class LoginNavigationController: UINavigationController, NavigationBarProviding 
 
         hideNavigationBar()
 
-        navigationBar.tintColor = .customLabel
+        navigationBar.tintColor = .compatibleLabel
     }
 }

@@ -11,8 +11,9 @@ import UIKit
 class CurvedTopView: ConstrainableView {
 
     // MARK: - Properties
-    static let expandedCurveMidXDistanceFromTop: CGFloat = 10
-    static let collapsedCurveMidXDistanceFromTop: CGFloat = 2
+    private static let expandedCurveMidXDistanceFromTop: CGFloat = 8
+    private static let collapsedCurveMidXDistanceFromTop: CGFloat = 2
+    private static let shapeLayerColor = UIColor.compatibleSystemBackground
 
     private var expandedCurvePath: CGPath!
     private var collapsedCurvePath: CGPath!
@@ -21,9 +22,12 @@ class CurvedTopView: ConstrainableView {
 
     // MARK: - Inherited
     override func setupSubviews() {
+        super.setupSubviews()
+        clipsToBounds = false
+
         layer.addSublayer(shapeLayer)
-        shapeLayer.fillColor = UIColor.compatibleBackgroundAccent.cgColor
-        backgroundColor = .compatibleBackgroundAccent
+        shapeLayer.fillColor = CurvedTopView.shapeLayerColor.cgColor
+        backgroundColor = CurvedTopView.shapeLayerColor
     }
 
     override func layoutSubviews() {
@@ -32,6 +36,15 @@ class CurvedTopView: ConstrainableView {
         shapeLayer.frame = layer.bounds
         setupTopCurvePaths()
         setFirstPath()
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if #available(iOS 13.0, *) {
+            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+                shapeLayer.fillColor = CurvedTopView.shapeLayerColor.cgColor
+                layoutIfNeeded()
+            }
+        }
     }
 
     // MARK: - Private

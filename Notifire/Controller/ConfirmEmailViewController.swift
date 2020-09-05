@@ -63,11 +63,6 @@ class ConfirmEmailViewController: UIViewController, CenterStackViewPresenting, A
         layout()
     }
 
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard presented is NotifirePoppable else { return nil }
-        return NotifirePopAnimationController()
-    }
-
     // MARK: - Private
     private func prepareViewModel() {
         viewModel.onConfirmation = { [weak self] session in
@@ -101,5 +96,9 @@ extension ConfirmEmailViewController: NotifirePoppablePresenting {
     func dismissCompletion(error: UserErrorRepresenting) {
         view.isUserInteractionEnabled = false
         delegate?.didFinishEmailConfirmation()
+    }
+
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return animationController(forPresented: presented)
     }
 }

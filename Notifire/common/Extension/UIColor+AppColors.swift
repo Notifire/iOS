@@ -32,7 +32,7 @@ extension UIColor {
         return UIColor { $0.userInterfaceStyle == .dark ? dark : light }
     }
 
-    // MARK: - Colors
+    // MARK: - Main
     public static let primary: UIColor = #colorLiteral(red: 1, green: 0.4666666667, blue: 0, alpha: 1)
     public static let tabBarButtonDeselected: UIColor = #colorLiteral(red: 0.7843137255, green: 0.7843137255, blue: 0.7843137255, alpha: 1)
     public static let outlineGray: UIColor = UIColor(r: 140, g: 140, b: 141)
@@ -68,7 +68,7 @@ extension UIColor {
         return .tertiarySystemFill
     }()
 
-    // MARK: Separators
+    // MARK: - Separators
     public static var customSeparator: UIColor = {
         guard #available(iOS 13, *) else { return #colorLiteral(red: 0.2352941176, green: 0.2352941176, blue: 0.262745098, alpha: 0.29) }
         return .separator
@@ -79,14 +79,30 @@ extension UIColor {
         return .opaqueSeparator
     }()
 
-    // MARK: Labels
-    public static var customLabel: UIColor = {
+    // MARK: - Labels
+    public static var compatibleLabel: UIColor = {
         guard #available(iOS 13, *) else { return .black }
         return .label
     }()
 
-    public static var customSecondaryLabel: UIColor = {
+    public static var compatibleSecondaryLabel: UIColor = {
         guard #available(iOS 13, *) else { return outlineGray }
         return .secondaryLabel
     }()
+
+    public static var compatibleTertiaryLabel: UIColor = {
+        guard #available(iOS 13, *) else { return outlineGray }
+        return .tertiaryLabel
+    }()
+
+    // MARK: - TextField
+    public static var compatibleTextField: UIColor = UIColor.from(
+        light: UIColor(r: 250, g: 250, b: 250),
+        dark: UIColor(r: 18, g: 18, b: 18)
+    )
+
+    public static var compatibleTextFieldBorder: UIColor = UIColor.from(
+        light: UIColor(r: 200, g: 200, b: 200),
+        dark: UIColor(r: 65, g: 65, b: 65)
+    )
 }
