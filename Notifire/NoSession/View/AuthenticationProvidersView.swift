@@ -30,8 +30,9 @@ class AuthenticationProvidersView: VMView<AuthenticationProvidersViewModel>, Cen
         // ViewModel
         viewModel.onAuthenticationFinished = { [weak self] tag in
             let maybeButton = self?.buttons.first { $0.tag == tag }
-            guard let btn = (maybeButton as? NotifireButton) else { return }
-            btn.stopLoading()
+            if let btn = (maybeButton as? NotifireButton) {
+                btn.stopLoading()
+            }
             self?.isUserInteractionEnabled = true
         }
 
@@ -72,6 +73,7 @@ class AuthenticationProvidersView: VMView<AuthenticationProvidersViewModel>, Cen
     private func createAppleSignInButton() -> UIControl {
         if #available(iOS 13.0, *) {
             let button = ASAuthorizationAppleIDButton(authorizationButtonType: .default, authorizationButtonStyle: .white)
+            button.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchUpInside)
             button.layer.cornerRadius = Theme.defaultCornerRadius
             button.layer.borderWidth = Theme.defaultBorderWidth
             return button
@@ -95,5 +97,31 @@ class AuthenticationProvidersView: VMView<AuthenticationProvidersViewModel>, Cen
         }
         providerButton.updateUI(for: provider)
         return providerButton
+    }
+
+    // MARK: - Event Handlers
+    // MARK: Apple ID Button
+    @objc private func handleAuthorizationAppleIDButtonPress() {
+        guard #available(iOS 13.0, *) else { return }
+        // Disable interaction with other buttons until we finish the flow
+        self.isUserInteractionEnabled = false
+        self.viewModel.startAuthenticationFlow(with: .apple)
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = viewModel.ssoManager
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+}
+
+extension AuthenticationProvidersView: ASAuthorizationControllerPresentationContextProviding {
+
+    /// For presentation of the Authorization UIWindow
+    @available(iOS 13.0, *)
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.window!
     }
 }

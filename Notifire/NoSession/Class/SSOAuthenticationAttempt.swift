@@ -11,19 +11,25 @@ import Foundation
 class SSOAuthenticationAttempt {
 
     enum SSOAuthenticationError: Error, UserErrorRepresenting {
-        case authenticationAlreadyInProgress(SSOAuthenticationAttempt)
+        case authorizationAlreadyInProgress(SSOAuthenticationAttempt)
         case userCancelled
         case userHasNotSignedIn
         case unableToRetrieveAccessToken
+        case notHandled
+        case failed
+        case invalidResponse
         case unknown
 
         var description: String {
             switch self {
-            case .authenticationAlreadyInProgress: return "Another authentication attempt is already in progress."
-            case .userCancelled: return "The user has cancelled the authentication request."
-            case .userHasNotSignedIn: return "The user hasn't signed in."
+            case .authorizationAlreadyInProgress: return "Another authorization attempt is already in progress."
+            case .userCancelled: return "You have cancelled the authorization request."
+            case .userHasNotSignedIn: return "You haven't signed in to the external authorization provider."
             case .unableToRetrieveAccessToken: return "Unable to retrieve access token."
-            case .unknown: return "Unkown error occured while authenticating with this SSO provider."
+            case .notHandled: return "Authorization prompt wasn't handled."
+            case .failed: return "Authorization failed."
+            case .invalidResponse: return "Authorization returned invalid response."
+            case .unknown: return "Unkown error occured while authorizing with this SSO provider."
             }
         }
     }

@@ -6,10 +6,11 @@
 //  Copyright © 2020 David Bielik. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import GoogleSignIn
+import AuthenticationServices
 
-class SSOManager: NSObject, GIDSignInDelegate {
+class SSOManager: NSObject {
 
     // MARK: - Properties
     /// The current authentication attempt. Nil if there is no attempt currently in progress.
@@ -33,7 +34,7 @@ class SSOManager: NSObject, GIDSignInDelegate {
         let newAuthAttempt = SSOAuthenticationAttempt(provider: provider)
         // Verify, that we are not already authenticating
         if let currentAuthenticationAttempt = ssoAuthenticationAttempt {
-            newAuthAttempt.state = .error(.authenticationAlreadyInProgress(currentAuthenticationAttempt))
+            newAuthAttempt.state = .error(.authorizationAlreadyInProgress(currentAuthenticationAttempt))
             finishAuthenticationAttempt()
         }
         ssoAuthenticationAttempt = newAuthAttempt
@@ -42,7 +43,10 @@ class SSOManager: NSObject, GIDSignInDelegate {
         switch provider {
         case .google:
             GIDSignIn.sharedInstance()?.signIn()
-        case .apple, .github, .twitter:
+        case .apple:
+            // Don't do anything, handled by `AuthorizationProvidersView`
+            break
+        case .github, .twitter:
             // FIXME: implement the above providers sign in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 self?.finishAuthenticationAttempt()
@@ -58,10 +62,13 @@ class SSOManager: NSObject, GIDSignInDelegate {
         delegate?.didFinish(authenticationAttempt: currentAuthAttempt)
     }
 
-    // MARK: - Google
-    // MARK: GIDSignInDelegate
+}
+
+// MARK: - Google
+extension SSOManager: GIDSignInDelegate {
+
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        // Check if the current authentication attempt is for Google
+        // Check if a current authentication attempt exists
         guard let currentAuthAttempt = ssoAuthenticationAttempt else { return }
         // We finish the authentication attempt in any case.
         defer { finishAuthenticationAttempt() }
@@ -99,5 +106,56 @@ class SSOManager: NSObject, GIDSignInDelegate {
 
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
 
+    }
+}
+
+// MARK: - Apple
+extension SSOManager: ASAuthorizationControllerDelegate {
+
+    @available(iOS 13.0, *)
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        // Check if a current authentication attempt exists
+        guard let currentAuthAttempt = ssoAuthenticationAttempt else { return }
+        // We finish the authentication attempt in any case.
+        defer { finishAuthenticationAttempt() }
+        // Check if the provider is apple
+        guard currentAuthAttempt.provider == .apple else {
+            currentAuthAttempt.state = .error(.unknown)
+            return
+        }
+        switch authorization.credential {
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            // Create an account in your system.
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            let email = appleIDCredential.email
+            currentAuthAttempt.state = .finished(accessToken: userIdentifier)
+        default:
+            currentAuthAttempt.state = .error(.unknown)
+        }
+    }
+
+    @available(iOS 13.0, *)
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        // Check if a current authentication attempt exists
+        guard let currentAuthAttempt = ssoAuthenticationAttempt else { return }
+        // Set default error value
+        currentAuthAttempt.state = .error(.unknown)
+        // Finish the authentication attempt in any case.
+        defer { finishAuthenticationAttempt() }
+        // Check if the provider is apple
+        guard currentAuthAttempt.provider == .apple, let authorizationError = error as? ASAuthorizationError else { return }
+        switch authorizationError.code {
+        case .canceled:
+            currentAuthAttempt.state = .error(.userCancelled)
+        case .notHandled:
+            currentAuthAttempt.state = .error(.notHandled)
+        case .failed:
+            currentAuthAttempt.state = .error(.failed)
+        case .invalidResponse:
+            currentAuthAttempt.state = .error(.invalidResponse)
+        default:
+            break
+        }
     }
 }
