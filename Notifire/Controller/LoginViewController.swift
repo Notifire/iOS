@@ -32,7 +32,7 @@ class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, 
     var keyboardObserverHandler = KeyboardObserverHandler()
 
     // MARK: Static
-    static let notifireBackgroundViewHeightInRelationToViewHeight: CGFloat = 0.38
+    static let notifireBackgroundViewHeightInRelationToViewHeight: CGFloat = 0.28
 
     // MARK: Views
     let notifireBackgroundView = NotifireBackgroundView()
@@ -157,7 +157,8 @@ class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, 
 
         // login stack view
         let textFieldStackView = UIStackView(arrangedSubviews: [usernameEmailTextInput, passwordTextInput, forgotPasswordContainerView], spacing: Size.textFieldSpacing)
-        let stackView = insertStackView(arrangedSubviews: [textFieldStackView, signInButton], spacing: Size.componentSpacing * 1.5)
+        let stackViewSpacing: CGFloat = Size.componentSpacing * 1.5
+        let stackView = insertStackView(arrangedSubviews: [headerLabel, textFieldStackView, signInButton], spacing: stackViewSpacing)
         stackView.topAnchor.constraint(equalTo: loginContainerView.topAnchor, constant: Size.componentSpacing).isActive = true
         self.stackView = stackView
 
@@ -167,11 +168,6 @@ class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, 
         forgotPasswordButton.trailingAnchor.constraint(equalTo: forgotPasswordContainerView.trailingAnchor).isActive = true
         forgotPasswordButton.bottomAnchor.constraint(equalTo: forgotPasswordContainerView.bottomAnchor).isActive = true
 
-        // Header label
-        view.add(subview: headerLabel)
-        headerLabel.bottomAnchor.constraint(equalTo: loginContainerView.topAnchor, constant: -Size.componentSpacing).isActive = true
-        headerLabel.embedSides(in: forgotPasswordContainerView)
-
         // StackView - keyboard constraint
         stackViewKeyboardBottomConstraint = stackView.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor)
         stackViewKeyboardBottomConstraint.priority = UILayoutPriority.init(rawValue: 950)
@@ -179,9 +175,9 @@ class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, 
         keyboardObserverHandler.onKeyboardNotificationAnimationCallback = { expanding, duration in
             loginContainerView.switchPaths(expanded: expanding, duration: duration)
             if expanding {
-                stackView.spacing = Size.componentSpacing * 0.5
+                stackView.spacing = Size.componentSpacing * 0.75
             } else {
-                stackView.spacing = Size.componentSpacing
+                stackView.spacing = stackViewSpacing
             }
         }
 
