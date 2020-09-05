@@ -52,8 +52,8 @@ class NotifireAPIManager: NotifireAPIManagerBase {
 
     // MARK: - /account/send/reset/password
     func sendResetPassword(email: String, completion: @escaping NotifireAPIManagerCallback<SendResetPasswordResponse>) {
-        let body = SendResetPasswordBody(email: email)
-        let request = notifireApiRequest(endpoint: NotifireAPIEndpoint.sendResetPassword, method: .post, body: body, parameters: nil)
+        let parameters = ["email": email]
+        let request = notifireApiRequest(endpoint: NotifireAPIEndpoint.sendResetPassword, method: .get, body: nil as EmptyRequestBody?, parameters: parameters)
         let requestContext = NotifireAPIRequestContext(responseBodyType: SendResetPasswordResponse.self, notifireAPIRequest: request)
         perform(requestContext: requestContext, managerCompletion: completion)
     }

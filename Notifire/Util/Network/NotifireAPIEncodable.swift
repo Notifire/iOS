@@ -61,7 +61,3 @@ struct ChangeServiceKeyBody: NotifireAPIEncodable {
     let service: Service
     let password: String
 }
-
-struct SendResetPasswordBody: NotifireAPIEncodable {
-    let email: String
-}
