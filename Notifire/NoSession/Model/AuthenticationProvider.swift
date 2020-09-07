@@ -16,7 +16,7 @@ enum AuthenticationProvider: Hashable, CustomStringConvertible {
 
     // MARK: - Initialization
     init?(providerString: String) {
-        if let ssoProvider = SSOAuthenticationProvider(rawValue: providerString) {
+        if let ssoProvider = SSOAuthenticationProvider(rawValue: providerString.lowercased()) {
             self = .sso(ssoProvider)
         } else if providerString == Self.email.description {
             self = .email
