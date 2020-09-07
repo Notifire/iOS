@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginNavigationController: UINavigationController, NavigationBarProviding {
+class LoginNavigationController: UINavigationController {
 
     // MARK: - View Lifecycle
     override func viewDidLoad() {

@@ -13,7 +13,8 @@ protocol NavigationBarProviding {
     func showNavigationBar()
 }
 
-extension NavigationBarProviding where Self: UINavigationController {
+extension UINavigationController: NavigationBarProviding {
+
     func hideNavigationBar() {
         if #available(iOS 13.0, *) {
             let appearance = UINavigationBarAppearance()

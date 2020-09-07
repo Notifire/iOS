@@ -14,7 +14,7 @@ class NotifireBackgroundView: ConstrainableView {
     override open class var layerClass: AnyClass { return NotifireBackgroundLayer.self }
 
     override func setupSubviews() {
-        backgroundColor = .backgroundColor
+        backgroundColor = .compatibleBackgroundAccent
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

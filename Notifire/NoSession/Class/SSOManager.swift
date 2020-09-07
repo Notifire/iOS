@@ -98,7 +98,7 @@ extension SSOManager: GIDSignInDelegate {
             // Perform any operations on signed in user here.
             //let userId = user.userID                  // For client-side use only!
             let maybeIdToken = user.authentication.idToken // Safe to send to the server
-            let maybeEmail = user.profile.email
+            //let maybeEmail = user.profile.email
             //let fullName = user.profile.name
             //let givenName = user.profile.givenName
             //let familyName = user.profile.familyName
@@ -108,12 +108,7 @@ extension SSOManager: GIDSignInDelegate {
                 return
             }
 
-            guard let email = maybeEmail else {
-                currentAuthAttempt.state = .error(.unableToRetrieveEmail)
-                return
-            }
-
-            currentAuthAttempt.state = .finished(idToken: idToken, email: email)
+            currentAuthAttempt.state = .finished(idToken: idToken)
         }
     }
 
@@ -139,13 +134,15 @@ extension SSOManager: ASAuthorizationControllerDelegate {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             // Create an account in your system.
-            let userIdentifier = appleIDCredential.user
-            guard let email = appleIDCredential.email else {
-                currentAuthAttempt.state = .error(.unableToRetrieveEmail)
+            guard
+                let identityToken = appleIDCredential.identityToken,
+                let userJWT = String(data: identityToken, encoding: .utf8)
+            else {
+                currentAuthAttempt.state = .error(.unableToRetrieveAccessToken)
                 return
             }
-            //let fullName = appleIDCredential.fullName
-            currentAuthAttempt.state = .finished(idToken: userIdentifier, email: email)
+
+            currentAuthAttempt.state = .finished(idToken: userJWT)
         default:
             currentAuthAttempt.state = .error(.unknown)
         }

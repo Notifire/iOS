@@ -50,7 +50,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         let table = DynamicTableView(frame: .zero, style: .grouped)
         table.dataSource = self
         table.delegate = self
-        table.backgroundColor = .backgroundColor
+        table.backgroundColor = .compatibleBackgroundAccent
         table.mask = tableViewMaskView
         table.register(UITableViewCell.self, forCellReuseIdentifier: "serviceTableViewCell")
         table.register(ServiceAPIKeyTableViewCell.self, forCellReuseIdentifier: ServiceAPIKeyTableViewCell.identifier)
@@ -123,7 +123,6 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideNavigationBar()
-        navigationController?.navigationBar.backgroundColor = .clear
     }
 
     override func viewDidAppear(_ animated: Bool) {

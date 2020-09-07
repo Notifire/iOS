@@ -15,7 +15,7 @@ class ChoiceSeparatorView: ConstrainableView {
     let choiceLabel: UILabel = {
         let label = UILabel(style: UILabel.Style.centeredLightInformation)
         label.text = "or"
-        label.backgroundColor = .yellow
+        label.backgroundColor = .clear
         return label
     }()
 
