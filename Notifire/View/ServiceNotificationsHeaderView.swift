@@ -40,7 +40,7 @@ class GradientView: ConstrainableView {
 
     override func setupSubviews() {
         backgroundColor = .clear
-        opaqueBackgroundLayer.backgroundColor = UIColor.backgroundColor.cgColor
+        opaqueBackgroundLayer.backgroundColor = UIColor.compatibleBackgroundAccent.cgColor
         layer.addSublayer(opaqueBackgroundLayer)
         layer.addSublayer(gradientLayer)
     }
@@ -51,6 +51,15 @@ class GradientView: ConstrainableView {
         let height = bounds.height
         opaqueBackgroundLayer.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height/2))
         gradientLayer.frame = CGRect(origin: CGPoint(x: 0, y: height/2), size: CGSize(width: width, height: height/2))
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        guard
+            #available(iOS 13.0, *),
+            traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection)
+        else { return }
+        opaqueBackgroundLayer.backgroundColor = UIColor.compatibleBackgroundAccent.cgColor
+        opaqueBackgroundLayer.setNeedsDisplay()
     }
 }
 
@@ -124,6 +133,6 @@ class ServiceNotificationsHeaderView: ConstrainableView {
 
     private func updateAppearance() {
         gradientView.isHidden = !gradientVisible
-        backgroundColor = gradientVisible ? .clear : .backgroundColor
+        backgroundColor = gradientVisible ? .clear : .compatibleBackgroundAccent
     }
 }

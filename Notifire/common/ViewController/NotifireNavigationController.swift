@@ -12,10 +12,13 @@ class NotifireNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.heavy) ]
+        navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.heavy),
+            NSAttributedString.Key.foregroundColor: UIColor.compatibleLabel
+        ]
         view.backgroundColor = .compatibleBackgroundAccent
-        navigationBar.barTintColor = .backgroundAccentColor
-        navigationBar.tintColor = .barTintColor
+        navigationBar.barTintColor = .compatibleBackgroundAccent
+        navigationBar.tintColor = .compatibleLabel
     }
 
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {

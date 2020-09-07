@@ -27,7 +27,7 @@ class ServicesViewController: UIViewController, NavigationBarDisplaying, EmptySt
         tv.rowHeight = UITableView.automaticDimension
         tv.dontShowEmptyCells()
         tv.separatorInset = .zero
-        tv.backgroundColor = .backgroundColor
+        tv.backgroundColor = .compatibleBackgroundAccent
         tv.register(ServiceTableViewCell.self, forCellReuseIdentifier: ServiceTableViewCell.reuseIdentifier)
         return tv
     }()
@@ -48,7 +48,7 @@ class ServicesViewController: UIViewController, NavigationBarDisplaying, EmptySt
     override func viewDidLoad() {
         super.viewDidLoad()
         hideNavigationBarBackButtonText()
-        view.backgroundColor = .backgroundColor
+        view.backgroundColor = .compatibleSystemBackground
         title = "Services"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didSelectAddNewService))
 
@@ -97,7 +97,7 @@ class ServicesViewController: UIViewController, NavigationBarDisplaying, EmptySt
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
 
         let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .notifireMainColor
+        refreshControl.tintColor = .compatibleLabel
         refreshControl.addTarget(self, action: #selector(didChangeRefreshValue), for: .valueChanged)
         tableView.refreshControl = refreshControl
     }
@@ -143,7 +143,7 @@ class ServiceTableViewCell: BaseTableViewCell {
     override func setup() {
         contentView.layoutMargins = UIEdgeInsets(top: Size.Cell.extendedSideMargin/2, left: Size.Cell.extendedSideMargin, bottom: Size.Cell.extendedSideMargin/2, right: 0)
         accessoryType = .disclosureIndicator
-        backgroundColor = .white
+        backgroundColor = .compatibleSystemBackground
         layout()
     }
 

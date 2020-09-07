@@ -21,7 +21,6 @@ class NotifireBackgroundView: ConstrainableView {
         if #available(iOS 13.0, *) {
             if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
                 (layer as? NotifireBackgroundLayer)?.resetGradientColors()
-                setNeedsDisplay()
             }
         }
     }

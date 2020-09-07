@@ -17,13 +17,13 @@ enum LabelStyle {
     case alertTitle
     case alertInformation
     case alertAction
-
+    case informationHeader
     case heavyTitle
+
     case semiboldCellTitle
     case dimmedInformation
     case cellInformation
     case cellSubtitle
-    case informationHeader
     case secureInformation
     case centeredLightInformation
     case emoji
@@ -74,10 +74,13 @@ extension UILabel: Stylable {
             numberOfLines = 1
             font = UIFont.systemFont(ofSize: 15, weight: .medium)
             textAlignment = .center
-
+        case .informationHeader:
+            textColor = .compatibleLabel
+            font = UIFont.systemFont(ofSize: 16)
         case .heavyTitle:
-            textColor = .black
+            textColor = .compatibleLabel
             font = UIFont.systemFont(ofSize: 17, weight: .heavy)
+
         case .semiboldCellTitle:
             textColor = .black
             font = UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -90,9 +93,6 @@ extension UILabel: Stylable {
         case .cellSubtitle:
             textColor = UIColor.black.withAlphaComponent(0.5)
             font = UIFont.systemFont(ofSize: 14)
-        case .informationHeader:
-            textColor = .black
-            font = UIFont.systemFont(ofSize: 16)
         case .secureInformation:
             textColor = UIColor.black.withAlphaComponent(0.7)
             font = UIFont.systemFont(ofSize: 14)

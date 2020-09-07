@@ -96,8 +96,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .backgroundColor
-        navigationController?.navigationBar.tintColor = .black
+        view.backgroundColor = .compatibleSystemBackground
         hideNavigationBarBackButtonText()
         setupTitleView()
         prepareViewModel()
@@ -133,6 +132,15 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
 
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return animationController(forPresented: presented)
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        guard
+            #available(iOS 13.0, *),
+            traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection),
+            let gradient = gradientLayer
+        else { return }
+        gradient.resetGradientColors()
     }
 
     // MARK: - Private
