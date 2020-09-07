@@ -24,7 +24,7 @@ class LoginRegisterSplitterViewModel: APIFailable, UserErrorFailable {
     // MARK: Actions
     /// Invoked when a NotifireUserSession becomes available.
     /// (whenever the user logs in somehow)
-    var onLogin: ((NotifireUserSession) -> Void)?
+    var onLogin: ((UserSession) -> Void)?
 
     // MARK: Private
     private var loginInProgress = false
@@ -35,7 +35,7 @@ class LoginRegisterSplitterViewModel: APIFailable, UserErrorFailable {
     }
 
     // MARK: - Methods
-    func login(token: String, ssoProvider: SSOAuthenticationProvider, completion: @escaping (() -> Void)) {
+    func login(token: String, ssoProvider: SSOAuthenticationProvider, email: String, completion: @escaping (() -> Void)) {
         guard !loginInProgress else { return }
         loginInProgress = true
 
@@ -47,7 +47,9 @@ class LoginRegisterSplitterViewModel: APIFailable, UserErrorFailable {
             case .error(let error):
                 self.onError?(error)
             case .success(let response):
-                let session = NotifireUserSession(refreshToken: response.refreshToken, email: response.email)
+                let provider = AuthenticationProvider(ssoProvider: ssoProvider)
+                let providerData = AuthenticationProviderData(provider: provider, email: email, userID: token)
+                let session = UserSession(refreshToken: response.refreshToken, providerData: providerData)
                 session.accessToken = response.accessToken
                 self.onLogin?(session)
             }
@@ -79,8 +81,8 @@ extension LoginRegisterSplitterViewModel: SSOManagerDelegate {
                 // alert the user of his error
                 self?.onUserError?(userError)
             }
-        case .finished(let idToken):
-            login(token: idToken, ssoProvider: authenticationAttempt.provider) { [weak self] in
+        case .finished(let idToken, let email):
+            login(token: idToken, ssoProvider: authenticationAttempt.provider, email: email) { [weak self] in
                 self?.authenticationProvidersVM?.finishAuthenticationFlow(with: authenticationAttempt.provider)
             }
         }

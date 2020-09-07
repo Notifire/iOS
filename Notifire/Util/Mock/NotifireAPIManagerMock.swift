@@ -36,7 +36,7 @@ class NotifireAPIManagerMock: NotifireAPIManager, NotifireAPIManagerMocking {
     }
 
     override func confirmAccount(emailToken: String, completion: @escaping NotifireAPIManagerCallback<VerifyAccountResponse>) {
-        returnSuccessAfter(completion: completion, response: VerifyAccountResponse(success: true, payload: VerifyAccountSuccessResponse(username: "testtest", refreshToken: "testtestRefreshToken", accessToken: "jwt"), error: nil))
+        returnSuccessAfter(completion: completion, response: VerifyAccountResponse(success: true, payload: VerifyAccountSuccessResponse(email: "testtest", refreshToken: "testtestRefreshToken", accessToken: "jwt"), error: nil))
     }
 
     override func checkValidity(option: CheckValidityOption, input: String, completion: @escaping NotifireAPIManagerCallback<CheckValidityResponse>) {

@@ -18,7 +18,7 @@ class ServiceViewModel: APIFailable {
 
     // MARK: - Properties
     let localService: LocalService
-    let userSessionHandler: NotifireUserSessionHandler
+    let userSessionHandler: UserSessionHandler
     private var protectedApiManager: NotifireProtectedAPIManager {
         return userSessionHandler.notifireProtectedApiManager
     }
@@ -36,7 +36,7 @@ class ServiceViewModel: APIFailable {
     var onServiceDeletion: (() -> Void)?
 
     // MARK: - Initialization
-    init(localService: LocalService, sessionHandler: NotifireUserSessionHandler) {
+    init(localService: LocalService, sessionHandler: UserSessionHandler) {
         self.localService = localService
         self.userSessionHandler = sessionHandler
         setupLocalServicesTokenIfNeeded()

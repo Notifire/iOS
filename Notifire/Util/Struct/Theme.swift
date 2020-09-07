@@ -10,6 +10,8 @@ import UIKit
 
 struct Theme {
     static let defaultCornerRadius: CGFloat = 5
+    static let alertCornerRadius: CGFloat = 12
+
     static let defaultBorderWidth: CGFloat = 1
 
     struct Shadow {

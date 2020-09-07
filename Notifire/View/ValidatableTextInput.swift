@@ -184,6 +184,13 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
     @objc private func didChangeTextField(textField: UITextField) {
         validatingViewModelBinder?.updateKeyPathAndValidate(component: self)
     }
+
+    // MARK: - Public
+    /// This function updates the `text` property of the `UITextField` and triggers the component validation.
+    public func updateText(with value: String) {
+        textField.text = value
+        validatingViewModelBinder?.updateKeyPathAndValidate(component: self)
+    }
 }
 
 extension ValidatableTextInput: UITextFieldDelegate {

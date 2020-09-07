@@ -18,7 +18,7 @@ struct NotifireAPIManagerFactory {
         #endif
     }
 
-    static func createProtectedAPIManager(session: NotifireUserSession) -> NotifireProtectedAPIManager {
+    static func createProtectedAPIManager(session: UserSession) -> NotifireProtectedAPIManager {
         #if API_MOCK
             return NotifireProtectedAPIManagerMock(session: session)
         #else

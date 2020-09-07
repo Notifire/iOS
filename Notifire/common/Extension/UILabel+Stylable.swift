@@ -14,6 +14,9 @@ enum LabelStyle {
     case largeTitle
     case title
     case negative
+    case alertTitle
+    case alertInformation
+    case alertAction
 
     case heavyTitle
     case semiboldCellTitle
@@ -26,8 +29,6 @@ enum LabelStyle {
     case emoji
     case negativeMedium
     case notifirePositive
-    case alertTitle
-    case alertInformation
 }
 
 extension UILabel: Stylable {
@@ -58,6 +59,21 @@ extension UILabel: Stylable {
             textColor = UIColor.red.withAlphaComponent(0.9)
             font = UIFont.systemFont(ofSize: 14)
             textAlignment = .left
+        case .alertTitle:
+            textColor = .compatibleLabel
+            font = UIFont.systemFont(ofSize: 19, weight: .light)
+            numberOfLines = 2
+            textAlignment = .center
+        case .alertInformation:
+            textColor = .compatibleSecondaryLabel
+            numberOfLines = 0
+            font = UIFont.systemFont(ofSize: 14, weight: .light)
+            textAlignment = .center
+        case .alertAction:
+            textColor = .primary
+            numberOfLines = 1
+            font = UIFont.systemFont(ofSize: 15, weight: .medium)
+            textAlignment = .center
 
         case .heavyTitle:
             textColor = .black
@@ -96,16 +112,6 @@ extension UILabel: Stylable {
             textColor = .notifireMainColor
             font = UIFont.systemFont(ofSize: 16)
             textAlignment = .left
-        case .alertTitle:
-            textColor = .black
-            font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-            numberOfLines = 2
-            textAlignment = .center
-        case .alertInformation:
-            textColor = .black
-            numberOfLines = 0
-            font = UIFont.systemFont(ofSize: 15, weight: .medium)
-            textAlignment = .center
         }
     }
     // swiftlint:enable function_body_length

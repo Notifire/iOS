@@ -53,4 +53,5 @@ class Config {
     // The API URL
     static let apiUrlString: String = try! value(for: .apiUrl)
     // swiftlint:enable force_try
+    static let bundleID: String = Bundle.main.bundleIdentifier!
 }

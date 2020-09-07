@@ -38,7 +38,7 @@ class TabBarViewModel: RealmCollectionViewModel<LocalNotifireNotification> {
         }
     }
 
-    let userSession: NotifireUserSession
+    let userSession: UserSession
 
     // MARK: Callbacks
     var onTabChange: ((Tab) -> Void)?
@@ -46,7 +46,7 @@ class TabBarViewModel: RealmCollectionViewModel<LocalNotifireNotification> {
     var onNotificationsAlertStateChange: ((NewNotificationsAlertState) -> Void)?
 
     // MARK: - Initialization
-    init(sessionHandler: NotifireUserSessionHandler) {
+    init(sessionHandler: UserSessionHandler) {
         self.userSession = sessionHandler.userSession
         super.init(realmProvider: sessionHandler)
     }

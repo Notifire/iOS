@@ -11,14 +11,14 @@ import Foundation
 class NotifireProtectedAPIManager: NotifireAPIManagerBase {
 
     // MARK: - Properties
-    let userSession: NotifireUserSession
+    let userSession: UserSession
 
     // MARK: Callback
     // invoked when the refresh token is no longer valid
     var onRefreshTokenInvalidation: (() -> Void)?
 
     // MARK: - Initialization
-    init(session: NotifireUserSession) {
+    init(session: UserSession) {
         userSession = session
         super.init()
     }

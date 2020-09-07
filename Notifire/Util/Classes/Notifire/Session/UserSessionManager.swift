@@ -11,71 +11,104 @@ import KeychainAccess
 
 class UserSessionManager {
 
-    private static let bundleID = "com.dvdblk.Notifire"
+    // MARK: - Properties
     private static let teamID = "6QH7E4QW2D"
-    private static let keychainAccessGroup = "\(teamID).\(bundleID)"
-    static let appGroupSuiteName = "group.\(bundleID)"
+    private static let keychainAccessGroup = "\(teamID).\(Config.bundleID)"
+    static let appGroupSuiteName = "group.\(Config.bundleID)"
     static let appGroupSuiteNameWithTeamID = "\(teamID).\(appGroupSuiteName)"
-    private struct Keys {
-        private static let prefix = bundleID
-        static let loggedInUsername = "\(prefix).logged-in-username"
-        static let refreshToken = "\(prefix).refresh-token"
-        static let deviceToken = "\(prefix).device-token"
-        static let username = "\(prefix).username"
-        static let firstLaunch = "\(prefix).notifire"
+
+    /// Enumeration describing the keys used by the keychain
+    private enum Key: String, CaseIterable {
+        case email
+        case refreshToken
+        case deviceToken
+        case ssoUserIdentifier
+        case provider
+        case firstLaunch
+
+        static var userDataKeys: [Key] {
+            return allCases.filter { $0 != .firstLaunch }
+        }
     }
 
-    private lazy var keychain = Keychain(service: "com.dvdblk.Notifire", accessGroup: UserSessionManager.keychainAccessGroup)
+    private lazy var keychain = Keychain(service: Config.bundleID, accessGroup: UserSessionManager.keychainAccessGroup)
 
-    private func key(for username: String, key: String) -> String {
-        return "\(username)\(key)"
+    // MARK: - Methods
+    private func keychainKey(key: Key, userIdentifier: String? = nil) -> String {
+        let keychainKey: [String]
+        if let identifier = userIdentifier {
+            // the value is specific for some user
+            keychainKey = [Config.bundleID, identifier, key.rawValue]
+        } else {
+            // The value is specific only for the app (bundleID)
+            keychainKey = [Config.bundleID, key.rawValue]
+        }
+        return keychainKey.joined(separator: ".")
     }
 
-    private func loadSession(username: String) -> NotifireUserSession? {
-        guard let maybeRefreshToken = ((try? keychain.getString(key(for: username, key: Keys.refreshToken))) as String??), let refreshToken = maybeRefreshToken else { return nil }
-        let userSession = NotifireUserSession(refreshToken: refreshToken, email: username)
-        if let deviceToken = ((try? keychain.getString(key(for: username, key: Keys.deviceToken))) as String??) {
+    /// Gets the keychain value for the specified key.
+    /// - Parameters:
+    ///     - key: the unique key for the value in the keychain
+    ///     - userIdentifier: optional identifier that is used to differentiate various user accounts that could be logged in on one device (e.g. user's email)
+    private func getKeychainValue(key: Key, userIdentifier: String? = nil) -> String? {
+        return try? keychain.getString(
+            keychainKey(key: key, userIdentifier: userIdentifier)
+        )
+    }
+
+    private func setKeychainValue(value: String, key: Key, userIdentifier: String? = nil) {
+        try? keychain.set(value, key: keychainKey(key: key, userIdentifier: userIdentifier))
+    }
+
+    private func loadUserSession(email: String) -> UserSession? {
+        // Get data that will be used to instantiate a new UserSession
+        guard
+            let refreshToken = getKeychainValue(key: Key.refreshToken, userIdentifier: email),
+            let providerString = getKeychainValue(key: Key.provider, userIdentifier: email),
+            let provider = AuthenticationProvider(providerString: providerString)
+        else { return nil }
+        // There userIdentifier might be nil if the provider = .email
+        let ssoUserIdentifier = getKeychainValue(key: Key.ssoUserIdentifier, userIdentifier: email)
+        let providerData = AuthenticationProviderData(provider: provider, email: email, userID: ssoUserIdentifier)
+        let userSession = UserSession(refreshToken: refreshToken, providerData: providerData)
+        if let deviceToken = getKeychainValue(key: Key.deviceToken, userIdentifier: email) {
             userSession.deviceToken = deviceToken
         }
         return userSession
     }
 
     // MARK: - Session Management
-    func previousSession() -> NotifireUserSession? {
-//        var isFirstLaunch = false
-//        if let defaults = UserDefaults(suiteName: NotifireUserSessionManager.appGroupSuiteNameWithTeamID) {
-//            if !defaults.bool(forKey: Keys.firstLaunch) {
-//                defaults.set(true, forKey: Keys.firstLaunch)
-//                isFirstLaunch = true
-//            }
-//        }
-        guard let maybeUsername = ((try? keychain.getString(Keys.loggedInUsername)) as String??), let username = maybeUsername,
-        let session = loadSession(username: username) else { return nil }
-//        if isFirstLaunch {
-//            removeSession(userSession: session)
-//            return nil
-//        }
+    /// Return a UserSession from the keychain.
+    public func previousUserSession() -> UserSession? {
+        guard
+            let keychainStoredEmail = getKeychainValue(key: Key.email),
+            let session = loadUserSession(email: keychainStoredEmail)
+        else { return nil }
         return session
     }
 
-    func set(userSession: NotifireUserSession, deviceToken: String) {
-        userSession.deviceToken = deviceToken
-        try? keychain.set(deviceToken, key: key(for: userSession.email, key: Keys.deviceToken))
-    }
-
-    func saveSession(userSession: NotifireUserSession) {
-        try? keychain.set(userSession.email, key: Keys.loggedInUsername)
-        try? keychain.set(userSession.email, key: key(for: userSession.email, key: Keys.username))
-        try? keychain.set(userSession.refreshToken, key: key(for: userSession.email, key: Keys.refreshToken))
+    func saveSession(userSession: UserSession) {
+        let email = userSession.email
+        // set the last logged in email to the email in this userSession
+        setKeychainValue(value: email, key: Key.email)
+        // set the email of the userSession
+        setKeychainValue(value: email, key: Key.email, userIdentifier: email)
+        setKeychainValue(value: userSession.refreshToken, key: Key.refreshToken, userIdentifier: email)
+        setKeychainValue(value: userSession.providerData.provider.description, key: Key.provider, userIdentifier: email)
+        if let ssoUserID = userSession.providerData.userID {
+            setKeychainValue(value: ssoUserID, key: Key.ssoUserIdentifier, userIdentifier: email)
+        }
         if let deviceToken = userSession.deviceToken {
-            try? keychain.set(deviceToken, key: key(for: userSession.email, key: Keys.deviceToken))
+            setKeychainValue(value: deviceToken, key: Key.deviceToken, userIdentifier: email)
         }
     }
 
-    func removeSession(userSession: NotifireUserSession) {
-        try? keychain.remove(Keys.loggedInUsername)
-        for key in [Keys.refreshToken, Keys.deviceToken, Keys.username] {
-            try? keychain.remove(self.key(for: userSession.email, key: key))
+    func removeSession(userSession: UserSession) {
+        // remove last logged in email
+        try? keychain.remove(Key.email.rawValue)
+        // remove user data
+        for key in Key.userDataKeys {
+            try? keychain.remove(keychainKey(key: key, userIdentifier: userSession.email))
         }
     }
 }

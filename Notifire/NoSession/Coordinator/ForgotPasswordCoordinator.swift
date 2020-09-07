@@ -30,7 +30,7 @@ class ForgotPasswordCoordinator: ChildCoordinator {
 
 extension ForgotPasswordCoordinator: ForgotPasswordViewControllerDelegate {
     func shouldDisplaySuccessfulEmailSend() {
-        let alertVC = NotifireAlertViewController(alertTitle: nil, alertText: nil)
+        let alertVC = NotifireAlertViewController(alertTitle: nil, alertText: nil, alertStyle: .success)
         alertVC.add(action: NotifireAlertAction(title: "OK", style: .positive, handler: { _ in
             alertVC.dismiss(animated: true, completion: nil)
         }))

@@ -19,7 +19,7 @@ class ServicesViewModel: RealmCollectionViewModel<LocalService>, APIFailable {
     }
 
     // MARK: - Properties
-    let userSessionHandler: NotifireUserSessionHandler
+    let userSessionHandler: UserSessionHandler
 
     var protectedApiManager: NotifireProtectedAPIManager {
         return userSessionHandler.notifireProtectedApiManager
@@ -40,7 +40,7 @@ class ServicesViewModel: RealmCollectionViewModel<LocalService>, APIFailable {
     var onViewStateChange: ((ViewState, OldViewState) -> Void)?
 
     // MARK: - Initialization
-    init(sessionHandler: NotifireUserSessionHandler) {
+    init(sessionHandler: UserSessionHandler) {
         self.userSessionHandler = sessionHandler
         super.init(realmProvider: sessionHandler)
     }

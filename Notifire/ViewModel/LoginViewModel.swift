@@ -16,15 +16,15 @@ final class LoginViewModel: BindableInputValidatingViewModel, APIFailable, UserE
 
     func keyPath(for value: KeyPaths) -> ReferenceWritableKeyPath<LoginViewModel, String> {
         switch value {
-        case .username:
-            return \.username
+        case .email:
+            return \.email
         case .password:
             return \.password
         }
     }
 
     enum KeyPaths: InputValidatingBindableEnum {
-        case username
+        case email
         case password
     }
     typealias EnumDescribingKeyPaths = KeyPaths
@@ -42,18 +42,18 @@ final class LoginViewModel: BindableInputValidatingViewModel, APIFailable, UserE
         }
     }
 
-    var onLogin: ((NotifireUserSession) -> Void)?
+    var onLogin: ((UserSession) -> Void)?
     var onLoadingChange: ((Bool) -> Void)?
 
     // MARK: Model
-    var username: String = ""
+    var email: String = ""
     var password: String = ""
 
     // MARK: - Methods
     func login() {
         guard componentValidator?.allComponentsValid ?? false else { return }
         loading = true
-        notifireApiManager.login(usernameOrEmail: username, password: password) { [weak self] result in
+        notifireApiManager.login(usernameOrEmail: email, password: password) { [weak self] result in
             guard let `self` = self else { return }
             self.loading = false
             switch result {
@@ -61,7 +61,9 @@ final class LoginViewModel: BindableInputValidatingViewModel, APIFailable, UserE
                 self.onError?(error)
             case .success(let response):
                 if let loginSuccessResponse = response.payload {
-                    let session = NotifireUserSession(refreshToken: loginSuccessResponse.refreshToken, email: loginSuccessResponse.email)
+                    // userID is nil because email doesn't provide a userID token
+                    let providerData = AuthenticationProviderData(provider: .email, email: self.email, userID: nil)
+                    let session = UserSession(refreshToken: loginSuccessResponse.refreshToken, providerData: providerData)
                     session.accessToken = loginSuccessResponse.accessToken
                     self.onLogin?(session)
                 } else if let loginErrorResponse = response.error {
@@ -72,7 +74,7 @@ final class LoginViewModel: BindableInputValidatingViewModel, APIFailable, UserE
     }
 
     func resendEmail() {
-        notifireApiManager.resendConfirmEmail(usernameOrEmail: username) { _ in }
+        notifireApiManager.resendConfirmEmail(usernameOrEmail: email) { _ in }
     }
 
     func shouldHandleManually(userError: UserError) -> Bool {

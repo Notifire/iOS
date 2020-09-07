@@ -74,7 +74,7 @@ extension NoSessionCoordinator: LoginRegisterSplitterViewControllerDelegate, Log
         finishRegisterOrLoginFlow()
     }
 
-    func didCreate(session: NotifireUserSession) {
+    func didCreate(session: UserSession) {
         delegate?.didCreate(session: session)
     }
 

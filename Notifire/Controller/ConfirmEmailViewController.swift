@@ -9,7 +9,7 @@
 import UIKit
 
 protocol NotifireUserSessionCreationDelegate: class {
-    func didCreate(session: NotifireUserSession)
+    func didCreate(session: UserSession)
 }
 
 protocol ConfirmEmailViewControllerDelegate: class {

@@ -37,6 +37,16 @@ extension UIColor {
     public static let tabBarButtonDeselected: UIColor = #colorLiteral(red: 0.7843137255, green: 0.7843137255, blue: 0.7843137255, alpha: 1)
     public static let outlineGray: UIColor = UIColor(r: 140, g: 140, b: 141)
 
+    public static let compatibleGreen: UIColor = {
+        guard #available(iOS 13, *) else { return .green }
+        return .systemGreen
+    }()
+
+    public static let compatibleRed: UIColor = {
+        guard #available(iOS 13, *) else { return .red }
+        return .systemRed
+    }()
+
     // MARK: Misc
     public static let compatibleGithubColor: UIColor = UIColor(named: "github_color") ?? .yellow
 

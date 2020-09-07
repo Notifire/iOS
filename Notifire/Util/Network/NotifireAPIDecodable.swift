@@ -36,7 +36,7 @@ typealias RegisterResponse = NotifireAPIPlainSuccessResponse
 
 // MARK: - /register/confirm
 struct VerifyAccountSuccessResponse: NotifireAPIDecodable {
-    let username: String
+    let email: String
     let refreshToken: String
     let accessToken: String
 }

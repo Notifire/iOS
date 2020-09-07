@@ -15,6 +15,7 @@ class SSOAuthenticationAttempt {
         case userCancelled
         case userHasNotSignedIn
         case unableToRetrieveAccessToken
+        case unableToRetrieveEmail
         case notHandled
         case failed
         case invalidResponse
@@ -26,6 +27,7 @@ class SSOAuthenticationAttempt {
             case .userCancelled: return "You have cancelled the authorization request."
             case .userHasNotSignedIn: return "You haven't signed in to the external authorization provider."
             case .unableToRetrieveAccessToken: return "Unable to retrieve access token."
+            case .unableToRetrieveEmail: return "Unable to retrieve email."
             case .notHandled: return "Authorization prompt wasn't handled."
             case .failed: return "Authorization failed."
             case .invalidResponse: return "Authorization returned invalid response."
@@ -37,7 +39,7 @@ class SSOAuthenticationAttempt {
     enum AuthenticationState {
         case authenticating
         case error(SSOAuthenticationError)
-        case finished(accessToken: String)
+        case finished(idToken: String, email: String)
     }
 
     let provider: SSOAuthenticationProvider

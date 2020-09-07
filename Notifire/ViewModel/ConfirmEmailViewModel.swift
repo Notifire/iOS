@@ -30,7 +30,7 @@ class ConfirmEmailViewModel: APIFailable, UserErrorFailable {
 
     // MARK: Callbacks
     var onLoadingChange: ((Bool) -> Void)?
-    var onConfirmation: ((NotifireUserSession) -> Void)?
+    var onConfirmation: ((UserSession) -> Void)?
 
     // MARK: - Initialization
     init(notifireApiManager: NotifireAPIManager = NotifireAPIManagerFactory.createAPIManager(), token: String) {
@@ -51,7 +51,8 @@ class ConfirmEmailViewModel: APIFailable, UserErrorFailable {
                 if let userError = response.error {
                     self.onUserError?(userError.code)
                 } else if let verifyAccountSuccessResponse = response.payload {
-                    let session = NotifireUserSession(refreshToken: verifyAccountSuccessResponse.refreshToken, email: verifyAccountSuccessResponse.username)
+                    let providerData = AuthenticationProviderData(provider: .email, email: verifyAccountSuccessResponse.email, userID: nil)
+                    let session = UserSession(refreshToken: verifyAccountSuccessResponse.refreshToken, providerData: providerData)
                     session.accessToken = verifyAccountSuccessResponse.accessToken
                     self.onConfirmation?(session)
                 } else {

@@ -14,11 +14,11 @@ struct RealmManager {
     private static let realmFileExtension = "realm"
     private static let appGroupIdentifier = "group.com.dvdblk.Notifire"
 
-    static func realmConfigurationFile(for userSession: NotifireUserSession) -> String {
+    static func realmConfigurationFile(for userSession: UserSession) -> String {
         return "\(userSession.email).\(realmFileExtension)"
     }
 
-    static func createUserConfiguration(from userSession: NotifireUserSession) -> Realm.Configuration? {
+    static func createUserConfiguration(from userSession: UserSession) -> Realm.Configuration? {
         guard let sharedContainerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupIdentifier) else {
             return nil
         }
@@ -29,7 +29,7 @@ struct RealmManager {
         return configuration
     }
 
-    static func safeRealm(for userSession: NotifireUserSession) -> Realm? {
+    static func safeRealm(for userSession: UserSession) -> Realm? {
         guard let configuration = createUserConfiguration(from: userSession) else { return nil }
         do {
             return try Realm(configuration: configuration)

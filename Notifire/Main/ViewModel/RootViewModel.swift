@@ -8,18 +8,11 @@
 
 import UIKit
 
-/**
-  ViewModel that is responsible for the main business logic of the app.
- Handles:
-    - User session
-    - Deeplinks
-    - Notifications
- */
 class RootViewModel {
 
     // MARK: - Properties
     // MARK: User Session Manager
-    private let sessionManager: UserSessionManager
+    let sessionManager: UserSessionManager
 
     // MARK: - Initialization
     init(sessionManager: UserSessionManager = UserSessionManager()) {
@@ -27,32 +20,17 @@ class RootViewModel {
     }
 
     // MARK: - Public
-    /// Return the session handler if a previous session is availalble. Othewrise return nil.
-    public func getSessionHandler() -> NotifireUserSessionHandler? {
-        if let session = sessionManager.previousSession() {
-            // previous session found
-            guard let sessionHandler = NotifireUserSessionHandler(session: session) else {
-                // remove the session if the realm configuration file doesn't open
-                sessionManager.removeSession(userSession: session)
-                return nil
-            }
-            return sessionHandler
-        }
-        return nil
-    }
 
     // MARK: Session
     /// Save the new user session in the manager object.
-    public func save(new session: NotifireUserSession) {
+    public func save(new session: UserSession) {
         sessionManager.saveSession(userSession: session)
     }
 
     /// Remove the session passed in the parameter.
-    public func remove(old session: NotifireUserSession) {
+    public func remove(old session: UserSession) {
         sessionManager.removeSession(userSession: session)
         // Reset the number of notifications in the app icon badge
         UIApplication.shared.applicationIconBadgeNumber = 0
-        // Unregister from notifications
-        DeviceTokenManager().unregisterFromPushNotifications()
     }
 }

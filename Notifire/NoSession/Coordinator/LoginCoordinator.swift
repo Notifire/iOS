@@ -11,7 +11,7 @@ import UIKit
 final class ForgotPasswordViewModel: BindableInputValidatingViewModel, APIFailable {
 
     // MARK: - Properties
-    var email: String = ""
+    var email: String
 
     var loading: Bool = false {
         didSet {
@@ -37,6 +37,18 @@ final class ForgotPasswordViewModel: BindableInputValidatingViewModel, APIFailab
     // MARK: APIFailable
     var onError: ((NotifireAPIManagerBase.ManagerResultError) -> Void)?
 
+    // MARK: - Initialization
+    init(maybeEmail: String, notifireAPIManager: NotifireAPIManager = NotifireAPIManagerFactory.createAPIManager()) {
+        self.email = Self.isEmail(string: maybeEmail) ? maybeEmail : ""
+        super.init(notifireApiManager: notifireAPIManager)
+    }
+
+    // MARK: - Private
+    /// Determines if the string param is a valid email.
+    private static func isEmail(string: String) -> Bool {
+        return NSPredicate(format: "SELF MATCHES %@", Regex.email).evaluate(with: string)
+    }
+
     // MARK: - Methods
     /// Sends a request for password reset email.
     func sendResetPasswordEmail() {
@@ -57,10 +69,8 @@ final class ForgotPasswordViewModel: BindableInputValidatingViewModel, APIFailab
     }
 
     // MARK: - Public
-    let onSendEmailSuccessTitle: String = "Email with a link has been sent!"
-    var onSendEmailSuccessText: String {
-        return "We have sent an email to \(email) with a link that will allow you to reset your password."
-    }
+    let onSendEmailSuccessTitle: String = "Check your inbox!"
+    let onSendEmailSuccessText: String = "If there is an account associated with this email address, you will receive a link that will let you reset your password."
 }
 
 class LoginCoordinator: NavigationCoordinator<LoginViewController>, ChildCoordinator {
@@ -88,7 +98,7 @@ class LoginCoordinator: NavigationCoordinator<LoginViewController>, ChildCoordin
     }
 
     func startForgotPasswordFlow() {
-        let forgotPWVM = ForgotPasswordViewModel()
+        let forgotPWVM = ForgotPasswordViewModel(maybeEmail: rootViewController.usernameEmailTextInput.validatableInput)
         let forgotPWVC = ForgotPasswordViewController(viewModel: forgotPWVM)
         let forgotPWCoordinator = ForgotPasswordCoordinator(forgotPasswordViewController: forgotPWVC)
         forgotPWVC.delegate = forgotPWCoordinator

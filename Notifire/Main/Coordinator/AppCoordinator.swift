@@ -72,7 +72,7 @@ class AppCoordinator: Coordinator {
         let revealingViewController: UIViewController & AppRevealing
         var completion: (() -> Void)?
 
-        if let sessionHandler = rootViewController.viewModel.getSessionHandler() {
+        if let sessionHandler = rootViewController.viewModel.sessionManager.getUserSessionHandler() {
             revealingViewController = createSessionVC(sessionHandler: sessionHandler)
             completion = {
                 // TODO: Move the registering for push notifications into a new popup VC
@@ -98,11 +98,11 @@ class AppCoordinator: Coordinator {
     }
 
     @discardableResult
-    private func createSessionVC(sessionHandler: NotifireUserSessionHandler) -> TabBarViewController {
+    private func createSessionVC(sessionHandler: UserSessionHandler) -> TabBarViewController {
+        sessionHandler.sessionDelegate = self
         let tabBarViewModel = TabBarViewModel(sessionHandler: sessionHandler)
         let tabBarViewController = TabBarViewController(viewModel: tabBarViewModel)
         let sessionCoordinator = SessionCoordinator(tabBarViewController: tabBarViewController, sessionHandler: sessionHandler)
-        sessionCoordinator.delegate = self
         sessionCoordinator.start()
         appState = .sessionAvailable(sessionCoordinator)
         return tabBarViewController
@@ -110,9 +110,9 @@ class AppCoordinator: Coordinator {
 
     // MARK: Internal
     @discardableResult
-    func switchTo(userSession: NotifireUserSession) -> Bool {
+    func switchTo(userSession: UserSession) -> Bool {
         // Make sure that we have no session active at the moment.
-        guard let state = appState, case .noSession(let noSessionCoordinator) = state, let sessionHandler = NotifireUserSessionHandler(session: userSession) else { return false }
+        guard let state = appState, case .noSession(let noSessionCoordinator) = state, let sessionHandler = UserSessionHandler(session: userSession) else { return false }
         // Create new session with a logged in user.
         let sessionVC = createSessionVC(sessionHandler: sessionHandler)
         let completion: (() -> Void) = {
@@ -131,7 +131,7 @@ class AppCoordinator: Coordinator {
         return true
     }
 
-    func switchToLogin() {
+    func switchToLoginFlow() {
         guard let state = appState, case .sessionAvailable(let sessionCoordinator) = state else { return }
         let noSessionVc = createNoSessionVC()
         if deeplinkHandler.currentDeeplink != nil {

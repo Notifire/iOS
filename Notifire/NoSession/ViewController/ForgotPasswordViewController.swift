@@ -72,6 +72,9 @@ class ForgotPasswordViewController: VMViewController<ForgotPasswordViewModel>, N
 
         // ViewModel
         prepareViewModel()
+
+        /// Reuse the loginVC email  if possible, `viewModel.email` will contain the email if it is valid
+        emailTextInput.updateText(with: viewModel.email)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -153,7 +156,6 @@ class ForgotPasswordViewController: VMViewController<ForgotPasswordViewModel>, N
         }
 
         setViewModelOnError()
-
     }
 
     // MARK: - Event Handlers

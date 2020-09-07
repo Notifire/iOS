@@ -101,10 +101,10 @@ class CustomTextField: UITextField {
             layer.borderColor = UIColor.compatibleTextFieldBorder.cgColor
         case .positive:
             layer.borderWidth = 1
-            layer.borderColor = UIColor.green.cgColor
+            layer.borderColor = UIColor.compatibleGreen.cgColor
         case .negative:
             layer.borderWidth = 1
-            layer.borderColor = UIColor.red.cgColor
+            layer.borderColor = UIColor.compatibleRed.cgColor
         }
     }
 }

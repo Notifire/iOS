@@ -8,24 +8,16 @@
 
 import UIKit
 
-protocol NotifireUserSessionDeletionDelegate: class {
-    /// called when the session should be removed
-    /// - Parameter onPurpose: `True` if the user has logged out manually, `False` otherwise
-    /// - Parameter session: the active session
-    func didDelete(session: NotifireUserSession, onPurpose: Bool)
-}
-
 class SessionCoordinator: Coordinator {
 
     // MARK: - Properties
     let tabBarViewController: TabBarViewController
     var activeCoordinator: TabbedCoordinator?
     var childCoordinators: [Tab: TabbedCoordinator] = [:]
-    let userSessionHandler: NotifireUserSessionHandler
-    weak var delegate: NotifireUserSessionDeletionDelegate?
+    let userSessionHandler: UserSessionHandler
 
     // MARK: - Initialization
-    init(tabBarViewController: TabBarViewController, sessionHandler: NotifireUserSessionHandler) {
+    init(tabBarViewController: TabBarViewController, sessionHandler: UserSessionHandler) {
         self.tabBarViewController = tabBarViewController
         self.userSessionHandler = sessionHandler
     }
@@ -34,15 +26,11 @@ class SessionCoordinator: Coordinator {
     func start() {
         userSessionHandler.notifireProtectedApiManager.onRefreshTokenInvalidation = { [weak self] in
             guard let `self` = self else { return }
-            self.exitSession(onPurposeByUser: false)
+            self.userSessionHandler.exitUserSession(reason: .refreshTokenInvalidated)
         }
         tabBarViewController.delegate = self
         // the initial tab
         tabBarViewController.viewModel.updateTab(to: .services)
-    }
-
-    func exitSession(onPurposeByUser flag: Bool) {
-        delegate?.didDelete(session: userSessionHandler.userSession, onPurpose: flag)
     }
 }
 
@@ -101,6 +89,6 @@ extension SessionCoordinator: TabBarViewControllerDelegate {
 // MARK: SettingsViewControllerDelegate
 extension SessionCoordinator: SettingsViewControllerDelegate {
     func didTapLogoutButton() {
-        exitSession(onPurposeByUser: true)
+        userSessionHandler.exitUserSession(reason: .refreshTokenInvalidated)
     }
 }

@@ -8,10 +8,9 @@
 
 import Foundation
 
-enum RuleValidityOption {
-    case cantTell(error: Error?)
-    case obeyed
-    case broken
+struct Regex {
+    /// Regular expression for detecting emails
+    static let email = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
 }
 
 struct ComponentRule {
@@ -45,7 +44,7 @@ struct ComponentRule {
     /// email length + email regex
     static let emailRules: [ComponentRule] = {
         return emailBaseRules + [
-            ComponentRule.init(kind: .regex("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"), showIfBroken: true, brokenRuleDescription: "You haven't entered a valid e-mail address.")
+            ComponentRule.init(kind: .regex(Regex.email), showIfBroken: true, brokenRuleDescription: "You haven't entered a valid e-mail address.")
         ]
     }()
 

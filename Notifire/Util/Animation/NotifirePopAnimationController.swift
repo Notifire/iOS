@@ -10,14 +10,29 @@ import UIKit
 
 class NotifireAlertViewController: NotifirePoppableViewController {
 
+    enum AlertStyle: Equatable {
+        case success
+        case fail
+
+        var image: UIImage {
+            return self == .success ? #imageLiteral(resourceName: "checkmark.circle") : #imageLiteral(resourceName: "xmark.circle")
+        }
+
+        var color: UIColor {
+            return self == .success ? .compatibleGreen : .compatibleRed
+        }
+    }
+
     // MARK: - Properties
     var containerCenterYConstraint: NSLayoutConstraint!
+
+    private static let verticalMargin: CGFloat = Size.standardMargin * 1.5
 
     // MARK: Views
     let containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = Theme.defaultCornerRadius
+        view.backgroundColor = .compatibleSecondarySystemGroupedBackground
+        view.layer.cornerRadius = Theme.alertCornerRadius
         view.layer.shadowRadius = 6
         view.layer.shadowOpacity = 0.4
         view.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -44,13 +59,15 @@ class NotifireAlertViewController: NotifirePoppableViewController {
     // MARK: Model
     var alertTitle: String? = nil { didSet { updateLabels() } }
     var alertText: String? = nil { didSet { updateLabels() } }
+    let alertStyle: AlertStyle?
     var actionControls: [NotifireAlertAction: UIControl] = [:]
     var actions: [NotifireAlertAction] = []
 
     // MARK: - Lifecycle
-    init(alertTitle: String?, alertText: String?) {
+    init(alertTitle: String?, alertText: String?, alertStyle: AlertStyle? = nil) {
         self.alertTitle = alertTitle
         self.alertText = alertText
+        self.alertStyle = alertStyle
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -60,12 +77,12 @@ class NotifireAlertViewController: NotifirePoppableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        containerView.backgroundColor = .backgroundColor
-        containerView.layoutMargins = UIEdgeInsets(everySide: Size.extendedMargin)
+        containerView.layoutMargins = UIEdgeInsets(top: Self.verticalMargin, left: Size.extendedMargin, bottom: Self.verticalMargin, right: Size.extendedMargin)
         modalTransitionStyle = .crossDissolve
 
         updateLabels()
         layout()
+        setAlertStyleImageIfNeeded()
         actions.forEach { addToStackView(action: $0) }
     }
 
@@ -88,35 +105,53 @@ class NotifireAlertViewController: NotifirePoppableViewController {
         heightConstraint.priority = UILayoutPriority(999)
         heightConstraint.isActive = true
 
+        // Title
         containerView.add(subview: titleLabel)
-        titleLabel.topAnchor.constraint(equalTo: containerView.layoutMarginsGuide.topAnchor).isActive = true
+        // lower the title priority because if the image is present it needs to be above the titleLabel
+        let titleTopAnchor = titleLabel.topAnchor.constraint(equalTo: containerView.layoutMarginsGuide.topAnchor)
+        titleTopAnchor.priority = .init(950)
+        titleTopAnchor.isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.trailingAnchor).isActive = true
 
         containerView.add(subview: informationLabel)
-        informationLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Size.textFieldSpacing).isActive = true
+        informationLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Size.textFieldSpacing * 0.5).isActive = true
         informationLabel.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor).isActive = true
         informationLabel.trailingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.trailingAnchor).isActive = true
 
         containerView.add(subview: actionViewsStackView)
-        actionViewsStackView.topAnchor.constraint(equalTo: informationLabel.bottomAnchor, constant: Size.componentSpacing).isActive = true
+        actionViewsStackView.topAnchor.constraint(equalTo: informationLabel.bottomAnchor, constant: Self.verticalMargin).isActive = true
         actionViewsStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
         actionViewsStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
         actionViewsStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
     }
 
+    private func setAlertStyleImageIfNeeded() {
+        guard let style = alertStyle else { return }
+        let imageView = UIImageView(image: style.image.withRenderingMode(.alwaysTemplate))
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = style.color
+        containerView.add(subview: imageView)
+        imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+        imageView.topAnchor.constraint(equalTo: containerView.layoutMarginsGuide.topAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -Size.extendedMargin).isActive = true
+        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
+        imageView.setContentCompressionResistancePriority(.init(1000), for: .vertical)
+    }
+
     private func addToStackView(action: NotifireAlertAction) {
         guard actionViewsStackView.superview == containerView else { return }
         let newActionControl = ActionButton(type: .system)
+        newActionControl.titleLabel?.set(style: .alertAction)
         newActionControl.setTitle(action.title, for: .normal)
         newActionControl.onProperTap = { _ in
             action.handler?(action)
         }
         if case .neutral = action.style {
-            newActionControl.tintColor = .black
+            newActionControl.tintColor = .compatibleLabel
         }
         if case .negative = action.style {
-            newActionControl.tintColor = .red
+            newActionControl.tintColor = .compatibleRed
         }
         let separatorView = HairlineView()
         actionViewsStackView.addArrangedSubview(separatorView)

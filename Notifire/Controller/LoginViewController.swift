@@ -54,7 +54,7 @@ class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, 
             ComponentRule(kind: .minimum(length: 1), showIfBroken: false),
             ComponentRule(kind: .maximum(length: Settings.Text.maximumUsernameLength), showIfBroken: true)
         ]
-        input.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: .username)
+        input.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: .email)
         return input
     }()
 

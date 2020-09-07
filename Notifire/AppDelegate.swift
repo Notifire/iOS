@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return String(format: "%02.2hhx", data)
         }
         let deviceToken = tokenParts.joined()
-        print(deviceToken)
+        print("deviceToken", deviceToken)
         guard let state = appCoordinator?.appState, case .sessionAvailable(let sessionCoordinator) = state else { return }
         sessionCoordinator.userSessionHandler.registerDevice(with: deviceToken)
     }

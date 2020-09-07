@@ -13,7 +13,7 @@ class ServicesCoordinator: TabbedCoordinator {
     // MARK: - Properties
     let navigationController: UINavigationController
     let servicesViewController: ServicesViewController
-    let userSessionHandler: NotifireUserSessionHandler
+    let userSessionHandler: UserSessionHandler
     var notificationsCoordinator: NotificationsCoordinator?
     private var presentedServiceController: ServiceViewController?
 
@@ -27,7 +27,7 @@ class ServicesCoordinator: TabbedCoordinator {
     }
 
     // MARK: - Initialization
-    init(servicesNavigationController: UINavigationController, sessionHandler: NotifireUserSessionHandler) {
+    init(servicesNavigationController: UINavigationController, sessionHandler: UserSessionHandler) {
         self.userSessionHandler = sessionHandler
         self.navigationController = servicesNavigationController
         let servicesViewModel = ServicesViewModel(sessionHandler: sessionHandler)
