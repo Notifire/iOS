@@ -48,17 +48,19 @@ class ServicesViewController: UIViewController, NavigationBarDisplaying, EmptySt
     override func viewDidLoad() {
         super.viewDidLoad()
         hideNavigationBarBackButtonText()
+        hideNavigationBar()
         view.backgroundColor = .compatibleSystemBackground
         title = "Services"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didSelectAddNewService))
 
         prepareViewModel()
         layout()
+        addNavigationBarSeparator()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showNavigationBar()
+
         DispatchQueue.main.asyncAfter(deadline: .now() + AppRevealSettings.delay + AppRevealSettings.smallScaleUpDuration + AppRevealSettings.scaleDownDuration + AppRevealSettings.finalDuration) {
             self.viewModel.firstServicesFetch()
         }

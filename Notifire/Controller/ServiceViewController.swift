@@ -119,11 +119,6 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         serviceHeaderView.layoutIfNeeded()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        hideNavigationBar()
-    }
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // set the delegate after getting presented to the screen

@@ -49,22 +49,13 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
     override func viewDidLoad() {
         super.viewDidLoad()
         title = viewModel.title()
-        view.backgroundColor = .compatibleBackgroundAccent
+        view.backgroundColor = .compatibleSystemBackground
         hideNavigationBarBackButtonText()
+        hideNavigationBar()
         prepareViewModel()
         layout()
         updateViewStateAppearance(state: viewModel.viewState)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        showNavigationBar()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.backgroundColor = .clear
-        navigationController?.navigationBar.isTranslucent = true
+        addNavigationBarSeparator()
     }
 
     // MARK: - Private
