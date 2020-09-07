@@ -40,7 +40,7 @@ class NotificationsCoordinator: TabbedCoordinator {
     func showDetailed(notification: LocalNotifireNotification) {
         let notificationDetailVM = NotificationDetailViewModel(realmProvider: realmProvider, notification: notification)
         let notificationDetailVC = NotificationDetailViewController(viewModel: notificationDetailVM)
-        notificationDetailVC.view.backgroundColor = .backgroundColor
+        notificationDetailVC.view.backgroundColor = .compatibleSystemBackground
         notificationDetailVC.viewModel.delegate = self
         navigationController.pushViewController(notificationDetailVC, animated: true)
     }

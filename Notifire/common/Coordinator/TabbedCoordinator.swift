@@ -8,6 +8,4 @@
 
 import UIKit
 
-protocol TabbedCoordinator: Coordinator {
-    var viewController: UIViewController { get }
-}
+typealias TabbedCoordinator = ChildCoordinator

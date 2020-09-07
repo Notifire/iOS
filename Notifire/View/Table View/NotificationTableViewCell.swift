@@ -21,7 +21,7 @@ extension NotificationPresenting where Self: BaseTableViewCell {
         } else {
             guard isNotificationReadView == nil else { return }
             let circleView = UIView()
-            circleView.backgroundColor = .notifireMainColor
+            circleView.backgroundColor = .primary
             contentView.add(subview: circleView)
             circleView.heightAnchor.constraint(equalTo: circleView.widthAnchor).isActive = true
             circleView.widthAnchor.constraint(equalToConstant: Size.Image.unreadNotificationAlert).isActive = true
@@ -58,7 +58,7 @@ class NotificationBaseTableViewCell: BaseTableViewCell, NotificationPresenting {
     override open func setup() {
         contentView.layoutMargins = UIEdgeInsets(top: Size.Cell.extendedSideMargin/2, left: Size.Cell.extendedSideMargin, bottom: Size.Cell.extendedSideMargin/2, right: 0)
         accessoryType = .disclosureIndicator
-        backgroundColor = .backgroundColor
+        backgroundColor = .compatibleSystemBackground
         layout()
     }
 

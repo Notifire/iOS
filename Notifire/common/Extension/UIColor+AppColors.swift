@@ -36,6 +36,7 @@ extension UIColor {
     public static let primary: UIColor = #colorLiteral(red: 1, green: 0.4666666667, blue: 0, alpha: 1)
     public static let tabBarButtonDeselected: UIColor = #colorLiteral(red: 0.7843137255, green: 0.7843137255, blue: 0.7843137255, alpha: 1)
     public static let outlineGray: UIColor = UIColor(r: 140, g: 140, b: 141)
+    public static let spinnerColor = UIColor(r: 200, g: 200, b: 200)
 
     public static let compatibleGreen: UIColor = {
         guard #available(iOS 13, *) else { return .green }
@@ -88,6 +89,11 @@ extension UIColor {
         guard #available(iOS 13, *) else { return #colorLiteral(red: 0.7764705882, green: 0.7764705882, blue: 0.7843137255, alpha: 1) }
         return .opaqueSeparator
     }()
+
+    public static var compatibleClearSeparator: UIColor = UIColor.from(
+        light: .clear,
+        dark: .customOpaqueSeparator
+    )
 
     // MARK: - Labels
     public static var compatibleLabel: UIColor = {

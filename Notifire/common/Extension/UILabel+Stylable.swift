@@ -87,29 +87,30 @@ extension UILabel: Stylable {
             numberOfLines = 0
 
         case .semiboldCellTitle:
-            textColor = .black
+            textColor = .compatibleLabel
             font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         case .dimmedInformation:
             textColor = UIColor.black.withAlphaComponent(0.8)
             font = UIFont.systemFont(ofSize: 17)
         case .cellInformation:
-            textColor = .black
+            textColor = .compatibleLabel
             font = UIFont.systemFont(ofSize: 15)
         case .cellSubtitle:
-            textColor = UIColor.black.withAlphaComponent(0.5)
+            textColor = .compatibleSecondaryLabel
             font = UIFont.systemFont(ofSize: 14)
         case .centeredLightInformation:
+            textColor = .compatibleLabel
             font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.light)
             textAlignment = .center
         case .emoji:
             font = UIFont.systemFont(ofSize: 24)
             textAlignment = .center
         case .negativeMedium:
-            textColor = UIColor.red.withAlphaComponent(0.9)
+            textColor = UIColor.compatibleRed.withAlphaComponent(0.9)
             font = UIFont.systemFont(ofSize: 16, weight: .medium)
             textAlignment = .center
         case .notifirePositive:
-            textColor = .notifireMainColor
+            textColor = .primary
             font = UIFont.systemFont(ofSize: 16)
             textAlignment = .left
         }

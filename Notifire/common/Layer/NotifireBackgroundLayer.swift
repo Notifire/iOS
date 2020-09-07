@@ -34,7 +34,7 @@ class NotifireBackgroundLayer: CAGradientLayer {
 
     /// Used for trait collection color appearance changes
     func resetGradientColors() {
-        colors = [UIColor.notifireMainColor.cgColor, UIColor.compatibleBackgroundAccent.cgColor]
+        colors = [UIColor.primary.cgColor, UIColor.compatibleBackgroundAccent.cgColor]
         setNeedsDisplay()
     }
 

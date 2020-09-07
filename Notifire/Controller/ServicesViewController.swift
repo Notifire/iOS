@@ -13,7 +13,7 @@ protocol ServicesViewControllerDelegate: class {
     func didSelectCreateService()
 }
 
-class ServicesViewController: UIViewController, NavigationBarDisplaying, EmptyStatePresentable {
+class ServicesViewController: UIViewController, NavigationBarDisplaying, EmptyStatePresentable, TableViewReselectable {
 
     // MARK: - Properties
     let viewModel: ServicesViewModel

@@ -32,3 +32,11 @@ class NotifireNavigationController: UINavigationController {
         return popped
     }
 }
+
+extension NotifireNavigationController: Reselectable {
+    func reselect() -> Bool {
+        guard viewControllers.count > 1 else { return false }
+        popToRootViewController(animated: true)
+        return true
+    }
+}

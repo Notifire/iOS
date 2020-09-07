@@ -18,7 +18,7 @@ class NotificationDetailViewController: UIViewController, NavigationBarDisplayin
         let table = UITableView()
         table.dataSource = self
         table.allowsSelection = false
-        table.backgroundColor = .backgroundColor
+        table.backgroundColor = .compatibleBackgroundAccent
         table.removeLastSeparatorAndDontShowEmptyCells()
         table.contentInsetAdjustmentBehavior = .always
         table.alwaysBounceVertical = false
@@ -105,7 +105,7 @@ extension NotificationDetailViewController: UITableViewDataSource {
         newLayoutMargins.left = Size.Cell.wideSideMargin
         cell.contentView.layoutMargins = newLayoutMargins
         cell.separatorInset.left = newLayoutMargins.left
-        cell.backgroundColor = .backgroundColor
+        cell.backgroundColor = .compatibleBackgroundAccent
         if let urlCell = cell as? NotificationDetailURLCell {
             setTapOn(urlCell: urlCell)
         }

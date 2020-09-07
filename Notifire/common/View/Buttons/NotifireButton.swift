@@ -73,7 +73,7 @@ class NotifireButton: BaseButton {
         layer.cornerRadius = Theme.defaultCornerRadius
         layer.borderWidth = Theme.defaultBorderWidth
         layer.borderColor = borderColor.cgColor
-        backgroundColor = .notifireMainColor
+        backgroundColor = .primary
 
         clipsToBounds = true
 

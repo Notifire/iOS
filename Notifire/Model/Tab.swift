@@ -29,3 +29,5 @@ enum Tab: CaseIterable {
         }
     }
 }
+
+typealias Tabs = [Tab]

@@ -34,7 +34,7 @@ class ChoiceSeparatorView: ConstrainableView {
         choiceLabel.centerXAnchor.constraint(equalTo: hairlineView.centerXAnchor).isActive = true
         choiceLabel.centerYAnchor.constraint(equalTo: hairlineView.centerYAnchor).isActive = true
         choiceLabel.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        choiceLabel.backgroundColor = .backgroundColor
+        choiceLabel.backgroundColor = .compatibleSystemBackground
 
     }
 }

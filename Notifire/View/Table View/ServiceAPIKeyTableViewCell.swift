@@ -79,7 +79,7 @@ class ServiceAPIKeyTableViewCell: BaseTableViewCell {
             keyLabel.attributedText = attributedString
             keyLabel.isUserInteractionEnabled = true
             visibilityButton.setImage(#imageLiteral(resourceName: "visibility_on").withRenderingMode(.alwaysTemplate), for: .normal)
-            visibilityButton.tintColor = .notifireMainColor
+            visibilityButton.tintColor = .primary
         } else {
             keyTextField.text = String(repeating: "*", count: 20)
             keyLabel.text = ""

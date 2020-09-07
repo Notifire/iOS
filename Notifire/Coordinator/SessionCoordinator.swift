@@ -8,18 +8,45 @@
 
 import UIKit
 
-class SessionCoordinator: Coordinator {
+class SessionCoordinator: SectioningCoordinator {
+
+    typealias SectionDefiningEnum = Tab
 
     // MARK: - Properties
     let tabBarViewController: TabBarViewController
     var activeCoordinator: TabbedCoordinator?
     var childCoordinators: [Tab: TabbedCoordinator] = [:]
+
     let userSessionHandler: UserSessionHandler
 
     // MARK: - Initialization
     init(tabBarViewController: TabBarViewController, sessionHandler: UserSessionHandler) {
         self.tabBarViewController = tabBarViewController
         self.userSessionHandler = sessionHandler
+    }
+
+    // MARK: - SectioningCoordinator
+    var containerViewController: (UIViewController & ChildViewControllerContainerProviding) {
+        return tabBarViewController
+    }
+
+    func createChildCoordinatorFrom(section: Tab) -> SectionedCoordinator {
+        let childCoordinator: ChildCoordinator
+        switch section {
+        case .notifications:
+            let notificationsNavigationController = NotifireNavigationController()
+            let notificationsViewModel = NotificationsViewModel(realmProvider: userSessionHandler)
+            childCoordinator = NotificationsCoordinator(navigationController: notificationsNavigationController, notificationsViewModel: notificationsViewModel)
+        case .services:
+            let servicesNavigationController = NotifireNavigationController()
+            servicesNavigationController.navigationBar.isTranslucent = false
+            childCoordinator = ServicesCoordinator(servicesNavigationController: servicesNavigationController, sessionHandler: userSessionHandler)
+        case .settings:
+            let settingsViewController = SettingsViewController()
+            settingsViewController.delegate = self
+            childCoordinator = SettingsCoordinator(settingsViewController: settingsViewController)
+        }
+        return childCoordinator
     }
 
     // MARK: - Coordination
@@ -37,52 +64,16 @@ class SessionCoordinator: Coordinator {
 // MARK: - TabBarViewControllerDelegate
 extension SessionCoordinator: TabBarViewControllerDelegate {
     func didSelect(tab: Tab) {
-        let selectedCoordinator: TabbedCoordinator
-        if let existingChildCoordinator = childCoordinators[tab] {
-            // coordinator instantiated previously
-            selectedCoordinator = existingChildCoordinator
-        } else {
-            // create a new child coordinator
-            let childCoordinator: TabbedCoordinator
-            switch tab {
-            case .notifications:
-                let notificationsNavigationController = NotifireNavigationController()
-                let notificationsViewModel = NotificationsViewModel(realmProvider: userSessionHandler)
-                childCoordinator = NotificationsCoordinator(navigationController: notificationsNavigationController, notificationsViewModel: notificationsViewModel)
-            case .services:
-                let servicesNavigationController = NotifireNavigationController()
-                servicesNavigationController.navigationBar.isTranslucent = false
-                childCoordinator = ServicesCoordinator(servicesNavigationController: servicesNavigationController, sessionHandler: userSessionHandler)
-            case .settings:
-                let settingsViewController = SettingsViewController()
-                settingsViewController.delegate = self
-                childCoordinator = SettingsCoordinator(settingsViewController: settingsViewController)
-            }
-            childCoordinators[tab] = childCoordinator
-            // and start it...
-            childCoordinator.start()
-            selectedCoordinator = childCoordinator
-        }
-        if let currentlyActiveCoordinator = activeCoordinator {
-            let activeVC = currentlyActiveCoordinator.viewController
-            tabBarViewController.remove(childViewController: activeVC)
-        }
-        activeCoordinator = selectedCoordinator
-        let tabbedVC = selectedCoordinator.viewController
-        tabBarViewController.add(childViewController: tabbedVC, superview: tabBarViewController.containerView)
-        tabbedVC.view.translatesAutoresizingMaskIntoConstraints = false
-        tabbedVC.view.leadingAnchor.constraint(equalTo: tabBarViewController.containerView.leadingAnchor).isActive = true
-        tabbedVC.view.trailingAnchor.constraint(equalTo: tabBarViewController.containerView.trailingAnchor).isActive = true
-        tabbedVC.view.topAnchor.constraint(equalTo: tabBarViewController.containerView.topAnchor).isActive = true
-        tabbedVC.view.bottomAnchor.constraint(equalTo: tabBarViewController.containerView.bottomAnchor).isActive = true
+        changeSection(to: tab)
     }
 
     func didReselect(tab: Tab) {
-        guard let existingCoordinator = childCoordinators[tab], let navigator = existingCoordinator.viewController as? UINavigationController else { return }
-        if let reselectable = navigator.topViewController as? Reselectable, reselectable.reselect() {
-            return
-        }
-        navigator.popToRootViewController(animated: true)
+        guard
+            let childCoordinator = childCoordinators[tab],
+            let reselectableViewController = childCoordinator.viewController as? Reselectable,
+            !reselectableViewController.reselect()
+        else { return }
+        reselectableViewController.reselectChildViewControllers()
     }
 }
 

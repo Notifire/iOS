@@ -16,6 +16,7 @@ class TabBarViewModel: RealmCollectionViewModel<LocalNotifireNotification> {
         case shown(numberOfUnreadNotifications: Int)
         case hidden
     }
+
     // MARK: Model
     var currentTab: Tab? = nil {
         didSet {

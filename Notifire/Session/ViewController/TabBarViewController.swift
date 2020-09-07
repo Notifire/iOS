@@ -8,64 +8,25 @@
 
 import UIKit
 
-protocol TabBarViewControllerDelegate: class {
-    func didSelect(tab: Tab)
-    func didReselect(tab: Tab)
-}
-
-class TabBarViewController: UIViewController, AppRevealing {
+class TabBarViewController: VMViewController<TabBarViewModel>, AppRevealing {
 
     // MARK: - Properties
-    // MARK: ViewModel
-    let viewModel: TabBarViewModel
 
     // MARK: Delegate
     weak var delegate: TabBarViewControllerDelegate?
 
     // MARK: Views
+    /// UIView for the child view controllers (selected tabs)
     let containerView = UIView()
 
-    lazy var tabBarStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
-        view.distribution = .fillEqually
-        view.alignment = .center
-        for (index, tab) in viewModel.tabs.enumerated() {
-            let button = UIButton()
-            button.tag = index
-            button.tintColor = .tabBarButtonDeselectedColor
-            button.setImage(tab.image.withRenderingMode(.alwaysTemplate), for: .normal)
-            let selectedImg = tab.highlightedImage.withRenderingMode(.alwaysTemplate)
-            button.setImage(selectedImg, for: .selected)
-            button.setImage(selectedImg, for: .highlighted)
-            button.setImage(selectedImg, for: [.selected, .highlighted])
-            button.imageView?.contentMode = .scaleAspectFit
-            button.addTarget(self, action: #selector(didPressTabBarButton(button:)), for: .touchUpInside)
-            view.addArrangedSubview(button)
-            if tab == .notifications {
-                notificationsButton = button
-            }
-        }
-        return view
+    lazy var tabBarStackView: TabBarStackView = {
+        let stackView = TabBarStackView(tabs: viewModel.tabs)
+        stackView.onButtonTapAction = handleTabBarButtonPress
+        return stackView
     }()
 
     var notificationsAlertView: UIView?
     var notificationsButton: UIButton?
-
-    // MARK: - Initialization
-    init(viewModel: TabBarViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-        viewModel.onTabChange = { [unowned self] tab in
-            self.updateAppearance(with: tab)
-            self.delegate?.didSelect(tab: tab)
-        }
-        viewModel.onTabReselect = { [unowned self] tab in
-            self.delegate?.didReselect(tab: tab)
-        }
-    }
-
-    required init?(coder aDecoder: NSCoder) { fatalError() }
 
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -74,6 +35,23 @@ class TabBarViewController: UIViewController, AppRevealing {
         prepareViewModel()
         updateTabBarStackViewSize()
     }
+
+    // MARK: - Initialization
+    override init(viewModel: TabBarViewModel) {
+        super.init(viewModel: viewModel)
+        // Update appearance and notify delegate when the tab changes
+        viewModel.onTabChange = { [unowned self] tab in
+            self.updateAppearance(with: tab)
+            self.delegate?.didSelect(tab: tab)
+        }
+
+        // Notify delegate if the tab gets reselected
+        viewModel.onTabReselect = { [unowned self] tab in
+            self.delegate?.didReselect(tab: tab)
+        }
+    }
+
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     // MARK: - Private
     private func prepareViewModel() {
@@ -93,7 +71,7 @@ class TabBarViewController: UIViewController, AppRevealing {
     private func addNotificationsAlertViewIfNeeded() {
         guard notificationsAlertView == nil, let notificationsButton = notificationsButton, let imageView = notificationsButton.imageView else { return }
         let circleView = UIView()
-        circleView.backgroundColor = .notifireMainColor
+        circleView.backgroundColor = .primary
         notificationsButton.add(subview: circleView)
         circleView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -8).isActive = true
         circleView.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 8).isActive = true
@@ -135,7 +113,7 @@ class TabBarViewController: UIViewController, AppRevealing {
 
         // collection view container
         let buttonsContainerView = UIView()
-        buttonsContainerView.backgroundColor = .backgroundAccentColor
+        buttonsContainerView.backgroundColor = .compatibleSystemBackground
         view.add(subview: buttonsContainerView)
         buttonsContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         buttonsContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -161,14 +139,7 @@ class TabBarViewController: UIViewController, AppRevealing {
     // MARK: Appearance
     private func updateAppearance(with tab: Tab) {
         guard let tabIndex = viewModel.tabs.firstIndex(of: tab) else { return }
-        if let previouslySelected = tabBarStackView.arrangedSubviews.first(where: { ($0 as? UIButton)?.isSelected ?? false }) as? UIButton {
-            previouslySelected.tintColor = UIColor.tabBarButtonDeselectedColor
-            previouslySelected.isSelected = false
-        }
-        if let selected = tabBarStackView.arrangedSubviews.first(where: { $0.tag == tabIndex }) as? UIButton {
-            selected.tintColor = .tabBarButtonSelectedColor
-            selected.isSelected = true
-        }
+        tabBarStackView.updateAppearance(selectedIndex: tabIndex)
     }
 
     private func updateTabBarStackViewSize() {
@@ -180,9 +151,9 @@ class TabBarViewController: UIViewController, AppRevealing {
         tabBarStackView.arrangedSubviews.forEach { ($0 as? UIButton)?.imageEdgeInsets = insets }
     }
 
-    // MARK: Events
-    @objc private func didPressTabBarButton(button: UIButton) {
-        let selectedTab = viewModel.tabs[button.tag]
+    // MARK: Touch Events
+    private func handleTabBarButtonPress(tag: Int) {
+        let selectedTab = viewModel.tabs[tag]
         viewModel.updateTab(to: selectedTab)
     }
 }

@@ -21,7 +21,7 @@ class SplashView: ConstrainableView {
 
     // MARK: - Inherited
     override open func setupSubviews() {
-        backgroundColor = .notifireMainColor
+        backgroundColor = .primary
 
         add(subview: iconImageView)
         iconImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true

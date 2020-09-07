@@ -29,7 +29,7 @@ class NotificationLevelTableViewCell: BaseTableViewCell {
 
     let levelSwitch: UISwitch = {
         let view = UISwitch()
-        view.onTintColor = .notifireMainColor
+        view.onTintColor = .primary
         return view
     }()
 

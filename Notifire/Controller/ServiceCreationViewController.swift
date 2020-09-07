@@ -76,7 +76,7 @@ class ServiceCreationViewController: UIViewController, CenterStackViewPresenting
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .backgroundColor
+        view.backgroundColor = .compatibleSystemBackground
         addKeyboardDismissOnTap(to: view)
         newServiceTextField.addTarget(self, action: #selector(didChange(textField:)), for: .editingChanged)
         title = "New service"

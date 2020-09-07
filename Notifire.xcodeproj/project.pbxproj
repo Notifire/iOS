@@ -35,7 +35,7 @@
 		89250B2124FEEB4800BC7C2C /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89250B1F24FEEB4800BC7C2C /* RootViewModel.swift */; };
 		89250B2524FEF66A00BC7C2C /* VMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89250B2424FEF66A00BC7C2C /* VMViewController.swift */; };
 		89250B2624FEF66A00BC7C2C /* VMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89250B2424FEF66A00BC7C2C /* VMViewController.swift */; };
-		892B413621C1A5F000D28ABE /* Reselectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413521C1A5F000D28ABE /* Reselectable.swift */; };
+		892B413621C1A5F000D28ABE /* ScrollViewReselectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413521C1A5F000D28ABE /* ScrollViewReselectable.swift */; };
 		892B413821C1D47A00D28ABE /* NotificationsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413721C1D47A00D28ABE /* NotificationsEmptyStateView.swift */; };
 		892B413A21C1DFDE00D28ABE /* EmptyStatePresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413921C1DFDE00D28ABE /* EmptyStatePresentable.swift */; };
 		892B413C21C1E1E600D28ABE /* ServicesEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413B21C1E1E600D28ABE /* ServicesEmptyStateView.swift */; };
@@ -79,7 +79,6 @@
 		89399590217002AD00687A79 /* Revealing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939958F217002AD00687A79 /* Revealing.swift */; };
 		893995932170C58400687A79 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995922170C58400687A79 /* TabBarViewController.swift */; };
 		893995972170DEA500687A79 /* NotifireUserSessionManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995962170DEA500687A79 /* NotifireUserSessionManagerMock.swift */; };
-		8939959B2170E52600687A79 /* TabBarCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939959A2170E52600687A79 /* TabBarCollectionCell.swift */; };
 		8939959D2170ED4900687A79 /* NoSessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939959C2170ED4900687A79 /* NoSessionCoordinator.swift */; };
 		8939959F2170ED7900687A79 /* SessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939959E2170ED7900687A79 /* SessionCoordinator.swift */; };
 		893995A12170ED9700687A79 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995A02170ED9700687A79 /* TabBarViewModel.swift */; };
@@ -104,6 +103,30 @@
 		893FE0372197C225002CD846 /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE0362197C225002CD846 /* CopyableLabel.swift */; };
 		8948F57221A0AD8200BB6E10 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8948F57121A0AD8200BB6E10 /* RoundedImageView.swift */; };
 		8948F57421A0C00000BB6E10 /* NotifirePoppable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8948F57321A0C00000BB6E10 /* NotifirePoppable.swift */; };
+		894B1F852505D60C00D0D671 /* SectioningCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F842505D60C00D0D671 /* SectioningCoordinator.swift */; };
+		894B1F862505D60C00D0D671 /* SectioningCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F842505D60C00D0D671 /* SectioningCoordinator.swift */; };
+		894B1F882505D66600D0D671 /* SectionedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F872505D66600D0D671 /* SectionedCoordinator.swift */; };
+		894B1F892505D66600D0D671 /* SectionedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F872505D66600D0D671 /* SectionedCoordinator.swift */; };
+		894B1F8C2505D69900D0D671 /* ChildViewControllerContainerProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F8B2505D69900D0D671 /* ChildViewControllerContainerProviding.swift */; };
+		894B1F8D2505D69900D0D671 /* ChildViewControllerContainerProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F8B2505D69900D0D671 /* ChildViewControllerContainerProviding.swift */; };
+		894B1F902505D85400D0D671 /* TabBarViewController+ChildViewControllerContainerProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F8F2505D85400D0D671 /* TabBarViewController+ChildViewControllerContainerProviding.swift */; };
+		894B1F912505D85400D0D671 /* TabBarViewController+ChildViewControllerContainerProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F8F2505D85400D0D671 /* TabBarViewController+ChildViewControllerContainerProviding.swift */; };
+		894B1F932505DA1A00D0D671 /* Reselectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F922505DA1A00D0D671 /* Reselectable.swift */; };
+		894B1F942505DA1A00D0D671 /* Reselectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F922505DA1A00D0D671 /* Reselectable.swift */; };
+		894B1F982505DA4300D0D671 /* TableViewReselectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F972505DA4300D0D671 /* TableViewReselectable.swift */; };
+		894B1F992505DA4300D0D671 /* TableViewReselectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F972505DA4300D0D671 /* TableViewReselectable.swift */; };
+		894B1F9C2505DE0E00D0D671 /* TabBarViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F9B2505DE0E00D0D671 /* TabBarViewControllerDelegate.swift */; };
+		894B1F9D2505DE0E00D0D671 /* TabBarViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F9B2505DE0E00D0D671 /* TabBarViewControllerDelegate.swift */; };
+		894B1FA02505DECA00D0D671 /* TabBarStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F9F2505DECA00D0D671 /* TabBarStackView.swift */; };
+		894B1FA12505DECA00D0D671 /* TabBarStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F9F2505DECA00D0D671 /* TabBarStackView.swift */; };
+		894B1FA42505DF0600D0D671 /* TabBarPressGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1FA32505DF0600D0D671 /* TabBarPressGestureRecognizer.swift */; };
+		894B1FA52505DF0600D0D671 /* TabBarPressGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1FA32505DF0600D0D671 /* TabBarPressGestureRecognizer.swift */; };
+		894B1FA72505DF2E00D0D671 /* TabBarGestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1FA62505DF2E00D0D671 /* TabBarGestureHandler.swift */; };
+		894B1FA82505DF2E00D0D671 /* TabBarGestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1FA62505DF2E00D0D671 /* TabBarGestureHandler.swift */; };
+		894B1FAA2505DF5E00D0D671 /* TabBarGestureHandler+TabPressActionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1FA92505DF5E00D0D671 /* TabBarGestureHandler+TabPressActionData.swift */; };
+		894B1FAB2505DF5E00D0D671 /* TabBarGestureHandler+TabPressActionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1FA92505DF5E00D0D671 /* TabBarGestureHandler+TabPressActionData.swift */; };
+		894B1FAD2505DFC600D0D671 /* TabBarGestureHandler+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1FAC2505DFC600D0D671 /* TabBarGestureHandler+UIGestureRecognizerDelegate.swift */; };
+		894B1FAE2505DFC600D0D671 /* TabBarGestureHandler+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1FAC2505DFC600D0D671 /* TabBarGestureHandler+UIGestureRecognizerDelegate.swift */; };
 		89576AA024FD412A0097BF87 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399580216FE4E900687A79 /* AppCoordinator.swift */; };
 		89576AA124FD412A0097BF87 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADE2217A5693000E38FC /* Service.swift */; };
 		89576AA224FD412A0097BF87 /* FireLayerProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E2022139FDD100630790 /* FireLayerProperties.swift */; };
@@ -141,7 +164,6 @@
 		89576AC324FD412A0097BF87 /* NotifireAPIEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0FD214339E200645B3A /* NotifireAPIEncodable.swift */; };
 		89576AC424FD412A0097BF87 /* NotifireAPIManagerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0F2214338EA00645B3A /* NotifireAPIManagerBase.swift */; };
 		89576AC524FD412A0097BF87 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939958D2170011100687A79 /* SplashView.swift */; };
-		89576AC624FD412A0097BF87 /* TabBarCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939959A2170E52600687A79 /* TabBarCollectionCell.swift */; };
 		89576AC724FD412A0097BF87 /* NotifirePoppable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8948F57321A0C00000BB6E10 /* NotifirePoppable.swift */; };
 		89576AC824FD412A0097BF87 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995AF2170EEE500687A79 /* SettingsViewController.swift */; };
 		89576AC924FD412A0097BF87 /* NotificationLevelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE030219783F0002CD846 /* NotificationLevelModel.swift */; };
@@ -161,7 +183,7 @@
 		89576AD724FD412A0097BF87 /* ComponentRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0BF2141329500645B3A /* ComponentRule.swift */; };
 		89576AD824FD412A0097BF87 /* HTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0DE2143379700645B3A /* HTTPHeader.swift */; };
 		89576AD924FD412A0097BF87 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0D2214334C000645B3A /* URLExtension.swift */; };
-		89576ADA24FD412A0097BF87 /* Reselectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413521C1A5F000D28ABE /* Reselectable.swift */; };
+		89576ADA24FD412A0097BF87 /* ScrollViewReselectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413521C1A5F000D28ABE /* ScrollViewReselectable.swift */; };
 		89576ADB24FD412A0097BF87 /* Observing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F42139F43E00630790 /* Observing.swift */; };
 		89576ADC24FD412A0097BF87 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069EA2134B4D200D798AA /* RegisterViewController.swift */; };
 		89576ADD24FD412A0097BF87 /* NotificationLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B415821C4150B00D28ABE /* NotificationLevel.swift */; };
@@ -238,7 +260,6 @@
 		89576B2724FD412A0097BF87 /* KeyboardDismissing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069F32134BF4C00D798AA /* KeyboardDismissing.swift */; };
 		89576B2824FD412A0097BF87 /* ServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADE6217A921A000E38FC /* ServiceViewController.swift */; };
 		89576B2924FD412A0097BF87 /* NotifireUserSessionManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995962170DEA500687A79 /* NotifireUserSessionManagerMock.swift */; };
-		89576B2A24FD412A0097BF87 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069CF21335E9200D798AA /* UIColorExtension.swift */; };
 		89576B2B24FD412A0097BF87 /* TabbedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995A52170EDC900687A79 /* TabbedCoordinator.swift */; };
 		89576B2C24FD412A0097BF87 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995A02170ED9700687A79 /* TabBarViewModel.swift */; };
 		89576B2D24FD412A0097BF87 /* NotifireAPIRequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0EB2143388E00645B3A /* NotifireAPIRequestContext.swift */; };
@@ -306,7 +327,6 @@
 		897069CA2133597800D798AA /* BottomNavigatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069C92133597800D798AA /* BottomNavigatorViewController.swift */; };
 		897069CC213359A100D798AA /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069CB213359A100D798AA /* BaseViewController.swift */; };
 		897069CE21335C3400D798AA /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069CD21335C3400D798AA /* UIViewControllerExtension.swift */; };
-		897069D021335E9200D798AA /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069CF21335E9200D798AA /* UIColorExtension.swift */; };
 		897069D22133725E00D798AA /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D12133725D00D798AA /* CustomTextField.swift */; };
 		897069D42133730A00D798AA /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D32133730A00D798AA /* Size.swift */; };
 		897069D62133733100D798AA /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D52133733100D798AA /* Theme.swift */; };
@@ -512,7 +532,7 @@
 		89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		89250B1F24FEEB4800BC7C2C /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		89250B2424FEF66A00BC7C2C /* VMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMViewController.swift; sourceTree = "<group>"; };
-		892B413521C1A5F000D28ABE /* Reselectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reselectable.swift; sourceTree = "<group>"; };
+		892B413521C1A5F000D28ABE /* ScrollViewReselectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewReselectable.swift; sourceTree = "<group>"; };
 		892B413721C1D47A00D28ABE /* NotificationsEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsEmptyStateView.swift; sourceTree = "<group>"; };
 		892B413921C1DFDE00D28ABE /* EmptyStatePresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStatePresentable.swift; sourceTree = "<group>"; };
 		892B413B21C1E1E600D28ABE /* ServicesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesEmptyStateView.swift; sourceTree = "<group>"; };
@@ -555,7 +575,6 @@
 		8939958F217002AD00687A79 /* Revealing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Revealing.swift; sourceTree = "<group>"; };
 		893995922170C58400687A79 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		893995962170DEA500687A79 /* NotifireUserSessionManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireUserSessionManagerMock.swift; sourceTree = "<group>"; };
-		8939959A2170E52600687A79 /* TabBarCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCollectionCell.swift; sourceTree = "<group>"; };
 		8939959C2170ED4900687A79 /* NoSessionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSessionCoordinator.swift; sourceTree = "<group>"; };
 		8939959E2170ED7900687A79 /* SessionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCoordinator.swift; sourceTree = "<group>"; };
 		893995A02170ED9700687A79 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
@@ -580,6 +599,18 @@
 		893FE0362197C225002CD846 /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
 		8948F57121A0AD8200BB6E10 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
 		8948F57321A0C00000BB6E10 /* NotifirePoppable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifirePoppable.swift; sourceTree = "<group>"; };
+		894B1F842505D60C00D0D671 /* SectioningCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectioningCoordinator.swift; sourceTree = "<group>"; };
+		894B1F872505D66600D0D671 /* SectionedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionedCoordinator.swift; sourceTree = "<group>"; };
+		894B1F8B2505D69900D0D671 /* ChildViewControllerContainerProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewControllerContainerProviding.swift; sourceTree = "<group>"; };
+		894B1F8F2505D85400D0D671 /* TabBarViewController+ChildViewControllerContainerProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarViewController+ChildViewControllerContainerProviding.swift"; sourceTree = "<group>"; };
+		894B1F922505DA1A00D0D671 /* Reselectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reselectable.swift; sourceTree = "<group>"; };
+		894B1F972505DA4300D0D671 /* TableViewReselectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewReselectable.swift; sourceTree = "<group>"; };
+		894B1F9B2505DE0E00D0D671 /* TabBarViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewControllerDelegate.swift; sourceTree = "<group>"; };
+		894B1F9F2505DECA00D0D671 /* TabBarStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarStackView.swift; sourceTree = "<group>"; };
+		894B1FA32505DF0600D0D671 /* TabBarPressGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarPressGestureRecognizer.swift; sourceTree = "<group>"; };
+		894B1FA62505DF2E00D0D671 /* TabBarGestureHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarGestureHandler.swift; sourceTree = "<group>"; };
+		894B1FA92505DF5E00D0D671 /* TabBarGestureHandler+TabPressActionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarGestureHandler+TabPressActionData.swift"; sourceTree = "<group>"; };
+		894B1FAC2505DFC600D0D671 /* TabBarGestureHandler+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarGestureHandler+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		89576B3B24FD412A0097BF87 /* Notifire Mock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Notifire Mock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89576B3D24FD42FD0097BF87 /* TestFlight.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = TestFlight.xcconfig; sourceTree = "<group>"; };
 		895A3B762500609B000A7B50 /* BottomNavigatorLabelContaining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigatorLabelContaining.swift; sourceTree = "<group>"; };
@@ -609,7 +640,6 @@
 		897069C92133597800D798AA /* BottomNavigatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigatorViewController.swift; sourceTree = "<group>"; };
 		897069CB213359A100D798AA /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		897069CD21335C3400D798AA /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
-		897069CF21335E9200D798AA /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		897069D12133725D00D798AA /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		897069D32133730A00D798AA /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		897069D52133733100D798AA /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -789,10 +819,9 @@
 			children = (
 				89D4E1F42139F43E00630790 /* Observing.swift */,
 				897069E12134051E00D798AA /* KeyboardObserving.swift */,
-				89250A1325004F2A00F00630 /* BottomNavigatorContaining.swift */,
-				895A3B762500609B000A7B50 /* BottomNavigatorLabelContaining.swift */,
-				896167F025017794007BF3F1 /* NavigationBarProviding.swift */,
-				89D6169A2503002A00287331 /* NavigationBarDisplaying.swift */,
+				894B1F9A2505DA5100D0D671 /* BottomNavigator */,
+				894B1F962505DA3300D0D671 /* NavigationBar */,
+				894B1F952505DA2800D0D671 /* Reselectable */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1027,14 +1056,6 @@
 			path = Mock;
 			sourceTree = "<group>";
 		};
-		893995982170E51000687A79 /* Collection Cells */ = {
-			isa = PBXGroup;
-			children = (
-				8939959A2170E52600687A79 /* TabBarCollectionCell.swift */,
-			);
-			path = "Collection Cells";
-			sourceTree = "<group>";
-		};
 		893FE02221962C26002CD846 /* Table View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1046,6 +1067,77 @@
 				89A904A021C03E1400D262E1 /* NotificationDetailCells.swift */,
 			);
 			path = "Table View";
+			sourceTree = "<group>";
+		};
+		894B1F832505D5FD00D0D671 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				894B1F842505D60C00D0D671 /* SectioningCoordinator.swift */,
+				894B1F872505D66600D0D671 /* SectionedCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		894B1F8A2505D69200D0D671 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				894B1F8B2505D69900D0D671 /* ChildViewControllerContainerProviding.swift */,
+				894B1F9B2505DE0E00D0D671 /* TabBarViewControllerDelegate.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		894B1F8E2505D83C00D0D671 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				893995922170C58400687A79 /* TabBarViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		894B1F952505DA2800D0D671 /* Reselectable */ = {
+			isa = PBXGroup;
+			children = (
+				894B1F922505DA1A00D0D671 /* Reselectable.swift */,
+				894B1F972505DA4300D0D671 /* TableViewReselectable.swift */,
+				892B413521C1A5F000D28ABE /* ScrollViewReselectable.swift */,
+			);
+			path = Reselectable;
+			sourceTree = "<group>";
+		};
+		894B1F962505DA3300D0D671 /* NavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				896167F025017794007BF3F1 /* NavigationBarProviding.swift */,
+				89D6169A2503002A00287331 /* NavigationBarDisplaying.swift */,
+			);
+			path = NavigationBar;
+			sourceTree = "<group>";
+		};
+		894B1F9A2505DA5100D0D671 /* BottomNavigator */ = {
+			isa = PBXGroup;
+			children = (
+				89250A1325004F2A00F00630 /* BottomNavigatorContaining.swift */,
+				895A3B762500609B000A7B50 /* BottomNavigatorLabelContaining.swift */,
+			);
+			path = BottomNavigator;
+			sourceTree = "<group>";
+		};
+		894B1F9E2505DEC300D0D671 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				894B1F9F2505DECA00D0D671 /* TabBarStackView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		894B1FA22505DEF600D0D671 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				894B1FA32505DF0600D0D671 /* TabBarPressGestureRecognizer.swift */,
+				894B1FA62505DF2E00D0D671 /* TabBarGestureHandler.swift */,
+			);
+			path = Class;
 			sourceTree = "<group>";
 		};
 		895A3B7925006D3B000A7B50 /* Protocol */ = {
@@ -1124,7 +1216,6 @@
 				898533BF219FAAEC00E0A656 /* RealmProviding.swift */,
 				8948F57321A0C00000BB6E10 /* NotifirePoppable.swift */,
 				89A9049E21C03D2300D262E1 /* CellConfigurable.swift */,
-				892B413521C1A5F000D28ABE /* Reselectable.swift */,
 				892B413921C1DFDE00D28ABE /* EmptyStatePresentable.swift */,
 			);
 			path = Protocol;
@@ -1212,7 +1303,6 @@
 			children = (
 				89E777EC2173E9F3009CF3DE /* NoSessionContainerViewController.swift */,
 				893FE01C2195E3C1002CD846 /* ServiceCreationViewController.swift */,
-				893995922170C58400687A79 /* TabBarViewController.swift */,
 				89399591217006C600687A79 /* Base */,
 				8920CA75217144E300A72BD0 /* Register */,
 				89B3EC7220232A310068BA64 /* LoginViewController.swift */,
@@ -1249,7 +1339,6 @@
 			children = (
 				892B413D21C1E1EE00D28ABE /* Empty State */,
 				893FE02221962C26002CD846 /* Table View */,
-				893995982170E51000687A79 /* Collection Cells */,
 				8933F0B2214062F300645B3A /* ValidatableTextInput.swift */,
 				897069E52134A35300D798AA /* Labels */,
 				8933F0B4214062FA00645B3A /* TextFields */,
@@ -1289,7 +1378,6 @@
 			children = (
 				897069F12134BD1200D798AA /* UIStackViewExtension.swift */,
 				89B3EC7520239D170068BA64 /* StringExtension.swift */,
-				897069CF21335E9200D798AA /* UIColorExtension.swift */,
 				897069CD21335C3400D798AA /* UIViewControllerExtension.swift */,
 				89D4E1F02139ED0F00630790 /* CALayerExtension.swift */,
 				8933F0D2214334C000645B3A /* URLExtension.swift */,
@@ -1331,6 +1419,11 @@
 		89D616A22505A7C400287331 /* Session */ = {
 			isa = PBXGroup;
 			children = (
+				894B1F9E2505DEC300D0D671 /* View */,
+				894B1F8E2505D83C00D0D671 /* ViewController */,
+				894B1F832505D5FD00D0D671 /* Coordinator */,
+				894B1FA22505DEF600D0D671 /* Class */,
+				894B1F8A2505D69200D0D671 /* Protocol */,
 				89D616A32505A7CD00287331 /* Extension */,
 			);
 			path = Session;
@@ -1340,6 +1433,9 @@
 			isa = PBXGroup;
 			children = (
 				89D616A42505A7DD00287331 /* UserSessionManager+UserSessionHandler.swift */,
+				894B1F8F2505D85400D0D671 /* TabBarViewController+ChildViewControllerContainerProviding.swift */,
+				894B1FA92505DF5E00D0D671 /* TabBarGestureHandler+TabPressActionData.swift */,
+				894B1FAC2505DFC600D0D671 /* TabBarGestureHandler+UIGestureRecognizerDelegate.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1874,6 +1970,7 @@
 			files = (
 				89576AA024FD412A0097BF87 /* AppCoordinator.swift in Sources */,
 				89576AA124FD412A0097BF87 /* Service.swift in Sources */,
+				894B1FA12505DECA00D0D671 /* TabBarStackView.swift in Sources */,
 				89576AA224FD412A0097BF87 /* FireLayerProperties.swift in Sources */,
 				89576AA324FD412A0097BF87 /* UserSessionHandler.swift in Sources */,
 				89576AA424FD412A0097BF87 /* Revealing.swift in Sources */,
@@ -1921,7 +2018,6 @@
 				896167EC25016EF1007BF3F1 /* NavigationCoordinator.swift in Sources */,
 				89576AC424FD412A0097BF87 /* NotifireAPIManagerBase.swift in Sources */,
 				89576AC524FD412A0097BF87 /* SplashView.swift in Sources */,
-				89576AC624FD412A0097BF87 /* TabBarCollectionCell.swift in Sources */,
 				89576AC724FD412A0097BF87 /* NotifirePoppable.swift in Sources */,
 				89E6B6C524FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */,
 				89E6B6D52500434F00F7A79C /* LoginCoordinator.swift in Sources */,
@@ -1939,6 +2035,7 @@
 				89576AD124FD412A0097BF87 /* Loadable.swift in Sources */,
 				89576AD224FD412A0097BF87 /* InputValidating.swift in Sources */,
 				89D6169C2503002A00287331 /* NavigationBarDisplaying.swift in Sources */,
+				894B1F992505DA4300D0D671 /* TableViewReselectable.swift in Sources */,
 				89576AD324FD412A0097BF87 /* ServiceNotificationsViewController.swift in Sources */,
 				89576AD424FD412A0097BF87 /* BaseTableViewCell.swift in Sources */,
 				89250A1825005BCE00F00630 /* UILabel+Stylable.swift in Sources */,
@@ -1948,7 +2045,7 @@
 				89576AD824FD412A0097BF87 /* HTTPHeader.swift in Sources */,
 				89576AD924FD412A0097BF87 /* URLExtension.swift in Sources */,
 				89E6B6BB24FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift in Sources */,
-				89576ADA24FD412A0097BF87 /* Reselectable.swift in Sources */,
+				89576ADA24FD412A0097BF87 /* ScrollViewReselectable.swift in Sources */,
 				89576ADB24FD412A0097BF87 /* Observing.swift in Sources */,
 				89576ADC24FD412A0097BF87 /* RegisterViewController.swift in Sources */,
 				895A3B9425008C51000A7B50 /* SSOManager.swift in Sources */,
@@ -1979,8 +2076,10 @@
 				89576AF024FD412A0097BF87 /* RealmManager.swift in Sources */,
 				89576AF124FD412A0097BF87 /* NotifireProtectedAPIManager.swift in Sources */,
 				89D616B22505A86600287331 /* AuthenticationProvider+Image.swift in Sources */,
+				894B1FA52505DF0600D0D671 /* TabBarPressGestureRecognizer.swift in Sources */,
 				89250B2624FEF66A00BC7C2C /* VMViewController.swift in Sources */,
 				89E8B866250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */,
+				894B1F862505D60C00D0D671 /* SectioningCoordinator.swift in Sources */,
 				89576AF224FD412A0097BF87 /* Deeplink.swift in Sources */,
 				89576AF324FD412A0097BF87 /* UIStackViewExtension.swift in Sources */,
 				89576AF424FD412A0097BF87 /* InputValidatingViewModel.swift in Sources */,
@@ -1989,6 +2088,7 @@
 				89576AF624FD412A0097BF87 /* NoSessionCoordinator.swift in Sources */,
 				89576AF824FD412A0097BF87 /* ServiceViewModel.swift in Sources */,
 				895A3B8A25006DC5000A7B50 /* LoginRegisterSplitterViewModel.swift in Sources */,
+				894B1F9D2505DE0E00D0D671 /* TabBarViewControllerDelegate.swift in Sources */,
 				89576AF924FD412A0097BF87 /* BaseButton.swift in Sources */,
 				89576AFA24FD412A0097BF87 /* RealmProviding.swift in Sources */,
 				89576AFB24FD412A0097BF87 /* URLRequestExtension.swift in Sources */,
@@ -1999,14 +2099,18 @@
 				89576B0024FD412A0097BF87 /* ConstrainableView.swift in Sources */,
 				89576B0124FD412A0097BF87 /* CenterStackPresenting.swift in Sources */,
 				89576B0224FD412A0097BF87 /* IndicatorStackView.swift in Sources */,
+				894B1F942505DA1A00D0D671 /* Reselectable.swift in Sources */,
 				89576B0324FD412A0097BF87 /* MultiplePathAnimator.swift in Sources */,
+				894B1FAE2505DFC600D0D671 /* TabBarGestureHandler+UIGestureRecognizerDelegate.swift in Sources */,
 				89576B0424FD412A0097BF87 /* CheckValidityOption.swift in Sources */,
 				89576B0524FD412A0097BF87 /* ActionButton.swift in Sources */,
+				894B1FAB2505DF5E00D0D671 /* TabBarGestureHandler+TabPressActionData.swift in Sources */,
 				89576B0624FD412A0097BF87 /* NotifireAPIManagerMock.swift in Sources */,
 				89576B0724FD412A0097BF87 /* ConfirmEmailViewController.swift in Sources */,
 				89576B0824FD412A0097BF87 /* NotifireAPIHandler.swift in Sources */,
 				89576B0924FD412A0097BF87 /* ServicesViewController.swift in Sources */,
 				89576B0A24FD412A0097BF87 /* NotifirePopAnimationController.swift in Sources */,
+				894B1F912505D85400D0D671 /* TabBarViewController+ChildViewControllerContainerProviding.swift in Sources */,
 				89576B0B24FD412A0097BF87 /* HTTPMethod.swift in Sources */,
 				89E6B6D1250041F300F7A79C /* ChildCoordinator.swift in Sources */,
 				89576B0C24FD412A0097BF87 /* Size.swift in Sources */,
@@ -2020,10 +2124,13 @@
 				89576B1324FD412A0097BF87 /* NotifireAPIManager.swift in Sources */,
 				89576B1424FD412A0097BF87 /* LoginViewModel.swift in Sources */,
 				89576B1524FD412A0097BF87 /* ConfirmEmailViewModel.swift in Sources */,
+				894B1F892505D66600D0D671 /* SectionedCoordinator.swift in Sources */,
 				89576B1624FD412A0097BF87 /* APIUserErrorResponding.swift in Sources */,
 				89576B1724FD412A0097BF87 /* NotifireLayer.swift in Sources */,
 				896167D825012F06007BF3F1 /* NotifireBackgroundView.swift in Sources */,
+				894B1FA82505DF2E00D0D671 /* TabBarGestureHandler.swift in Sources */,
 				896167FE2501ABAE007BF3F1 /* ForgotPasswordViewController.swift in Sources */,
+				894B1F8D2505D69900D0D671 /* ChildViewControllerContainerProviding.swift in Sources */,
 				89576B1824FD412A0097BF87 /* RealmCollectionViewModel.swift in Sources */,
 				89576B1924FD412A0097BF87 /* RootViewController.swift in Sources */,
 				89576B1A24FD412A0097BF87 /* ValidatableComponentState.swift in Sources */,
@@ -2047,7 +2154,6 @@
 				89576B2724FD412A0097BF87 /* KeyboardDismissing.swift in Sources */,
 				89576B2824FD412A0097BF87 /* ServiceViewController.swift in Sources */,
 				89576B2924FD412A0097BF87 /* NotifireUserSessionManagerMock.swift in Sources */,
-				89576B2A24FD412A0097BF87 /* UIColorExtension.swift in Sources */,
 				89576B2B24FD412A0097BF87 /* TabbedCoordinator.swift in Sources */,
 				89576B2C24FD412A0097BF87 /* TabBarViewModel.swift in Sources */,
 				89576B2D24FD412A0097BF87 /* NotifireAPIRequestContext.swift in Sources */,
@@ -2082,6 +2188,7 @@
 			files = (
 				89399581216FE4E900687A79 /* AppCoordinator.swift in Sources */,
 				89BDADE3217A5693000E38FC /* Service.swift in Sources */,
+				894B1FA02505DECA00D0D671 /* TabBarStackView.swift in Sources */,
 				89D4E2032139FDD100630790 /* FireLayerProperties.swift in Sources */,
 				89BDADDF217A520E000E38FC /* UserSessionHandler.swift in Sources */,
 				89399590217002AD00687A79 /* Revealing.swift in Sources */,
@@ -2129,7 +2236,6 @@
 				896167EB25016EF1007BF3F1 /* NavigationCoordinator.swift in Sources */,
 				8933F0F3214338EA00645B3A /* NotifireAPIManagerBase.swift in Sources */,
 				8939958E2170011100687A79 /* SplashView.swift in Sources */,
-				8939959B2170E52600687A79 /* TabBarCollectionCell.swift in Sources */,
 				8948F57421A0C00000BB6E10 /* NotifirePoppable.swift in Sources */,
 				89E6B6C424FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */,
 				89E6B6D42500434F00F7A79C /* LoginCoordinator.swift in Sources */,
@@ -2147,6 +2253,7 @@
 				8920CA8521722FF700A72BD0 /* Loadable.swift in Sources */,
 				8933F0BB2141322A00645B3A /* InputValidating.swift in Sources */,
 				89D6169B2503002A00287331 /* NavigationBarDisplaying.swift in Sources */,
+				894B1F982505DA4300D0D671 /* TableViewReselectable.swift in Sources */,
 				893FE02A2197488D002CD846 /* ServiceNotificationsViewController.swift in Sources */,
 				893FE02F21977FD8002CD846 /* BaseTableViewCell.swift in Sources */,
 				89250A1725005BCE00F00630 /* UILabel+Stylable.swift in Sources */,
@@ -2156,7 +2263,7 @@
 				8933F0DF2143379700645B3A /* HTTPHeader.swift in Sources */,
 				8933F0D3214334C000645B3A /* URLExtension.swift in Sources */,
 				89E6B6BA24FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift in Sources */,
-				892B413621C1A5F000D28ABE /* Reselectable.swift in Sources */,
+				892B413621C1A5F000D28ABE /* ScrollViewReselectable.swift in Sources */,
 				89D4E1F52139F43E00630790 /* Observing.swift in Sources */,
 				897069EB2134B4D200D798AA /* RegisterViewController.swift in Sources */,
 				895A3B9325008C51000A7B50 /* SSOManager.swift in Sources */,
@@ -2187,8 +2294,10 @@
 				898533C821A03ED000E0A656 /* RealmManager.swift in Sources */,
 				8933F0F72143391000645B3A /* NotifireProtectedAPIManager.swift in Sources */,
 				89D616B12505A86600287331 /* AuthenticationProvider+Image.swift in Sources */,
+				894B1FA42505DF0600D0D671 /* TabBarPressGestureRecognizer.swift in Sources */,
 				89250B2524FEF66A00BC7C2C /* VMViewController.swift in Sources */,
 				89E8B865250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */,
+				894B1F852505D60C00D0D671 /* SectioningCoordinator.swift in Sources */,
 				89BDADDD217A5034000E38FC /* Deeplink.swift in Sources */,
 				897069F22134BD1200D798AA /* UIStackViewExtension.swift in Sources */,
 				8933F0CA2141D93700645B3A /* InputValidatingViewModel.swift in Sources */,
@@ -2197,6 +2306,7 @@
 				8939959D2170ED4900687A79 /* NoSessionCoordinator.swift in Sources */,
 				8922E24721988F31001984C4 /* ServiceViewModel.swift in Sources */,
 				895A3B8925006DC5000A7B50 /* LoginRegisterSplitterViewModel.swift in Sources */,
+				894B1F9C2505DE0E00D0D671 /* TabBarViewControllerDelegate.swift in Sources */,
 				897069DF2133885A00D798AA /* BaseButton.swift in Sources */,
 				898533C0219FAAEC00E0A656 /* RealmProviding.swift in Sources */,
 				8933F0E52143380C00645B3A /* URLRequestExtension.swift in Sources */,
@@ -2207,14 +2317,18 @@
 				897069C821334E7700D798AA /* ConstrainableView.swift in Sources */,
 				8920CA772171578900A72BD0 /* CenterStackPresenting.swift in Sources */,
 				89A9048321B8589300D262E1 /* IndicatorStackView.swift in Sources */,
+				894B1F932505DA1A00D0D671 /* Reselectable.swift in Sources */,
 				89D4E1FE2139FD3E00630790 /* MultiplePathAnimator.swift in Sources */,
+				894B1FAD2505DFC600D0D671 /* TabBarGestureHandler+UIGestureRecognizerDelegate.swift in Sources */,
 				89BDADD6217928A9000E38FC /* CheckValidityOption.swift in Sources */,
 				8920CA792171739900A72BD0 /* ActionButton.swift in Sources */,
+				894B1FAA2505DF5E00D0D671 /* TabBarGestureHandler+TabPressActionData.swift in Sources */,
 				8920CA7B217212B200A72BD0 /* NotifireAPIManagerMock.swift in Sources */,
 				8906E9742170FB2100D45BCA /* ConfirmEmailViewController.swift in Sources */,
 				8933F0CF2141E40900645B3A /* NotifireAPIHandler.swift in Sources */,
 				893995AE2170EECE00687A79 /* ServicesViewController.swift in Sources */,
 				8922E2492198AF8D001984C4 /* NotifirePopAnimationController.swift in Sources */,
+				894B1F902505D85400D0D671 /* TabBarViewController+ChildViewControllerContainerProviding.swift in Sources */,
 				8933F0E1214337AD00645B3A /* HTTPMethod.swift in Sources */,
 				89E6B6D0250041F300F7A79C /* ChildCoordinator.swift in Sources */,
 				897069D42133730A00D798AA /* Size.swift in Sources */,
@@ -2228,10 +2342,13 @@
 				8933F0F5214338FF00645B3A /* NotifireAPIManager.swift in Sources */,
 				897069EE2134B68300D798AA /* LoginViewModel.swift in Sources */,
 				89BDADD4217922FE000E38FC /* ConfirmEmailViewModel.swift in Sources */,
+				894B1F882505D66600D0D671 /* SectionedCoordinator.swift in Sources */,
 				892B414221C1E42B00D28ABE /* APIUserErrorResponding.swift in Sources */,
 				89D4E1FC2139FD2200630790 /* NotifireLayer.swift in Sources */,
 				896167D725012F06007BF3F1 /* NotifireBackgroundView.swift in Sources */,
+				894B1FA72505DF2E00D0D671 /* TabBarGestureHandler.swift in Sources */,
 				896167FD2501ABAE007BF3F1 /* ForgotPasswordViewController.swift in Sources */,
+				894B1F8C2505D69900D0D671 /* ChildViewControllerContainerProviding.swift in Sources */,
 				8922E26D219F3CF6001984C4 /* RealmCollectionViewModel.swift in Sources */,
 				8933F0C82141D0C000645B3A /* RootViewController.swift in Sources */,
 				8933F0B9214131F900645B3A /* ValidatableComponentState.swift in Sources */,
@@ -2255,7 +2372,6 @@
 				897069F42134BF4C00D798AA /* KeyboardDismissing.swift in Sources */,
 				89BDADE7217A921A000E38FC /* ServiceViewController.swift in Sources */,
 				893995972170DEA500687A79 /* NotifireUserSessionManagerMock.swift in Sources */,
-				897069D021335E9200D798AA /* UIColorExtension.swift in Sources */,
 				893995A62170EDC900687A79 /* TabbedCoordinator.swift in Sources */,
 				893995A12170ED9700687A79 /* TabBarViewModel.swift in Sources */,
 				8933F0EC2143388E00645B3A /* NotifireAPIRequestContext.swift in Sources */,

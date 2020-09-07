@@ -96,7 +96,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .compatibleSystemBackground
+        view.backgroundColor = .compatibleBackgroundAccent
         hideNavigationBarBackButtonText()
         setupTitleView()
         prepareViewModel()
@@ -483,7 +483,7 @@ extension ServiceViewController: ServiceAPIKeyCellDelegate {
     }
 }
 
-extension ServiceViewController: ScrollReselectable {
+extension ServiceViewController: ScrollViewReselectable {
     var scrollView: UIScrollView {
         return parentScrollView
     }

@@ -37,12 +37,18 @@ class GradientView: ConstrainableView {
 
     let gradientLayer = CustomGradientLayer()
     let opaqueBackgroundLayer = CALayer()
+    let separator = HairlineView()
 
     override func setupSubviews() {
         backgroundColor = .clear
+        separator.backgroundColor = .compatibleClearSeparator
         opaqueBackgroundLayer.backgroundColor = UIColor.compatibleBackgroundAccent.cgColor
         layer.addSublayer(opaqueBackgroundLayer)
         layer.addSublayer(gradientLayer)
+
+        add(subview: separator)
+        separator.embedSides(in: self)
+        separator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 
     override func layoutSubviews() {

@@ -1,5 +1,5 @@
 //
-//  Reselectable.swift
+//  ScrollViewReselectable.swift
 //  Notifire
 //
 //  Created by David Bielik on 12/12/2018.
@@ -8,17 +8,12 @@
 
 import UIKit
 
-protocol Reselectable {
-    typealias ReselectHandled = Bool
-    func reselect() -> ReselectHandled
-}
-
-protocol ScrollReselectable: Reselectable {
+protocol ScrollViewReselectable: Reselectable {
     var scrollView: UIScrollView { get }
     var topContentOffset: CGPoint { get }
 }
 
-extension ScrollReselectable {
+extension ScrollViewReselectable {
     var topContentOffset: CGPoint { return .zero }
 
     func reselect() -> ReselectHandled {

@@ -12,7 +12,7 @@ protocol NotificationsViewControllerDelegate: class {
     func didSelect(notification: LocalNotifireNotification)
 }
 
-class NotificationsViewController: UIViewController, NavigationBarDisplaying, EmptyStatePresentable {
+class NotificationsViewController: UIViewController, NavigationBarDisplaying, EmptyStatePresentable, TableViewReselectable {
 
     // MARK: - Properties
     let viewModel: NotificationsViewModel
@@ -28,7 +28,7 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
         table.estimatedRowHeight = UITableView.automaticDimension
         table.estimatedSectionFooterHeight = 0
         table.estimatedSectionHeaderHeight = 0
-        table.backgroundColor = .backgroundColor
+        table.backgroundColor = .compatibleBackgroundAccent
         table.dontShowEmptyCells()
         return table
     }()
@@ -49,7 +49,7 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
     override func viewDidLoad() {
         super.viewDidLoad()
         title = viewModel.title()
-        view.backgroundColor = .backgroundAccentColor
+        view.backgroundColor = .compatibleBackgroundAccent
         hideNavigationBarBackButtonText()
         prepareViewModel()
         layout()
@@ -131,7 +131,7 @@ extension NotificationsViewController: UITableViewDelegate {
             completion(true)
             (tableView.cellForRow(at: indexPath) as? NotificationPresenting)?.updateNotificationReadView(from: notification)
         }
-        changeReadAction.backgroundColor = .notifireMainColor
+        changeReadAction.backgroundColor = .primary
         changeReadAction.image = isRead ? #imageLiteral(resourceName: "baseline_email_black_48pt").withRenderingMode(.alwaysTemplate) :  #imageLiteral(resourceName: "baseline_drafts_black_48pt").withRenderingMode(.alwaysTemplate)
         let config = UISwipeActionsConfiguration(actions: [changeReadAction])
         return config
@@ -156,11 +156,5 @@ extension NotificationsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: type(of: configuration).reuseIdentifier, for: indexPath)
         configuration.configure(cell: cell)
         return cell
-    }
-}
-
-extension NotificationsViewController: ScrollReselectable {
-    var scrollView: UIScrollView {
-        return tableView
     }
 }

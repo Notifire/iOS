@@ -14,7 +14,7 @@ class NotifireActionNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationBar.barTintColor = .backgroundAccentColor
+        navigationBar.barTintColor = .compatibleBackgroundAccent
         navigationBar.prefersLargeTitles = true
         navigationItem.setHidesBackButton(true, animated: false)
         interactivePopGestureRecognizer?.isEnabled = false

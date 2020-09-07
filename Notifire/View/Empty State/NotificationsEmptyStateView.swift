@@ -28,7 +28,7 @@ class NotificationsEmptyStateView: ConstrainableView, CenterStackViewPresenting 
     // MARK: - Inherited
     override func setupSubviews() {
         layout()
-        backgroundColor = .backgroundColor
+        backgroundColor = .compatibleSystemBackground
     }
 
     private func layout() {

@@ -79,7 +79,7 @@ class CustomTextField: UITextField {
         // colors
         textColor = .compatibleLabel
         backgroundColor = .compatibleTextField
-        tintColor = .notifireMainColor
+        tintColor = .primary
 
         setLayer(appearance: .neutral)
     }

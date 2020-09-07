@@ -57,7 +57,7 @@ class ConfirmEmailViewController: UIViewController, CenterStackViewPresenting, A
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .backgroundColor
+        view.backgroundColor = .compatibleSystemBackground
 
         prepareViewModel()
         layout()
