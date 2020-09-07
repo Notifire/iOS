@@ -89,6 +89,6 @@ extension SessionCoordinator: TabBarViewControllerDelegate {
 // MARK: SettingsViewControllerDelegate
 extension SessionCoordinator: SettingsViewControllerDelegate {
     func didTapLogoutButton() {
-        userSessionHandler.exitUserSession(reason: .refreshTokenInvalidated)
+        userSessionHandler.exitUserSession(reason: .userLoggedOut)
     }
 }
