@@ -9,9 +9,9 @@
 import UIKit
 
 struct AppRevealSettings {
-    static let delay: TimeInterval = 1
+    static let delay: TimeInterval = 0.5
     static let smallScaleUpDuration: TimeInterval = 0.26
-    static let scaleDownDuration: TimeInterval = 0.48
+    static let scaleDownDuration: TimeInterval = 0.40
     static let finalDuration: TimeInterval = 0.38
 }
 
@@ -21,15 +21,15 @@ protocol AppRevealing {
 }
 
 extension AppRevealing where Self: UIViewController {
+
     func customCompletion() {}
 
     func revealContent(completion: (() -> Void)? = nil) {
         let splashView = SplashView()
-        view.transform = CGAffineTransform.identity.scaledBy(x: 1.1, y: 1.1)
         view.add(subview: splashView)
         splashView.embed(in: view)
         let smallScaleUpAnimator = UIViewPropertyAnimator(duration: AppRevealSettings.smallScaleUpDuration, controlPoint1: CGPoint(x: 0.07, y: 0.81), controlPoint2: CGPoint(x: 0.83, y: 0.96)) {
-            splashView.iconImageView.transform = CGAffineTransform.identity.scaledBy(x: 1.06, y: 1.06)
+            splashView.iconImageView.transform = CGAffineTransform.identity.scaledBy(x: 1.08, y: 1.08)
         }
         smallScaleUpAnimator.addCompletion { _ in
             let scaleDownAnimator = UIViewPropertyAnimator(duration: AppRevealSettings.scaleDownDuration, dampingRatio: 0.9) {
