@@ -12,18 +12,35 @@ enum NotifireAPIError: Error, CustomStringConvertible {
     case unknown
     case urlResponseNotCreated
     case responseDataIsNil
-    case invalidStatusCode(Int)
-    case invalidResponseBody(NotifireAPIDecodable.Type)
-    case urlsession(error: Error)
+    /// The request resulted in a status code 400
+    /// - Parameters:
+    ///     - Int: the status code
+    ///     - String?:  the response body containg the automated format error message
+    case invalidStatusCode(Int, String?)
+    case invalidResponseBody(Decodable.Type, String)
+    case urlSession(error: Error)
 
     public var description: String {
         switch self {
         case .unknown: return "unknown"
-        case .urlResponseNotCreated: return "Url response couldn't be created"
-        case .responseDataIsNil: return "Response data was nil"
-        case .invalidStatusCode(let statusCode): return "Invalid status code: \(statusCode)"
-        case .invalidResponseBody(let bodyType): return "Couldn't match response body with \(bodyType)"
-        case .urlsession(let underlyingError): return "URLSession error: \(underlyingError)"
+        case .urlResponseNotCreated: return "urlResponseNotCreated"
+        case .responseDataIsNil: return "responseDataIsNil"
+        case .invalidStatusCode(let statusCode, let responseBody): return "invalidStatusCode statusCode={\(statusCode)} | responseBody={\(responseBody ?? "empty-response-body")}"
+        case .invalidResponseBody(let bodyType, let actualData): return "invalidResponseBody expectedResponseBodyType={\(bodyType)} | actualResponseData={\(actualData)}"
+        case .urlSession(let underlyingError): return "urlSessionError underlyingError={\(underlyingError)}"
         }
     }
+
+    /// Returns a message that is displayed to the user if this error occurs
+    public var userFriendlyMessage: String {
+        switch self {
+        case .unknown: return "unknown"
+        case .urlResponseNotCreated: return "Url response couldn't be created"
+        case .responseDataIsNil: return "Response data was nil"
+        case .invalidStatusCode(let statusCode, let responseBody): return "Invalid status code: \(statusCode) | response body: \(responseBody ?? "empty-response-body")"
+        case .invalidResponseBody(let bodyType, let actualData): return "Couldn't match \(actualData) with \(bodyType)"
+        case .urlSession(let underlyingError): return "URLSession error: \(underlyingError)"
+        }
+    }
+
 }

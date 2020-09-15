@@ -111,4 +111,9 @@ class UserSessionManager {
             try? keychain.remove(keychainKey(key: key, userIdentifier: userSession.email))
         }
     }
+
+    func removePreviousSessionIfNeeded() {
+        guard let previousSession = previousUserSession() else { return }
+        removeSession(userSession: previousSession)
+    }
 }

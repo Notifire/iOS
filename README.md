@@ -11,7 +11,7 @@ pod install
 4. Install [Carthage](https://github.com/Carthage/Carthage#quick-start)
 5. Install Carthage dependencies
 ```
-carthage update --no-use-binaries
+carthage update --platform iOS --no-use-binaries
 ```
 6. `open Notifire.xcworkspace`
 

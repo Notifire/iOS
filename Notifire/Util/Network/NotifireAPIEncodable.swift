@@ -1,5 +1,5 @@
 //
-//  NotifireAPIEncodable.swift
+//  Encodable.swift
 //  Notifire
 //
 //  Created by David Bielik on 08/09/2018.
@@ -8,60 +8,55 @@
 
 import Foundation
 
-typealias NotifireAPIEncodable = Encodable      // represents encodable RequestBody
-typealias NotifireAPICodable = NotifireAPIDecodable & NotifireAPIEncodable
+struct EmptyRequestBody: Encodable, Decodable {}
 
-struct EmptyRequestBody: NotifireAPIEncodable, NotifireAPIDecodable {}
-
-struct RegisterRequestBody: NotifireAPIEncodable {
-    let username: String
+struct RegisterRequestBody: Encodable {
     let email: String
     let password: String
 }
 
-struct ResendConfirmRequestBody: NotifireAPIEncodable {
+struct ResendConfirmRequestBody: Encodable {
     let email: String
 }
 
-struct ConfirmAccountRequestBody: NotifireAPIEncodable {
+struct ConfirmAccountRequestBody: Encodable {
     let token: String
 }
 
-struct RegisterDeviceRequestBody: NotifireAPIEncodable {
+struct RegisterDeviceRequestBody: Encodable {
     let deviceToken: String
-    let enabled: Bool
 }
 
-struct GenerateAccessTokenRequestBody: NotifireAPIEncodable {
+struct GenerateAccessTokenRequestBody: Encodable {
     let refreshToken: String
 }
 
-struct LoginRequestBody: NotifireAPIEncodable {
-    let username: String
+struct LoginRequestBody: Encodable {
+    let email: String
     let password: String
 }
 
-struct LoginProviderRequestBody: NotifireAPIEncodable {
+struct LoginProviderRequestBody: Encodable {
     let idToken: String
 }
 
-struct ServiceCreationBody: NotifireAPIEncodable {
+struct ServiceCreationBody: Encodable {
     let name: String
     let image: String
     let levels = Service.Levels(info: true, warning: true, error: true)
 }
 
-struct PasswordValidationRequestBody: NotifireAPIEncodable {
+struct PasswordValidationRequestBody: Encodable {
     let password: String
 }
 
-struct ServiceRequestBody: NotifireAPIEncodable {
+struct ServiceRequestBody: Encodable {
     let name: String
     let uuid: String
     let levels: Service.Levels
 }
 
-struct ChangeServiceKeyBody: NotifireAPIEncodable {
+struct ChangeServiceKeyBody: Encodable {
     let service: Service
     let password: String
 }

@@ -15,7 +15,7 @@ class ConfirmEmailViewModel: APIFailable, UserErrorFailable {
     // MARK: - Properties
     // MARK: APIFailable
     let notifireApiManager: NotifireAPIManager
-    var onError: ((NotifireAPIManager.ManagerResultError) -> Void)?
+    var onError: ((NotifireAPIError) -> Void)?
     var onUserError: ((VerifyAccountUserError) -> Void)?
 
     // MARK: Model
@@ -56,7 +56,7 @@ class ConfirmEmailViewModel: APIFailable, UserErrorFailable {
                     session.accessToken = verifyAccountSuccessResponse.accessToken
                     self.onConfirmation?(session)
                 } else {
-                    self.onError?(.server)
+                    self.onError?(.unknown)
                 }
             }
         }

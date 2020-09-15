@@ -15,7 +15,7 @@ class LoginRegisterSplitterViewModel: APIFailable, UserErrorFailable {
     weak var authenticationProvidersVM: AuthenticationProvidersViewModel?
 
     // MARK: APIFailable
-    var onError: ((NotifireAPIManager.ManagerResultError) -> Void)?
+    var onError: ((NotifireAPIError) -> Void)?
 
     // MARK: UserErrorFailable
     typealias UserError = SSOAuthenticationAttempt.SSOAuthenticationError
@@ -48,9 +48,9 @@ class LoginRegisterSplitterViewModel: APIFailable, UserErrorFailable {
                 self.onError?(error)
             case .success(let response):
                 let provider = AuthenticationProvider(ssoProvider: ssoProvider)
-                let providerData = AuthenticationProviderData(provider: provider, email: response.email, userID: token)
-                let session = UserSession(refreshToken: response.refreshToken, providerData: providerData)
-                session.accessToken = response.accessToken
+                let providerData = AuthenticationProviderData(provider: provider, email: response.payload.email, userID: token)
+                let session = UserSession(refreshToken: response.payload.refreshToken, providerData: providerData)
+                session.accessToken = response.payload.accessToken
                 self.onLogin?(session)
             }
         }

@@ -9,5 +9,4 @@
 import Foundation
 
 typealias HTTPParameters = [String: String]
-typealias NotifireAPIRequest = URLRequest
 typealias HTTPStatusCode = Int

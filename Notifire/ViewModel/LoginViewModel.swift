@@ -31,7 +31,7 @@ final class LoginViewModel: BindableInputValidatingViewModel, APIFailable, UserE
 
     // MARK: - Properties
     // MARK: APIFailable
-    var onError: ((NotifireAPIManager.ManagerResultError) -> Void)?
+    var onError: ((NotifireAPIError) -> Void)?
     // MARK: UserErrorFailable
     var onUserError: ((LoginUserError) -> Void)?
 
@@ -51,9 +51,9 @@ final class LoginViewModel: BindableInputValidatingViewModel, APIFailable, UserE
 
     // MARK: - Methods
     func login() {
-        guard componentValidator?.allComponentsValid ?? false else { return }
+        guard allComponentsValidated else { return }
         loading = true
-        notifireApiManager.login(usernameOrEmail: email, password: password) { [weak self] result in
+        notifireApiManager.login(email: email, password: password) { [weak self] result in
             guard let `self` = self else { return }
             self.loading = false
             switch result {
@@ -74,13 +74,13 @@ final class LoginViewModel: BindableInputValidatingViewModel, APIFailable, UserE
     }
 
     func resendEmail() {
-        notifireApiManager.resendConfirmEmail(usernameOrEmail: email) { _ in }
+        notifireApiManager.sendConfirmEmail(to: email) { _ in }
     }
 
     func shouldHandleManually(userError: UserError) -> Bool {
         switch userError {
         case .notVerified: return true
-        case .invalidPassword, .invalidUsernameOrEmail: return false
+        case .invalidPassword, .invalidEmail: return false
         }
     }
 }

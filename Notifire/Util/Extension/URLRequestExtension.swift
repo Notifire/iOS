@@ -17,7 +17,7 @@ extension URLRequest {
     /// convenience function for adding a request body
     /// - returns: true if serialization passed, false otherwise
     @discardableResult
-    mutating func addBody<T: NotifireAPIEncodable>(_ body: T) -> Bool {
+    mutating func addBody<T: Encodable>(_ body: T) -> Bool {
         do {
             httpBody = try JSONEncoder().encode(body)
         } catch {

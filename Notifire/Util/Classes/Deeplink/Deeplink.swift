@@ -10,24 +10,30 @@ import UIKit
 
 class Deeplink {
 
-    enum Option {
+    enum Option: Equatable {
         case emailConfirmation(token: String)
         case resetPassword(token: String)
         case resetEmail(token: String)
     }
 
     let option: Option
-    let window: UIWindow
+    let window: UIWindow?
     let deeplinkPresenter: UIViewController
 
-    init(option: Option) {
+    init(option: Option, presenter: UIViewController?) {
         self.option = option
-        let newWindow = UIWindow(frame: UIScreen.main.bounds)
-        let vc = UIViewController()
-        newWindow.rootViewController = vc
-        newWindow.windowLevel = UIWindow.Level.alert + 1
-        newWindow.makeKeyAndVisible()
-        self.deeplinkPresenter = vc
-        self.window = newWindow
+
+        if #available(iOS 13.0, *), let presenter = presenter {
+            self.deeplinkPresenter = presenter
+            self.window = nil
+        } else {
+            let newWindow = UIWindow(frame: UIScreen.main.bounds)
+            let vc = UIViewController()
+            newWindow.rootViewController = vc
+            newWindow.windowLevel = UIWindow.Level.alert + 1
+            newWindow.makeKeyAndVisible()
+            self.deeplinkPresenter = vc
+            self.window = newWindow
+        }
     }
 }

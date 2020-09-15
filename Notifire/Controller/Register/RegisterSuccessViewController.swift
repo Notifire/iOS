@@ -8,62 +8,10 @@
 
 import UIKit
 
-class RegisterSuccessViewModel {
-
-    enum ResendButtonState {
-        case loading
-        case finished
-    }
-
-    // MARK: - Properties
-    let notifireApiManager: NotifireAPIManager
-    let email: String
-    var resendButtonState: ResendButtonState = .finished {
-        didSet {
-            onResendButtonStateChange?(resendButtonState)
-        }
-    }
-
-    // MARK: Callback
-    var onResendButtonStateChange: ((ResendButtonState) -> Void)?
-
-    // MARK: - Initialization
-    init(apiManager: NotifireAPIManager, email: String) {
-        self.notifireApiManager = apiManager
-        self.email = email
-    }
-
-    // MARK: - Methods
-    func resendEmail() {
-        guard case .finished = resendButtonState else { return }
-        resendButtonState = .loading
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            guard let email = self?.email else { return }
-            self?.notifireApiManager.resendConfirmEmail(usernameOrEmail: email) { _ in
-                self?.resendButtonState = .finished
-            }
-        }
-    }
-}
-
-protocol RegisterSuccessViewControllerDelegate: class {
-    func didFinishRegister()
-    func shouldStartNewRegistration()
-}
-
-class RegisterSuccessViewController: BottomNavigatorLabelViewController, CenterStackViewPresenting {
+class RegisterSuccessViewController: VMViewController<RegisterSuccessViewModel>, BottomNavigatorLabelContaining, CenterStackViewPresenting {
 
     // MARK: - Properties
     weak var delegate: RegisterSuccessViewControllerDelegate?
-    var viewModel: RegisterSuccessViewModel
-
-    // MARK: - Initialization
-    init(viewModel: RegisterSuccessViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder aDecoder: NSCoder) { fatalError() }
 
     // MARK: Views
     let successLabel: UILabel = {
@@ -83,27 +31,35 @@ class RegisterSuccessViewController: BottomNavigatorLabelViewController, CenterS
 
     lazy var newRegistrationButton: ActionButton = {
         let button = ActionButton(type: .system)
-        button.setTitle("New registration", for: .normal)
+        button.setTitle("Register a new account", for: .normal)
         button.onProperTap = { [unowned self] _ in
             self.delegate?.shouldStartNewRegistration()
         }
         return button
     }()
 
+    // MARK: BottomNavigatorLabelContaining
+    lazy var bottomNavigator: UIView = defaultBottomNavigatorView()
+    lazy var bottomNavigatorLabel: UILabel = {
+        let label = TappableLabel()
+        label.set(style: .primary)
+        let hyperText = "Sign in"
+        let text = "Already using Notifire? \(hyperText)."
+        label.set(hypertext: hyperText, in: text)
+        label.onHypertextTapped = { [weak self] in
+            self?.delegate?.didFinishRegister()
+        }
+        return label
+    }()
+
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .compatibleSystemBackground
+
         // navigation bar
         title = "Success!"
         navigationItem.setHidesBackButton(true, animated: false)
-
-        // buttons
-        tappableLabel.onHypertextTapped = { [unowned self] in
-            self.delegate?.didFinishRegister()
-        }
-        let hyperText = "Sign in"
-        let text = "Already using Notifire? \(hyperText)."
-        tappableLabel.set(hypertext: hyperText, in: text)
 
         // viewModel
         viewModel.onResendButtonStateChange = { newState in

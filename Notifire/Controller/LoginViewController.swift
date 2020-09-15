@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, NavigationBarDisplaying, CenterStackViewPresenting, APIFailableResponding, APIFailableDisplaying, NotifirePoppablePresenting {
+class LoginViewController: VMViewController<LoginViewModel>, AppRevealing, KeyboardObserving, NavigationBarDisplaying, CenterStackViewPresenting, APIFailableResponding, APIFailableDisplaying, NotifirePoppablePresenting {
 
     // MARK: - APIFailableResponding
     typealias FailableViewModel = LoginViewModel
@@ -20,8 +20,6 @@ class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, 
     var backgroundViewExpandedHeightConstraint: NSLayoutConstraint!
     var stackViewKeyboardBottomConstraint: NSLayoutConstraint!
     var animatedViewNormalHeightConstraint: NSLayoutConstraint!
-
-    let viewModel: LoginViewModel
 
     weak var delegate: LoginViewControllerDelegate?
 
@@ -45,11 +43,11 @@ class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, 
 
     var stackView: UIStackView?
 
-    lazy var usernameEmailTextInput: ValidatableTextInput = {
-        let usernameEmailTextField = CustomTextField()
-        usernameEmailTextField.setPlaceholder(text: "Enter your e-mail")
-        usernameEmailTextField.keyboardType = .emailAddress
-        let input = ValidatableTextInput(textField: usernameEmailTextField)
+    lazy var emailTextInput: ValidatableTextInput = {
+        let emailTextField = CustomTextField()
+        emailTextField.setPlaceholder(text: "Enter your e-mail")
+        emailTextField.keyboardType = .emailAddress
+        let input = ValidatableTextInput(textField: emailTextField)
         input.rules = [
             ComponentRule(kind: .minimum(length: 1), showIfBroken: false),
             ComponentRule(kind: .maximum(length: Settings.Text.maximumUsernameLength), showIfBroken: true)
@@ -89,19 +87,11 @@ class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, 
         return button
     }()
 
-    // MARK: - Initialization
-    init(viewModel: LoginViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-        viewModel.createComponentValidator(with: [usernameEmailTextInput, passwordTextInput])
-    }
-
-    required init?(coder aDecoder: NSCoder) { fatalError() }
-
     // MARK: - VC Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupSubviews()
         hideNavigationBarBackButtonText()
         setupObservers()
         setupUserEvents()
@@ -113,9 +103,9 @@ class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, 
         // Add observers if the view is about to appear
         setupObservers()
 
-        guard !usernameEmailTextInput.textField.isFirstResponder && !passwordTextInput.textField.isFirstResponder && firstTimeAppearing else { return }
+        guard !emailTextInput.textField.isFirstResponder && !passwordTextInput.textField.isFirstResponder && firstTimeAppearing else { return }
         firstTimeAppearing = false
-        usernameEmailTextInput.textField.becomeFirstResponder()
+        emailTextInput.textField.becomeFirstResponder()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -129,8 +119,23 @@ class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, 
     }
 
     // MARK: - Inherited
-    override func setupSubviews() {
-        super.setupSubviews()
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+
+        // Dismiss the keyboard if the touch event is outside of the stackView that contains
+        // the textfields & sign in button.
+        if let event = event, event.type == .touches, let touch = touches.first {
+            let location = touch.location(in: view)
+
+            guard let viewThatGotTouched = view.hitTest(location, with: event), let stackView = stackView else { return }
+            if !(viewThatGotTouched === stackView) {
+                view.endEditing(true)
+            }
+        }
+    }
+
+    // MARK: - Private
+    func setupSubviews() {
 
         let image = UIImage(imageLiteralResourceName: "cross_symbol").resized(to: Size.Navigator.symbolSize)
         navigationItem.leftBarButtonItem = ActionButton.createActionBarButtonItem(image: image, target: self, action: #selector(didPressCloseButton))
@@ -156,7 +161,7 @@ class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, 
         loginContainerView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
 
         // login stack view
-        let textFieldStackView = UIStackView(arrangedSubviews: [usernameEmailTextInput, passwordTextInput, forgotPasswordContainerView], spacing: Size.textFieldSpacing)
+        let textFieldStackView = UIStackView(arrangedSubviews: [emailTextInput, passwordTextInput, forgotPasswordContainerView], spacing: Size.textFieldSpacing)
         let stackViewSpacing: CGFloat = Size.componentSpacing * 1.5
         let stackView = insertStackView(arrangedSubviews: [headerLabel, textFieldStackView, signInButton], spacing: stackViewSpacing)
         stackView.topAnchor.constraint(equalTo: loginContainerView.topAnchor, constant: Size.componentSpacing).isActive = true
@@ -194,41 +199,27 @@ class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, 
         keyboardObserverHandler.keyboardExpandedConstraints = [stackViewKeyboardBottomConstraint]
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-
-        // Dismiss the keyboard if the touch event is outside of the stackView that contains
-        // the textfields & sign in button.
-        if let event = event, event.type == .touches, let touch = touches.first {
-            let location = touch.location(in: view)
-
-            guard let viewThatGotTouched = view.hitTest(location, with: event), let stackView = stackView else { return }
-            if !(viewThatGotTouched === stackView) {
-                view.endEditing(true)
-            }
-        }
-    }
-
-    // MARK: - Private
     private func setupUserEvents() {
-        let textFields = [usernameEmailTextInput.textField, passwordTextInput.textField]
+        let textFields = [emailTextInput.textField, passwordTextInput.textField]
         textFields.forEach {
             $0.addTarget(self, action: #selector(didStopEditing(textField:)), for: .editingDidEndOnExit)
         }
     }
 
     private func prepareViewModel() {
+        viewModel.createComponentValidator(with: [emailTextInput, passwordTextInput])
+
         viewModel.afterValidation = { [weak self] success in
             self?.signInButton.isEnabled = success
         }
         viewModel.onLoadingChange = { [weak self] loading in
             if loading {
                 self?.dismissKeyboard()
-                self?.usernameEmailTextInput.textField.isEnabled = false
+                self?.emailTextInput.textField.isEnabled = false
                 self?.passwordTextInput.textField.isEnabled = false
                 self?.signInButton.startLoading()
             } else {
-                self?.usernameEmailTextInput.textField.isEnabled = true
+                self?.emailTextInput.textField.isEnabled = true
                 self?.passwordTextInput.textField.isEnabled = true
                 self?.signInButton.stopLoading()
             }
@@ -244,7 +235,7 @@ class LoginViewController: BaseViewController, AppRevealing, KeyboardObserving, 
     // MARK: - Event Handlers
     // MARK: TextField
     @objc func didStopEditing(textField: UITextField) {
-        if textField == usernameEmailTextInput.textField {
+        if textField == emailTextInput.textField {
             passwordTextInput.textField.becomeFirstResponder()
         } else {
             viewModel.login()

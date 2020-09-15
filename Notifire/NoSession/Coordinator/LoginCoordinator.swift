@@ -35,7 +35,7 @@ final class ForgotPasswordViewModel: BindableInputValidatingViewModel, APIFailab
     typealias EnumDescribingKeyPaths = KeyPaths
 
     // MARK: APIFailable
-    var onError: ((NotifireAPIManagerBase.ManagerResultError) -> Void)?
+    var onError: ((NotifireAPIError) -> Void)?
 
     // MARK: - Initialization
     init(maybeEmail: String, notifireAPIManager: NotifireAPIManager = NotifireAPIManagerFactory.createAPIManager()) {
@@ -98,7 +98,7 @@ class LoginCoordinator: NavigationCoordinator<LoginViewController>, ChildCoordin
     }
 
     func startForgotPasswordFlow() {
-        let forgotPWVM = ForgotPasswordViewModel(maybeEmail: rootViewController.usernameEmailTextInput.validatableInput)
+        let forgotPWVM = ForgotPasswordViewModel(maybeEmail: rootViewController.emailTextInput.validatableInput)
         let forgotPWVC = ForgotPasswordViewController(viewModel: forgotPWVM)
         let forgotPWCoordinator = ForgotPasswordCoordinator(forgotPasswordViewController: forgotPWVC)
         forgotPWVC.delegate = forgotPWCoordinator

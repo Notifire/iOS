@@ -32,7 +32,7 @@ class NotificationService: UNNotificationServiceExtension {
                 return
             }
             bestAttemptContent.title = "\(notification.level.emoji) \(service.name):"
-            bestAttemptContent.badge = NSNumber(integerLiteral: unread)
+            bestAttemptContent.badge = NSNumber(value: unread)
             contentHandler(bestAttemptContent)
         }
     }

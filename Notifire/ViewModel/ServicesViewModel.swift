@@ -25,7 +25,7 @@ class ServicesViewModel: RealmCollectionViewModel<LocalService>, APIFailable {
         return userSessionHandler.notifireProtectedApiManager
     }
 
-    var onError: ((NotifireAPIManagerBase.ManagerResultError) -> Void)?
+    var onError: ((NotifireAPIError) -> Void)?
 
     // MARK: Model
     var viewState: ViewState = .initial {

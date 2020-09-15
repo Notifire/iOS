@@ -31,7 +31,7 @@ class ServiceViewModel: APIFailable {
     var isKeyVisible: Bool = false
 
     // MARK: Callbacks
-    var onError: ((NotifireAPIManager.ManagerResultError) -> Void)?
+    var onError: ((NotifireAPIError) -> Void)?
     var onServiceUpdate: ((LocalService) -> Void)?
     var onServiceDeletion: (() -> Void)?
 

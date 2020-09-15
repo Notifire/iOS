@@ -49,9 +49,7 @@ class TabBarStackView: UIStackView {
 
     // MARK: - Private
     private func setupSubviews() {
-        // swiftlint:disable identifier_name
         for (i, tab) in tabs.enumerated() {
-        // swiftlint:enable identifier_name
             // Create a button for each Tab
             let button = UIButton()
             button.tag = i

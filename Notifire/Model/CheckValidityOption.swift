@@ -9,6 +9,5 @@
 import Foundation
 
 enum CheckValidityOption: String {
-    case username = "username"
-    case email = "email"
+    case email
 }

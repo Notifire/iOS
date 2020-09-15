@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct Service: NotifireAPIDecodable, NotifireAPIEncodable, Equatable {
-    struct Levels: NotifireAPICodable, Equatable {
+struct Service: Decodable, Encodable, Equatable {
+    struct Levels: Codable, Equatable {
         let info: Bool
         let warning: Bool
         let error: Bool

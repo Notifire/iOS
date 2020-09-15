@@ -17,12 +17,10 @@ PODS:
   - GTMSessionFetcher/Full (1.4.0):
     - GTMSessionFetcher/Core (= 1.4.0)
   - KeychainAccess (4.2.0)
-  - SwiftLint (0.39.2)
 
 DEPENDENCIES:
   - GoogleSignIn
   - KeychainAccess (= 4.2.0)
-  - SwiftLint (= 0.39.2)
 
 SPEC REPOS:
   trunk:
@@ -31,7 +29,6 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - KeychainAccess
-    - SwiftLint
 
 SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
@@ -39,8 +36,7 @@ SPEC CHECKSUMS:
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   KeychainAccess: 3f760109aa99b05d0f231e28b22642da7153e38a
-  SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
 
-PODFILE CHECKSUM: e66d124dc3a64eb1d685ac022ce75d6a39ff5e10
+PODFILE CHECKSUM: 0760f4a63547b596d72fa6efc134bae6ae7cef5d
 
 COCOAPODS: 1.9.3

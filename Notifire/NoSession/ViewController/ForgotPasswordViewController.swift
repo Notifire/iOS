@@ -73,7 +73,7 @@ class ForgotPasswordViewController: VMViewController<ForgotPasswordViewModel>, N
         // ViewModel
         prepareViewModel()
 
-        /// Reuse the loginVC email  if possible, `viewModel.email` will contain the email if it is valid
+        // Reuse the loginVC email  if possible, `viewModel.email` will contain the email if it is valid
         emailTextInput.updateText(with: viewModel.email)
     }
 

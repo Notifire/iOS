@@ -17,7 +17,7 @@ class ServiceCreationViewModel: InputValidatingViewModel, APIFailable {
     var onSuccess: ((Service) -> Void)?
     var onLoadingChange: ((Bool) -> Void)?
     // MARK: APIFailable
-    var onError: ((NotifireAPIManager.ManagerResultError) -> Void)?
+    var onError: ((NotifireAPIError) -> Void)?
 
     // MARK: Model
     var serviceName: String = ""

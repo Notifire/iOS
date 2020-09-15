@@ -12,13 +12,17 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Variables
-    var window: UIWindow?
+    lazy var window: UIWindow? = UIWindow(frame: UIScreen.main.bounds)
 
     /// implicitly unwrapped because it is set in the `didFinishLaunchingWithOptions` method
     var appCoordinator: AppCoordinator!
 
     // MARK: - AppDelegate
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Launch arguments
+        LaunchArgumentsHandler().handleLaunchArgumentsIfNeeded()
+
+        // Window
         let applicationWindow = UIWindow(frame: UIScreen.main.bounds)
         applicationWindow.tintColor = .primary
         // App Coordinator
@@ -32,10 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Handles the deeplink action
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         return appCoordinator?.deeplinkHandler.switchToAppropriateDeeplink(from: url) ?? false
-    }
-
-    func application(_ application: UIApplication, didUpdate userActivity: NSUserActivity) {
-
     }
 
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {

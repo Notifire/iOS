@@ -10,7 +10,7 @@ import UIKit
 
 // TODO: Rename to APIErrorPossible, same with UserErrorPossible
 protocol APIFailable: class {
-    var onError: ((NotifireAPIManager.ManagerResultError) -> Void)? { get set }
+    var onError: ((NotifireAPIError) -> Void)? { get set }
 }
 
 // MARK: - Responding
@@ -39,12 +39,13 @@ extension APIFailableResponding where Self: APIFailableDisplaying {
 
 // MARK: - Displaying
 protocol APIFailableDisplaying {
-    func present(error: NotifireAPIManager.ManagerResultError)
+    func present(error: NotifireAPIError)
 }
 
 extension APIFailableDisplaying where Self: UIViewController {
-    func present(error: NotifireAPIManager.ManagerResultError) {
-        let alertController = UIAlertController(title: "Error encountered", message: error == .server ? "server" : "network", preferredStyle: .alert)
+    func present(error: NotifireAPIError) {
+        let message = error.userFriendlyMessage
+        let alertController = UIAlertController(title: "Error encountered", message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { _ in
             alertController.dismiss(animated: true, completion: nil)
         }))

@@ -8,10 +8,11 @@
 
 import Foundation
 
-enum NotifireAPIEndpoint: String, CustomStringConvertible {
+/// Enumeration of unprotected endpoints
+enum NotifireAPIEndpoint: String, CustomStringConvertible, CaseIterable {
     case register = "/account/register"
     case check = "/account/check"
-    case resendConfirm = "/account/resend"
+    case resendConfirm = "/account/send/confirm"
     case confirmAccount = "/account/confirm"
     case login = "/account/login"
     case sendResetPassword = "/account/send/reset/password"
@@ -20,7 +21,7 @@ enum NotifireAPIEndpoint: String, CustomStringConvertible {
         return rawValue
     }
 
-    /// Return the endpoint for each provider
+    /// Return the endpoint string for each `SSOAuthenticationProvider`
     static func login(ssoProvider: SSOAuthenticationProvider) -> String {
         return Self.login.description + "/" + ssoProvider.rawValue
     }
@@ -28,7 +29,8 @@ enum NotifireAPIEndpoint: String, CustomStringConvertible {
 
 enum NotifireProtectedAPIEndpoint: String, CustomStringConvertible {
     case generateAccessToken = "/account/access"
-    case registerDevice = "/account/device"
+    case registerDevice = "/account/register/device"
+    case logout = "/account/logout"
     case services = "/services"
     case service = "/service"
     case serviceKey = "/service/key"

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct NotifireAPIResponseContext<ResponseBody: NotifireAPIDecodable> {
-    let errorContext: NotifireAPIRequestErrorContext<ResponseBody>?
-    let response: ResponseBody?
+enum NotifireAPIResponseContext<ResponseBody: Decodable> {
+    case error(context: URLRequestErrorContext<ResponseBody>)
+    case response(body: ResponseBody)
 }

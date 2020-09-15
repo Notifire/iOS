@@ -60,7 +60,6 @@ class SSOManager: NSObject {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 self?.finishAuthenticationAttempt()
             }
-            break
         }
         delegate?.didStart(authenticationAttempt: newAuthAttempt)
     }
@@ -95,19 +94,12 @@ extension SSOManager: GIDSignInDelegate {
                 currentAuthAttempt.state = .error(.unknown)
             }
         } else {
-            // Perform any operations on signed in user here.
-            //let userId = user.userID                  // For client-side use only!
             let maybeIdToken = user.authentication.idToken // Safe to send to the server
-            //let maybeEmail = user.profile.email
-            //let fullName = user.profile.name
-            //let givenName = user.profile.givenName
-            //let familyName = user.profile.familyName
 
             guard let idToken = maybeIdToken else {
                 currentAuthAttempt.state = .error(.unableToRetrieveAccessToken)
                 return
             }
-
             currentAuthAttempt.state = .finished(idToken: idToken)
         }
     }

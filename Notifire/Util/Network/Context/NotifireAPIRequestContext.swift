@@ -1,5 +1,5 @@
 //
-//  NotifireAPIRequestContext.swift
+//  URLRequestContext.swift
 //  Notifire
 //
 //  Created by David Bielik on 08/09/2018.
@@ -8,24 +8,15 @@
 
 import Foundation
 
-struct NotifireAPIRequestContext<ResponseBody: NotifireAPIDecodable> {
+/// Each network request has it's own request context. It is defined by the type of the `ResponseBody` and a `URLRequest`.
+struct URLRequestContext<ResponseBody: Decodable> {
     let responseBodyType: ResponseBody.Type
-    let notifireAPIRequest: NotifireAPIRequest
+    let apiRequest: URLRequest
 }
 
-extension NotifireAPIRequestContext: CustomStringConvertible {
+// MARK: - CustomStringConvertible
+extension URLRequestContext: CustomStringConvertible {
     var description: String {
-        return "body type: \(responseBodyType) \n request: \(notifireAPIRequest)"
-    }
-}
-
-struct NotifireAPIRequestErrorContext<ResponseBody: NotifireAPIDecodable> {
-    let error: NotifireAPIError
-    let requestContext: NotifireAPIRequestContext<ResponseBody>
-}
-
-extension NotifireAPIRequestErrorContext: CustomStringConvertible {
-    var description: String {
-        return "[NotifireAPIRequestErrorContext] Err: \(error.description) for requestContext: \(requestContext.description)"
+        return "responseBodyType={\(responseBodyType)} | apiRequest={\(apiRequest)}"
     }
 }

@@ -7,8 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E98CF4D8A6187E9159916CE /* Pods_Abst_NotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F7F669C4334997C1F82D76 /* Pods_Abst_NotificationServiceExtension.framework */; };
+		1B713F3A831CD4A87693E490 /* Pods_NotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A589C840810EE01CF500294F /* Pods_NotificationServiceExtension.framework */; };
 		7C99F51A7641D94DD3AB2A3C /* Pods_Abst_Notifire_Mock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A5838B78DE5CCCCEC9C7D03 /* Pods_Abst_Notifire_Mock.framework */; };
+		8649C28850648748038A4BAD /* Pods_NotifireTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E57C8E1B5587F7AA0D4377 /* Pods_NotifireTests.framework */; };
+		8902A677250D4460007BB5DF /* NotifireAPIRequestErrorContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8902A676250D4460007BB5DF /* NotifireAPIRequestErrorContext.swift */; };
+		8902A678250D4460007BB5DF /* NotifireAPIRequestErrorContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8902A676250D4460007BB5DF /* NotifireAPIRequestErrorContext.swift */; };
+		8902A67B250DAE4F007BB5DF /* NotifireNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8922E268219DFB2E001984C4 /* NotifireNotificationHandler.swift */; };
+		8902A67C250DAE58007BB5DF /* RealmProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533BF219FAAEC00E0A656 /* RealmProviding.swift */; };
+		8902A67D250DAE5F007BB5DF /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399588216FF3CD00687A79 /* UserSession.swift */; };
+		8902A67E250DAE64007BB5DF /* AuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B8525006DB4000A7B50 /* AuthenticationProvider.swift */; };
+		8902A67F250DAE67007BB5DF /* SSOAuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616AB2505A81B00287331 /* SSOAuthenticationProvider.swift */; };
+		8902A680250DAE70007BB5DF /* UserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939958B216FF40A00687A79 /* UserSessionManager.swift */; };
+		8902A681250DAE7B007BB5DF /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533C721A03ED000E0A656 /* RealmManager.swift */; };
+		8902A689250DB0EE007BB5DF /* NotifireUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8902A688250DB0EE007BB5DF /* NotifireUITests.swift */; };
+		8902A692250DB22B007BB5DF /* GoogleSSOUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8902A691250DB22B007BB5DF /* GoogleSSOUITests.swift */; };
 		8906E9742170FB2100D45BCA /* ConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906E9732170FB2100D45BCA /* ConfirmEmailViewController.swift */; };
 		8909A3BC218F24EE00EADD09 /* LocalNotifireNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */; };
 		8920CA702171377900A72BD0 /* RegisterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA6F2171377900A72BD0 /* RegisterCoordinator.swift */; };
@@ -16,7 +28,6 @@
 		8920CA74217144DF00A72BD0 /* NavigationActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA73217144DF00A72BD0 /* NavigationActionViewController.swift */; };
 		8920CA772171578900A72BD0 /* CenterStackPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA762171578900A72BD0 /* CenterStackPresenting.swift */; };
 		8920CA792171739900A72BD0 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA782171739900A72BD0 /* ActionButton.swift */; };
-		8920CA7B217212B200A72BD0 /* NotifireAPIManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA7A217212B200A72BD0 /* NotifireAPIManagerMock.swift */; };
 		8920CA812172188000A72BD0 /* NotifireAPIManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA802172188000A72BD0 /* NotifireAPIManagerFactory.swift */; };
 		8920CA8521722FF700A72BD0 /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA8421722FF700A72BD0 /* Loadable.swift */; };
 		8920CA892172345B00A72BD0 /* Stylable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA882172345B00A72BD0 /* Stylable.swift */; };
@@ -54,7 +65,7 @@
 		8933F0C82141D0C000645B3A /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0C72141D0C000645B3A /* RootViewController.swift */; };
 		8933F0CA2141D93700645B3A /* InputValidatingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0C92141D93700645B3A /* InputValidatingViewModel.swift */; };
 		8933F0CC2141D94700645B3A /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0CB2141D94700645B3A /* RegisterViewModel.swift */; };
-		8933F0CF2141E40900645B3A /* NotifireAPIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0CE2141E40900645B3A /* NotifireAPIHandler.swift */; };
+		8933F0CF2141E40900645B3A /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0CE2141E40900645B3A /* APIHandler.swift */; };
 		8933F0D3214334C000645B3A /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0D2214334C000645B3A /* URLExtension.swift */; };
 		8933F0DD2143360300645B3A /* NotifireAPITypealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0DC2143360300645B3A /* NotifireAPITypealias.swift */; };
 		8933F0DF2143379700645B3A /* HTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0DE2143379700645B3A /* HTTPHeader.swift */; };
@@ -65,7 +76,7 @@
 		8933F0EC2143388E00645B3A /* NotifireAPIRequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0EB2143388E00645B3A /* NotifireAPIRequestContext.swift */; };
 		8933F0EE2143389F00645B3A /* NotifireAPIResponseContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0ED2143389F00645B3A /* NotifireAPIResponseContext.swift */; };
 		8933F0F0214338B500645B3A /* NotifireAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0EF214338B500645B3A /* NotifireAPIError.swift */; };
-		8933F0F3214338EA00645B3A /* NotifireAPIManagerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0F2214338EA00645B3A /* NotifireAPIManagerBase.swift */; };
+		8933F0F3214338EA00645B3A /* NotifireAPIBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0F2214338EA00645B3A /* NotifireAPIBaseManager.swift */; };
 		8933F0F5214338FF00645B3A /* NotifireAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0F4214338FF00645B3A /* NotifireAPIManager.swift */; };
 		8933F0F72143391000645B3A /* NotifireProtectedAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0F62143391000645B3A /* NotifireProtectedAPIManager.swift */; };
 		8933F0FC214339D700645B3A /* NotifireAPIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0FB214339D700645B3A /* NotifireAPIDecodable.swift */; };
@@ -103,6 +114,10 @@
 		893FE0372197C225002CD846 /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE0362197C225002CD846 /* CopyableLabel.swift */; };
 		8948F57221A0AD8200BB6E10 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8948F57121A0AD8200BB6E10 /* RoundedImageView.swift */; };
 		8948F57421A0C00000BB6E10 /* NotifirePoppable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8948F57321A0C00000BB6E10 /* NotifirePoppable.swift */; };
+		8949EBDE251189F00045D1A7 /* RegisterSuccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8949EBDD251189F00045D1A7 /* RegisterSuccessViewModel.swift */; };
+		8949EBE025118A090045D1A7 /* RegisterSuccessViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8949EBDF25118A090045D1A7 /* RegisterSuccessViewControllerDelegate.swift */; };
+		8949EBE125118A090045D1A7 /* RegisterSuccessViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8949EBDF25118A090045D1A7 /* RegisterSuccessViewControllerDelegate.swift */; };
+		8949EBE225118A0E0045D1A7 /* RegisterSuccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8949EBDD251189F00045D1A7 /* RegisterSuccessViewModel.swift */; };
 		894B1F852505D60C00D0D671 /* SectioningCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F842505D60C00D0D671 /* SectioningCoordinator.swift */; };
 		894B1F862505D60C00D0D671 /* SectioningCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F842505D60C00D0D671 /* SectioningCoordinator.swift */; };
 		894B1F882505D66600D0D671 /* SectionedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1F872505D66600D0D671 /* SectionedCoordinator.swift */; };
@@ -162,7 +177,7 @@
 		89576AC124FD412A0097BF87 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D921337F7F00D798AA /* Settings.swift */; };
 		89576AC224FD412A0097BF87 /* APIFailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413E21C1E40800D28ABE /* APIFailable.swift */; };
 		89576AC324FD412A0097BF87 /* NotifireAPIEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0FD214339E200645B3A /* NotifireAPIEncodable.swift */; };
-		89576AC424FD412A0097BF87 /* NotifireAPIManagerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0F2214338EA00645B3A /* NotifireAPIManagerBase.swift */; };
+		89576AC424FD412A0097BF87 /* NotifireAPIBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0F2214338EA00645B3A /* NotifireAPIBaseManager.swift */; };
 		89576AC524FD412A0097BF87 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939958D2170011100687A79 /* SplashView.swift */; };
 		89576AC724FD412A0097BF87 /* NotifirePoppable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8948F57321A0C00000BB6E10 /* NotifirePoppable.swift */; };
 		89576AC824FD412A0097BF87 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995AF2170EEE500687A79 /* SettingsViewController.swift */; };
@@ -226,13 +241,12 @@
 		89576B0524FD412A0097BF87 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA782171739900A72BD0 /* ActionButton.swift */; };
 		89576B0624FD412A0097BF87 /* NotifireAPIManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA7A217212B200A72BD0 /* NotifireAPIManagerMock.swift */; };
 		89576B0724FD412A0097BF87 /* ConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906E9732170FB2100D45BCA /* ConfirmEmailViewController.swift */; };
-		89576B0824FD412A0097BF87 /* NotifireAPIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0CE2141E40900645B3A /* NotifireAPIHandler.swift */; };
+		89576B0824FD412A0097BF87 /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0CE2141E40900645B3A /* APIHandler.swift */; };
 		89576B0924FD412A0097BF87 /* ServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995AD2170EECE00687A79 /* ServicesViewController.swift */; };
 		89576B0A24FD412A0097BF87 /* NotifirePopAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8922E2482198AF8D001984C4 /* NotifirePopAnimationController.swift */; };
 		89576B0B24FD412A0097BF87 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0E0214337AD00645B3A /* HTTPMethod.swift */; };
 		89576B0C24FD412A0097BF87 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D32133730A00D798AA /* Size.swift */; };
 		89576B0D24FD412A0097BF87 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995AB2170EDF300687A79 /* SettingsCoordinator.swift */; };
-		89576B0E24FD412A0097BF87 /* BottomNavigatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069C92133597800D798AA /* BottomNavigatorViewController.swift */; };
 		89576B0F24FD412A0097BF87 /* ServiceCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE01C2195E3C1002CD846 /* ServiceCreationViewController.swift */; };
 		89576B1024FD412A0097BF87 /* EmptyStatePresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413921C1DFDE00D28ABE /* EmptyStatePresentable.swift */; };
 		89576B1124FD412A0097BF87 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069CD21335C3400D798AA /* UIViewControllerExtension.swift */; };
@@ -311,6 +325,9 @@
 		896167FE2501ABAE007BF3F1 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167FC2501ABAE007BF3F1 /* ForgotPasswordViewController.swift */; };
 		896168002501B3A3007BF3F1 /* UIView+Embed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167FF2501B3A3007BF3F1 /* UIView+Embed.swift */; };
 		896168012501B3A3007BF3F1 /* UIView+Embed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167FF2501B3A3007BF3F1 /* UIView+Embed.swift */; };
+		8967F778250ECE810079BCB8 /* UnprotectedAPIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8967F777250ECE810079BCB8 /* UnprotectedAPIIntegrationTests.swift */; };
+		8967F77A2511546A0079BCB8 /* UIWindow+Dismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8967F7792511546A0079BCB8 /* UIWindow+Dismiss.swift */; };
+		8967F77B2511546B0079BCB8 /* UIWindow+Dismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8967F7792511546A0079BCB8 /* UIWindow+Dismiss.swift */; };
 		896ADD722506DBB100EE7B51 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0124FE6F5A00BC7C2C /* Realm.framework */; };
 		896ADD732506DBB100EE7B51 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0124FE6F5A00BC7C2C /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		896ADD752506DBB200EE7B51 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */; };
@@ -322,7 +339,6 @@
 		896ADD812506E00800EE7B51 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */; };
 		896ADD822506E00800EE7B51 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89250B0124FE6F5A00BC7C2C /* Realm.framework */; };
 		897069C821334E7700D798AA /* ConstrainableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069C721334E7700D798AA /* ConstrainableView.swift */; };
-		897069CA2133597800D798AA /* BottomNavigatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069C92133597800D798AA /* BottomNavigatorViewController.swift */; };
 		897069CC213359A100D798AA /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069CB213359A100D798AA /* BaseViewController.swift */; };
 		897069CE21335C3400D798AA /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069CD21335C3400D798AA /* UIViewControllerExtension.swift */; };
 		897069D22133725E00D798AA /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D12133725D00D798AA /* CustomTextField.swift */; };
@@ -339,18 +355,13 @@
 		897069F42134BF4C00D798AA /* KeyboardDismissing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069F32134BF4C00D798AA /* KeyboardDismissing.swift */; };
 		8985338C219F95E000E0A656 /* NotificationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8985338B219F95E000E0A656 /* NotificationDetailViewController.swift */; };
 		89853398219FA46A00E0A656 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 89853391219FA46900E0A656 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		898533B6219FA9F500E0A656 /* NotifireNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8922E268219DFB2E001984C4 /* NotifireNotificationHandler.swift */; };
 		898533B7219FA9FE00E0A656 /* LocalNotifireNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */; };
 		898533BA219FAA1700E0A656 /* LocalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533B9219FAA1700E0A656 /* LocalService.swift */; };
 		898533BB219FAA2700E0A656 /* LocalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533B9219FAA1700E0A656 /* LocalService.swift */; };
 		898533C0219FAAEC00E0A656 /* RealmProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533BF219FAAEC00E0A656 /* RealmProviding.swift */; };
-		898533C1219FAE4100E0A656 /* RealmProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533BF219FAAEC00E0A656 /* RealmProviding.swift */; };
 		898533C3219FAEE300E0A656 /* LocalServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533C2219FAEE300E0A656 /* LocalServiceExtension.swift */; };
 		898533C4219FB94900E0A656 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89853393219FA46A00E0A656 /* NotificationService.swift */; };
-		898533C521A03E3D00E0A656 /* UserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939958B216FF40A00687A79 /* UserSessionManager.swift */; };
-		898533C621A03E5100E0A656 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399588216FF3CD00687A79 /* UserSession.swift */; };
 		898533C821A03ED000E0A656 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533C721A03ED000E0A656 /* RealmManager.swift */; };
-		898533C921A03F2E00E0A656 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533C721A03ED000E0A656 /* RealmManager.swift */; };
 		89A9048021B753F100D262E1 /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */; };
 		89A9048121B754A800D262E1 /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */; };
 		89A9048321B8589300D262E1 /* IndicatorStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9048221B8589300D262E1 /* IndicatorStackView.swift */; };
@@ -374,6 +385,12 @@
 		89BDADE3217A5693000E38FC /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADE2217A5693000E38FC /* Service.swift */; };
 		89BDADE5217A5C5B000E38FC /* ServicesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADE4217A5C5B000E38FC /* ServicesViewModel.swift */; };
 		89BDADE7217A921A000E38FC /* ServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADE6217A921A000E38FC /* ServiceViewController.swift */; };
+		89CA5A99250EB1880020A564 /* LaunchArgumentsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CA5A98250EB1880020A564 /* LaunchArgumentsHandler.swift */; };
+		89CA5A9A250EB1880020A564 /* LaunchArgumentsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CA5A98250EB1880020A564 /* LaunchArgumentsHandler.swift */; };
+		89CA5A9D250EB3130020A564 /* LaunchArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CA5A9C250EB3120020A564 /* LaunchArgument.swift */; };
+		89CA5A9E250EB3130020A564 /* LaunchArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CA5A9C250EB3120020A564 /* LaunchArgument.swift */; };
+		89CA5A9F250EB3130020A564 /* LaunchArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CA5A9C250EB3120020A564 /* LaunchArgument.swift */; };
+		89CA5AA1250EB5910020A564 /* XCTestCase+Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CA5AA0250EB5910020A564 /* XCTestCase+Delay.swift */; };
 		89D4E1F12139ED0F00630790 /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F02139ED0F00630790 /* CALayerExtension.swift */; };
 		89D4E1F32139ED3D00630790 /* CAPersistentAnimationsLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F22139ED3D00630790 /* CAPersistentAnimationsLayer.swift */; };
 		89D4E1F52139F43E00630790 /* Observing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F42139F43E00630790 /* Observing.swift */; };
@@ -386,17 +403,13 @@
 		89D616992502FE1600287331 /* KeyboardObserverHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616972502FE1600287331 /* KeyboardObserverHandler.swift */; };
 		89D6169B2503002A00287331 /* NavigationBarDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D6169A2503002A00287331 /* NavigationBarDisplaying.swift */; };
 		89D6169C2503002A00287331 /* NavigationBarDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D6169A2503002A00287331 /* NavigationBarDisplaying.swift */; };
-		89D6169D25052F8700287331 /* Observing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F42139F43E00630790 /* Observing.swift */; };
 		89D6169E25052F8B00287331 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895E4018204046EA0062D5FC /* Config.swift */; };
-		89D616A12505A75000287331 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B8B25008A26000A7B50 /* UIImage+Resize.swift */; };
 		89D616A52505A7DD00287331 /* UserSessionManager+UserSessionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616A42505A7DD00287331 /* UserSessionManager+UserSessionHandler.swift */; };
 		89D616A62505A7DD00287331 /* UserSessionManager+UserSessionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616A42505A7DD00287331 /* UserSessionManager+UserSessionHandler.swift */; };
-		89D616A72505A7FA00287331 /* AuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B8525006DB4000A7B50 /* AuthenticationProvider.swift */; };
 		89D616A92505A81300287331 /* SSOAuthenticationProvider+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616A82505A81300287331 /* SSOAuthenticationProvider+Image.swift */; };
 		89D616AA2505A81300287331 /* SSOAuthenticationProvider+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616A82505A81300287331 /* SSOAuthenticationProvider+Image.swift */; };
 		89D616AC2505A81B00287331 /* SSOAuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616AB2505A81B00287331 /* SSOAuthenticationProvider.swift */; };
 		89D616AD2505A81B00287331 /* SSOAuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616AB2505A81B00287331 /* SSOAuthenticationProvider.swift */; };
-		89D616AF2505A84400287331 /* SSOAuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616AB2505A81B00287331 /* SSOAuthenticationProvider.swift */; };
 		89D616B12505A86600287331 /* AuthenticationProvider+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616B02505A86600287331 /* AuthenticationProvider+Image.swift */; };
 		89D616B22505A86600287331 /* AuthenticationProvider+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616B02505A86600287331 /* AuthenticationProvider+Image.swift */; };
 		89E6B6BA24FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6B924FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift */; };
@@ -419,9 +432,17 @@
 		89E8B865250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */; };
 		89E8B866250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */; };
 		91A4C865A6FF77FCF5F5FE14 /* Pods_Abst_Notifire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF48406CF4114A37FB479C6B /* Pods_Abst_Notifire.framework */; };
+		ECB6D59A787136CA160FD8AF /* Pods_Abst_NotifireUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8F4F569EF32D5580E6955C4 /* Pods_Abst_NotifireUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8902A68B250DB0EE007BB5DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 89B3EC3D2020E48F0068BA64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 89B3EC442020E4900068BA64;
+			remoteInfo = Notifire;
+		};
 		89576A9D24FD412A0097BF87 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 89B3EC3D2020E48F0068BA64 /* Project object */;
@@ -435,6 +456,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 89853390219FA46900E0A656;
 			remoteInfo = NotificationServiceExtension;
+		};
+		89942AFE250D36710036DBDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 89B3EC3D2020E48F0068BA64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 89B3EC442020E4900068BA64;
+			remoteInfo = Notifire;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -491,8 +519,22 @@
 		00B1319CA36593090BDBE2AB /* Pods-Abst-Notifire Mock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire Mock.debug.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire Mock/Pods-Abst-Notifire Mock.debug.xcconfig"; sourceTree = "<group>"; };
 		0162B92DAB5020E803869527 /* Pods-Abst-Notifire Mock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire Mock.release.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire Mock/Pods-Abst-Notifire Mock.release.xcconfig"; sourceTree = "<group>"; };
 		030BC637980C2A6C98337BB7 /* Pods-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
+		078841F9B60059E201600507 /* Pods-Abst-NotifireTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-NotifireTests.release.xcconfig"; path = "Target Support Files/Pods-Abst-NotifireTests/Pods-Abst-NotifireTests.release.xcconfig"; sourceTree = "<group>"; };
+		14B7A8D63017BA5B6BDA40DB /* Pods-NotifireUITests.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotifireUITests.testflight.xcconfig"; path = "Target Support Files/Pods-NotifireUITests/Pods-NotifireUITests.testflight.xcconfig"; sourceTree = "<group>"; };
 		2A5838B78DE5CCCCEC9C7D03 /* Pods_Abst_Notifire_Mock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Abst_Notifire_Mock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		31E57C8E1B5587F7AA0D4377 /* Pods_NotifireTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotifireTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		324EA1389F609ADA4BC8AD89 /* Pods-Abst-NotifireTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-NotifireTests.debug.xcconfig"; path = "Target Support Files/Pods-Abst-NotifireTests/Pods-Abst-NotifireTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4B4C3723CFD85CCD74884F94 /* Pods-NotifireTests.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotifireTests.testflight.xcconfig"; path = "Target Support Files/Pods-NotifireTests/Pods-NotifireTests.testflight.xcconfig"; sourceTree = "<group>"; };
 		4CB99005B83A65FF306B2F1A /* Pods-Abst-Notifire.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire.testflight.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire.testflight.xcconfig"; sourceTree = "<group>"; };
+		4E640EC1DCCB1FB39565E84C /* Pods-NotifireUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotifireUITests.release.xcconfig"; path = "Target Support Files/Pods-NotifireUITests/Pods-NotifireUITests.release.xcconfig"; sourceTree = "<group>"; };
+		543582CE169700E6FFE0D25D /* Pods-Abst-NotifireUITests.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-NotifireUITests.testflight.xcconfig"; path = "Target Support Files/Pods-Abst-NotifireUITests/Pods-Abst-NotifireUITests.testflight.xcconfig"; sourceTree = "<group>"; };
+		761484B520C4567DD0B70141 /* Pods-Abst-NotifireUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-NotifireUITests.release.xcconfig"; path = "Target Support Files/Pods-Abst-NotifireUITests/Pods-Abst-NotifireUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8480433483EE30B3D50F6A61 /* Pods-Abst-NotifireUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-NotifireUITests.debug.xcconfig"; path = "Target Support Files/Pods-Abst-NotifireUITests/Pods-Abst-NotifireUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8902A676250D4460007BB5DF /* NotifireAPIRequestErrorContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIRequestErrorContext.swift; sourceTree = "<group>"; };
+		8902A686250DB0EE007BB5DF /* NotifireUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotifireUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8902A688250DB0EE007BB5DF /* NotifireUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireUITests.swift; sourceTree = "<group>"; };
+		8902A68A250DB0EE007BB5DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8902A691250DB22B007BB5DF /* GoogleSSOUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSSOUITests.swift; sourceTree = "<group>"; };
 		8906E9732170FB2100D45BCA /* ConfirmEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailViewController.swift; sourceTree = "<group>"; };
 		8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifireNotification.swift; sourceTree = "<group>"; };
 		8920CA6F2171377900A72BD0 /* RegisterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCoordinator.swift; sourceTree = "<group>"; };
@@ -536,7 +578,7 @@
 		8933F0C72141D0C000645B3A /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		8933F0C92141D93700645B3A /* InputValidatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidatingViewModel.swift; sourceTree = "<group>"; };
 		8933F0CB2141D94700645B3A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
-		8933F0CE2141E40900645B3A /* NotifireAPIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIHandler.swift; sourceTree = "<group>"; };
+		8933F0CE2141E40900645B3A /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
 		8933F0D2214334C000645B3A /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
 		8933F0DC2143360300645B3A /* NotifireAPITypealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPITypealias.swift; sourceTree = "<group>"; };
 		8933F0DE2143379700645B3A /* HTTPHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeader.swift; sourceTree = "<group>"; };
@@ -547,7 +589,7 @@
 		8933F0EB2143388E00645B3A /* NotifireAPIRequestContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIRequestContext.swift; sourceTree = "<group>"; };
 		8933F0ED2143389F00645B3A /* NotifireAPIResponseContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIResponseContext.swift; sourceTree = "<group>"; };
 		8933F0EF214338B500645B3A /* NotifireAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIError.swift; sourceTree = "<group>"; };
-		8933F0F2214338EA00645B3A /* NotifireAPIManagerBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIManagerBase.swift; sourceTree = "<group>"; };
+		8933F0F2214338EA00645B3A /* NotifireAPIBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIBaseManager.swift; sourceTree = "<group>"; };
 		8933F0F4214338FF00645B3A /* NotifireAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIManager.swift; sourceTree = "<group>"; };
 		8933F0F62143391000645B3A /* NotifireProtectedAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireProtectedAPIManager.swift; sourceTree = "<group>"; };
 		8933F0FB214339D700645B3A /* NotifireAPIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIDecodable.swift; sourceTree = "<group>"; };
@@ -585,6 +627,8 @@
 		893FE0362197C225002CD846 /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
 		8948F57121A0AD8200BB6E10 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
 		8948F57321A0C00000BB6E10 /* NotifirePoppable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifirePoppable.swift; sourceTree = "<group>"; };
+		8949EBDD251189F00045D1A7 /* RegisterSuccessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSuccessViewModel.swift; sourceTree = "<group>"; };
+		8949EBDF25118A090045D1A7 /* RegisterSuccessViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSuccessViewControllerDelegate.swift; sourceTree = "<group>"; };
 		894B1F842505D60C00D0D671 /* SectioningCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectioningCoordinator.swift; sourceTree = "<group>"; };
 		894B1F872505D66600D0D671 /* SectionedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionedCoordinator.swift; sourceTree = "<group>"; };
 		894B1F8B2505D69900D0D671 /* ChildViewControllerContainerProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewControllerContainerProviding.swift; sourceTree = "<group>"; };
@@ -622,8 +666,9 @@
 		896167F92501AB9A007BF3F1 /* ForgotPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordCoordinator.swift; sourceTree = "<group>"; };
 		896167FC2501ABAE007BF3F1 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		896167FF2501B3A3007BF3F1 /* UIView+Embed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Embed.swift"; sourceTree = "<group>"; };
+		8967F777250ECE810079BCB8 /* UnprotectedAPIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnprotectedAPIIntegrationTests.swift; sourceTree = "<group>"; };
+		8967F7792511546A0079BCB8 /* UIWindow+Dismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Dismiss.swift"; sourceTree = "<group>"; };
 		897069C721334E7700D798AA /* ConstrainableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstrainableView.swift; sourceTree = "<group>"; };
-		897069C92133597800D798AA /* BottomNavigatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigatorViewController.swift; sourceTree = "<group>"; };
 		897069CB213359A100D798AA /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		897069CD21335C3400D798AA /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		897069D12133725D00D798AA /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -647,6 +692,8 @@
 		898533C2219FAEE300E0A656 /* LocalServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalServiceExtension.swift; sourceTree = "<group>"; };
 		898533C721A03ED000E0A656 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		898533CA21A041EE00E0A656 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		89942AF9250D36710036DBDC /* NotifireTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotifireTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		89942AFD250D36710036DBDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtension.swift; sourceTree = "<group>"; };
 		89A9048221B8589300D262E1 /* IndicatorStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorStackView.swift; sourceTree = "<group>"; };
 		89A9048421B858B200D262E1 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
@@ -674,6 +721,9 @@
 		89BDADE2217A5693000E38FC /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		89BDADE4217A5C5B000E38FC /* ServicesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesViewModel.swift; sourceTree = "<group>"; };
 		89BDADE6217A921A000E38FC /* ServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceViewController.swift; sourceTree = "<group>"; };
+		89CA5A98250EB1880020A564 /* LaunchArgumentsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchArgumentsHandler.swift; sourceTree = "<group>"; };
+		89CA5A9C250EB3120020A564 /* LaunchArgument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchArgument.swift; sourceTree = "<group>"; };
+		89CA5AA0250EB5910020A564 /* XCTestCase+Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Delay.swift"; sourceTree = "<group>"; };
 		89D4E1F02139ED0F00630790 /* CALayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
 		89D4E1F22139ED3D00630790 /* CAPersistentAnimationsLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAPersistentAnimationsLayer.swift; sourceTree = "<group>"; };
 		89D4E1F42139F43E00630790 /* Observing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observing.swift; sourceTree = "<group>"; };
@@ -701,17 +751,30 @@
 		89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotifireButton+Loadable.swift"; sourceTree = "<group>"; };
 		928D68240DE9EDF7C6F0C4A6 /* Pods-Abst-Notifire Mock.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire Mock.testflight.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire Mock/Pods-Abst-Notifire Mock.testflight.xcconfig"; sourceTree = "<group>"; };
 		A3DC1CAF7E5B0E0CC05B7278 /* Pods-Abst-Notifire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire.debug.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire.debug.xcconfig"; sourceTree = "<group>"; };
+		A589C840810EE01CF500294F /* Pods_NotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8F4F569EF32D5580E6955C4 /* Pods_Abst_NotifireUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Abst_NotifireUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0AC8ED83A2EB61385EC7413 /* Pods-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		B2DE30C7A5442949CE565936 /* Pods-Abst-NotifireTests.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-NotifireTests.testflight.xcconfig"; path = "Target Support Files/Pods-Abst-NotifireTests/Pods-Abst-NotifireTests.testflight.xcconfig"; sourceTree = "<group>"; };
 		B9C62771C2A93ABA92BA2123 /* Pods-Abst-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-Abst-NotificationServiceExtension/Pods-Abst-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		CAB038CCBC103BB726CA33A8 /* Pods-Abst-Notifire.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire.release.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire.release.xcconfig"; sourceTree = "<group>"; };
 		CD10F1A1C7F7180433E8FF1F /* Pods-Abst-NotificationServiceExtension.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-NotificationServiceExtension.testflight.xcconfig"; path = "Target Support Files/Pods-Abst-NotificationServiceExtension/Pods-Abst-NotificationServiceExtension.testflight.xcconfig"; sourceTree = "<group>"; };
 		CF48406CF4114A37FB479C6B /* Pods_Abst_Notifire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Abst_Notifire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D24810658C9796A6B96C1922 /* Pods-Abst-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-Abst-NotificationServiceExtension/Pods-Abst-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
-		E8F7F669C4334997C1F82D76 /* Pods_Abst_NotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Abst_NotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0ABB83C2323EEDF7D2EECE5 /* Pods-NotifireUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotifireUITests.debug.xcconfig"; path = "Target Support Files/Pods-NotifireUITests/Pods-NotifireUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F2A2CBC61351755171EE279F /* Pods-NotificationServiceExtension.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.testflight.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.testflight.xcconfig"; sourceTree = "<group>"; };
+		F3C65BE79C1FE40CF801F7B0 /* Pods-NotifireTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotifireTests.debug.xcconfig"; path = "Target Support Files/Pods-NotifireTests/Pods-NotifireTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FB5E98FDD96D0D84E1D285B7 /* Pods-NotifireTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotifireTests.release.xcconfig"; path = "Target Support Files/Pods-NotifireTests/Pods-NotifireTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8902A683250DB0EE007BB5DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECB6D59A787136CA160FD8AF /* Pods_Abst_NotifireUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		89576B2E24FD412A0097BF87 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -728,7 +791,15 @@
 			files = (
 				896ADD812506E00800EE7B51 /* RealmSwift.framework in Frameworks */,
 				896ADD822506E00800EE7B51 /* Realm.framework in Frameworks */,
-				0E98CF4D8A6187E9159916CE /* Pods_Abst_NotificationServiceExtension.framework in Frameworks */,
+				1B713F3A831CD4A87693E490 /* Pods_NotificationServiceExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89942AF6250D36710036DBDC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8649C28850648748038A4BAD /* Pods_NotifireTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,8 +831,31 @@
 				B9C62771C2A93ABA92BA2123 /* Pods-Abst-NotificationServiceExtension.debug.xcconfig */,
 				CD10F1A1C7F7180433E8FF1F /* Pods-Abst-NotificationServiceExtension.testflight.xcconfig */,
 				D24810658C9796A6B96C1922 /* Pods-Abst-NotificationServiceExtension.release.xcconfig */,
+				F3C65BE79C1FE40CF801F7B0 /* Pods-NotifireTests.debug.xcconfig */,
+				4B4C3723CFD85CCD74884F94 /* Pods-NotifireTests.testflight.xcconfig */,
+				FB5E98FDD96D0D84E1D285B7 /* Pods-NotifireTests.release.xcconfig */,
+				324EA1389F609ADA4BC8AD89 /* Pods-Abst-NotifireTests.debug.xcconfig */,
+				B2DE30C7A5442949CE565936 /* Pods-Abst-NotifireTests.testflight.xcconfig */,
+				078841F9B60059E201600507 /* Pods-Abst-NotifireTests.release.xcconfig */,
+				F0ABB83C2323EEDF7D2EECE5 /* Pods-NotifireUITests.debug.xcconfig */,
+				14B7A8D63017BA5B6BDA40DB /* Pods-NotifireUITests.testflight.xcconfig */,
+				4E640EC1DCCB1FB39565E84C /* Pods-NotifireUITests.release.xcconfig */,
+				8480433483EE30B3D50F6A61 /* Pods-Abst-NotifireUITests.debug.xcconfig */,
+				543582CE169700E6FFE0D25D /* Pods-Abst-NotifireUITests.testflight.xcconfig */,
+				761484B520C4567DD0B70141 /* Pods-Abst-NotifireUITests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		8902A687250DB0EE007BB5DF /* NotifireUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8902A688250DB0EE007BB5DF /* NotifireUITests.swift */,
+				8902A691250DB22B007BB5DF /* GoogleSSOUITests.swift */,
+				89CA5AA0250EB5910020A564 /* XCTestCase+Delay.swift */,
+				8902A68A250DB0EE007BB5DF /* Info.plist */,
+			);
+			path = NotifireUITests;
 			sourceTree = "<group>";
 		};
 		8920CA75217144E300A72BD0 /* Register */ = {
@@ -853,6 +947,7 @@
 				89E6B6C624FF209600F7A79C /* View */,
 				89250B2324FEEB7000BC7C2C /* ViewController */,
 				89E6B6CE250041E500F7A79C /* Coordinator */,
+				89CA5A97250EB1700020A564 /* Struct */,
 				89D616962502FE0300287331 /* Class */,
 				89250A1225004E9900F00630 /* Protocol */,
 				89D4E1F82139F92200630790 /* Layer */,
@@ -865,7 +960,6 @@
 			isa = PBXGroup;
 			children = (
 				89250B2424FEF66A00BC7C2C /* VMViewController.swift */,
-				897069C92133597800D798AA /* BottomNavigatorViewController.swift */,
 				897069CB213359A100D798AA /* BaseViewController.swift */,
 				89A9049C21BF19EA00D262E1 /* NotifireNavigationController.swift */,
 			);
@@ -972,7 +1066,7 @@
 				8933F0E62143383300645B3A /* NotifireAPIStatusCode.swift */,
 				8933F0EF214338B500645B3A /* NotifireAPIError.swift */,
 				8933F0E2214337D900645B3A /* NotifireAPIEndpoint.swift */,
-				8933F0CE2141E40900645B3A /* NotifireAPIHandler.swift */,
+				8933F0CE2141E40900645B3A /* APIHandler.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -991,6 +1085,7 @@
 			children = (
 				8933F0EB2143388E00645B3A /* NotifireAPIRequestContext.swift */,
 				8933F0ED2143389F00645B3A /* NotifireAPIResponseContext.swift */,
+				8902A676250D4460007BB5DF /* NotifireAPIRequestErrorContext.swift */,
 			);
 			path = Context;
 			sourceTree = "<group>";
@@ -998,7 +1093,7 @@
 		8933F0F1214338E000645B3A /* APIManager */ = {
 			isa = PBXGroup;
 			children = (
-				8933F0F2214338EA00645B3A /* NotifireAPIManagerBase.swift */,
+				8933F0F2214338EA00645B3A /* NotifireAPIBaseManager.swift */,
 				8933F0F4214338FF00645B3A /* NotifireAPIManager.swift */,
 				8933F0F62143391000645B3A /* NotifireProtectedAPIManager.swift */,
 			);
@@ -1132,6 +1227,7 @@
 				895A3B7A25006D58000A7B50 /* LoginRegisterSplitterViewControllerDelegate.swift */,
 				895A3B9825008C8C000A7B50 /* SSOManagerDelegate.swift */,
 				896167F625018561007BF3F1 /* LoginViewControllerDelegate.swift */,
+				8949EBDF25118A090045D1A7 /* RegisterSuccessViewControllerDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1243,11 +1339,22 @@
 			path = NotificationServiceExtension;
 			sourceTree = "<group>";
 		};
+		89942AFA250D36710036DBDC /* NotifireTests */ = {
+			isa = PBXGroup;
+			children = (
+				89942AFD250D36710036DBDC /* Info.plist */,
+				8967F777250ECE810079BCB8 /* UnprotectedAPIIntegrationTests.swift */,
+			);
+			path = NotifireTests;
+			sourceTree = "<group>";
+		};
 		89B3EC3C2020E48F0068BA64 = {
 			isa = PBXGroup;
 			children = (
 				89B3EC472020E4900068BA64 /* Notifire */,
 				89853392219FA46A00E0A656 /* NotificationServiceExtension */,
+				89942AFA250D36710036DBDC /* NotifireTests */,
+				8902A687250DB0EE007BB5DF /* NotifireUITests */,
 				89B3EC462020E4900068BA64 /* Products */,
 				4DB0C2C61B3F8DC2A711E3CE /* Pods */,
 				CC7A7813572D08E26068BCF2 /* Frameworks */,
@@ -1260,6 +1367,8 @@
 				89B3EC452020E4900068BA64 /* Notifire.app */,
 				89853391219FA46900E0A656 /* NotificationServiceExtension.appex */,
 				89576B3B24FD412A0097BF87 /* Notifire Mock.app */,
+				89942AF9250D36710036DBDC /* NotifireTests.xctest */,
+				8902A686250DB0EE007BB5DF /* NotifireUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1383,6 +1492,15 @@
 			path = Deeplink;
 			sourceTree = "<group>";
 		};
+		89CA5A97250EB1700020A564 /* Struct */ = {
+			isa = PBXGroup;
+			children = (
+				89CA5A98250EB1880020A564 /* LaunchArgumentsHandler.swift */,
+				89CA5A9C250EB3120020A564 /* LaunchArgument.swift */,
+			);
+			path = Struct;
+			sourceTree = "<group>";
+		};
 		89D4E1F82139F92200630790 /* Layer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1443,6 +1561,7 @@
 				895A3B8B25008A26000A7B50 /* UIImage+Resize.swift */,
 				895A3B8E25008A35000A7B50 /* CGSize+Equal.swift */,
 				89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */,
+				8967F7792511546A0079BCB8 /* UIWindow+Dismiss.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1493,6 +1612,7 @@
 			children = (
 				895A3B8125006D97000A7B50 /* AuthenticationProvidersViewModel.swift */,
 				895A3B8825006DC5000A7B50 /* LoginRegisterSplitterViewModel.swift */,
+				8949EBDD251189F00045D1A7 /* RegisterSuccessViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1527,7 +1647,9 @@
 				89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */,
 				CF48406CF4114A37FB479C6B /* Pods_Abst_Notifire.framework */,
 				2A5838B78DE5CCCCEC9C7D03 /* Pods_Abst_Notifire_Mock.framework */,
-				E8F7F669C4334997C1F82D76 /* Pods_Abst_NotificationServiceExtension.framework */,
+				A589C840810EE01CF500294F /* Pods_NotificationServiceExtension.framework */,
+				31E57C8E1B5587F7AA0D4377 /* Pods_NotifireTests.framework */,
+				A8F4F569EF32D5580E6955C4 /* Pods_Abst_NotifireUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1535,6 +1657,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8902A685250DB0EE007BB5DF /* NotifireUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8902A690250DB0EE007BB5DF /* Build configuration list for PBXNativeTarget "NotifireUITests" */;
+			buildPhases = (
+				BB2B39F23A99C5F2CF3B4222 /* [CP] Check Pods Manifest.lock */,
+				8902A682250DB0EE007BB5DF /* Sources */,
+				8902A683250DB0EE007BB5DF /* Frameworks */,
+				8902A684250DB0EE007BB5DF /* Resources */,
+				5BE25DD52AA76C8E802580BD /* [CP] Embed Pods Frameworks */,
+				70DAD31FB66EEC0DD787F0C7 /* [CP] Copy Pods Resources */,
+				89CA5A96250DC67A0020A564 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8902A68C250DB0EE007BB5DF /* PBXTargetDependency */,
+			);
+			name = NotifireUITests;
+			productName = NotifireUITests;
+			productReference = 8902A686250DB0EE007BB5DF /* NotifireUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		89576A9B24FD412A0097BF87 /* Notifire Mock */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 89576B3624FD412A0097BF87 /* Build configuration list for PBXNativeTarget "Notifire Mock" */;
@@ -1579,6 +1723,25 @@
 			productReference = 89853391219FA46900E0A656 /* NotificationServiceExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		89942AF8250D36710036DBDC /* NotifireTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89942B03250D36710036DBDC /* Build configuration list for PBXNativeTarget "NotifireTests" */;
+			buildPhases = (
+				F38A30028B810F7E0DA682EE /* [CP] Check Pods Manifest.lock */,
+				89942AF5250D36710036DBDC /* Sources */,
+				89942AF6250D36710036DBDC /* Frameworks */,
+				89942AF7250D36710036DBDC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				89942AFF250D36710036DBDC /* PBXTargetDependency */,
+			);
+			name = NotifireTests;
+			productName = NotifireTests;
+			productReference = 89942AF9250D36710036DBDC /* NotifireTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		89B3EC442020E4900068BA64 /* Notifire */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 89B3EC652020E4900068BA64 /* Build configuration list for PBXNativeTarget "Notifire" */;
@@ -1610,10 +1773,15 @@
 		89B3EC3D2020E48F0068BA64 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1170;
 				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = "David Bielik";
 				TargetAttributes = {
+					8902A685250DB0EE007BB5DF = {
+						CreatedOnToolsVersion = 11.7;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 89B3EC442020E4900068BA64;
+					};
 					89576A9B24FD412A0097BF87 = {
 						LastSwiftMigration = 1160;
 						ProvisioningStyle = Automatic;
@@ -1630,6 +1798,12 @@
 								enabled = 1;
 							};
 						};
+					};
+					89942AF8250D36710036DBDC = {
+						CreatedOnToolsVersion = 11.7;
+						LastSwiftMigration = 1170;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 89B3EC442020E4900068BA64;
 					};
 					89B3EC442020E4900068BA64 = {
 						CreatedOnToolsVersion = 9.2;
@@ -1671,11 +1845,20 @@
 				89B3EC442020E4900068BA64 /* Notifire */,
 				89576A9B24FD412A0097BF87 /* Notifire Mock */,
 				89853390219FA46900E0A656 /* NotificationServiceExtension */,
+				89942AF8250D36710036DBDC /* NotifireTests */,
+				8902A685250DB0EE007BB5DF /* NotifireUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8902A684250DB0EE007BB5DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		89576B3024FD412A0097BF87 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1686,6 +1869,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8985338F219FA46900E0A656 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89942AF7250D36710036DBDC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1768,6 +1958,30 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		5BE25DD52AA76C8E802580BD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Abst-NotifireUITests/Pods-Abst-NotifireUITests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Abst-NotifireUITests/Pods-Abst-NotifireUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		62889FEA49136180BFBE6193 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1790,6 +2004,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		70DAD31FB66EEC0DD787F0C7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Abst-NotifireUITests/Pods-Abst-NotifireUITests-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Abst-NotifireUITests/Pods-Abst-NotifireUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		89250AFF24FE6B0B00BC7C2C /* Run Script */ = {
@@ -1882,6 +2114,23 @@
 			shellPath = /bin/sh;
 			shellScript = "# skip if we run in debug\nif [ \"$CONFIGURATION\" == \"Debug\" ]; then\n    echo \"Skip frameworks cleaning in debug version\"\n    exit 0\nfi\n\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# This script loops through the frameworks embedded in the application and\n# removes unused architectures.\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\nFRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\nFRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\necho \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n\nEXTRACTED_ARCHS=()\n\nfor ARCH in $ARCHS\ndo\necho \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\nlipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\nEXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\ndone\n\necho \"Merging extracted architectures: ${ARCHS}\"\nlipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\nrm \"${EXTRACTED_ARCHS[@]}\"\n\necho \"Replacing original executable with thinned version\"\nrm \"$FRAMEWORK_EXECUTABLE_PATH\"\nmv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone\n";
 		};
+		89CA5A96250DC67A0020A564 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Enable if we need to remove Safari Cookies for SSO tests\n\n#xcrun simctl shutdown all\n#xcrun simctl erase all\n";
+		};
 		99D86DBA956927866DB4024C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1897,7 +2146,29 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Abst-NotificationServiceExtension-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-NotificationServiceExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB2B39F23A99C5F2CF3B4222 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Abst-NotifireUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1944,9 +2215,42 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F38A30028B810F7E0DA682EE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NotifireTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8902A682250DB0EE007BB5DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8902A689250DB0EE007BB5DF /* NotifireUITests.swift in Sources */,
+				89CA5AA1250EB5910020A564 /* XCTestCase+Delay.swift in Sources */,
+				89CA5A9F250EB3130020A564 /* LaunchArgument.swift in Sources */,
+				8902A692250DB22B007BB5DF /* GoogleSSOUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		89576A9F24FD412A0097BF87 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1999,7 +2303,7 @@
 				895A3B782500609B000A7B50 /* BottomNavigatorLabelContaining.swift in Sources */,
 				89576AC324FD412A0097BF87 /* NotifireAPIEncodable.swift in Sources */,
 				896167EC25016EF1007BF3F1 /* NavigationCoordinator.swift in Sources */,
-				89576AC424FD412A0097BF87 /* NotifireAPIManagerBase.swift in Sources */,
+				89576AC424FD412A0097BF87 /* NotifireAPIBaseManager.swift in Sources */,
 				89576AC524FD412A0097BF87 /* SplashView.swift in Sources */,
 				89576AC724FD412A0097BF87 /* NotifirePoppable.swift in Sources */,
 				89E6B6C524FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */,
@@ -2090,17 +2394,19 @@
 				894B1FAB2505DF5E00D0D671 /* TabBarGestureHandler+TabPressActionData.swift in Sources */,
 				89576B0624FD412A0097BF87 /* NotifireAPIManagerMock.swift in Sources */,
 				89576B0724FD412A0097BF87 /* ConfirmEmailViewController.swift in Sources */,
-				89576B0824FD412A0097BF87 /* NotifireAPIHandler.swift in Sources */,
+				89576B0824FD412A0097BF87 /* APIHandler.swift in Sources */,
 				89576B0924FD412A0097BF87 /* ServicesViewController.swift in Sources */,
+				89CA5A9E250EB3130020A564 /* LaunchArgument.swift in Sources */,
 				89576B0A24FD412A0097BF87 /* NotifirePopAnimationController.swift in Sources */,
 				894B1F912505D85400D0D671 /* TabBarViewController+ChildViewControllerContainerProviding.swift in Sources */,
 				89576B0B24FD412A0097BF87 /* HTTPMethod.swift in Sources */,
 				89E6B6D1250041F300F7A79C /* ChildCoordinator.swift in Sources */,
+				8967F77B2511546B0079BCB8 /* UIWindow+Dismiss.swift in Sources */,
 				89576B0C24FD412A0097BF87 /* Size.swift in Sources */,
 				896167FB2501AB9A007BF3F1 /* ForgotPasswordCoordinator.swift in Sources */,
 				89576B0D24FD412A0097BF87 /* SettingsCoordinator.swift in Sources */,
-				89576B0E24FD412A0097BF87 /* BottomNavigatorViewController.swift in Sources */,
 				89576B0F24FD412A0097BF87 /* ServiceCreationViewController.swift in Sources */,
+				8949EBE125118A090045D1A7 /* RegisterSuccessViewControllerDelegate.swift in Sources */,
 				89576B1024FD412A0097BF87 /* EmptyStatePresentable.swift in Sources */,
 				89576B1124FD412A0097BF87 /* UIViewControllerExtension.swift in Sources */,
 				89576B1224FD412A0097BF87 /* RegisterViewModel.swift in Sources */,
@@ -2111,9 +2417,11 @@
 				89576B1624FD412A0097BF87 /* APIUserErrorResponding.swift in Sources */,
 				89576B1724FD412A0097BF87 /* NotifireLayer.swift in Sources */,
 				896167D825012F06007BF3F1 /* NotifireBackgroundView.swift in Sources */,
+				89CA5A9A250EB1880020A564 /* LaunchArgumentsHandler.swift in Sources */,
 				894B1FA82505DF2E00D0D671 /* TabBarGestureHandler.swift in Sources */,
 				896167FE2501ABAE007BF3F1 /* ForgotPasswordViewController.swift in Sources */,
 				894B1F8D2505D69900D0D671 /* ChildViewControllerContainerProviding.swift in Sources */,
+				8949EBE225118A0E0045D1A7 /* RegisterSuccessViewModel.swift in Sources */,
 				89576B1824FD412A0097BF87 /* RealmCollectionViewModel.swift in Sources */,
 				89576B1924FD412A0097BF87 /* RootViewController.swift in Sources */,
 				89576B1A24FD412A0097BF87 /* ValidatableComponentState.swift in Sources */,
@@ -2122,6 +2430,7 @@
 				89576B1D24FD412A0097BF87 /* ValidatableComponent.swift in Sources */,
 				89576B1E24FD412A0097BF87 /* CellConfigurable.swift in Sources */,
 				89E6B6CD25001B6C00F7A79C /* LoginRegisterSplitterViewController.swift in Sources */,
+				8902A678250D4460007BB5DF /* NotifireAPIRequestErrorContext.swift in Sources */,
 				89576B1F24FD412A0097BF87 /* NotifireAPIEndpoint.swift in Sources */,
 				895A3B9025008A35000A7B50 /* CGSize+Equal.swift in Sources */,
 				89576B2024FD412A0097BF87 /* CAPersistentAnimationsLayer.swift in Sources */,
@@ -2147,21 +2456,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89D616AF2505A84400287331 /* SSOAuthenticationProvider.swift in Sources */,
+				8902A681250DAE7B007BB5DF /* RealmManager.swift in Sources */,
 				898533B7219FA9FE00E0A656 /* LocalNotifireNotification.swift in Sources */,
-				898533C921A03F2E00E0A656 /* RealmManager.swift in Sources */,
-				89D6169D25052F8700287331 /* Observing.swift in Sources */,
+				8902A680250DAE70007BB5DF /* UserSessionManager.swift in Sources */,
 				89A9048121B754A800D262E1 /* DateFormatterExtension.swift in Sources */,
-				898533B6219FA9F500E0A656 /* NotifireNotificationHandler.swift in Sources */,
+				8902A67E250DAE64007BB5DF /* AuthenticationProvider.swift in Sources */,
+				8902A67C250DAE58007BB5DF /* RealmProviding.swift in Sources */,
 				89D6169E25052F8B00287331 /* Config.swift in Sources */,
-				89D616A12505A75000287331 /* UIImage+Resize.swift in Sources */,
-				898533C1219FAE4100E0A656 /* RealmProviding.swift in Sources */,
-				89D616A72505A7FA00287331 /* AuthenticationProvider.swift in Sources */,
 				898533C4219FB94900E0A656 /* NotificationService.swift in Sources */,
-				898533C521A03E3D00E0A656 /* UserSessionManager.swift in Sources */,
 				892B415A21C415B400D28ABE /* NotificationLevel.swift in Sources */,
+				8902A67D250DAE5F007BB5DF /* UserSession.swift in Sources */,
+				8902A67F250DAE67007BB5DF /* SSOAuthenticationProvider.swift in Sources */,
+				8902A67B250DAE4F007BB5DF /* NotifireNotificationHandler.swift in Sources */,
 				898533BB219FAA2700E0A656 /* LocalService.swift in Sources */,
-				898533C621A03E5100E0A656 /* UserSession.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89942AF5250D36710036DBDC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8967F778250ECE810079BCB8 /* UnprotectedAPIIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2204,8 +2519,10 @@
 				8920CA74217144DF00A72BD0 /* NavigationActionViewController.swift in Sources */,
 				89B3EC7320232A310068BA64 /* LoginViewController.swift in Sources */,
 				89D616A52505A7DD00287331 /* UserSessionManager+UserSessionHandler.swift in Sources */,
+				8949EBDE251189F00045D1A7 /* RegisterSuccessViewModel.swift in Sources */,
 				896167CF25011709007BF3F1 /* NotifireButton.swift in Sources */,
 				8933F0F0214338B500645B3A /* NotifireAPIError.swift in Sources */,
+				89CA5A9D250EB3130020A564 /* LaunchArgument.swift in Sources */,
 				896167D22501182D007BF3F1 /* SignInButton.swift in Sources */,
 				895A3B7F25006D6F000A7B50 /* AuthenticationProvidersView.swift in Sources */,
 				898533C3219FAEE300E0A656 /* LocalServiceExtension.swift in Sources */,
@@ -2217,7 +2534,7 @@
 				895A3B772500609B000A7B50 /* BottomNavigatorLabelContaining.swift in Sources */,
 				8933F0FE214339E200645B3A /* NotifireAPIEncodable.swift in Sources */,
 				896167EB25016EF1007BF3F1 /* NavigationCoordinator.swift in Sources */,
-				8933F0F3214338EA00645B3A /* NotifireAPIManagerBase.swift in Sources */,
+				8933F0F3214338EA00645B3A /* NotifireAPIBaseManager.swift in Sources */,
 				8939958E2170011100687A79 /* SplashView.swift in Sources */,
 				8948F57421A0C00000BB6E10 /* NotifirePoppable.swift in Sources */,
 				89E6B6C424FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */,
@@ -2246,6 +2563,7 @@
 				8933F0DF2143379700645B3A /* HTTPHeader.swift in Sources */,
 				8933F0D3214334C000645B3A /* URLExtension.swift in Sources */,
 				89E6B6BA24FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift in Sources */,
+				8967F77A2511546A0079BCB8 /* UIWindow+Dismiss.swift in Sources */,
 				892B413621C1A5F000D28ABE /* ScrollViewReselectable.swift in Sources */,
 				89D4E1F52139F43E00630790 /* Observing.swift in Sources */,
 				897069EB2134B4D200D798AA /* RegisterViewController.swift in Sources */,
@@ -2303,12 +2621,12 @@
 				894B1F932505DA1A00D0D671 /* Reselectable.swift in Sources */,
 				89D4E1FE2139FD3E00630790 /* MultiplePathAnimator.swift in Sources */,
 				894B1FAD2505DFC600D0D671 /* TabBarGestureHandler+UIGestureRecognizerDelegate.swift in Sources */,
+				89CA5A99250EB1880020A564 /* LaunchArgumentsHandler.swift in Sources */,
 				89BDADD6217928A9000E38FC /* CheckValidityOption.swift in Sources */,
 				8920CA792171739900A72BD0 /* ActionButton.swift in Sources */,
 				894B1FAA2505DF5E00D0D671 /* TabBarGestureHandler+TabPressActionData.swift in Sources */,
-				8920CA7B217212B200A72BD0 /* NotifireAPIManagerMock.swift in Sources */,
 				8906E9742170FB2100D45BCA /* ConfirmEmailViewController.swift in Sources */,
-				8933F0CF2141E40900645B3A /* NotifireAPIHandler.swift in Sources */,
+				8933F0CF2141E40900645B3A /* APIHandler.swift in Sources */,
 				893995AE2170EECE00687A79 /* ServicesViewController.swift in Sources */,
 				8922E2492198AF8D001984C4 /* NotifirePopAnimationController.swift in Sources */,
 				894B1F902505D85400D0D671 /* TabBarViewController+ChildViewControllerContainerProviding.swift in Sources */,
@@ -2317,7 +2635,7 @@
 				897069D42133730A00D798AA /* Size.swift in Sources */,
 				896167FA2501AB9A007BF3F1 /* ForgotPasswordCoordinator.swift in Sources */,
 				893995AC2170EDF300687A79 /* SettingsCoordinator.swift in Sources */,
-				897069CA2133597800D798AA /* BottomNavigatorViewController.swift in Sources */,
+				8949EBE025118A090045D1A7 /* RegisterSuccessViewControllerDelegate.swift in Sources */,
 				893FE01D2195E3C1002CD846 /* ServiceCreationViewController.swift in Sources */,
 				892B413A21C1DFDE00D28ABE /* EmptyStatePresentable.swift in Sources */,
 				897069CE21335C3400D798AA /* UIViewControllerExtension.swift in Sources */,
@@ -2340,6 +2658,7 @@
 				8933F0B7214131CF00645B3A /* ValidatableComponent.swift in Sources */,
 				89A9049F21C03D2300D262E1 /* CellConfigurable.swift in Sources */,
 				89E6B6CC25001B6C00F7A79C /* LoginRegisterSplitterViewController.swift in Sources */,
+				8902A677250D4460007BB5DF /* NotifireAPIRequestErrorContext.swift in Sources */,
 				8933F0E3214337D900645B3A /* NotifireAPIEndpoint.swift in Sources */,
 				895A3B8F25008A35000A7B50 /* CGSize+Equal.swift in Sources */,
 				89D4E1F32139ED3D00630790 /* CAPersistentAnimationsLayer.swift in Sources */,
@@ -2364,6 +2683,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8902A68C250DB0EE007BB5DF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 89B3EC442020E4900068BA64 /* Notifire */;
+			targetProxy = 8902A68B250DB0EE007BB5DF /* PBXContainerItemProxy */;
+		};
 		89576A9C24FD412A0097BF87 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 89853390219FA46900E0A656 /* NotificationServiceExtension */;
@@ -2373,6 +2697,11 @@
 			isa = PBXTargetDependency;
 			target = 89853390219FA46900E0A656 /* NotificationServiceExtension */;
 			targetProxy = 89853396219FA46A00E0A656 /* PBXContainerItemProxy */;
+		};
+		89942AFF250D36710036DBDC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 89B3EC442020E4900068BA64 /* Notifire */;
+			targetProxy = 89942AFE250D36710036DBDC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2388,6 +2717,64 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8902A68D250DB0EE007BB5DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8480433483EE30B3D50F6A61 /* Pods-Abst-NotifireUITests.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6QH7E4QW2D;
+				INFOPLIST_FILE = NotifireUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvdblk.Notifire.NotifireUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Notifire;
+			};
+			name = Debug;
+		};
+		8902A68E250DB0EE007BB5DF /* TestFlight */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 543582CE169700E6FFE0D25D /* Pods-Abst-NotifireUITests.testflight.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6QH7E4QW2D;
+				INFOPLIST_FILE = NotifireUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvdblk.Notifire.NotifireUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Notifire;
+			};
+			name = TestFlight;
+		};
+		8902A68F250DB0EE007BB5DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 761484B520C4567DD0B70141 /* Pods-Abst-NotifireUITests.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6QH7E4QW2D;
+				INFOPLIST_FILE = NotifireUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvdblk.Notifire.NotifireUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Notifire;
+			};
+			name = Release;
+		};
 		89576B3724FD412A0097BF87 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89E777EB2173C04C009CF3DE /* Mock.xcconfig */;
@@ -2558,7 +2945,7 @@
 		};
 		89576B4124FD44CA0097BF87 /* TestFlight */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CD10F1A1C7F7180433E8FF1F /* Pods-Abst-NotificationServiceExtension.testflight.xcconfig */;
+			baseConfigurationReference = F2A2CBC61351755171EE279F /* Pods-NotificationServiceExtension.testflight.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -2586,7 +2973,7 @@
 		};
 		8985339A219FA46A00E0A656 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B9C62771C2A93ABA92BA2123 /* Pods-Abst-NotificationServiceExtension.debug.xcconfig */;
+			baseConfigurationReference = B0AC8ED83A2EB61385EC7413 /* Pods-NotificationServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -2614,7 +3001,7 @@
 		};
 		8985339C219FA46A00E0A656 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D24810658C9796A6B96C1922 /* Pods-Abst-NotificationServiceExtension.release.xcconfig */;
+			baseConfigurationReference = 030BC637980C2A6C98337BB7 /* Pods-NotificationServiceExtension.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -2636,6 +3023,72 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		89942B00250D36710036DBDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3C65BE79C1FE40CF801F7B0 /* Pods-NotifireTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6QH7E4QW2D;
+				INFOPLIST_FILE = NotifireTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvdblk.Notifire.NotifireTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Notifire.app/Notifire";
+			};
+			name = Debug;
+		};
+		89942B01250D36710036DBDC /* TestFlight */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B4C3723CFD85CCD74884F94 /* Pods-NotifireTests.testflight.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6QH7E4QW2D;
+				INFOPLIST_FILE = NotifireTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvdblk.Notifire.NotifireTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Notifire.app/Notifire";
+			};
+			name = TestFlight;
+		};
+		89942B02250D36710036DBDC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB5E98FDD96D0D84E1D285B7 /* Pods-NotifireTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6QH7E4QW2D;
+				INFOPLIST_FILE = NotifireTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvdblk.Notifire.NotifireTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Notifire.app/Notifire";
 			};
 			name = Release;
 		};
@@ -2815,6 +3268,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8902A690250DB0EE007BB5DF /* Build configuration list for PBXNativeTarget "NotifireUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8902A68D250DB0EE007BB5DF /* Debug */,
+				8902A68E250DB0EE007BB5DF /* TestFlight */,
+				8902A68F250DB0EE007BB5DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		89576B3624FD412A0097BF87 /* Build configuration list for PBXNativeTarget "Notifire Mock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2831,6 +3294,16 @@
 				8985339A219FA46A00E0A656 /* Debug */,
 				89576B4124FD44CA0097BF87 /* TestFlight */,
 				8985339C219FA46A00E0A656 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89942B03250D36710036DBDC /* Build configuration list for PBXNativeTarget "NotifireTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89942B00250D36710036DBDC /* Debug */,
+				89942B01250D36710036DBDC /* TestFlight */,
+				89942B02250D36710036DBDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

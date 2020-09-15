@@ -36,7 +36,7 @@ struct ComponentRule {
 
     /// email length + checks for availability of the email address
     static let createEmailRules: [ComponentRule] = {
-        return emailBaseRules + [
+        return emailRules + [
             ComponentRule(kind: .validity(.email), showIfBroken: true)
         ]
     }()

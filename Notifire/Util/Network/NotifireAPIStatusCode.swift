@@ -10,8 +10,9 @@ import Foundation
 
 enum NotifireAPIStatusCode: HTTPStatusCode {
     case success = 200
-    case noContent = 204
+    case accepted = 202
     case badRequest = 400
     case unauthorized = 401
+    case methodNotAllowed = 405
     case internalServerError = 500
 }

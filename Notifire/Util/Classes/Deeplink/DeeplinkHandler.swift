@@ -64,12 +64,11 @@ class DeeplinkHandler {
 
     func switchTo(deeplinkOption: Deeplink.Option) {
         // dismiss any presented deeplink
-        if let activeDeeplink = currentDeeplink {
-            activeDeeplink.deeplinkPresenter.presentedViewController?.dismiss(animated: false, completion: nil)
-            currentDeeplink = nil
+        if currentDeeplink != nil {
+            finishDeeplink(animated: false)
         }
         // handle the new deeplink option
-        let newDeeplink = Deeplink(option: deeplinkOption)
+        let newDeeplink = Deeplink(option: deeplinkOption, presenter: appCoordinator?.window.rootViewController)
         let deeplinkViewController: UIViewController
         switch deeplinkOption {
         case .emailConfirmation(let token):
@@ -86,10 +85,15 @@ class DeeplinkHandler {
         self.currentDeeplink = newDeeplink
     }
 
-    func finishDeeplink(completion: (() -> Void)? = nil) {
-        guard let activeDeeplink = currentDeeplink else { return }
-        activeDeeplink.deeplinkPresenter.presentedViewController?.dismiss(animated: true, completion: {
-            self.currentDeeplink = nil
+    func finishDeeplink(animated: Bool = true, completion: (() -> Void)? = nil) {
+        guard let activeDeeplink = currentDeeplink else {
+            completion?()
+            return
+        }
+        activeDeeplink.deeplinkPresenter.presentedViewController?.dismiss(animated: animated, completion: {
+            if self.currentDeeplink?.option == activeDeeplink.option {
+                self.currentDeeplink = nil
+            }
             completion?()
         })
     }

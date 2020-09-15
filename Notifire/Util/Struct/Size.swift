@@ -18,6 +18,7 @@ struct Size {
     static let smallMargin: CGFloat = 8
     static let standardMargin: CGFloat = 16
     static let extendedMargin: CGFloat = 18
+    static let doubleMargin: CGFloat = 32
 
     struct Image {
         static let smallService: CGFloat = 36

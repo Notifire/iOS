@@ -52,6 +52,26 @@
          </BuildableReference>
       </MacroExpansion>
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "89942AF8250D36710036DBDC"
+               BuildableName = "NotifireTests.xctest"
+               BlueprintName = "NotifireTests"
+               ReferencedContainer = "container:Notifire.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8902A685250DB0EE007BB5DF"
+               BuildableName = "NotifireUITests.xctest"
+               BlueprintName = "NotifireUITests"
+               ReferencedContainer = "container:Notifire.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

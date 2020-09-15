@@ -16,6 +16,7 @@ class NotifireActionNavigationController: UINavigationController {
 
         navigationBar.barTintColor = .compatibleBackgroundAccent
         navigationBar.prefersLargeTitles = true
+        navigationBar.layoutMargins.left = Size.doubleMargin
         navigationItem.setHidesBackButton(true, animated: false)
         interactivePopGestureRecognizer?.isEnabled = false
     }
