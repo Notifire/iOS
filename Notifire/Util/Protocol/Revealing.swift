@@ -30,7 +30,7 @@ extension AppRevealing where Self: UIViewController {
         splashVC.view.backgroundColor = .clear
 
         let splashWindow = UIWindow(frame: UIScreen.main.bounds)
-        splashWindow.windowLevel = UIWindow.Level.alert + 1
+        splashWindow.windowLevel = UIWindow.Level.alert + 2
         splashWindow.isHidden = false
         splashWindow.rootViewController = splashVC
 
