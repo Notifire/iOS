@@ -45,7 +45,7 @@ final class RegisterViewModel: BindableInputValidatingViewModel, APIFailable {
             switch result {
             case .error(let error):
                 self.onError?(error)
-            case .success(let response):
+            case .success:
                 self.onRegister?()
             }
         }
