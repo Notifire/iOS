@@ -8,19 +8,10 @@
 
 import UIKit
 
-protocol NotifireUserSessionCreationDelegate: class {
-    func didCreate(session: UserSession)
-}
-
-protocol ConfirmEmailViewControllerDelegate: class {
-    func didFinishEmailConfirmation()
-}
-
-class ConfirmEmailViewController: UIViewController, CenterStackViewPresenting, APIFailableResponding, APIFailableDisplaying, UserErrorFailableResponding {
+class ConfirmEmailViewController: VMViewController<ConfirmEmailViewModel>, CenterStackViewPresenting, APIFailableResponding, APIFailableDisplaying, UserErrorFailableResponding {
 
     // MARK: - Properties
-    let viewModel: ConfirmEmailViewModel
-    weak var sessionDelegate: NotifireUserSessionCreationDelegate?
+    weak var sessionDelegate: UserSessionCreationDelegate?
     weak var delegate: ConfirmEmailViewControllerDelegate?
 
     // MARK: Views
@@ -45,14 +36,6 @@ class ConfirmEmailViewController: UIViewController, CenterStackViewPresenting, A
         }
         return button
     }()
-
-    // MARK: - Initialization
-    init(viewModel: ConfirmEmailViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder aDecoder: NSCoder) { fatalError() }
 
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -92,6 +75,7 @@ class ConfirmEmailViewController: UIViewController, CenterStackViewPresenting, A
     }
 }
 
+// MARK: - NotifirePoppablePresenting
 extension ConfirmEmailViewController: NotifirePoppablePresenting {
     func dismissCompletion(error: UserErrorRepresenting) {
         view.isUserInteractionEnabled = false

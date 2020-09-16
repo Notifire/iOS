@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol LoginViewControllerDelegate: NotifireUserSessionCreationDelegate {
+protocol LoginViewControllerDelegate: UserSessionCreationDelegate {
     func shouldDismissLogin()
 }

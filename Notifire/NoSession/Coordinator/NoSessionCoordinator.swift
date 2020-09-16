@@ -15,7 +15,7 @@ class NoSessionCoordinator: Coordinator {
     let loginRegisterSplitterVC: LoginRegisterSplitterViewController
 
     var presentedCoordinator: ChildCoordinator?
-    weak var delegate: NotifireUserSessionCreationDelegate?
+    weak var delegate: UserSessionCreationDelegate?
 
     // MARK: - Initialization
     init(noSessionContainerViewController: NoSessionContainerViewController) {

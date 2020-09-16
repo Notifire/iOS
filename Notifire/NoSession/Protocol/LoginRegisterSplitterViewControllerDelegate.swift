@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol LoginRegisterSplitterViewControllerDelegate: NotifireUserSessionCreationDelegate {
+protocol LoginRegisterSplitterViewControllerDelegate: UserSessionCreationDelegate {
     func shouldStartLoginFlow()
     func shouldStartManualRegisterFlow()
 }

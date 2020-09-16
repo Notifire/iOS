@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension AppCoordinator: NotifireUserSessionCreationDelegate {
+extension AppCoordinator: UserSessionCreationDelegate {
     /// called when the user logs in, either by confirming his email or by manually entering his id/pw
     func didCreate(session: UserSession) {
         // don't interrupt any logged in session even when an account gets confirmed
