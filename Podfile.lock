@@ -8,19 +8,23 @@ PODS:
     - AppAuth (~> 1.2)
     - GTMAppAuth (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GTMAppAuth (1.0.0):
-    - AppAuth/Core (~> 1.0)
-    - GTMSessionFetcher (~> 1.1)
+  - GTMAppAuth (1.1.0):
+    - AppAuth/Core (~> 1.4)
+    - GTMSessionFetcher (~> 1.4)
   - GTMSessionFetcher (1.4.0):
     - GTMSessionFetcher/Full (= 1.4.0)
   - GTMSessionFetcher/Core (1.4.0)
   - GTMSessionFetcher/Full (1.4.0):
     - GTMSessionFetcher/Core (= 1.4.0)
   - KeychainAccess (4.2.0)
+  - SkeletonView (1.10.0)
+  - Starscream (4.0.4)
 
 DEPENDENCIES:
   - GoogleSignIn
   - KeychainAccess (= 4.2.0)
+  - SkeletonView (~> 1.9)
+  - Starscream (~> 4.0.0)
 
 SPEC REPOS:
   trunk:
@@ -29,14 +33,18 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - KeychainAccess
+    - SkeletonView
+    - Starscream
 
 SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
-  GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
+  GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   KeychainAccess: 3f760109aa99b05d0f231e28b22642da7153e38a
+  SkeletonView: 14fbe9702c7fb5c5f011b44ac3ae99fc73155726
+  Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
 
-PODFILE CHECKSUM: 0760f4a63547b596d72fa6efc134bae6ae7cef5d
+PODFILE CHECKSUM: 20e977eeb397b354c7634aea4ca52c9cc7a21ba6
 
 COCOAPODS: 1.9.3

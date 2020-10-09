@@ -33,7 +33,7 @@ class ConfirmEmailViewModel: APIFailable, UserErrorFailable {
     var onConfirmation: ((UserSession) -> Void)?
 
     // MARK: - Initialization
-    init(notifireApiManager: NotifireAPIManager = NotifireAPIManagerFactory.createAPIManager(), token: String) {
+    init(notifireApiManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager(), token: String) {
         self.notifireApiManager = notifireApiManager
         self.token = token
     }

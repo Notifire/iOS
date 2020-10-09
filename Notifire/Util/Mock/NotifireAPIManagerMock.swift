@@ -22,6 +22,12 @@ extension NotifireAPIManagerMocking {
             completion(.success(NotifireAPIPlainSuccessResponse(success: true)))
         }
     }
+
+    fileprivate func returnErrorResponseAfter(duration: TimeInterval = 1.5, completion: @escaping NotifireAPIBaseManager.Callback<NotifireAPIPlainSuccessResponse>) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            completion(.error(.unknown))
+        }
+    }
 }
 
 class NotifireAPIManagerMock: NotifireAPIManager, NotifireAPIManagerMocking {
@@ -59,6 +65,36 @@ class NotifireAPIManagerMock: NotifireAPIManager, NotifireAPIManagerMocking {
 
 class NotifireProtectedAPIManagerMock: NotifireProtectedAPIManager, NotifireAPIManagerMocking {
 
+    private func randomString(length: Int) -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        return String((0..<length).map { _ in letters.randomElement()! })
+    }
+
+    private func randomServicesSnippets(count: Int = Int.random(in: 0...15)) -> [ServiceSnippet] {
+        var services = [ServiceSnippet]()
+        for i in 0..<count {
+            let service = ServiceSnippet(
+                name: "Service #\(i)",
+                id: String(i),
+                imageURLString: "http://google.com"
+            )
+            services.append(service)
+        }
+        return services
+    }
+
+    lazy var services: [ServiceSnippet] = {
+        return randomServicesSnippets(count: 110)
+    }()
+
+    var currentPageIndex = 0
+
+    override func fetchNewAccessToken(completion: @escaping NotifireAPIBaseManager.Callback<String>) {
+        let newAccessToken = "kekw"
+        userSession.accessToken = newAccessToken
+        returnSuccessAfter(completion: completion, response: newAccessToken)
+    }
+
     override func register(deviceToken: String, completion: @escaping Callback<RegisterDeviceResponse>) {
         returnSuccessAfter(completion: completion, response: RegisterDeviceResponse())
     }
@@ -67,18 +103,31 @@ class NotifireProtectedAPIManagerMock: NotifireProtectedAPIManager, NotifireAPIM
         returnSuccessAfter(completion: completion, response: RegisterDeviceResponse())
     }
 
-    override func services(completion: @escaping Callback<ServicesResponse>) {
-        let services: [Service] = [Service(name: "dvdblk.com", uuid: "1", levels: Service.Levels(info: true, warning: false, error: false), apiKey: "w9z$C&F)H@McQfTjWnZr4u7x!A%D*G-KaNdRgUkXp2s5v8y/B?E(H+MbQeShVmYq3t6w9z$C&F)J@NcRfUjWnZr4u7x!A%D*G-KaPdSgVkYp2s5v8y/B?E(H+MbQeThW", updatedAt: Date()),
-                        Service(name: "Service 2", uuid: "2", levels: Service.Levels(info: false, warning: false, error: false), apiKey: "key 2", updatedAt: Date())]
-        returnSuccessAfter(duration: 0.5, completion: completion, response: services)
+    override func getServices(limit: Int, paginationData: PaginationData?, completion: @escaping NotifireAPIBaseManager.Callback<ServicesResponse>) {
+        if currentPageIndex == 0 && services.count < limit {
+            returnSuccessAfter(duration: 0.8, completion: completion, response: services)
+        } else if currentPageIndex * limit > services.count {
+            returnSuccessAfter(duration: 0.5, completion: completion, response: [])
+        } else {
+            let nextIndex = currentPageIndex + 1
+            let nrServicesLeft = services.count - (currentPageIndex * limit)
+            let servicesPage: ArraySlice<ServiceSnippet>
+            if nrServicesLeft < limit {
+                servicesPage = services[currentPageIndex * limit..<currentPageIndex * limit + nrServicesLeft]
+            } else {
+                servicesPage = services[currentPageIndex * limit..<nextIndex * limit]
+            }
+            currentPageIndex = nextIndex
+            returnSuccessAfter(duration: 0.8, completion: completion, response: Array(servicesPage))
+        }
     }
 
     override func createService(name: String, image: String, completion: @escaping Callback<ServiceCreationResponse>) {
-        returnSuccessAfter(completion: completion, response: Service(name: "New Service", uuid: "3", levels: Service.Levels(info: true, warning: true, error: true), apiKey: "key 3", updatedAt: Date()))
+        returnSuccessAfter(completion: completion, response: Service(name: "New Service", imageURLString: "test", uuid: "3", levels: Service.Levels(info: true, warning: true, error: true), apiKey: "key 3", updatedAt: Date()))
     }
 
     override func changeApiKey(for service: LocalService, password: String, completion: @escaping Callback<APIKeyChangeResponse>) {
-        returnSuccessAfter(duration: 0.5, completion: completion, response: Service(name: service.name, uuid: service.uuid, levels: Service.Levels(info: true, warning: true, error: true), apiKey: "\(Date())", updatedAt: Date()))
+        returnSuccessAfter(duration: 0.5, completion: completion, response: Service(name: service.name, imageURLString: "test", uuid: service.uuid, levels: Service.Levels(info: true, warning: true, error: true), apiKey: "\(Date())", updatedAt: Date()))
     }
 
     override func delete(service: LocalService, completion: @escaping Callback<EmptyRequestBody>) {

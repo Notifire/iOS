@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import Starscream
 
-struct NotifireAPIManagerFactory {
+struct NotifireAPIFactory {
 
     static func createAPIManager() -> NotifireAPIManager {
         #if API_MOCK
@@ -23,6 +24,16 @@ struct NotifireAPIManagerFactory {
             return NotifireProtectedAPIManagerMock(session: session)
         #else
             return NotifireProtectedAPIManager(session: session)
+        #endif
+    }
+
+    static func createWebSocket() -> WebSocket {
+        var request = URLRequest(url: URL(string: Config.wsUrlString)!)
+        request.timeoutInterval = 5
+        #if API_MOCK
+            return WebSocket(request: request, engine: WebsocketMockEngine())
+        #else
+            return WebSocket(request: request)
         #endif
     }
 }

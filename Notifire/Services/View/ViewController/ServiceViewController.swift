@@ -40,9 +40,9 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
 
     lazy var notificationsHeaderView: ServiceNotificationsHeaderView = {
         let view = ServiceNotificationsHeaderView()
-        view.notificationsButton.onProperTap = { _ in
-            self.delegate?.shouldShowNotifications(for: self.viewModel.localService)
-        }
+//        view.notificationsButton.onProperTap = { _ in
+//            self.delegate?.shouldShowNotifications(for: self.viewModel.localService)
+//        }
         return view
     }()
 
@@ -70,12 +70,12 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
 
     func levelCell(level: NotificationLevel, serviceLevelKeyPath: ReferenceWritableKeyPath<LocalService, Bool>) -> NotificationLevelTableViewCell {
         let cell = NotificationLevelTableViewCell()
-        cell.model = NotificationLevelModel(level: level, enabled: viewModel.localService[keyPath: serviceLevelKeyPath])
-        cell.onLevelChange = { enabled in
-            self.viewModel.updateService {
-                self.viewModel.localService[keyPath: serviceLevelKeyPath] = enabled
-            }
-        }
+//        cell.model = NotificationLevelModel(level: level, enabled: viewModel.localService[keyPath: serviceLevelKeyPath])
+//        cell.onLevelChange = { enabled in
+//            self.viewModel.updateService {
+//                self.viewModel.localService[keyPath: serviceLevelKeyPath] = enabled
+//            }
+//        }
         return cell
     }
 
@@ -156,7 +156,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         }
         viewModel.onServiceDeletion = { [weak self] in
             guard let `self` = self else { return }
-            self.delegate?.didDelete(service: self.viewModel.localService)
+//            self.delegate?.didDelete(service: self.viewModel.localService)
         }
     }
 
@@ -203,12 +203,12 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
     }
 
     private func updateUI() {
-        let service = viewModel.localService
+        let service = viewModel.service
         titleLabel.text = service.name
-        serviceHeaderView.service = service
-        infoCell.levelSwitch.setOn(service.info, animated: true)
-        warningCell.levelSwitch.setOn(service.warning, animated: true)
-        errorCell.levelSwitch.setOn(service.error, animated: true)
+//        serviceHeaderView.service = service
+//        infoCell.levelSwitch.setOn(service.info, animated: true)
+//        warningCell.levelSwitch.setOn(service.warning, animated: true)
+//        errorCell.levelSwitch.setOn(service.error, animated: true)
         tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .fade)
     }
 
@@ -260,7 +260,7 @@ extension ServiceViewController: UITableViewDataSource {
             if indexPath.row == 0 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ServiceAPIKeyTableViewCell.identifier) as? ServiceAPIKeyTableViewCell else { return UITableViewCell() }
                 if viewModel.isKeyVisible {
-                    cell.serviceKey = viewModel.localService.serviceKey
+//                    cell.serviceKey = viewModel.localService.serviceKey
                 } else {
                     cell.serviceKey = nil
                 }
@@ -358,7 +358,7 @@ extension ServiceViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 1 && indexPath.row == 1 {
-            let notifireAlertVM = NotifireAlertViewModel(notifireApiManager: NotifireAPIManagerFactory.createAPIManager())
+            let notifireAlertVM = NotifireAlertViewModel(notifireApiManager: NotifireAPIFactory.createAPIManager())
             let notifireAlertVC = NotifireInputAlertViewController(alertTitle: "Are you sure?", alertText: "Generating a new API key will invalidate your current one. Confirm your decision by entering your password in the form below.", viewModel: notifireAlertVM)
             let confirmAction = NotifireAlertAction(title: "Confirm", style: .positive, handler: { _ in
                 notifireAlertVC.dismiss(animated: true, completion: {
@@ -386,25 +386,25 @@ extension ServiceViewController: UITableViewDelegate {
             notifireAlertVC.createValidatableInput(title: "Password", secure: true, rules: ComponentRule.passwordRules, validatingAction: confirmAction)
             present(alert: notifireAlertVC, animated: true, completion: nil)
         } else if indexPath.section == 2 {
-            let notifireAlertVM = NotifireAlertViewModel(notifireApiManager: NotifireAPIManagerFactory.createAPIManager())
-            let notifireAlertVC = NotifireInputAlertViewController(alertTitle: "Delete all notifications for \(viewModel.localService.name)?", alertText: "CAUTION: this action is irreversible. Your notifications are saved only on the device that received them.", viewModel: notifireAlertVM)
-                notifireAlertVC.add(action: NotifireAlertAction(title: "Yes", style: .positive, handler: { _ in
-                    notifireAlertVC.dismiss(animated: true, completion: { [weak self] in
-                        guard let `self` = self else { return }
-                        let deleted = self.viewModel.deleteServiceNotifications()
-                        let afterDeletionAlert = NotifireAlertViewController(alertTitle: deleted ? "Success!" : "Something went wrong.", alertText: deleted ? "Notifications for \(self.viewModel.localService.name) were deleted." : "Restart the application and try again.")
-                        afterDeletionAlert.add(action: NotifireAlertAction(title: "Ok", style: .neutral, handler: { _ in
-                            afterDeletionAlert.dismiss(animated: true, completion: nil)
-                        }))
-                        self.present(alert: afterDeletionAlert, animated: true, completion: nil)
-                    })
-                }))
-            notifireAlertVC.add(action: NotifireAlertAction(title: "No", style: .neutral, handler: { _ in
-                notifireAlertVC.dismiss(animated: true, completion: nil)
-            }))
-            present(alert: notifireAlertVC, animated: true, completion: nil)
+            let notifireAlertVM = NotifireAlertViewModel(notifireApiManager: NotifireAPIFactory.createAPIManager())
+//            let notifireAlertVC = NotifireInputAlertViewController(alertTitle: "Delete all notifications for \(viewModel.localService.name)?", alertText: "CAUTION: this action is irreversible. Your notifications are saved only on the device that received them.", viewModel: notifireAlertVM)
+//                notifireAlertVC.add(action: NotifireAlertAction(title: "Yes", style: .positive, handler: { _ in
+//                    notifireAlertVC.dismiss(animated: true, completion: { [weak self] in
+//                        guard let `self` = self else { return }
+//                        let deleted = self.viewModel.deleteServiceNotifications()
+//                        let afterDeletionAlert = NotifireAlertViewController(alertTitle: deleted ? "Success!" : "Something went wrong.", alertText: deleted ? "Notifications for \(self.viewModel.localService.name) were deleted." : "Restart the application and try again.")
+//                        afterDeletionAlert.add(action: NotifireAlertAction(title: "Ok", style: .neutral, handler: { _ in
+//                            afterDeletionAlert.dismiss(animated: true, completion: nil)
+//                        }))
+//                        self.present(alert: afterDeletionAlert, animated: true, completion: nil)
+//                    })
+//                }))
+//            notifireAlertVC.add(action: NotifireAlertAction(title: "No", style: .neutral, handler: { _ in
+//                notifireAlertVC.dismiss(animated: true, completion: nil)
+//            }))
+//            present(alert: notifireAlertVC, animated: true, completion: nil)
         } else if indexPath.section == 3 {
-            let notifireAlertVM = NotifireAlertViewModel(notifireApiManager: NotifireAPIManagerFactory.createAPIManager())
+            let notifireAlertVM = NotifireAlertViewModel(notifireApiManager: NotifireAPIFactory.createAPIManager())
             let notifireAlertVC = NotifireInputAlertViewController(alertTitle: "Are you sure?", alertText: "Confirm your decision by entering the service name below.", viewModel: notifireAlertVM)
             let confirmAction = NotifireAlertAction(title: "Delete", style: .negative, handler: { _ in
                 notifireAlertVC.dismiss(animated: true, completion: {
@@ -415,7 +415,7 @@ extension ServiceViewController: UITableViewDelegate {
             notifireAlertVC.add(action: NotifireAlertAction(title: "Cancel", style: .neutral, handler: { _ in
                 notifireAlertVC.dismiss(animated: true, completion: nil)
             }))
-            notifireAlertVC.createValidatableInput(title: "Service", secure: false, rules: [ComponentRule(kind: .equalToString(viewModel.localService.name), showIfBroken: false)], validatingAction: confirmAction)
+//            notifireAlertVC.createValidatableInput(title: "Service", secure: false, rules: [ComponentRule(kind: .equalToString(viewModel.localService.name), showIfBroken: false)], validatingAction: confirmAction)
             present(alert: notifireAlertVC, animated: true, completion: nil)
         }
     }

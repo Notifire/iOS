@@ -20,7 +20,7 @@ extension URLSession: APIHandler {
     private static func finish<ResponseBody: Decodable>(_ maybeResponseBody: ResponseBody?, _ maybeError: NotifireAPIError?, statusCode: HTTPStatusCode? = nil, responseBodyString: String? = nil, requestContext: URLRequestContext<ResponseBody>, completion: @escaping CompletionCallback<ResponseBody>) {
         if let notifireAPIError = maybeError {
             let errorContext = URLRequestErrorContext(error: notifireAPIError, requestContext: requestContext, statusCode: statusCode, responseBodyString: responseBodyString)
-            print(errorContext)
+            Logger.logNetwork(.default, "\(self) errorContext=<\(errorContext)>")
             DispatchQueue.main.async {
                 completion(.error(context: errorContext))
             }
@@ -105,6 +105,7 @@ extension URLSession: APIHandler {
                 )
             }
         }
+        Logger.logNetwork(.debug, "\(self) performing requestContext=<\(requestContext)>")
         task.resume()
     }
 }

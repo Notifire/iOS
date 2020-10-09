@@ -49,7 +49,7 @@ class UserSessionHandler: RealmProviding {
     // MARK: - Initialization
     init?(session: UserSession) {
         userSession = session
-        notifireProtectedApiManager = NotifireAPIManagerFactory.createProtectedAPIManager(session: session)
+        notifireProtectedApiManager = NotifireAPIFactory.createProtectedAPIManager(session: session)
         guard let realmProvider = RealmProvider(userSession: session) else { return nil }
         self.realmProvider = realmProvider
         setupObservers()

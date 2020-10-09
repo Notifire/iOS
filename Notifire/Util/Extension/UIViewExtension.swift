@@ -41,7 +41,7 @@ extension UITableView {
     }
 
     func removeLastSeparatorAndDontShowEmptyCells() {
-        tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: 1))
+        tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: 0.5))
     }
 
     func reloadDataWithoutMoving() {

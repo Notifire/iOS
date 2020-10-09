@@ -18,6 +18,7 @@ class RealmProvider: RealmProviding {
     private let userConfiguration: Realm.Configuration
 
     init?(userSession: UserSession) {
+
         guard let configuration = RealmManager.createUserConfiguration(from: userSession) else {
             return nil
         }

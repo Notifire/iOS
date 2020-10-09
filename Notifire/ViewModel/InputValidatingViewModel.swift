@@ -25,7 +25,7 @@ class InputValidatingViewModel: InputValidating {
     var afterValidation: ((Bool) -> Void)?
 
     // MARK: - Initialization
-    init(notifireApiManager: NotifireAPIManager = NotifireAPIManagerFactory.createAPIManager()) {
+    init(notifireApiManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager()) {
         self.notifireApiManager = notifireApiManager
     }
 

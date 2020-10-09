@@ -8,7 +8,20 @@
 
 import UIKit
 
+enum GradientDirection {
+    case fromBottom
+    case fromTop
+}
+
 class CustomGradientLayer: CAGradientLayer {
+
+    enum GradientStyle {
+        case subtle
+        case normal
+    }
+
+    var gradientStyle: GradientStyle = .subtle
+    var gradientDirection: GradientDirection = .fromTop
 
     // MARK: - Lifecycle
     override init() {
@@ -26,10 +39,31 @@ class CustomGradientLayer: CAGradientLayer {
     }
 
     // MARK: - Private
-    private func setup() {
+    func setup() {
         // gradient setup
-        colors = [UIColor.black.withAlphaComponent(0.26).cgColor, UIColor.black.withAlphaComponent(0).cgColor]
-        opacity = 0.65
+        switch gradientStyle {
+        case .subtle:
+            colors = [UIColor.compatibleShadow.withAlphaComponent(0.26).cgColor, UIColor.compatibleShadow.withAlphaComponent(0).cgColor]
+            opacity = 0.65
+        case .normal:
+            startPoint = CGPoint(x: 0, y: 0.25)
+            endPoint = CGPoint(x: 0, y: 1)
+            colors = [UIColor.black.withAlphaComponent(0.4).cgColor, UIColor.black.withAlphaComponent(0).cgColor]
+            opacity = 0.8
+        }
+
+        switch gradientDirection {
+        case .fromBottom:
+            colors = colors?.reversed()
+        case .fromTop:
+            break
+        }
+    }
+
+    override func layoutSublayers() {
+        super.layoutSublayers()
+
+        setup()
     }
 }
 
@@ -66,6 +100,8 @@ class GradientView: ConstrainableView {
         else { return }
         opaqueBackgroundLayer.backgroundColor = UIColor.compatibleBackgroundAccent.cgColor
         opaqueBackgroundLayer.setNeedsDisplay()
+        gradientLayer.setup()
+        gradientLayer.setNeedsDisplay()
     }
 }
 

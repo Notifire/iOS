@@ -1,3 +1,61 @@
+5.4.2 Release notes (2020-09-17)
+=============================================================
+
+### Enhancements
+
+* Add prebuilt binary for Xcode 12 to the release package.
+
+### Fixed
+
+* Fix Archiving the Realm and RealmSwift frameworks with Xcode 12.
+  ([#6774](https://github.com/realm/realm-cocoa/issues/6774))
+
+### Compatibility
+
+* File format: Generates Realms with format v11 (Reads and upgrades all previous formats)
+* Realm Object Server: 3.21.0 or later.
+* Realm Studio: 3.12 or later.
+* APIs are backwards compatible with all previous releases in the 5.x.y series.
+* Carthage release for Swift is built with Xcode 12.
+
+5.4.1 Release notes (2020-09-16)
+=============================================================
+
+### Enhancements
+
+* Add prebuilt binary for Xcode 11.7 to the release package.
+
+### Fixed
+
+* Fix deadlocks when opening a Realm file in both the iOS simulator and Realm
+  Studio ([#6743](https://github.com/realm/realm-cocoa/issues/6743), since 5.3.6).
+* Fix Springboard deadlocking when an app is unsuspended while it has an open
+  Realm file which is stored in an app group on iOS 10-12
+  ([#6749](https://github.com/realm/realm-cocoa/issues/6749), since 5.3.6).
+* If you use encryption your application cound crash with a message like
+  "Opening Realm files of format version 0 is not supported by this version of
+  Realm". ([#6889](https://github.com/realm/realm-java/issues/6889) among others, since 5.0.0)
+* Confining a Realm to a serial queue would throw an error claiming that the
+  queue was not a serial queue on iOS versions older than 12.
+  ([#6735](https://github.com/realm/realm-cocoa/issues/6735), since 5.0.0).
+* Results would sometimes give stale results inside a write transaction if a
+  write which should have updated the Results was made before the first access
+  of a pre-existing Results object.
+  ([#6721](https://github.com/realm/realm-cocoa/issues/6721), since 5.0.0)
+
+### Compatibility
+
+* File format: Generates Realms with format v11 (Reads and upgrades all previous formats)
+* Realm Object Server: 3.21.0 or later.
+* Realm Studio: 3.12 or later.
+* APIs are backwards compatible with all previous releases in the 5.x.y series.
+* Carthage release for Swift is built with Xcode 11.7.
+
+### Internal
+
+* Upgraded realm-core from v6.0.25 to v6.0.26
+* Upgraded realm-sync from v5.0.22 to v5.0.23
+
 5.4.0 Release notes (2020-09-09)
 =============================================================
 

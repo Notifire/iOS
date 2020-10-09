@@ -60,3 +60,15 @@ struct ChangeServiceKeyBody: Encodable {
     let service: Service
     let password: String
 }
+
+struct PaginationData {
+    let mode: Mode
+    let id: String
+
+    /// Pagination mode
+    enum Mode: String {
+        case before
+        case after
+        case around
+    }
+}

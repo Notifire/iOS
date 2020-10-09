@@ -8,121 +8,319 @@
 
 import UIKit
 import RealmSwift
+import Starscream
 
-class ServicesViewModel: RealmCollectionViewModel<LocalService>, APIFailable {
+/// The services view ViewModel
+class ServicesViewModel: APIFailable {
 
+    /// Enumeration representing the (table) view state of the View
     enum ViewState: Equatable {
-        case fetching(afterInitial: Bool)
+        case skeleton
         case displayingServices
         case emptyState
-        case initial
+    }
+
+    /// Enumeration representing the connection status to the websocket
+    enum WebSocketConnectionViewState: Equatable {
+        case offline
+        case connecting
+        case connected
     }
 
     // MARK: - Properties
     let userSessionHandler: UserSessionHandler
+    private let websocketManager: ServiceWebSocketManager
+    let synchronizationManager: ServicesSynchronizationManager
+
+    /// queue for CRUD on LocalService + GET /services
+    lazy var synchronizedQueue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 1
+        return queue
+    }()
 
     var protectedApiManager: NotifireProtectedAPIManager {
         return userSessionHandler.notifireProtectedApiManager
     }
 
+    /// `true` if the viewmodel is currently attempting a GET /services request. `false` otherwise.
+    var isFetching: Bool = false {
+        didSet {
+            onIsFetchingChange?(isFetching)
+        }
+    }
+
+    /// `true` if the first pagination hasn't been completed yet
+    var isInitialPageFetch: Bool {
+        return synchronizationManager.paginationHandler.noPagesFetched
+    }
+
+    /// `true` if the websocket is connecting for the first time
+    var isFirstAttemptToConnect: Bool = true
+
+    // MARK: APIFailable
     var onError: ((NotifireAPIError) -> Void)?
 
     // MARK: Model
-    var viewState: ViewState = .initial {
+    var viewState: ViewState = .skeleton {
         didSet {
             onViewStateChange?(viewState, oldValue)
         }
     }
-    var isFirstFetch = true
+
+    var connectionViewState: WebSocketConnectionViewState? = nil {
+        didSet {
+            guard
+                !isFirstAttemptToConnect,    // don't show connection state on first connect
+                let newState = connectionViewState,
+                oldValue != newState
+            else { return }
+            onConnectionViewStateChange?(newState)
+        }
+    }
+
+    var services: [ServiceRepresentable] = []
+
+    var localServices: Results<LocalService> {
+        return synchronizationManager.servicesHandler.collection
+    }
 
     // MARK: Callback
     typealias OldViewState = ViewState
+
+    /// Called when `viewState` changes
     var onViewStateChange: ((ViewState, OldViewState) -> Void)?
+    /// Called  when `connectionViewState` changes
+    var onConnectionViewStateChange: ((WebSocketConnectionViewState) -> Void)?
+    /// Called on `services` change
+    var onServicesChange: ((ServiceRepresentableChanges) -> Void)?
+    /// called when `isFetching` changes
+    var onIsFetchingChange: ((Bool) -> Void)?
 
     // MARK: - Initialization
     init(sessionHandler: UserSessionHandler) {
         self.userSessionHandler = sessionHandler
-        super.init(realmProvider: sessionHandler)
-    }
-
-    // MARK: - Inherited
-    override func resultsSortOptions() -> RealmCollectionViewModel<LocalService>.SortOptions? {
-        return SortOptions(keyPath: LocalService.sortKeyPath, ascending: true)
-    }
-
-    // MARK: - Private
-    override func onResults(change: RealmCollectionChange<Results<LocalService>>) {
-        switch change {
-        case .initial(let collection), .update(let collection, _, _, _):
-            if collection.isEmpty {
-                self.viewState = .emptyState
-            } else {
-                self.viewState = .displayingServices
-            }
-        case .error:
-            break
-        }
-        super.onResults(change: change)
+        let localServicesHandler = RealmCollectionHandler<LocalService>(
+            realmProvider: userSessionHandler,
+            sortOptions: RealmSortingOptions(keyPath: LocalService.sortKeyPath, order: .ascending)
+        )
+        self.websocketManager = ServiceWebSocketManager(apiManager: sessionHandler.notifireProtectedApiManager)
+        self.synchronizationManager = ServicesSynchronizationManager(realmProvider: sessionHandler, servicesCollectionHandler: localServicesHandler)
     }
 
     // MARK: - Methods
-    func firstServicesFetch() {
-        guard isFirstFetch else { return }
-        isFirstFetch = false
-        fetchUserServices()
+    /// Starts the viewModel
+    /// - Note:
+    ///     - Connects to the websocket
+    ///     - Fetches first page of services
+    ///     - Attempts to /sync local services
+    func start() {
+        // Connection status
+        websocketManager.onWebSocketConnectionStatusChange = { [weak self] old, new in
+            self?.handleWebSocketConnectionStatusChange(old, new)
+        }
+
+        // Service Event handling
+        websocketManager.onServiceEvent = { [weak self] eventData in
+            self?.handleServiceEvent(data: eventData)
+        }
+
+        // Replay event handling
+        websocketManager.onReplayEvent = { [weak self] events in
+            self?.handleReplayEvent(eventsData: events)
+        }
+
+        // Connect to the socket
+        websocketManager.connect()
     }
 
-    func fetchUserServices() {
-        if case .fetching = viewState { return }
-        let isInitialFetch = viewState == .initial
-        viewState = .fetching(afterInitial: isInitialFetch)
-        protectedApiManager.services(completion: { [weak self] responseContext in
-            switch responseContext {
-            case .error(let error):
-                self?.viewState = .displayingServices
-                self?.onError?(error)
-            case .success(let services):
-                var localServicesToUpdate: [(LocalService, Service?)] = []
-                for service in services {
-                    let maybeLocalService = self?.collection.first { $0.uuid == service.uuid }
-                    if let localService = maybeLocalService {
-                        // service exists in the Realm and the remote DB
-                        guard let localUpdatedAt = localService.updatedAt, let remoteUpdatedAt = service.updatedAt, localUpdatedAt < remoteUpdatedAt else { continue }
-                        // service was updated outside of the application, update it locally
-                        localServicesToUpdate.append((localService, service))
-                    } else {
-                        // service was created outside of the application, create a new local one
-                        let newLocalService = LocalService()
-                        newLocalService.updateData(from: service)
-                        localServicesToUpdate.append((newLocalService, nil))
-                    }
-                }
-                if localServicesToUpdate.isEmpty {
-                    self?.viewState = .displayingServices
-                } else {
-                    try? self?.realmProvider.realm.write {
-                        for (outdatedLocalService, maybeService) in localServicesToUpdate {
-                            if let service = maybeService {
-                                outdatedLocalService.updateDataExceptUUID(from: service)
-                            } else {
-                                self?.realmProvider.realm.add(outdatedLocalService, update: .all)
-                            }
-                        }
-                    }
-                }
+    /// Fetches the first or next page of user's services depending on the `synchronizationManager.paginationHandler` state.
+    /// - Note: This function adds three operations into the `synchronizedQueue`.
+    ///     1. GET /services operation
+    ///     2. adapter operation to get the result of 1. and plug it into 3.
+    ///     3. CRUD operation for new batch of services from 1.
+    func fetchNextPageOfUserServices() {
+        // Fetch only if we aren't at the end of paginating
+        guard synchronizationManager.allowsPagination else { return }
+
+        // Fetching
+        guard !isFetching else { return }
+        isFetching = true
+
+        // Optional Pagination
+        let paginationData = synchronizationManager.paginationHandler.createPaginationData()
+
+        // Operations
+        let getServicesOperation = GetServicesBatchOperation(
+            servicesLimit: synchronizationManager.paginationHandler.servicesPaginationLimit,
+            paginationData: paginationData,
+            apiManager: protectedApiManager
+        )
+        let updateServicesOperation = UpdateServiceRepresentablesOperation(synchronizationManager: synchronizationManager)
+        let serviceDataAdapterOperation = BlockOperation()
+
+        // Get -> Adapter -> Update
+        serviceDataAdapterOperation.addDependency(getServicesOperation)
+        updateServicesOperation.addDependency(serviceDataAdapterOperation)
+
+        //
+        // Get services operation
+        getServicesOperation.completionHandler = { [weak self] response in
+            guard case .success(let snippets) = response else {
+                serviceDataAdapterOperation.cancel()
+                updateServicesOperation.cancel()
+                self?.isFetching = false
+                // restart the fetch
+                self?.fetchNextPageOfUserServices()
+                return
             }
-            self?.setupResultsTokenIfNeeded()
-        })
+            self?.synchronizationManager.paginationHandler.updatePaginationState(snippets)
+        }
+
+        //
+        // Update services operation
+        updateServicesOperation.completionHandler = { [weak self] newRepresentables, maybeChanges in
+            self?.updateViewStateAndServiceRepresentableChanges(representables: newRepresentables, changes: maybeChanges)
+
+            DispatchQueue.main.async { [weak self] in
+                self?.isFetching = false
+            }
+        }
+
+        //
+        // Adapter operation
+        serviceDataAdapterOperation.addExecutionBlock { [unowned getServicesOperation, unowned updateServicesOperation, weak self] in
+            guard let `self` = self else { return }
+            if case .success(let services) = getServicesOperation.result {
+                let action: LocalRemoteServiceAction = .add(batch: services)
+                updateServicesOperation.action = action
+            }
+            updateServicesOperation.serviceRepresentables = self.services
+        }
+
+        // Enqueue
+        synchronizedQueue.addOperations([getServicesOperation, serviceDataAdapterOperation, updateServicesOperation], waitUntilFinished: false)
     }
 
-    func createLocalService(from service: Service) {
-        let realm = realmProvider.realm
-        try? realm.write {
-            let existingObject = realm.object(ofType: LocalService.self, forPrimaryKey: service.uuid)
-            guard existingObject == nil else { return }
-            let localService = LocalService()
-            localService.updateData(from: service)
-            realm.add(localService)
+    // MARK: - Private
+    private func updateConnectionViewState(_ status: WebSocketConnectionStatus) {
+        let newViewState: WebSocketConnectionViewState
+        switch (connectionViewState, status) {
+        case (nil, .connecting), (_, .connected): newViewState = .connecting
+        case (_, .disconnected), (_, .connecting): newViewState = .offline
+        case (_, .authorized): newViewState = .connected
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.connectionViewState = newViewState
+        }
+    }
+
+    private func updateViewState(to new: ViewState) {
+        DispatchQueue.main.async { [weak self] in
+            self?.viewState = new
+        }
+    }
+
+    // MARK: EventHandlers
+    private func handleWebSocketConnectionStatusChange(_ old: WebSocketConnectionStatus, _ new: WebSocketConnectionStatus) {
+        switch (old, new) {
+        case (_, .authorized):
+            // Swap to online mode if needed
+            if synchronizationManager.isOfflineModeActive {
+                // Swap to online mode
+                let swapToOnlineOpeartion = SwapOnlineOfflineRepresentablesOperation(
+                    synchronizationManager: synchronizationManager,
+                    mode: .toOnline,
+                    representables: services
+                )
+                swapToOnlineOpeartion.completionHandler = { [weak self] newRepresentables in
+                    self?.updateViewStateAndServiceRepresentableChanges(representables: newRepresentables, changes: .full)
+                }
+                synchronizedQueue.addOperation(swapToOnlineOpeartion)
+            }
+            if isInitialPageFetch {
+                // GET /services after connecting to the socket
+                fetchNextPageOfUserServices()
+            }
+        case (_, .disconnected):
+            if isFirstAttemptToConnect { isFirstAttemptToConnect = false }
+            // Swap to offline mode if needed
+            if !synchronizationManager.isOfflineModeActive {
+                let swapToOfflineOperation = SwapOnlineOfflineRepresentablesOperation(
+                    synchronizationManager: synchronizationManager,
+                    mode: .toOffline,
+                    representables: services
+                )
+                swapToOfflineOperation.completionHandler = { [weak self] newRepresentables in
+                    self?.updateViewStateAndServiceRepresentableChanges(representables: newRepresentables, changes: .full)
+                }
+                synchronizedQueue.addOperation(swapToOfflineOperation)
+            }
+        default:
+            break
+        }
+        updateConnectionViewState(new)
+    }
+
+    /// Handles `viewState` changes and updates `services`
+    private func updateViewStateAndServiceRepresentableChanges(representables newRepresentables: [ServiceRepresentable], changes: ServiceRepresentableChanges?) {
+        switch viewState {
+        case .skeleton:
+            if newRepresentables.isEmpty {
+                // If the new representables are empty, change the state to empty
+                updateViewState(to: .emptyState)
+            } else {
+                // Display new services
+                updateServiceRepresentables(with: newRepresentables)
+                updateViewState(to: .displayingServices)
+            }
+        case .emptyState:
+            if !newRepresentables.isEmpty {
+                // Display new services
+                updateServiceRepresentables(with: newRepresentables)
+                updateViewState(to: .displayingServices)
+            }
+        case .displayingServices:
+            if let changes = changes {
+                // Display new services and propagate tableview updates
+                updateServiceRepresentables(with: newRepresentables, changes: changes)
+            }
+        }
+    }
+
+    private func updateServiceRepresentables(with representables: [ServiceRepresentable], changes: ServiceRepresentableChanges = .full) {
+        // make sure the new representables are different
+        // or that there wasn't a successful attempt to fetch initial page
+        guard !services.elementsEqual(representables, by: { $0.id == $1.id }) || synchronizationManager.paginationHandler.noPagesFetched else { return }
+        // update services
+        services = representables
+        // notify listener
+        DispatchQueue.main.async { [weak self] in
+            self?.onServicesChange?(changes)
+        }
+    }
+
+    private func handleServiceEvent(data: NotifireWebSocketServiceEventData) {
+        let updateServicesOperation = UpdateServiceRepresentablesOperation(synchronizationManager: synchronizationManager)
+        let action: LocalRemoteServiceAction
+        switch data.type {
+        case .create: action = .create(service: data.service)
+        case .delete: action = .delete(service: data.service)
+        case .update: action = .update(service: data.service)
+        case .upsert: action = .upsert(service: data.service)
+        }
+        updateServicesOperation.action = action
+        updateServicesOperation.serviceRepresentables = services
+        updateServicesOperation.completionHandler = { [weak self] newRepresentables, maybeChanges in
+            self?.updateViewStateAndServiceRepresentableChanges(representables: newRepresentables, changes: maybeChanges)
+        }
+
+        synchronizedQueue.addOperation(updateServicesOperation)
+    }
+
+    private func handleReplayEvent(eventsData: [NotifireWebSocketServiceEventData]) {
+        for eventData in eventsData {
+            handleServiceEvent(data: eventData)
         }
     }
 }

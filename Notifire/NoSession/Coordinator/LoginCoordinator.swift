@@ -38,7 +38,7 @@ final class ForgotPasswordViewModel: BindableInputValidatingViewModel, APIFailab
     var onError: ((NotifireAPIError) -> Void)?
 
     // MARK: - Initialization
-    init(maybeEmail: String, notifireAPIManager: NotifireAPIManager = NotifireAPIManagerFactory.createAPIManager()) {
+    init(maybeEmail: String, notifireAPIManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager()) {
         self.email = Self.isEmail(string: maybeEmail) ? maybeEmail : ""
         super.init(notifireApiManager: notifireAPIManager)
     }

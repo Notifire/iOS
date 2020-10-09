@@ -23,6 +23,7 @@ class Config {
         case appVersion = "CFBundleShortVersionString"
         case buildNumber = "CFBundleVersion"
         case apiUrl = "API_URL"
+        case wsURL = "WS_URL"
     }
 
     /// Access the value for a specific [BundleKey](x-source-tag://Config.BundleKey)
@@ -52,6 +53,8 @@ class Config {
     static let buildNumber: String = try! value(for: .buildNumber)
     // The API URL
     static let apiUrlString: String = try! value(for: .apiUrl)
+    // The WS URL
+    static let wsUrlString: String = try! value(for: .wsURL)
     // swiftlint:enable force_try
     static let bundleID: String = Bundle.main.bundleIdentifier!
 }

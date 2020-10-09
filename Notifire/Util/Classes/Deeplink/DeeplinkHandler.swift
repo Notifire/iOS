@@ -77,9 +77,13 @@ class DeeplinkHandler {
             confirmEmailViewController.delegate = appCoordinator
             confirmEmailViewController.sessionDelegate = appCoordinator
             deeplinkViewController = confirmEmailViewController
-        case .resetEmail, .resetPassword:
-            // TODO: add vcs
+        case .resetEmail:
             deeplinkViewController = UIViewController()
+        case .resetPassword(let token):
+            let resetPasswordVM = ResetPasswordViewModel(token: token)
+            let resetPasswordVC = ResetPasswordViewController(viewModel: resetPasswordVM)
+            resetPasswordVC.delegate = appCoordinator
+            deeplinkViewController = resetPasswordVC
         }
         newDeeplink.deeplinkPresenter.present(deeplinkViewController, animated: true, completion: nil)
         self.currentDeeplink = newDeeplink
@@ -96,5 +100,30 @@ class DeeplinkHandler {
             }
             completion?()
         })
+    }
+}
+
+class ResetPasswordViewModel: APIFailable {
+
+    // MARK: - Properties
+    let token: String
+
+    // MARK: APIFailable
+    var onError: ((NotifireAPIError) -> Void)?
+
+    // MARK: - Initialization
+    init(token: String) {
+        self.token = token
+    }
+}
+
+class ResetPasswordViewController: VMViewController<ResetPasswordViewModel>, CenterStackViewPresenting, APIFailableResponding, APIFailableDisplaying {
+
+    weak var delegate: ConfirmEmailViewControllerDelegate?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.backgroundColor = .compatibleSystemBackground
     }
 }

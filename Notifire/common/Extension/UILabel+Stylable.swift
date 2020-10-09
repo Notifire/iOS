@@ -20,6 +20,7 @@ enum LabelStyle {
     case informationHeader
     case heavyTitle
     case secureInformation
+    case connectionStatus
 
     case semiboldCellTitle
     case dimmedInformation
@@ -85,6 +86,14 @@ extension UILabel: Stylable {
             font = UIFont.systemFont(ofSize: 14)
             textAlignment = .justified
             numberOfLines = 0
+        case .centeredLightInformation:
+            textColor = .compatibleLabel
+            font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.light)
+            textAlignment = .center
+        case .connectionStatus:
+            textColor = .white
+            font = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.medium)
+            textAlignment = .center
 
         case .semiboldCellTitle:
             textColor = .compatibleLabel
@@ -98,10 +107,6 @@ extension UILabel: Stylable {
         case .cellSubtitle:
             textColor = .compatibleSecondaryLabel
             font = UIFont.systemFont(ofSize: 14)
-        case .centeredLightInformation:
-            textColor = .compatibleLabel
-            font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.light)
-            textAlignment = .center
         case .emoji:
             font = UIFont.systemFont(ofSize: 24)
             textAlignment = .center

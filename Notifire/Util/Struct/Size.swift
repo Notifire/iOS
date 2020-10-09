@@ -12,6 +12,7 @@ struct Size {
     static let textFieldSpacing: CGFloat = 14
     static let componentSpacing: CGFloat = textFieldSpacing * 2.5
     static let componentHeight: CGFloat = 44
+    static let footerHeight: CGFloat = 60
     static let componentWidthRelativeToScreenWidth: CGFloat = 0.8
 
     static let iconSize: CGFloat = 32
@@ -31,7 +32,7 @@ struct Size {
     }
 
     struct Cell {
-        static let height: CGFloat = 48
+        static let height: CGFloat = 60
         static let narrowSideMargin: CGFloat = 12
         static let sideMargin: CGFloat = 16
         static let extendedSideMargin: CGFloat = 18

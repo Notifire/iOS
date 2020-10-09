@@ -17,7 +17,7 @@ class ServiceViewModel: APIFailable {
     }
 
     // MARK: - Properties
-    let localService: LocalService
+    let service: ServiceRepresentable
     let userSessionHandler: UserSessionHandler
     private var protectedApiManager: NotifireProtectedAPIManager {
         return userSessionHandler.notifireProtectedApiManager
@@ -36,8 +36,8 @@ class ServiceViewModel: APIFailable {
     var onServiceDeletion: (() -> Void)?
 
     // MARK: - Initialization
-    init(localService: LocalService, sessionHandler: UserSessionHandler) {
-        self.localService = localService
+    init(service: ServiceRepresentable, sessionHandler: UserSessionHandler) {
+        self.service = service
         self.userSessionHandler = sessionHandler
         setupLocalServicesTokenIfNeeded()
     }
@@ -49,92 +49,93 @@ class ServiceViewModel: APIFailable {
     // MARK: - Private
     private func setupLocalServicesTokenIfNeeded() {
         guard serviceToken == nil else { return }
-        serviceToken = localService.observe({ [weak self] change in
-            switch change {
-            case .change:
-                guard let updatedService = self?.localService else { return }
-                self?.onServiceUpdate?(updatedService)
-            case .error:
-                break
-            case .deleted:
-                self?.onServiceDeletion?()
-            }
-        })
+//        serviceToken = localService.observe({ [weak self] change in
+//            switch change {
+//            case .change:
+//                guard let updatedService = self?.localService else { return }
+//                self?.onServiceUpdate?(updatedService)
+//            case .error:
+//                break
+//            case .deleted:
+//                self?.onServiceDeletion?()
+//            }
+//        })
     }
 
     private func updateLocalServiceFromRemote(service: Service) {
-        guard localService.uuid == service.uuid, let localUpdatedAt = localService.updatedAt, let updatedAt = service.updatedAt, localUpdatedAt < updatedAt else {
-            return
-        }
-        try? realm.write {
-            self.localService.updateDataExceptUUID(from: service)
-        }
+//        guard localService.uuid == service.uuid, let localUpdatedAt = localService.updatedAt, let updatedAt = service.updatedAt, localUpdatedAt < updatedAt else {
+//            return
+//        }
+//        try? realm.write {
+//            self.localService.updateDataExceptUUID(from: service)
+//        }
     }
 
     private func updateRemoteService() {
-        protectedApiManager.update(service: localService) { [weak self] result in
-            guard let `self` = self else { return }
-            switch result {
-            case .success(let service):
-                self.updateLocalServiceFromRemote(service: service)
-            case .error(let error):
-                self.onError?(error)
-            }
-        }
+//        protectedApiManager.update(service: localService) { [weak self] result in
+//            guard let `self` = self else { return }
+//            switch result {
+//            case .success(let service):
+//                self.updateLocalServiceFromRemote(service: service)
+//            case .error(let error):
+//                self.onError?(error)
+//            }
+//        }
     }
 
     private func deleteLocalService() {
-        try? realm.write {
-            realm.delete(localService.notifications)
-            realm.delete(localService)
-        }
+//        try? realm.write {
+//            realm.delete(localService.notifications)
+//            realm.delete(localService)
+//        }
     }
 
     // MARK: - Methods
     func deleteService() {
-        protectedApiManager.delete(service: localService) { [weak self] result in
-            guard let `self` = self else { return }
-            switch result {
-            case .error(let error):
-                self.onError?(error)
-            case .success:
-                self.deleteLocalService()
-            }
-        }
+//        protectedApiManager.delete(service: localService) { [weak self] result in
+//            guard let `self` = self else { return }
+//            switch result {
+//            case .error(let error):
+//                self.onError?(error)
+//            case .success:
+//                self.deleteLocalService()
+//            }
+//        }
     }
 
     func updateService(block: (() -> Void)) {
-        realm.beginWrite()
-        block()
-        localService.updatedAt = Date()
-        var tokens: [NotificationToken] = []
-        if let activeToken = serviceToken {
-            tokens.append(activeToken)
-        }
-        try? realm.commitWrite(withoutNotifying: tokens)
-        updateRemoteService()
+//        realm.beginWrite()
+//        block()
+//        localService.updatedAt = Date()
+//        var tokens: [NotificationToken] = []
+//        if let activeToken = serviceToken {
+//            tokens.append(activeToken)
+//        }
+//        try? realm.commitWrite(withoutNotifying: tokens)
+//        updateRemoteService()
     }
 
     func generateNewAPIKey(password: String, completion: @escaping (APIGenerationResult) -> Void) {
-        protectedApiManager.changeApiKey(for: localService, password: password) { [weak self] result in
-            switch result {
-            case .error(let error):
-                self?.onError?(error)
-            case .success(let response):
-                self?.updateLocalServiceFromRemote(service: response)
-                completion(.success)
-            }
-        }
+//        protectedApiManager.changeApiKey(for: localService, password: password) { [weak self] result in
+//            switch result {
+//            case .error(let error):
+//                self?.onError?(error)
+//            case .success(let response):
+//                self?.updateLocalServiceFromRemote(service: response)
+//                completion(.success)
+//            }
+//        }
     }
 
     func deleteServiceNotifications() -> Bool {
-        do {
-            try realm.write {
-                realm.delete(localService.notifications)
-            }
-            return true
-        } catch {
-            return false
-        }
+//        do {
+//            try realm.write {
+//                realm.delete(localService.notifications)
+//            }
+//            return true
+//        } catch {
+//            return false
+//        }
+        return true
     }
 }

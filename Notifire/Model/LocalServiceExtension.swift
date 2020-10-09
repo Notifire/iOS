@@ -23,9 +23,19 @@ extension LocalService {
         error = service.levels.error
     }
 
+    func updateData(from serviceSnippet: ServiceSnippet) {
+        uuid = serviceSnippet.id
+        updateDataExceptUUID(from: serviceSnippet)
+    }
+
+    func updateDataExceptUUID(from serviceSnippet: ServiceSnippet) {
+        name = serviceSnippet.name
+        rawImage = serviceSnippet.imageURLString
+    }
+
     var asService: Service {
         //et validUpdatedAt = updatedAt ?? Date(timeIntervalSince1970: 0)
-        return Service(name: name, uuid: uuid, levels: Service.Levels(info: info, warning: warning, error: error), apiKey: serviceKey, updatedAt: nil)
+        return Service(name: name, imageURLString: rawImage, uuid: uuid, levels: Service.Levels(info: info, warning: warning, error: error), apiKey: serviceKey, updatedAt: nil)
     }
 
     var asServiceRequestBody: ServiceRequestBody {

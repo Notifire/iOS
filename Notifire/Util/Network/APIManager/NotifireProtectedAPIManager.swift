@@ -24,13 +24,6 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
     }
 
     // MARK: - Private
-    private func getNewAccessToken(completion: @escaping Callback<GenerateAccessTokenResponse>) {
-        let body = GenerateAccessTokenRequestBody(refreshToken: userSession.refreshToken)
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.generateAccessToken, method: .post, body: body, parameters: nil)
-        let requestContext = URLRequestContext(responseBodyType: GenerateAccessTokenResponse.self, apiRequest: request)
-        perform(requestContext: requestContext, managerCompletion: completion)
-    }
-
     private static func createAuthorizedRequestContext<Response: Decodable>(request: URLRequest, accessToken: String, responseType: Response.Type) -> URLRequestContext<Response> {
         var mutableRequest = request
         mutableRequest.add(header: HTTPHeader(field: "Authorization", value: accessToken))
@@ -40,40 +33,57 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
 
     /// Adds a valid access token to a protected request, if no token is available the function generates it beforehand and performs the original request afterwards
     private func performProtected<Response: Decodable>(request: URLRequest, responseType: Response.Type, completion: @escaping Callback<Response>) {
-        let generateAccessTokenCompletion: (Callback<GenerateAccessTokenResponse>) = { [weak self] responseContext in
+        let fetchAccessTokenCompletion: (Callback<String>) = { [weak self] result in
             guard let `self` = self else { return }
-            switch responseContext {
+            switch result {
             case .error(let err):
                 completion(.error(err))
-            case .success(let accessTokenResponse):
-                if let newAccessToken = accessTokenResponse.accessToken {
-                    // save the new access token
-                    self.userSession.accessToken = newAccessToken
-                    // perform request
-                    let requestContext = NotifireProtectedAPIManager.createAuthorizedRequestContext(request: request, accessToken: newAccessToken, responseType: responseType)
-                    self.perform(requestContext: requestContext, managerCompletion: completion)
-                } else {
-                    // logout
-                    self.onRefreshTokenInvalidation?()
-                }
+            case .success(let accessToken):
+                let requestContext = NotifireProtectedAPIManager.createAuthorizedRequestContext(request: request, accessToken: accessToken, responseType: responseType)
+                self.perform(requestContext: requestContext, managerCompletion: completion)
             }
+
         }
         if let currentAccessToken = userSession.accessToken {
             // We have an access token available in the User's session
             let requestContext = NotifireProtectedAPIManager.createAuthorizedRequestContext(request: request, accessToken: currentAccessToken, responseType: responseType)
             apiHandler.perform(requestContext: requestContext) { [weak self] responseContext in
                 if case .error(let errorContext) = responseContext, case .invalidStatusCode(let statusCode, _) = errorContext.error, case .unauthorized? = NotifireAPIStatusCode(rawValue: statusCode) {
-                    self?.getNewAccessToken(completion: generateAccessTokenCompletion)
+                    self?.fetchNewAccessToken(completion: fetchAccessTokenCompletion)
                 } else {
                     self?.createApiCompletionHandler(managerCompletion: completion)(responseContext)
                 }
             }
         } else {
-            getNewAccessToken(completion: generateAccessTokenCompletion)
+            fetchNewAccessToken(completion: fetchAccessTokenCompletion)
         }
     }
 
     // MARK: - Requests
+    func fetchNewAccessToken(completion: @escaping Callback<String>) {
+        let body = GenerateAccessTokenRequestBody(refreshToken: userSession.refreshToken)
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.generateAccessToken, method: .post, body: body, parameters: nil)
+        let requestContext = URLRequestContext(responseBodyType: GenerateAccessTokenResponse.self, apiRequest: request)
+        perform(requestContext: requestContext) { [weak self] result in
+            guard let `self` = self else { return }
+            switch result {
+            case .error(let err):
+                completion(.error(err))
+            case .success(let accessTokenResponse):
+                if let newAccessToken = accessTokenResponse.accessToken {
+                    // save the new access token
+                    self.userSession.accessToken = newAccessToken
+
+                    // perform request
+                    completion(.success(newAccessToken))
+                } else {
+                    // logout
+                    self.onRefreshTokenInvalidation?()
+                }
+            }
+        }
+    }
+
     // MARK: /account/device
     func register(deviceToken: String, completion: @escaping Callback<RegisterDeviceResponse>) {
         let body = RegisterDeviceRequestBody(deviceToken: deviceToken)
@@ -98,8 +108,15 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
     }
 
     // MARK: /services
-    func services(completion: @escaping Callback<ServicesResponse>) {
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.services, method: .get, body: nil as EmptyRequestBody?, parameters: nil)
+    // MARK: GET
+    func getServices(limit: Int = 25, paginationData: PaginationData? = nil, completion: @escaping Callback<ServicesResponse>) {
+        var parameters = [
+            "limit": String(limit)
+        ]
+        if let pagination = paginationData {
+            parameters[pagination.mode.rawValue] = String(pagination.id)
+        }
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.services, method: .get, body: nil as EmptyRequestBody?, parameters: parameters)
         performProtected(request: request, responseType: ServicesResponse.self, completion: completion)
     }
 

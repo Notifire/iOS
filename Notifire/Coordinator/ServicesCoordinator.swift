@@ -47,8 +47,8 @@ class ServicesCoordinator: TabbedCoordinator {
         navigationController.present(serviceNavigation, animated: true, completion: nil)
     }
 
-    func show(service: LocalService) {
-        let serviceViewModel = ServiceViewModel(localService: service, sessionHandler: userSessionHandler)
+    func show(service: ServiceRepresentable) {
+        let serviceViewModel = ServiceViewModel(service: service, sessionHandler: userSessionHandler)
         let serviceViewController = ServiceViewController(viewModel: serviceViewModel)
         serviceViewController.delegate = self
         presentedServiceController = serviceViewController
@@ -62,9 +62,6 @@ class ServicesCoordinator: TabbedCoordinator {
 
     func dismissServiceCreation(service: Service? = nil) {
         guard navigationController.presentedViewController != nil else { return }
-        if let service = service {
-            servicesViewController.viewModel.createLocalService(from: service)
-        }
         navigationController.dismiss(animated: true, completion: nil)
     }
 
@@ -78,7 +75,7 @@ class ServicesCoordinator: TabbedCoordinator {
 
 // MARK: - ServicesViewControllerDelegate
 extension ServicesCoordinator: ServicesViewControllerDelegate {
-    func didSelect(service: LocalService) {
+    func didSelect(service: ServiceRepresentable) {
         show(service: service)
     }
 

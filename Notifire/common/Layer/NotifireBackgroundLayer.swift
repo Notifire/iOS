@@ -9,6 +9,13 @@
 import UIKit
 
 class NotifireBackgroundLayer: CAGradientLayer {
+
+    var gradientDirection: GradientDirection = .fromTop {
+        didSet {
+            setup()
+        }
+    }
+
     // MARK: - Lifecycle
     override init() {
         super.init()
@@ -28,7 +35,13 @@ class NotifireBackgroundLayer: CAGradientLayer {
     private func setup() {
         // gradient setup
         resetGradientColors()
-        locations = [0, 0.96]
+        switch gradientDirection {
+        case .fromTop:
+            locations = [0, 0.96]
+        case .fromBottom:
+            locations = [0.96, 0]
+        }
+
         opacity = 1
     }
 
@@ -36,22 +49,5 @@ class NotifireBackgroundLayer: CAGradientLayer {
     func resetGradientColors() {
         colors = [UIColor.primary.cgColor, UIColor.compatibleBackgroundAccent.cgColor]
         setNeedsDisplay()
-    }
-
-    func setFrameWithoutAnimation(_ newFrame: CGRect) {
-        CATransaction.withDisabledActions {
-            frame = newFrame
-        }
-    }
-}
-
-extension CATransaction {
-    class func withDisabledActions<T>(_ body: () throws -> T) rethrows -> T {
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        defer {
-            CATransaction.commit()
-        }
-        return try body()
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 class LocalService: Object {
-    private static let defaultImage: UIImage = #imageLiteral(resourceName: "emoji_service_image")
+    static let defaultImage: UIImage = #imageLiteral(resourceName: "emoji_service_image")
     static let sortKeyPath = "name"
 
     @objc dynamic var name: String = ""

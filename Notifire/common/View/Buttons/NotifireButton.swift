@@ -38,20 +38,31 @@ class NotifireButton: BaseButton {
         return view
     }()
 
-    public var borderColor: UIColor = .primary
-
-    // MARK: - Inherited
-    // constant height for all custom buttons
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIView.noIntrinsicMetric, height: Size.componentHeight)
+    public var borderColor: UIColor = .primary {
+        didSet {
+            layer.borderColor = borderColor.cgColor
+        }
     }
 
+    /// Determines if the button has rounded corners equal to half of it's height
+    public var halfHeightRounded: Bool = false
+
+    /// If `true` the button is grayed out (alpha = 0.5)  if `isEnabled = false`
+    public var grayOutIfDisabled = true
+
+    // MARK: - Inherited
     override var isEnabled: Bool {
         didSet {
-            let newAlpha: CGFloat = isEnabled ? 1 : 0.5
-            // Use layer.opacity instead of alpha here to include the alpha of the layer.borderColor :)
-            alpha = newAlpha
+            if grayOutIfDisabled {
+                let newAlpha: CGFloat = isEnabled ? 1 : 0.5
+                // Use layer.opacity instead of alpha here to include the alpha of the layer.borderColor :)
+                alpha = newAlpha
+            }
         }
+    }
+
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: UIView.noIntrinsicMetric, height: Size.componentHeight)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -59,6 +70,14 @@ class NotifireButton: BaseButton {
             if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
                 layer.borderColor = borderColor.cgColor
             }
+        }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        if halfHeightRounded {
+            layer.cornerRadius = bounds.height / 2
         }
     }
 

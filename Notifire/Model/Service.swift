@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Service: Decodable, Encodable, Equatable {
+struct Service: Codable, Equatable {
     struct Levels: Codable, Equatable {
         let info: Bool
         let warning: Bool
@@ -16,6 +16,7 @@ struct Service: Decodable, Encodable, Equatable {
     }
 
     let name: String
+    let imageURLString: String
     let uuid: String
     let levels: Levels
     let apiKey: String

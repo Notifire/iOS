@@ -101,7 +101,7 @@ struct SSOLoginResponse: Decodable {
 typealias SendResetPasswordResponse = NotifireAPIPlainSuccessResponse
 
 // MARK: - /services
-typealias ServicesResponse = [Service]
+typealias ServicesResponse = [ServiceSnippet]
 
 typealias ServiceCreationResponse = Service
 

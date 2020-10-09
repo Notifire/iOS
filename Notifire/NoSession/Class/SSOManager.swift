@@ -133,7 +133,6 @@ extension SSOManager: ASAuthorizationControllerDelegate {
                 currentAuthAttempt.state = .error(.unableToRetrieveAccessToken)
                 return
             }
-
             currentAuthAttempt.state = .finished(idToken: userJWT)
         default:
             currentAuthAttempt.state = .error(.unknown)

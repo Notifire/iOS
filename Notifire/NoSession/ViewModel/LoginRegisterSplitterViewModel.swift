@@ -30,7 +30,7 @@ class LoginRegisterSplitterViewModel: APIFailable, UserErrorFailable {
     private var loginInProgress = false
 
     // MARK: - Initialization
-    init(notifireApiManager: NotifireAPIManager = NotifireAPIManagerFactory.createAPIManager()) {
+    init(notifireApiManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager()) {
         self.notifireApiManager = notifireApiManager
     }
 

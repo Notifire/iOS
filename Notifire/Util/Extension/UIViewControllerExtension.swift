@@ -36,6 +36,19 @@ extension UIViewController {
         child.view.removeFromSuperview()
         child.removeFromParent()
     }
+
+    /// Class function that returns all of the child view controllers recursively.
+    class func getAllChildren<T: UIViewController>(vc: UIViewController) -> [T] {
+        return vc.children.flatMap { childVC -> [T] in
+            var result = getAllChildren(vc: childVC) as [T]
+            if let vc = childVC as? T { result.append(vc) }
+            return result
+        }
+    }
+
+    func getNestedChildren<T: UIViewController>() -> [T] {
+        return UIViewController.getAllChildren(vc: self)
+    }
 }
 
 extension UIViewController {

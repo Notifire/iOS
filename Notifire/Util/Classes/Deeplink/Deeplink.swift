@@ -24,6 +24,8 @@ class Deeplink {
         self.option = option
 
         if #available(iOS 13.0, *), let presenter = presenter {
+            // No need to use a new UIWindow to present the Deeplink on iOS 13.0+
+            // because you can't open a deeplink while a system alert is present.
             self.deeplinkPresenter = presenter
             self.window = nil
         } else {

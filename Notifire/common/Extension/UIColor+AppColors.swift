@@ -48,6 +48,11 @@ extension UIColor {
         return .systemRed
     }()
 
+    public static let compatibleGray: UIColor = {
+        guard #available(iOS 13, *) else { return .gray }
+        return .systemGray
+    }()
+
     // MARK: Misc
     public static let compatibleGithubColor: UIColor = UIColor(named: "github_color") ?? .yellow
 
@@ -62,6 +67,10 @@ extension UIColor {
         let diff: CGFloat = 6
         let max: CGFloat = 255
         return from(light: UIColor(same: max-diff), dark: UIColor(same: 3*diff))
+    }()
+
+    public static var compatibleShadow: UIColor = {
+        return from(light: UIColor.black, dark: UIColor(same: 150))
     }()
 
     public static var compatibleSystemGroupedBackground: UIColor = {
