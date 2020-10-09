@@ -16,7 +16,7 @@ class ServicesSynchronizationManager {
 
     // MARK: - Properties
     let realmProvider: RealmProviding
-    let servicesHandler: RealmCollectionHandler<LocalService>
+    let servicesHandler: RealmCollectionObserver<LocalService>
 
     // MARK: Offline Mode
     /// Representables in the last Online mode state.
@@ -36,7 +36,7 @@ class ServicesSynchronizationManager {
     }
 
     // MARK: - Initialization
-    init(realmProvider: RealmProviding, servicesCollectionHandler: RealmCollectionHandler<LocalService>) {
+    init(realmProvider: RealmProviding, servicesCollectionHandler: RealmCollectionObserver<LocalService>) {
         self.realmProvider = realmProvider
         self.servicesHandler = servicesCollectionHandler
     }

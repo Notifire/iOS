@@ -18,7 +18,6 @@ enum EventType: String, Codable {
     }
 }
 
-
 // MARK: - NotifireWebSocketEvent
 protocol EventTypeable {
     static var associatedEvent: EventType { get }
@@ -57,7 +56,6 @@ struct NotifireWebSocketEvent<EventData: Codable & EventTypeable>: Codable {
     }
 }
 
-
 // MARK: - Ready Event
 struct NotifireWebSocketReadyEventData: Codable, EventTypeable {
     let sessionID: String
@@ -67,7 +65,6 @@ struct NotifireWebSocketReadyEventData: Codable, EventTypeable {
 }
 
 typealias NotifireWebSocketReadyEvent = NotifireWebSocketEvent<NotifireWebSocketReadyEventData>
-
 
 // MARK: - Service Event
 struct NotifireWebSocketServiceEventData: Codable, EventTypeable {
@@ -83,7 +80,6 @@ struct NotifireWebSocketServiceEventData: Codable, EventTypeable {
 }
 
 typealias NotifireWebSocketServiceEvent = NotifireWebSocketEvent<NotifireWebSocketServiceEventData>
-
 
 // MARK: - Replay Event
 typealias NotifireWebSocketReplayEventData = [NotifireWebSocketServiceEventData]

@@ -1,5 +1,5 @@
 //
-//  RealmCollectionHandler.swift
+//  RealmCollectionObserver.swift
 //  Notifire
 //
 //  Created by David Bielik on 25/09/2020.
@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 /// Handles the querying, filtering, sorting and update notifications for a realm collection.
-class RealmCollectionHandler<RealmObject: RealmSwift.Object> {
+class RealmCollectionObserver<RealmObject: RealmSwift.Object> {
 
     // MARK: - Properties
     let realmProvider: RealmProviding

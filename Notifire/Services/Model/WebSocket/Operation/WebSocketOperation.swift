@@ -47,7 +47,6 @@ extension WebSocketConnectOperation where OperationData == WebSocketConnectOpera
     }
 }
 
-
 // MARK: - WebSocketReconnectOperation
 struct WebSocketReconnectOperationData: Codable {
     let token: String

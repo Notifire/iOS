@@ -100,7 +100,7 @@ class ServicesViewModel: APIFailable {
     // MARK: - Initialization
     init(sessionHandler: UserSessionHandler) {
         self.userSessionHandler = sessionHandler
-        let localServicesHandler = RealmCollectionHandler<LocalService>(
+        let localServicesHandler = RealmCollectionObserver<LocalService>(
             realmProvider: userSessionHandler,
             sortOptions: RealmSortingOptions(keyPath: LocalService.sortKeyPath, order: .ascending)
         )
