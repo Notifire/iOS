@@ -62,7 +62,7 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
     // MARK: - Requests
     func fetchNewAccessToken(completion: @escaping Callback<String>) {
         let body = GenerateAccessTokenRequestBody(refreshToken: userSession.refreshToken)
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.generateAccessToken, method: .post, body: body, parameters: nil)
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.generateAccessToken, method: .post, body: body, queryItems: nil)
         let requestContext = URLRequestContext(responseBodyType: GenerateAccessTokenResponse.self, apiRequest: request)
         perform(requestContext: requestContext) { [weak self] result in
             guard let `self` = self else { return }
@@ -91,7 +91,7 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
             endpoint: NotifireProtectedAPIEndpoint.registerDevice,
             method: .post,
             body: body,
-            parameters: nil
+            queryItems: nil
         )
         performProtected(request: request, responseType: RegisterDeviceResponse.self, completion: completion)
     }
@@ -102,7 +102,7 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
             endpoint: NotifireProtectedAPIEndpoint.logout,
             method: .post,
             body: body,
-            parameters: nil
+            queryItems: nil
         )
         performProtected(request: request, responseType: RegisterDeviceResponse.self, completion: completion)
     }
@@ -111,41 +111,41 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
     // MARK: GET
     func getServices(limit: Int = 25, paginationData: PaginationData? = nil, completion: @escaping Callback<ServicesResponse>) {
         var parameters = [
-            "limit": String(limit)
+            URLQueryItem(name: "limit", value: String(limit))
         ]
         if let pagination = paginationData {
-            parameters[pagination.mode.rawValue] = String(pagination.id)
+            parameters.append(pagination.asURLQueryItem)
         }
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.services, method: .get, body: nil as EmptyRequestBody?, parameters: parameters)
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.services, method: .get, body: nil as EmptyRequestBody?, queryItems: parameters)
         performProtected(request: request, responseType: ServicesResponse.self, completion: completion)
     }
 
     // MARK: /service
-    private func change(service: LocalService, method: HTTPMethod, completion: @escaping Callback<NotifireAPIPlainSuccessResponse>) {
-        let serviceRequestBody = service.asServiceRequestBody
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: method, body: serviceRequestBody, parameters: nil)
-        performProtected(request: request, responseType: NotifireAPIPlainSuccessResponse.self, completion: completion)
+    func get(service: ServiceSnippet, completion: @escaping Callback<ServiceGetResponse>) {
+        let id = service.id
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service(id: id), method: .get, body: nil as EmptyRequestBody?, queryItems: nil)
+        performProtected(request: request, responseType: ServiceGetResponse.self, completion: completion)
     }
 
     func createService(name: String, image: String, completion: @escaping Callback<ServiceCreationResponse>) {
         let body = ServiceCreationBody(name: name, image: image)
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .post, body: body, parameters: nil)
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .post, body: body, queryItems: nil)
         performProtected(request: request, responseType: ServiceCreationResponse.self, completion: completion)
     }
 
     func update(service: LocalService, completion: @escaping Callback<ServiceUpdateResponse>) {
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .put, body: service.asServiceRequestBody, parameters: nil)
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .put, body: service.asServiceRequestBody, queryItems: nil)
         performProtected(request: request, responseType: ServiceUpdateResponse.self, completion: completion)
     }
 
     func delete(service: LocalService, completion: @escaping Callback<EmptyRequestBody>) {
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .delete, body: service.asServiceRequestBody, parameters: nil)
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .delete, body: service.asServiceRequestBody, queryItems: nil)
         performProtected(request: request, responseType: EmptyRequestBody.self, completion: completion)
     }
 
     func changeApiKey(for service: LocalService, password: String, completion: @escaping Callback<APIKeyChangeResponse>) {
         let body = ChangeServiceKeyBody(service: service.asService, password: password)
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.serviceKey, method: .post, body: body, parameters: nil)
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.serviceKey, method: .post, body: body, queryItems: nil)
         performProtected(request: request, responseType: APIKeyChangeResponse.self, completion: completion)
     }
 }

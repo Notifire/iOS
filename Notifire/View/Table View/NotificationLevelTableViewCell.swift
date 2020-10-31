@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import SkeletonView
 
-class NotificationLevelTableViewCell: BaseTableViewCell {
+class NotificationLevelTableViewCell: ReusableBaseTableViewCell {
 
     // MARK: - Properties
-    static let identifier = "NotificationLevelTableViewCell"
+    static let reuseIdentifier = "NotificationLevelTableViewCell"
+
     // MARK: Model
     var model: NotificationLevelModel! {
         didSet {
@@ -25,16 +27,22 @@ class NotificationLevelTableViewCell: BaseTableViewCell {
     // MARK: Views
     let emojiLabel = UILabel(style: .emoji)
 
-    let levelLabel = UILabel(style: .informationHeader)
+    let levelLabel: UILabel = {
+        let label = UILabel(style: .informationHeader)
+        label.isSkeletonable = true
+        return label
+    }()
 
     let levelSwitch: UISwitch = {
         let view = UISwitch()
         view.onTintColor = .primary
+        view.isSkeletonable = true
         return view
     }()
 
     // MARK: - Inherited
     override func setup() {
+        isSkeletonable = true
         layout()
         setupLevelSwitch()
     }
@@ -42,6 +50,7 @@ class NotificationLevelTableViewCell: BaseTableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         separatorInset.left = levelLabel.frame.minX
+        levelSwitch.skeletonCornerRadius = Float(levelSwitch.bounds.height / 2)
     }
 
     // MARK: - Private

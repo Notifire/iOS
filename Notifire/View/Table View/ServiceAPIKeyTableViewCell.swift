@@ -7,15 +7,16 @@
 //
 
 import UIKit
+import SkeletonView
 
 protocol ServiceAPIKeyCellDelegate: class {
     func shouldReloadServiceCell()
 }
 
-class ServiceAPIKeyTableViewCell: BaseTableViewCell {
+class ServiceAPIKeyTableViewCell: ReusableBaseTableViewCell {
 
     // MARK: - Properties
-    static let identifier = "ServiceAPIKeyTableViewCell"
+    static let reuseIdentifier = "ServiceAPIKeyTableViewCell"
     weak var delegate: ServiceAPIKeyCellDelegate?
     var serviceKey: String? {
         didSet {
@@ -29,6 +30,7 @@ class ServiceAPIKeyTableViewCell: BaseTableViewCell {
         textField.isSecureTextEntry = true
         textField.isEnabled = false
         textField.font = UIFont.systemFont(ofSize: 16)
+        textField.isSkeletonable = true
         return textField
     }()
     var keyTextFieldHeight: NSLayoutConstraint!
@@ -38,12 +40,21 @@ class ServiceAPIKeyTableViewCell: BaseTableViewCell {
     lazy var visibilityButton: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(didPressVisibilityButton), for: .touchUpInside)
+        button.isSkeletonable = true
         return button
     }()
 
     // MARK: - Inherited
     override func setup() {
+        isSkeletonable = true
         layout()
+        updateUI()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        keyTextField.skeletonCornerRadius = Float(keyTextField.layer.cornerRadius)
         updateUI()
     }
 
@@ -65,7 +76,7 @@ class ServiceAPIKeyTableViewCell: BaseTableViewCell {
         contentView.add(subview: visibilityButton)
         visibilityButton.leadingAnchor.constraint(equalTo: keyTextField.trailingAnchor, constant: Size.Cell.extendedSideMargin).isActive = true
         visibilityButton.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
-        visibilityButton.centerYAnchor.constraint(equalTo: contentView.topAnchor, constant: Size.Cell.extendedSideMargin*2.4).isActive = true
+        visibilityButton.centerYAnchor.constraint(equalTo: keyLabel.firstBaselineAnchor).isActive = true
         visibilityButton.widthAnchor.constraint(equalTo: visibilityButton.heightAnchor).isActive = true
         visibilityButton.heightAnchor.constraint(equalToConstant: Size.iconSize).isActive = true
     }
@@ -81,7 +92,11 @@ class ServiceAPIKeyTableViewCell: BaseTableViewCell {
             visibilityButton.setImage(#imageLiteral(resourceName: "visibility_on").withRenderingMode(.alwaysTemplate), for: .normal)
             visibilityButton.tintColor = .primary
         } else {
-            keyTextField.text = String(repeating: "*", count: 20)
+            if isSkeletonActive {
+                keyTextField.text = ""
+            } else {
+                keyTextField.text = String(repeating: "*", count: 20)
+            }
             keyLabel.text = ""
             keyLabel.isUserInteractionEnabled = false
             visibilityButton.setImage(#imageLiteral(resourceName: "visibility_off").withRenderingMode(.alwaysTemplate), for: .normal)

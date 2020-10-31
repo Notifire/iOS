@@ -118,7 +118,11 @@ class ServiceNotificationsHeaderView: ConstrainableView {
 
     // MARK: Views
     let gradientView = GradientView()
-    let floatingContentView = UIView()
+    let floatingContentView: UIView = {
+        let view = UIView()
+        view.isSkeletonable = true
+        return view
+    }()
 
     let notificationsButton: NotifireButton = {
         let button = NotifireButton()

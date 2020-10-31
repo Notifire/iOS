@@ -15,7 +15,15 @@ class LocalNotifireNotification: Object, Decodable {
     static let sortByDateKeyPath = "date"
     static let isReadPredicate = NSPredicate(format: "isRead == %@", NSNumber(value: false))
 
-    var serviceUUID: String?
+    /// This variable stores the service ID of the service it belongs to.
+    /// Note:
+    ///     -   Used when the notification service is NOT downloaded previously on the device.
+    ///        e.g. when the user creates a service X on device A and a notification for X is received on device B (which doesn't previously know about X)
+    ///     -   This variable is set to nil whenever the respective service is associated with this notification.
+    @objc dynamic var serviceID: String?
+    /// This variable is not nil when a `LocalService` has been identified for this notification.
+    @objc dynamic var service: LocalService?
+
     @objc dynamic var body: String?
     @objc dynamic var urlString: String?
     @objc dynamic var date: Date
@@ -32,18 +40,19 @@ class LocalNotifireNotification: Object, Decodable {
         return URL(string: unwrappedUrlString)
     }
 
-    let service = LinkingObjects(fromType: LocalService.self, property: "notifications")
-
     private enum CodingKeys: String, CodingKey {
+        // Containers
         case apsContainer = "aps"
         case notificationsContainer = "notification"
         case alert = "alert"
+
+        // Values
         case body = "body"
         case urlString = "url"
         case date = "datetime"
         case text = "text"
         case level = "level"
-        case serviceUUID = "serviceUUID"
+        case serviceID = "service_uid"
     }
 
     convenience required init(from decoder: Decoder) throws {
@@ -59,7 +68,7 @@ class LocalNotifireNotification: Object, Decodable {
         let datetimeString = try notificationContainer.decode(String.self, forKey: .date)
         date = DateFormatter.yyyyMMdd.date(from: datetimeString) ?? Date()
         rawLevel = try notificationContainer.decode(String.self, forKey: .level)
-        serviceUUID = try notificationContainer.decode(String.self, forKey: .serviceUUID)
+        serviceID = try notificationContainer.decode(String.self, forKey: .serviceID)
     }
 
     required init() {

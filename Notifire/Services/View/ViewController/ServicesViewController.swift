@@ -45,7 +45,6 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
         hideNavigationBarBackButtonText()
         hideNavigationBar()
         title = "Services"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didSelectAddNewService))
 
         // View
         view.backgroundColor = .compatibleSystemBackground
@@ -144,19 +143,31 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
     private func updateViewStateAppearance(state: ServicesViewModel.ViewState, oldState: ServicesViewModel.ViewState) {
         switch (oldState, state) {
         case (.skeleton, .skeleton):
+            showVisibilityOfNavigationBarItems(visible: false)
             tableView.showAnimatedGradientSkeleton()
         case (_, .emptyState):
-            tableView.hideSkeleton(reloadDataAfter: true, transition: .none)
+            showVisibilityOfNavigationBarItems()
+            tableView.hideSkeleton()
             if let emptyStateView = addEmptyState() {
                 emptyStateView.serviceButton.addTarget(self, action: #selector(didSelectAddNewService), for: .touchUpInside)
             }
         case (.skeleton, .displayingServices):
-            tableView.hideSkeleton(reloadDataAfter: true, transition: .none)
+            showVisibilityOfNavigationBarItems()
+            tableView.hideSkeleton()
         case (.emptyState, .displayingServices):
-            tableView.hideSkeleton(reloadDataAfter: true, transition: .none)
+            showVisibilityOfNavigationBarItems()
+            tableView.hideSkeleton()
             removeEmptyState()
         default:
             break
+        }
+    }
+
+    private func showVisibilityOfNavigationBarItems(visible: Bool = true) {
+        if visible {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didSelectAddNewService))
+        } else {
+            navigationItem.rightBarButtonItem = nil
         }
     }
 

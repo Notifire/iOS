@@ -76,7 +76,7 @@ class NotifireProtectedAPIManagerMock: NotifireProtectedAPIManager, NotifireAPIM
             let service = ServiceSnippet(
                 name: "Service #\(i)",
                 id: String(i),
-                imageURLString: "http://google.com"
+                snippetImageURLString: "http://google.com"
             )
             services.append(service)
         }
@@ -101,6 +101,10 @@ class NotifireProtectedAPIManagerMock: NotifireProtectedAPIManager, NotifireAPIM
 
     override func logout(deviceToken: String, completion: @escaping Callback<RegisterDeviceResponse>) {
         returnSuccessAfter(completion: completion, response: RegisterDeviceResponse())
+    }
+
+    override func get(service: ServiceSnippet, completion: @escaping NotifireAPIBaseManager.Callback<ServiceGetResponse>) {
+        returnSuccessAfter(completion: completion, response: Service(name: service.name, imageURLString: nil, uuid: service.id, levels: Service.Levels(info: true, warning: true, error: false), apiKey: "test", updatedAt: Date()))
     }
 
     override func getServices(limit: Int, paginationData: PaginationData?, completion: @escaping NotifireAPIBaseManager.Callback<ServicesResponse>) {

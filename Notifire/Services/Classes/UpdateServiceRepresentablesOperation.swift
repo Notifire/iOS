@@ -123,16 +123,20 @@ class UpdateServiceRepresentablesOperation: Operation {
             return
         }
 
-        // Create new LocalService
-        guard let newLocalService = synchronizationManager.createLocalService(from: service) else {
-            Logger.log(.fault, "\(self) couldn't create new LocalService")
-            return
-        }
+//
+//        // Create new LocalService
+//        guard let newLocalService = synchronizationManager.createLocalService(from: service) else {
+//            Logger.log(.fault, "\(self) couldn't create new LocalService")
+//            return
+//        }
+
+        // Create new ServiceSnippet
+        let newServiceSnippet = service.asServiceSnippet
 
         // Get the index of this new service inside a sorted array of ServiceRepresentables
-        serviceRepresentables.append(newLocalService)
+        serviceRepresentables.append(newServiceSnippet)
         serviceRepresentables.sort { $0.name < $1.name }
-        guard let newIndex = serviceRepresentables.firstIndex(where: { $0.id == newLocalService.id }) else {
+        guard let newIndex = serviceRepresentables.firstIndex(where: { $0.id == newServiceSnippet.id }) else {
             Logger.log(.fault, "\(self) couldn't get index of newly created LocalService")
             return
         }
@@ -167,7 +171,7 @@ class UpdateServiceRepresentablesOperation: Operation {
 
             if representable.element is ServiceSnippet {
                 // already displayed ServiceSnippet
-                let newRepresentable = ServiceSnippet(name: service.name, id: service.uuid, imageURLString: service.imageURLString)
+                let newRepresentable = ServiceSnippet(name: service.name, id: service.uuid, snippetImageURLString: service.imageURLString)
                 serviceRepresentables[representable.offset] = newRepresentable
             } else if let local = representable.element as? LocalService {
                 // already displayed LocalService

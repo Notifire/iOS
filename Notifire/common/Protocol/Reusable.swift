@@ -13,4 +13,5 @@ protocol Reusable {
 }
 
 typealias ReusableCell = UITableViewCell & Reusable
+typealias ReusableBaseTableViewCell = BaseTableViewCell & Reusable
 typealias ReusableHeaderFooter = UITableViewHeaderFooterView & Reusable

@@ -13,7 +13,6 @@ class SignInButton: NotifireButton {
     // MARK: - Inherited
     override open func setup() {
         super.setup()
-        borderColor = .compatibleLabel
         shouldAnimateScale = false
         backgroundColor = .compatibleSystemBackground
         setTitleColor(.compatibleLabel, for: .normal)

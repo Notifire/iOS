@@ -15,7 +15,6 @@ class NotifireNotificationsHandler: NSObject {
 
     enum NotificationHandlingError: Error {
         case unknownContent
-        case unknownService
         case noActiveUserSession
     }
 
@@ -38,7 +37,7 @@ class NotifireNotificationsHandler: NSObject {
         return notifireNotification
     }
 
-    func handle(content: UNNotificationContent) throws -> (LocalService, LocalNotifireNotification) {
+    func handle(content: UNNotificationContent) throws -> LocalNotifireNotification {
         let userInfoDict = content.userInfo
         guard let notifireNotification = getNotification(from: userInfoDict) else {
             throw NotificationHandlingError.unknownContent
@@ -46,13 +45,24 @@ class NotifireNotificationsHandler: NSObject {
         guard let realm = activeRealmProvider?.realm else {
             throw NotificationHandlingError.noActiveUserSession
         }
-        guard let service = realm.object(ofType: LocalService.self, forPrimaryKey: notifireNotification.serviceUUID) else {
-            throw NotificationHandlingError.unknownService
+
+        if let service = realm.object(ofType: LocalService.self, forPrimaryKey: notifireNotification.serviceID) {
+            // LocalService exists
+            try realm.write {
+                // Create normal notification that has a parent service.
+                notifireNotification.service = service
+                service.notifications.append(notifireNotification)
+                // we don't need this value anymore (accessible via notification.service variable)
+                notifireNotification.serviceID = nil
+            }
+        } else {
+            // LocalService doesn't exist yet
+            try realm.write {
+                // Create orphaned Notification (no parent service)
+                realm.add(notifireNotification)
+            }
         }
-        try realm.write {
-            service.notifications.append(notifireNotification)
-        }
-        return (service, notifireNotification)
+        return notifireNotification
     }
 
     func numberOfUnreadNotifications() -> Int? {

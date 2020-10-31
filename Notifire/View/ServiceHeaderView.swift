@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class ServiceHeaderView: ConstrainableView {
 
@@ -21,14 +22,27 @@ class ServiceHeaderView: ConstrainableView {
     }
 
     // MARK: Views
-    let serviceNameLabel = UILabel(style: .title)
+    lazy var serviceNameLabel: UILabel = {
+        let label = UILabel(style: .title)
+        label.isSkeletonable = true
+        return label
+    }()
 
-    let serviceImageView = RoundedShadowImageView(image: nil)
+    lazy var serviceImageView: RoundedShadowImageView = {
+        let imageView = RoundedShadowImageView(image: nil)
+        imageView.isSkeletonable = true
+        return imageView
+    }()
 
-    let floatingContentView = UIView()
+    lazy var floatingContentView: UIView = {
+        let view = UIView()
+        view.isSkeletonable = true
+        return view
+    }()
 
     // MARK: - Lifecycle
     override func setupSubviews() {
+        isSkeletonable = true
         layout()
     }
 

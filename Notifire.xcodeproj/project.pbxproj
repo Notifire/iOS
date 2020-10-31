@@ -24,9 +24,13 @@
 		8902A67E250DAE64007BB5DF /* AuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B8525006DB4000A7B50 /* AuthenticationProvider.swift */; };
 		8902A67F250DAE67007BB5DF /* SSOAuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616AB2505A81B00287331 /* SSOAuthenticationProvider.swift */; };
 		8902A680250DAE70007BB5DF /* UserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939958B216FF40A00687A79 /* UserSessionManager.swift */; };
-		8902A681250DAE7B007BB5DF /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533C721A03ED000E0A656 /* RealmManager.swift */; };
 		8902A689250DB0EE007BB5DF /* NotifireUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8902A688250DB0EE007BB5DF /* NotifireUITests.swift */; };
 		8902A692250DB22B007BB5DF /* GoogleSSOUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8902A691250DB22B007BB5DF /* GoogleSSOUITests.swift */; };
+		890391F72537C942005C5C99 /* RealmManager+Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890391F62537C942005C5C99 /* RealmManager+Service.swift */; };
+		890391F82537C942005C5C99 /* RealmManager+Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890391F62537C942005C5C99 /* RealmManager+Service.swift */; };
+		890391FC2537C97B005C5C99 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533C721A03ED000E0A656 /* RealmManager.swift */; };
+		890392102538F8C3005C5C99 /* ServiceViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8903920F2538F8C2005C5C99 /* ServiceViewController+TableView.swift */; };
+		890392112538F8C3005C5C99 /* ServiceViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8903920F2538F8C2005C5C99 /* ServiceViewController+TableView.swift */; };
 		8906E9742170FB2100D45BCA /* ConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906E9732170FB2100D45BCA /* ConfirmEmailViewController.swift */; };
 		8909A3BC218F24EE00EADD09 /* LocalNotifireNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */; };
 		8915FB2425260AB400BD36B2 /* WebSocketOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915FB2325260AB400BD36B2 /* WebSocketOperation.swift */; };
@@ -609,6 +613,8 @@
 		8902A688250DB0EE007BB5DF /* NotifireUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireUITests.swift; sourceTree = "<group>"; };
 		8902A68A250DB0EE007BB5DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8902A691250DB22B007BB5DF /* GoogleSSOUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSSOUITests.swift; sourceTree = "<group>"; };
+		890391F62537C942005C5C99 /* RealmManager+Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmManager+Service.swift"; sourceTree = "<group>"; };
+		8903920F2538F8C2005C5C99 /* ServiceViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServiceViewController+TableView.swift"; sourceTree = "<group>"; };
 		8906E9732170FB2100D45BCA /* ConfirmEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailViewController.swift; sourceTree = "<group>"; };
 		8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifireNotification.swift; sourceTree = "<group>"; };
 		8915FB2325260AB400BD36B2 /* WebSocketOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketOperation.swift; sourceTree = "<group>"; };
@@ -1161,7 +1167,6 @@
 				8933F0BD2141326300645B3A /* ComponentValidator.swift */,
 				89D4E1FD2139FD3E00630790 /* MultiplePathAnimator.swift */,
 				89BDADE0217A5230000E38FC /* DeviceTokenManager.swift */,
-				898533C721A03ED000E0A656 /* RealmManager.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1169,6 +1174,7 @@
 		8933F0C42141331500645B3A /* Struct */ = {
 			isa = PBXGroup;
 			children = (
+				898533C721A03ED000E0A656 /* RealmManager.swift */,
 				89BD25C7251E34A900280929 /* RealmSortingOptions.swift */,
 				897069D921337F7F00D798AA /* Settings.swift */,
 				897069D32133730A00D798AA /* Size.swift */,
@@ -1339,6 +1345,7 @@
 			children = (
 				894AB68A2512617300F2CBF5 /* ServicesViewController+TableView.swift */,
 				89017CA42526BF1900EC9DC8 /* ServicesViewController+AppRevealing.swift */,
+				8903920F2538F8C2005C5C99 /* ServiceViewController+TableView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1706,6 +1713,7 @@
 				8998D8832520D435002A597B /* IndexPath+RowInit.swift */,
 				893A4A2D2528D29300DD02D0 /* CALayer+Frame.swift */,
 				893A4A332528D2B500DD02D0 /* CATransaction+Animation.swift */,
+				890391F62537C942005C5C99 /* RealmManager+Service.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2516,6 +2524,7 @@
 				89576AA524FD412A0097BF87 /* CustomTextField.swift in Sources */,
 				89576AA624FD412A0097BF87 /* DeviceTokenManager.swift in Sources */,
 				89576AA724FD412A0097BF87 /* ServicesEmptyStateView.swift in Sources */,
+				890391F82537C942005C5C99 /* RealmManager+Service.swift in Sources */,
 				89576AA824FD412A0097BF87 /* ChoiceSeparatorView.swift in Sources */,
 				89576AA924FD412A0097BF87 /* NoSessionContainerViewController.swift in Sources */,
 				89576AAA24FD412A0097BF87 /* ServiceAPIKeyTableViewCell.swift in Sources */,
@@ -2555,6 +2564,7 @@
 				89576ABF24FD412A0097BF87 /* UserSession.swift in Sources */,
 				89576AC024FD412A0097BF87 /* ServiceCreationViewModel.swift in Sources */,
 				89576AC124FD412A0097BF87 /* Settings.swift in Sources */,
+				890392112538F8C3005C5C99 /* ServiceViewController+TableView.swift in Sources */,
 				89541912251CB92F0046464D /* Logger+Init.swift in Sources */,
 				89576AC224FD412A0097BF87 /* APIFailable.swift in Sources */,
 				895A3B782500609B000A7B50 /* BottomNavigatorLabelContaining.swift in Sources */,
@@ -2739,7 +2749,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8902A681250DAE7B007BB5DF /* RealmManager.swift in Sources */,
+				890391FC2537C97B005C5C99 /* RealmManager.swift in Sources */,
 				898533B7219FA9FE00E0A656 /* LocalNotifireNotification.swift in Sources */,
 				8902A680250DAE70007BB5DF /* UserSessionManager.swift in Sources */,
 				89A9048121B754A800D262E1 /* DateFormatterExtension.swift in Sources */,
@@ -2843,6 +2853,7 @@
 				897069E42134721300D798AA /* CurvedTopView.swift in Sources */,
 				8933F0B02140424400645B3A /* CAPersistentAnimationsShapeLayer.swift in Sources */,
 				8922E26F219F3D0A001984C4 /* NotificationsViewModel.swift in Sources */,
+				890391F72537C942005C5C99 /* RealmManager+Service.swift in Sources */,
 				89BD25C8251E34A900280929 /* RealmSortingOptions.swift in Sources */,
 				897B77B92523EE81008602BB /* ServiceRepresentableChanges.swift in Sources */,
 				8998D8842520D435002A597B /* IndexPath+RowInit.swift in Sources */,
@@ -2886,6 +2897,7 @@
 				89E6B6BD24FF0E3E00F7A79C /* AppCoordinator+UserSessionHandlerDelegate.swift in Sources */,
 				896167F125017794007BF3F1 /* NavigationBarProviding.swift in Sources */,
 				89BDADDA217A5012000E38FC /* DeeplinkHandler.swift in Sources */,
+				890392102538F8C3005C5C99 /* ServiceViewController+TableView.swift in Sources */,
 				8922E269219DFB2E001984C4 /* NotifireNotificationHandler.swift in Sources */,
 				8948F57221A0AD8200BB6E10 /* RoundedImageView.swift in Sources */,
 				8933F0E72143383300645B3A /* NotifireAPIStatusCode.swift in Sources */,

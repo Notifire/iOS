@@ -103,6 +103,8 @@ typealias SendResetPasswordResponse = NotifireAPIPlainSuccessResponse
 // MARK: - /services
 typealias ServicesResponse = [ServiceSnippet]
 
+typealias ServiceGetResponse = Service
+
 typealias ServiceCreationResponse = Service
 
 enum ServiceUpdateError: Int {

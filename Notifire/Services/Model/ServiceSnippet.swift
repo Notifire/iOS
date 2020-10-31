@@ -8,12 +8,18 @@
 
 import Foundation
 
-struct ServiceSnippet: ServiceRepresentable, Codable {
+struct ServiceSnippet: Codable {
     var name: String
     var id: String
-    var imageURLString: String
+    var snippetImageURLString: String?
 
     private enum CodingKeys: String, CodingKey {
-        case name, id, imageURLString = "image"
+        case name, id, snippetImageURLString = "image"
+    }
+}
+
+extension ServiceSnippet: ServiceRepresentable {
+    var imageURLString: String? {
+        return snippetImageURLString
     }
 }

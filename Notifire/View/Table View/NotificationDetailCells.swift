@@ -209,7 +209,7 @@ class NotificationDetailViewModel {
     }
 
     private static func createItems(from notification: LocalNotifireNotification) -> [CellConfiguring] {
-        guard let service = notification.service.first else { return [] }
+        guard let service = notification.service else { return [] }
         var result = [CellConfiguring]()
 
         let notificationDetailHeader = NotificationDetailHeader(serviceName: service.name, serviceImage: service.image, notificationDate: notification.date, notificationLevel: notification.level)

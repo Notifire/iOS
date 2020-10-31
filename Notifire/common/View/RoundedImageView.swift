@@ -7,14 +7,34 @@
 //
 
 import UIKit
+import SkeletonView
 
 class RoundedImageView: UIImageView {
 
-    var activeShadowPath: CGPath?
+    override init(frame: CGRect = .zero) {
+        super.init(frame: frame)
+        setup()
+    }
+
+    override init(image: UIImage?) {
+        super.init(image: image)
+        setup()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+
+    private func setup() {
+        isSkeletonable = true
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = bounds.width/2
+        layer.masksToBounds = true
+        skeletonCornerRadius = Float(bounds.width / 2)
         clipsToBounds = true
     }
 }
@@ -39,6 +59,7 @@ class RoundedContainerImageView: ConstrainableView {
     required init?(coder aDecoder: NSCoder) { fatalError() }
 
     override func setupSubviews() {
+        isSkeletonable = true
         layout()
     }
 
@@ -117,15 +138,23 @@ class RoundedEmojiImageView: RoundedContainerImageView {
 class RoundedShadowImageView: RoundedContainerImageView {
 
     override func setupSubviews() {
-        layer.shadowRadius = 8
-        layer.shadowOpacity = 0.4
-        layer.shadowOffset = .zero
         super.setupSubviews()
+        backgroundColor = .clear
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        skeletonCornerRadius = Float(bounds.width / 2)
 
-        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: bounds.width/2).cgPath
+        if isSkeletonActive {
+            layer.shadowRadius = 0
+            layer.shadowOpacity = 0
+            layer.shadowOffset = .zero
+        } else {
+            layer.shadowRadius = 8
+            layer.shadowOpacity = 0.4
+            layer.shadowOffset = .zero
+            layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: bounds.width/2).cgPath
+        }
     }
 }

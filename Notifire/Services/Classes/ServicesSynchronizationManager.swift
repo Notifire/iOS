@@ -18,6 +18,9 @@ class ServicesSynchronizationManager {
     let realmProvider: RealmProviding
     let servicesHandler: RealmCollectionObserver<LocalService>
 
+    /// The last Main thread ThreadSafeReference to localServices
+    var lastLocalServicesRef: ThreadSafeReference<Results<LocalService>>
+
     // MARK: Offline Mode
     /// Representables in the last Online mode state.
     /// Used to come back from offline mode.
@@ -39,6 +42,7 @@ class ServicesSynchronizationManager {
     init(realmProvider: RealmProviding, servicesCollectionHandler: RealmCollectionObserver<LocalService>) {
         self.realmProvider = realmProvider
         self.servicesHandler = servicesCollectionHandler
+        lastLocalServicesRef = servicesCollectionHandler.collectionRef
     }
 
     // MARK: - Methods
@@ -104,29 +108,6 @@ class ServicesSynchronizationManager {
             for (outdatedLocalService, serviceSnippet) in localServices {
                 outdatedLocalService.updateDataExceptUUID(from: serviceSnippet)
             }
-        }
-    }
-
-    /// Create a `LocalService` in the user's realm.
-    /// - Note: Writes changes into the user's realm.
-    func createLocalService(from service: Service) -> LocalService? {
-        do {
-            let realm = realmProvider.realm
-            var localService: LocalService?
-            try realm.write {
-                let existingObject = realm.object(ofType: LocalService.self, forPrimaryKey: service.uuid)
-                guard existingObject == nil else {
-                    Logger.log(.default, "\(self) error while creating a LocalService realm object. Another one with the same UUID is already present")
-                    return
-                }
-                let local = LocalService()
-                local.updateData(from: service)
-                realm.add(local)
-                localService = local
-            }
-            return localService
-        } catch {
-            return nil
         }
     }
 

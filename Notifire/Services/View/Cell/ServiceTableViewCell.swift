@@ -9,7 +9,7 @@
 import UIKit
 import SkeletonView
 
-class ServiceTableViewCell: BaseTableViewCell, Reusable {
+class ServiceTableViewCell: ReusableBaseTableViewCell {
     // MARK: - Properties
     // MARK: Static
     static var reuseIdentifier = "ServiceTableViewCell"
@@ -28,6 +28,8 @@ class ServiceTableViewCell: BaseTableViewCell, Reusable {
         isSkeletonable = true
         serviceImageView.isSkeletonable = true
         serviceNameLabel.isSkeletonable = true
+        serviceNameLabel.linesCornerRadius = 50
+        //serviceNameLabel.skeletonLineSpacing = 0
     }
 
     // MARK: Private

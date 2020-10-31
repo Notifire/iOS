@@ -35,6 +35,7 @@ class ServicesViewModel: APIFailable {
     /// queue for CRUD on LocalService + GET /services
     lazy var synchronizedQueue: OperationQueue = {
         let queue = OperationQueue()
+        queue.underlyingQueue = DispatchQueue.main
         queue.maxConcurrentOperationCount = 1
         return queue
     }()
@@ -165,7 +166,7 @@ class ServicesViewModel: APIFailable {
 
         //
         // Get services operation
-        getServicesOperation.completionHandler = { [weak self] response in
+        getServicesOperation.completionHandler = { [unowned serviceDataAdapterOperation, unowned updateServicesOperation, weak self] response in
             guard case .success(let snippets) = response else {
                 serviceDataAdapterOperation.cancel()
                 updateServicesOperation.cancel()
@@ -294,8 +295,9 @@ class ServicesViewModel: APIFailable {
         guard !services.elementsEqual(representables, by: { $0.id == $1.id }) || synchronizationManager.paginationHandler.noPagesFetched else { return }
         // update services
         services = representables
-        // notify listener
+
         DispatchQueue.main.async { [weak self] in
+            // notify listener
             self?.onServicesChange?(changes)
         }
     }

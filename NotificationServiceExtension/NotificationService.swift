@@ -17,21 +17,26 @@ class NotificationService: UNNotificationServiceExtension {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
 
+        // Modify the notification content here...
         if let bestAttemptContent = bestAttemptContent {
-            // Modify the notification content here...
             let notificationHandler = NotifireNotificationsHandler()
             let sessionManager = UserSessionManager()
+            // make sure a user is logged in before displaying the notification
+            // (notifications are user-specific resources, we need to ensure *some* user is logged in)
             guard let previousSession = sessionManager.previousUserSession() else {
                 contentHandler(bestAttemptContent)
                 return
             }
+
             notificationHandler.activeRealmProvider = RealmProvider(userSession: previousSession)
-            guard let unread = notificationHandler.numberOfUnreadNotifications(),
-                let (service, notification) = try? notificationHandler.handle(content: bestAttemptContent) else {
+            guard
+                let unread = notificationHandler.numberOfUnreadNotifications(),
+                let notification = try? notificationHandler.handle(content: bestAttemptContent)
+            else {
                 contentHandler(bestAttemptContent)
                 return
             }
-            bestAttemptContent.title = "\(notification.level.emoji) \(service.name):"
+            bestAttemptContent.title = "\(notification.level.emoji) \(bestAttemptContent.title)"
             bestAttemptContent.badge = NSNumber(value: unread)
             contentHandler(bestAttemptContent)
         }

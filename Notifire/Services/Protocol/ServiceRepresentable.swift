@@ -11,7 +11,7 @@ import Foundation
 protocol ServiceRepresentable {
     var name: String { get }
     var id: String { get }
-    var imageURLString: String { get }
+    var imageURLString: String? { get }
 }
 
 // MARK: Equatable
@@ -26,9 +26,5 @@ extension ServiceRepresentable {
 extension LocalService: ServiceRepresentable {
     var id: String {
         return uuid
-    }
-
-    var imageURLString: String {
-        return rawImage
     }
 }

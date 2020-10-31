@@ -31,14 +31,13 @@ class NotifireAPIBaseManager {
     }
 
     // MARK: - Open
-    open func createAPIRequest<Body>(endpoint: CustomStringConvertible, method: HTTPMethod, body: Body?, parameters: HTTPParameters?) -> URLRequest where Body: Encodable {
-        var url = URL(string: endpoint.description, relativeTo: NotifireAPIManager.baseURL) ?? NotifireAPIManager.baseURL
-        if let requestParameters = parameters {
-            for parameter in requestParameters {
-                url = url.append(parameter.key, value: parameter.value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))
-            }
+    open func createAPIRequest<Body>(endpoint: CustomStringConvertible, method: HTTPMethod, body: Body?, queryItems: [URLQueryItem]?) -> URLRequest where Body: Encodable {
+        let url = URL(string: endpoint.description, relativeTo: NotifireAPIManager.baseURL) ?? NotifireAPIManager.baseURL
+        var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        if let parameters = queryItems {
+            urlComponents.queryItems = parameters
         }
-        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: NotifireAPIBaseManager.requestTimeout)
+        var request = URLRequest(url: urlComponents.url!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: NotifireAPIBaseManager.requestTimeout)
         request.httpMethod = method.rawValue
         if let requestBody = body {
             request.addBody(requestBody)

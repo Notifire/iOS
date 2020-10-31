@@ -71,4 +71,8 @@ struct PaginationData {
         case after
         case around
     }
+
+    var asURLQueryItem: URLQueryItem {
+        return URLQueryItem(name: mode.rawValue, value: id)
+    }
 }

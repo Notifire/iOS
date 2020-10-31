@@ -16,7 +16,7 @@ extension LocalService {
 
     func updateDataExceptUUID(from service: Service) {
         name = service.name
-        serviceKey = service.apiKey
+        serviceAPIKey = service.apiKey
         updatedAt = service.updatedAt
         info = service.levels.info
         warning = service.levels.warning
@@ -30,12 +30,12 @@ extension LocalService {
 
     func updateDataExceptUUID(from serviceSnippet: ServiceSnippet) {
         name = serviceSnippet.name
-        rawImage = serviceSnippet.imageURLString
+        snippetImageURLString = serviceSnippet.snippetImageURLString
     }
 
     var asService: Service {
         //et validUpdatedAt = updatedAt ?? Date(timeIntervalSince1970: 0)
-        return Service(name: name, imageURLString: rawImage, uuid: uuid, levels: Service.Levels(info: info, warning: warning, error: error), apiKey: serviceKey, updatedAt: nil)
+        return Service(name: name, imageURLString: imageURLString, uuid: uuid, levels: Service.Levels(info: info, warning: warning, error: error), apiKey: serviceAPIKey, updatedAt: nil)
     }
 
     var asServiceRequestBody: ServiceRequestBody {
