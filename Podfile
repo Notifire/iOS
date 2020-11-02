@@ -13,12 +13,12 @@ abstract_target 'Abst' do
 
   target 'Notifire' do
     pod 'Starscream', '~> 4.0.0'
-    pod 'SkeletonView', '~> 1.9'
+    # pod 'SkeletonView', '~> 1.9'
   end
 
   target 'Notifire Mock' do
     pod 'Starscream', '~> 4.0.0'
-    pod 'SkeletonView', '~> 1.9'
+    # pod 'SkeletonView', '~> 1.9'
   end
 
 
