@@ -17,6 +17,9 @@ class NavigationCoordinator<RootVC: UIViewController>: NSObject, Coordinator, UI
 
     private let rootChildCoordinator: ChildCoordinator
 
+    // MARK: Delegate
+    weak var delegate: NavigationCoordinatorDelegate?
+
     // MARK: - Initialization
     init(rootChildViewController: RootVC, navigationController: UINavigationController = UINavigationController()) {
         self.navigationController = navigationController
@@ -34,6 +37,7 @@ class NavigationCoordinator<RootVC: UIViewController>: NSObject, Coordinator, UI
 
     /// Adds a child coordinator to the `childCoordinators` stack and starts it via `start()`
     func add(childCoordinator: ChildCoordinator, push: Bool = false) {
+        delegate?.willAddChild(coordinator: childCoordinator)
         childCoordinators.append(childCoordinator)
         childCoordinator.start()
         guard push else { return }
@@ -41,9 +45,10 @@ class NavigationCoordinator<RootVC: UIViewController>: NSObject, Coordinator, UI
     }
 
     /// Removes a child coordinator from the coordinator hierarchy
-    func childDidFinish(_ child: Coordinator?, childIndex: Int? = nil) {
+    func childDidFinish(_ child: ChildCoordinator?, childIndex: Int? = nil) {
         for (index, coordinator) in childCoordinators.enumerated() where coordinator === child {
             childCoordinators.remove(at: index)
+            delegate?.didRemoveChild(coordinator: coordinator)
             break
         }
     }

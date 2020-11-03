@@ -433,6 +433,8 @@
 		898533C821A03ED000E0A656 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533C721A03ED000E0A656 /* RealmManager.swift */; };
 		8998D8842520D435002A597B /* IndexPath+RowInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8998D8832520D435002A597B /* IndexPath+RowInit.swift */; };
 		8998D8852520D435002A597B /* IndexPath+RowInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8998D8832520D435002A597B /* IndexPath+RowInit.swift */; };
+		899C07172551E2E00005228E /* NavigationCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899C07162551E2E00005228E /* NavigationCoordinatorDelegate.swift */; };
+		899C07182551E2E00005228E /* NavigationCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899C07162551E2E00005228E /* NavigationCoordinatorDelegate.swift */; };
 		89A9048021B753F100D262E1 /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */; };
 		89A9048121B754A800D262E1 /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */; };
 		89A9048321B8589300D262E1 /* IndicatorStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9048221B8589300D262E1 /* IndicatorStackView.swift */; };
@@ -805,6 +807,7 @@
 		89942AF9250D36710036DBDC /* NotifireTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotifireTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		89942AFD250D36710036DBDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8998D8832520D435002A597B /* IndexPath+RowInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IndexPath+RowInit.swift"; sourceTree = "<group>"; };
+		899C07162551E2E00005228E /* NavigationCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtension.swift; sourceTree = "<group>"; };
 		89A9048221B8589300D262E1 /* IndicatorStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorStackView.swift; sourceTree = "<group>"; };
 		89A9048421B858B200D262E1 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
@@ -1028,6 +1031,7 @@
 				894B1F962505DA3300D0D671 /* NavigationBar */,
 				894B1F952505DA2800D0D671 /* Reselectable */,
 				893B901E2512B9700056DBF9 /* Reusable.swift */,
+				899C07162551E2E00005228E /* NavigationCoordinatorDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -2737,6 +2741,7 @@
 				89576B2724FD412A0097BF87 /* KeyboardDismissing.swift in Sources */,
 				89576B2824FD412A0097BF87 /* ServiceViewController.swift in Sources */,
 				89576B2924FD412A0097BF87 /* NotifireUserSessionManagerMock.swift in Sources */,
+				899C07182551E2E00005228E /* NavigationCoordinatorDelegate.swift in Sources */,
 				895418DC251945AE0046464D /* ServiceRepresentable.swift in Sources */,
 				89576B2B24FD412A0097BF87 /* TabbedCoordinator.swift in Sources */,
 				89576B2C24FD412A0097BF87 /* TabBarViewModel.swift in Sources */,
@@ -2890,6 +2895,7 @@
 				8933F0AE2140421700645B3A /* NotifireBackgroundLayer.swift in Sources */,
 				8920CA702171377900A72BD0 /* RegisterCoordinator.swift in Sources */,
 				897069E72134A36700D798AA /* TappableLabel.swift in Sources */,
+				899C07172551E2E00005228E /* NavigationCoordinatorDelegate.swift in Sources */,
 				895A3B8225006D97000A7B50 /* AuthenticationProvidersViewModel.swift in Sources */,
 				892B413821C1D47A00D28ABE /* NotificationsEmptyStateView.swift in Sources */,
 				89D616AC2505A81B00287331 /* SSOAuthenticationProvider.swift in Sources */,
