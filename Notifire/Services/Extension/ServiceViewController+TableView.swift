@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import SkeletonView
 
-extension ServiceViewController: SkeletonTableViewDataSource {
+extension ServiceViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 3
@@ -48,8 +47,6 @@ extension ServiceViewController: SkeletonTableViewDataSource {
                 guard let cell = tableView.dequeue(reusableCell: ServiceTableViewCell.self, for: indexPath) else { return UITableViewCell() }
                 cell.textLabel?.text = "Generate a new service key"
                 cell.textLabel?.set(style: .notifirePositive)
-                cell.isSkeletonable = true
-                cell.textLabel?.isSkeletonable = true
                 return cell
             }
 
@@ -113,25 +110,6 @@ extension ServiceViewController: SkeletonTableViewDataSource {
             return UIView()
         }
         return nil
-    }
-
-    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
-        switch indexPath.section {
-        case 0:
-            return NotificationLevelTableViewCell.reuseIdentifier
-        case 1:
-            return indexPath.row == 0 ? ServiceAPIKeyTableViewCell.reuseIdentifier : ServiceTableViewCell.reuseIdentifier
-        default:
-            return ServiceTableViewCell.reuseIdentifier
-        }
-    }
-
-    func numSections(in collectionSkeletonView: UITableView) -> Int {
-        return numberOfSections(in: collectionSkeletonView)
-    }
-
-    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableView(skeletonView, numberOfRowsInSection: section)
     }
 }
 

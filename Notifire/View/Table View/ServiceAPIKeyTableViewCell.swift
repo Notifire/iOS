@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SkeletonView
 
 protocol ServiceAPIKeyCellDelegate: class {
     func shouldReloadServiceCell()
@@ -30,7 +29,6 @@ class ServiceAPIKeyTableViewCell: ReusableBaseTableViewCell {
         textField.isSecureTextEntry = true
         textField.isEnabled = false
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.isSkeletonable = true
         return textField
     }()
     var keyTextFieldHeight: NSLayoutConstraint!
@@ -40,13 +38,11 @@ class ServiceAPIKeyTableViewCell: ReusableBaseTableViewCell {
     lazy var visibilityButton: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(didPressVisibilityButton), for: .touchUpInside)
-        button.isSkeletonable = true
         return button
     }()
 
     // MARK: - Inherited
     override func setup() {
-        isSkeletonable = true
         layout()
         updateUI()
     }

@@ -234,13 +234,17 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         switch viewModel.viewState {
         case .skeleton:
             parentScrollView.isUserInteractionEnabled = false
-            parentScrollView.showAnimatedGradientSkeleton()
+            parentScrollView.alpha = 0
             navigationItem.rightBarButtonItem = nil
         case .displaying(let localService):
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "baseline_more_horiz_black_24pt"), style: .plain, target: self, action: #selector(didTapMoreOptions))
             updateServiceUI(service: localService)
-            parentScrollView.isUserInteractionEnabled = true
-            parentScrollView.hideSkeleton()
+            UIView.animate(withDuration: 0.2, animations: {
+                self.parentScrollView.alpha = 1
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "baseline_more_horiz_black_24pt"), style: .plain, target: self, action: #selector(self.didTapMoreOptions))
+            }, completion: { finished in
+                guard finished else { return }
+                self.parentScrollView.isUserInteractionEnabled = true
+            })
         }
     }
 
