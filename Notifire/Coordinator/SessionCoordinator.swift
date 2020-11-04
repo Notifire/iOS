@@ -36,7 +36,8 @@ class SessionCoordinator: SectioningCoordinator {
         case .notifications:
             let notificationsNavigationController = NotifireNavigationController()
             let notificationsViewModel = NotificationsViewModel(realmProvider: userSessionHandler)
-            childCoordinator = NotificationsCoordinator(navigationController: notificationsNavigationController, notificationsViewModel: notificationsViewModel)
+            let notificationsCoordinator = NotificationsCoordinator(notificationsViewModel: notificationsViewModel)
+            childCoordinator = NavigationCoordinator(rootChildCoordinator: notificationsCoordinator, navigationController: notificationsNavigationController)
         case .services:
             let servicesNavigationController = NotifireNavigationController()
             servicesNavigationController.navigationBar.isTranslucent = false

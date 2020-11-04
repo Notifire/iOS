@@ -8,39 +8,74 @@
 
 import UIKit
 
-class ServicesCoordinator: TabbedCoordinator {
+class ServiceCoordinator: ChildCoordinator, NavigatingChildCoordinator {
 
     // MARK: - Properties
-    let navigationController: UINavigationController
-    let servicesViewController: ServicesViewController
+    let serviceViewController: ServiceViewController
+
+    weak var parentNavigatingCoordinator: NavigatingCoordinator?
+
+    var viewController: UIViewController {
+        return serviceViewController
+    }
+
+    // MARK: - Initialization
+    init(serviceViewController: ServiceViewController) {
+        self.serviceViewController = serviceViewController
+    }
+
+    // MARK: - Methods
+    func start() {
+
+    }
+
+    func showNotifications() {
+        guard let localService = serviceViewController.viewModel.currentLocalService else {
+            Logger.log(.info, "\(self) wanted to open notifications but currentLocalService is nil")
+            return
+        }
+        let realmProvider = serviceViewController.viewModel.userSessionHandler
+        let serviceNotificationsViewModel = ServiceNotificationsViewModel(realmProvider: realmProvider, service: localService)
+        let notificationsCoordinator = NotificationsCoordinator(notificationsViewModel: serviceNotificationsViewModel)
+        notificationsCoordinator.start()
+    }
+}
+
+/// A `ChildCoordinator` that allows pushing/popping from a parent navigationCoordinator.
+protocol NavigatingChildCoordinator: ChildCoordinator {
+    var parentNavigatingCoordinator: NavigatingCoordinator? { get set }
+}
+
+class ServicesCoordinator: NavigationCoordinator<GenericCoordinator<ServicesViewController>> {
+
+    // MARK: - Properties
+    var servicesViewController: ServicesViewController {
+        return rootChildCoordinator.rootViewController
+    }
+
     let userSessionHandler: UserSessionHandler
-    var notificationsCoordinator: NotificationsCoordinator?
+
     private var presentedServiceController: ServiceViewController?
 
     private var protectedApiManager: NotifireProtectedAPIManager {
         return servicesViewController.viewModel.protectedApiManager
     }
 
-    // MARK: TabbedCoordinator
-    var viewController: UIViewController {
-        return navigationController
-    }
-
     // MARK: - Initialization
     init(servicesNavigationController: UINavigationController, sessionHandler: UserSessionHandler) {
         self.userSessionHandler = sessionHandler
-        self.navigationController = servicesNavigationController
         let servicesViewModel = ServicesViewModel(sessionHandler: sessionHandler)
-        self.servicesViewController = ServicesViewController(viewModel: servicesViewModel)
+        let rootVC = ServicesViewController(viewModel: servicesViewModel)
+        super.init(rootChildCoordinator: GenericCoordinator(viewController: rootVC), navigationController: servicesNavigationController)
+    }
+
+    override func start() {
+        super.start()
+
         servicesViewController.delegate = self
     }
 
-    func start() {
-        navigationController.setViewControllers([servicesViewController], animated: false)
-    }
-
     func showServiceCreation() {
-        guard navigationController.presentedViewController == nil else { return }
         let serviceCreationVC = ServiceCreationViewController(viewModel: ServiceCreationViewModel(protectedApiManager: protectedApiManager))
         let serviceNavigation = NotifireActionNavigationController(rootViewController: serviceCreationVC)
         serviceCreationVC.delegate = self
@@ -52,7 +87,8 @@ class ServicesCoordinator: TabbedCoordinator {
         let serviceViewController = ServiceViewController(viewModel: serviceViewModel)
         serviceViewController.delegate = self
         presentedServiceController = serviceViewController
-        navigationController.pushViewController(serviceViewController, animated: true)
+        let serviceCoordinator = ServiceCoordinator(serviceViewController: serviceViewController)
+        add(childCoordinator: serviceCoordinator, push: true)
     }
 
     func dismiss(service: LocalService) {
@@ -61,15 +97,13 @@ class ServicesCoordinator: TabbedCoordinator {
     }
 
     func dismissServiceCreation(service: Service? = nil) {
-        guard navigationController.presentedViewController != nil else { return }
         navigationController.dismiss(animated: true, completion: nil)
     }
 
     func showNotifications(service: LocalService) {
         let serviceNotificationsViewModel = ServiceNotificationsViewModel(realmProvider: userSessionHandler, service: service)
-        let notificationsCoordinator = NotificationsCoordinator(navigationController: navigationController, notificationsViewModel: serviceNotificationsViewModel)
+        let notificationsCoordinator = NotificationsCoordinator(notificationsViewModel: serviceNotificationsViewModel)
         notificationsCoordinator.start()
-        self.notificationsCoordinator = notificationsCoordinator
     }
 }
 

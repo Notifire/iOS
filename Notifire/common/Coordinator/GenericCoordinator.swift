@@ -11,10 +11,14 @@ import UIKit
 /// A generic coordinator class that is used for UIViewControllers that require having a coordinator for some interaction with other coordinators.
 class GenericCoordinator<ViewController: UIViewController>: ChildCoordinator {
 
-    let viewController: UIViewController
+    let rootViewController: ViewController
+
+    var viewController: UIViewController {
+        return rootViewController
+    }
 
     init(viewController: ViewController) {
-        self.viewController = viewController
+        self.rootViewController = viewController
     }
 
     func start() {

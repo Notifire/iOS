@@ -435,6 +435,8 @@
 		8998D8852520D435002A597B /* IndexPath+RowInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8998D8832520D435002A597B /* IndexPath+RowInit.swift */; };
 		899C07172551E2E00005228E /* NavigationCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899C07162551E2E00005228E /* NavigationCoordinatorDelegate.swift */; };
 		899C07182551E2E00005228E /* NavigationCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899C07162551E2E00005228E /* NavigationCoordinatorDelegate.swift */; };
+		899C071A2551E4FE0005228E /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899C07192551E4FE0005228E /* ForgotPasswordViewModel.swift */; };
+		899C071B2551E4FE0005228E /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899C07192551E4FE0005228E /* ForgotPasswordViewModel.swift */; };
 		89A9048021B753F100D262E1 /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */; };
 		89A9048121B754A800D262E1 /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */; };
 		89A9048321B8589300D262E1 /* IndicatorStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9048221B8589300D262E1 /* IndicatorStackView.swift */; };
@@ -808,6 +810,7 @@
 		89942AFD250D36710036DBDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8998D8832520D435002A597B /* IndexPath+RowInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IndexPath+RowInit.swift"; sourceTree = "<group>"; };
 		899C07162551E2E00005228E /* NavigationCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinatorDelegate.swift; sourceTree = "<group>"; };
+		899C07192551E4FE0005228E /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtension.swift; sourceTree = "<group>"; };
 		89A9048221B8589300D262E1 /* IndicatorStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorStackView.swift; sourceTree = "<group>"; };
 		89A9048421B858B200D262E1 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
@@ -1864,6 +1867,7 @@
 				895A3B8125006D97000A7B50 /* AuthenticationProvidersViewModel.swift */,
 				895A3B8825006DC5000A7B50 /* LoginRegisterSplitterViewModel.swift */,
 				8949EBDD251189F00045D1A7 /* RegisterSuccessViewModel.swift */,
+				899C07192551E4FE0005228E /* ForgotPasswordViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2520,6 +2524,7 @@
 				89576AA124FD412A0097BF87 /* Service.swift in Sources */,
 				894B1FA12505DECA00D0D671 /* TabBarStackView.swift in Sources */,
 				89576AA224FD412A0097BF87 /* FireLayerProperties.swift in Sources */,
+				899C071B2551E4FE0005228E /* ForgotPasswordViewModel.swift in Sources */,
 				893B90202512B9700056DBF9 /* Reusable.swift in Sources */,
 				89541918251CD1670046464D /* UpdateServiceRepresentablesOperation.swift in Sources */,
 				893A4A352528D2B500DD02D0 /* CATransaction+Animation.swift in Sources */,
@@ -2998,6 +3003,7 @@
 				895418DB251945AE0046464D /* ServiceRepresentable.swift in Sources */,
 				894AB6862512609700F2CBF5 /* ServiceTableViewCell.swift in Sources */,
 				89D4E1F32139ED3D00630790 /* CAPersistentAnimationsLayer.swift in Sources */,
+				899C071A2551E4FE0005228E /* ForgotPasswordViewModel.swift in Sources */,
 				897069D62133733100D798AA /* Theme.swift in Sources */,
 				89A9048521B858B200D262E1 /* NotificationTableViewCell.swift in Sources */,
 				893995A82170EDDA00687A79 /* NotificationsCoordinator.swift in Sources */,

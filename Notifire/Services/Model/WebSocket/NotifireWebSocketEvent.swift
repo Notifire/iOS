@@ -19,6 +19,7 @@ enum EventType: String, Codable {
 }
 
 // MARK: - NotifireWebSocketEvent
+/// Protocol describing Notifire WebSocketEvent data that have an associated EventType.
 protocol EventTypeable {
     static var associatedEvent: EventType { get }
 }
@@ -60,6 +61,11 @@ struct NotifireWebSocketEvent<EventData: Codable & EventTypeable>: Codable {
 struct NotifireWebSocketReadyEventData: Codable, EventTypeable {
     let sessionID: String
     let timestamp: Date
+    let heartbeatInterval: TimeInterval
+
+    private enum CodingKeys: String, CodingKey {
+        case sessionID, timestamp, heartbeatInterval = "ping_interval"
+    }
 
     static let associatedEvent: EventType = .ready
 }

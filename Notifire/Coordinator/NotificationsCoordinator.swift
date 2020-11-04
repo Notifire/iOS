@@ -8,33 +8,29 @@
 
 import UIKit
 
-class NotificationsCoordinator: TabbedCoordinator {
+class NotificationsCoordinator: NavigatingChildCoordinator, TabbedCoordinator {
 
     // MARK: - Properties
     let notificationsViewController: NotificationsViewController
-    let navigationController: UINavigationController
     let realmProvider: RealmProviding
+
     // MARK: TabbedCoordinator
     var viewController: UIViewController {
-        return navigationController
+        return notificationsViewController
     }
 
+    // MARK: NavigatingChildCoordinator
+    weak var parentNavigatingCoordinator: NavigatingCoordinator?
+
     // MARK: - Initialization
-    init(navigationController: UINavigationController, notificationsViewModel: NotificationsViewModel) {
-        self.navigationController = navigationController
+    init(notificationsViewModel: NotificationsViewModel) {
         self.realmProvider = notificationsViewModel.realmProvider
         let notificationsViewController = NotificationsViewController(viewModel: notificationsViewModel)
         self.notificationsViewController = notificationsViewController
-        notificationsViewController.delegate = self
     }
 
     func start() {
-        guard navigationController.viewControllers.isEmpty else {
-            navigationController.pushViewController(notificationsViewController, animated: true)
-            return
-        }
-        // first VC
-        navigationController.setViewControllers([notificationsViewController], animated: false)
+        notificationsViewController.delegate = self
     }
 
     func showDetailed(notification: LocalNotifireNotification) {
@@ -42,7 +38,8 @@ class NotificationsCoordinator: TabbedCoordinator {
         let notificationDetailVC = NotificationDetailViewController(viewModel: notificationDetailVM)
         notificationDetailVC.view.backgroundColor = .compatibleSystemBackground
         notificationDetailVC.viewModel.delegate = self
-        navigationController.pushViewController(notificationDetailVC, animated: true)
+        let notificationDetailCoordinator = GenericCoordinator(viewController: notificationDetailVC)
+        parentNavigatingCoordinator?.add(childCoordinator: notificationDetailCoordinator)
     }
 }
 
@@ -54,6 +51,6 @@ extension NotificationsCoordinator: NotificationsViewControllerDelegate {
 
 extension NotificationsCoordinator: NotificationDetailViewModelDelegate {
     func onNotificationDeletion() {
-        navigationController.popToRootViewController(animated: true)
+        parentNavigatingCoordinator?.removeLastCoordinator()
     }
 }
