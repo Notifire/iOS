@@ -12,10 +12,6 @@ import Foundation
 /// The websocket events sent to the client from the server.
 enum EventType: String, Codable {
     case ready, serviceEvent, replay, error
-
-    private enum CodingKeys: String, CodingKey {
-        case replay, ready, error, serviceEvent = "service_event"
-    }
 }
 
 // MARK: - NotifireWebSocketEvent
@@ -64,7 +60,7 @@ struct NotifireWebSocketReadyEventData: Codable, EventTypeable {
     let heartbeatInterval: TimeInterval
 
     private enum CodingKeys: String, CodingKey {
-        case sessionID, timestamp, heartbeatInterval = "ping_interval"
+        case sessionID, timestamp, heartbeatInterval = "pingInterval"
     }
 
     static let associatedEvent: EventType = .ready
