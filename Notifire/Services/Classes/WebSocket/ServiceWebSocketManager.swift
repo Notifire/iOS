@@ -51,8 +51,6 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
     /// - Note: used for reconnecting to the socket.
     var lastSessionID: String?
 
-    var lastServiceUpdatedAt: Date?
-
     // MARK: Callbacks
     var onWebSocketConnectionStatusChange: ((WebSocketConnectionStatus, WebSocketConnectionStatus) -> Void)?
 
@@ -112,13 +110,13 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
                 let operation = WebSocketConnectOperation(authorizationToken: authorizationToken)
                 send(operation: operation)
             case .identifyReconnect:
-                guard let sessionID = lastSessionID, let timestamp = lastServiceUpdatedAt else {
-                    Logger.logNetwork(.fault, "\(self) aborting operationType=<\(operationType)>, timestamp=<\(String(describing: lastServiceUpdatedAt))> or lastSessionID=<\(String(describing: lastServiceUpdatedAt))> is not available.")
+                guard let sessionID = lastSessionID else {
+                    Logger.logNetwork(.fault, "\(self) aborting operationType=<\(operationType)> is not available.")
                     // Rather do a fresh connect as the last session ID or timestamp isn't available
                     send(operationType: .identify)
                     return
                 }
-                let operation = WebSocketReconnectOperation(authorizationToken: authorizationToken, sessionID: sessionID, timestamp: timestamp)
+                let operation = WebSocketReconnectOperation(authorizationToken: authorizationToken, sessionID: sessionID)
                 send(operation: operation)
             case .heartbeat:
                 let operation = WebSocketHeartbeatOperation()
@@ -181,7 +179,6 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
 
         // Update connection status to Authorized
         guard isConnected else { return }
-        lastServiceUpdatedAt = event.data.timestamp
         webSocketConnectionStatus = .authorized(sessionID: event.data.sessionID)
 
         heartbeatManager.startSendingHeartbeat(interval: event.data.heartbeatInterval)
@@ -192,10 +189,6 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
         Logger.logNetwork(.debug, "\(self) handling service event=<\(event)>")
 
         guard isAuthorized else { return }
-
-        if let updatedAt = event.data.service.updatedAt {
-            lastServiceUpdatedAt = updatedAt
-        }
 
         // Callback
         onServiceEvent?(event.data)
