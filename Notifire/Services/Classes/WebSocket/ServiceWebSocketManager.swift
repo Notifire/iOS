@@ -11,7 +11,7 @@ import Starscream
 
 /// Class reponsible for connecting to the websocket and observing Services changes
 /// create / update / delete
-class ServiceWebSocketManager: WebSocketDelegate {
+class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
 
     // MARK: - Properties
     let socket: WebSocket
@@ -63,6 +63,9 @@ class ServiceWebSocketManager: WebSocketDelegate {
     // MARK: Static
     static let reconnectDelay: TimeInterval = 1
 
+    // MARK: Heartbeat
+    lazy var heartbeatManager = WebSocketHeartbeatManager(socketWriter: self)
+
     // MARK: - Initialization
     init(apiManager: NotifireProtectedAPIManager) {
         self.apiManager = apiManager
@@ -102,7 +105,7 @@ class ServiceWebSocketManager: WebSocketDelegate {
     }
 
     // MARK: Operations
-    private func send(operationType: WebSocketOperationType) {
+    func send(operationType: WebSocketOperationType) {
         if !shouldGenerateNewAccessToken, let authorizationToken = apiManager.userSession.accessToken {
             switch operationType {
             case .identify:
@@ -116,6 +119,9 @@ class ServiceWebSocketManager: WebSocketDelegate {
                     return
                 }
                 let operation = WebSocketReconnectOperation(authorizationToken: authorizationToken, sessionID: sessionID, timestamp: timestamp)
+                send(operation: operation)
+            case .heartbeat:
+                let operation = WebSocketHeartbeatOperation()
                 send(operation: operation)
             }
         } else {
@@ -137,6 +143,7 @@ class ServiceWebSocketManager: WebSocketDelegate {
         }
     }
 
+    /// Convenience function for encoding operations into socket writeable objects.
     private func send<OperationData>(operation: WebSocketOperation<OperationData>) {
         let encoder = JSONEncoder()
 
@@ -176,6 +183,8 @@ class ServiceWebSocketManager: WebSocketDelegate {
         guard isConnected else { return }
         lastServiceUpdatedAt = event.data.timestamp
         webSocketConnectionStatus = .authorized(sessionID: event.data.sessionID)
+
+        heartbeatManager.startSendingHeartbeat(interval: event.data.heartbeatInterval)
     }
 
     // MARK: Service Event
@@ -235,6 +244,8 @@ class ServiceWebSocketManager: WebSocketDelegate {
                 }
             case .error: break
             }
+
+            heartbeatManager.stopSendingHeartbeat()
 
             // Reconnect after some delay
             DispatchQueue.main.asyncAfter(deadline: .now() + ServiceWebSocketManager.reconnectDelay) { [weak self] in

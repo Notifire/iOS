@@ -11,10 +11,6 @@ import Foundation
 // MARK: - WebSocketOperation
 /// Represents the intended operation (command) of the WebSocket client.
 /// - Note: encapsulates the operation message sent to the WebSocket server.
-/// ```
-///
-///
-///
 struct WebSocketOperation<OperationData: Codable>: Codable {
 
     private enum CodingKeys: String, CodingKey {
@@ -23,10 +19,10 @@ struct WebSocketOperation<OperationData: Codable>: Codable {
 
     // MARK: Properties
     let operation: WebSocketOperationType
-    let data: OperationData
+    let data: OperationData?
 
     // MARK: Initialization
-    fileprivate init(operation: WebSocketOperationType, data: OperationData) {
+    fileprivate init(operation: WebSocketOperationType, data: OperationData?) {
         self.operation = operation
         self.data = data
     }
@@ -59,5 +55,14 @@ typealias WebSocketReconnectOperation = WebSocketOperation<WebSocketReconnectOpe
 extension WebSocketReconnectOperation where OperationData == WebSocketReconnectOperationData {
     init(authorizationToken: String, sessionID: String, timestamp: Date = Date()) {
         self.init(operation: .identifyReconnect, data: WebSocketReconnectOperationData(token: authorizationToken, sessionID: sessionID, timestamp: timestamp))
+    }
+}
+
+// MARK: - WebSocketHeartbeatOperation
+typealias WebSocketHeartbeatOperation = WebSocketOperation<EmptyRequestBody>
+
+extension WebSocketHeartbeatOperation where OperationData == EmptyRequestBody {
+    init() {
+        self.init(operation: .heartbeat, data: nil)
     }
 }

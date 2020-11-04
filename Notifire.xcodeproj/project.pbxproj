@@ -384,6 +384,10 @@
 		896167FE2501ABAE007BF3F1 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167FC2501ABAE007BF3F1 /* ForgotPasswordViewController.swift */; };
 		896168002501B3A3007BF3F1 /* UIView+Embed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167FF2501B3A3007BF3F1 /* UIView+Embed.swift */; };
 		896168012501B3A3007BF3F1 /* UIView+Embed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167FF2501B3A3007BF3F1 /* UIView+Embed.swift */; };
+		8966C89325530F9C00F037C3 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8966C89225530F9C00F037C3 /* RepeatingTimer.swift */; };
+		8966C89425530F9C00F037C3 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8966C89225530F9C00F037C3 /* RepeatingTimer.swift */; };
+		8966C89725531FE300F037C3 /* WebSocketHeartbeatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8966C89625531FE300F037C3 /* WebSocketHeartbeatManager.swift */; };
+		8966C89825531FE300F037C3 /* WebSocketHeartbeatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8966C89625531FE300F037C3 /* WebSocketHeartbeatManager.swift */; };
 		8967F778250ECE810079BCB8 /* UnprotectedAPIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8967F777250ECE810079BCB8 /* UnprotectedAPIIntegrationTests.swift */; };
 		8967F77A2511546A0079BCB8 /* UIWindow+Dismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8967F7792511546A0079BCB8 /* UIWindow+Dismiss.swift */; };
 		8967F77B2511546B0079BCB8 /* UIWindow+Dismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8967F7792511546A0079BCB8 /* UIWindow+Dismiss.swift */; };
@@ -775,6 +779,8 @@
 		896167F92501AB9A007BF3F1 /* ForgotPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordCoordinator.swift; sourceTree = "<group>"; };
 		896167FC2501ABAE007BF3F1 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		896167FF2501B3A3007BF3F1 /* UIView+Embed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Embed.swift"; sourceTree = "<group>"; };
+		8966C89225530F9C00F037C3 /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
+		8966C89625531FE300F037C3 /* WebSocketHeartbeatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketHeartbeatManager.swift; sourceTree = "<group>"; };
 		8967F777250ECE810079BCB8 /* UnprotectedAPIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnprotectedAPIIntegrationTests.swift; sourceTree = "<group>"; };
 		8967F7792511546A0079BCB8 /* UIWindow+Dismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Dismiss.swift"; sourceTree = "<group>"; };
 		897069C721334E7700D798AA /* ConstrainableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstrainableView.swift; sourceTree = "<group>"; };
@@ -1174,6 +1180,7 @@
 				8933F0BD2141326300645B3A /* ComponentValidator.swift */,
 				89D4E1FD2139FD3E00630790 /* MultiplePathAnimator.swift */,
 				89BDADE0217A5230000E38FC /* DeviceTokenManager.swift */,
+				8966C89225530F9C00F037C3 /* RepeatingTimer.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1449,9 +1456,9 @@
 		895418FA251CA7FD0046464D /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8966C89525531FCB00F037C3 /* WebSocket */,
 				895418FB251CAA660046464D /* GetServicesBatchOperation.swift */,
 				89541916251CD1670046464D /* UpdateServiceRepresentablesOperation.swift */,
-				89541904251CB8980046464D /* ServiceWebSocketManager.swift */,
 				8954190A251CB8B40046464D /* ServicesSynchronizationManager.swift */,
 				897B77B22523EE6B008602BB /* PaginationHandler.swift */,
 				897B77C125250576008602BB /* SwapOnlineOfflineRepresentablesOperation.swift */,
@@ -1512,6 +1519,15 @@
 				8933F0C42141331500645B3A /* Struct */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		8966C89525531FCB00F037C3 /* WebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				89541904251CB8980046464D /* ServiceWebSocketManager.swift */,
+				8966C89625531FE300F037C3 /* WebSocketHeartbeatManager.swift */,
+			);
+			path = WebSocket;
 			sourceTree = "<group>";
 		};
 		897069DD2133872F00D798AA /* Buttons */ = {
@@ -2632,6 +2648,7 @@
 				8915FB2525260AB400BD36B2 /* WebSocketOperation.swift in Sources */,
 				89576AE524FD412A0097BF87 /* DeeplinkHandler.swift in Sources */,
 				89576AE624FD412A0097BF87 /* NotifireNotificationHandler.swift in Sources */,
+				8966C89425530F9C00F037C3 /* RepeatingTimer.swift in Sources */,
 				89576AE724FD412A0097BF87 /* RoundedImageView.swift in Sources */,
 				89576AE824FD412A0097BF87 /* NotifireAPIStatusCode.swift in Sources */,
 				89576AE924FD412A0097BF87 /* PersistentAnimationsObserving.swift in Sources */,
@@ -2673,6 +2690,7 @@
 				89576B0024FD412A0097BF87 /* ConstrainableView.swift in Sources */,
 				89576B0124FD412A0097BF87 /* CenterStackPresenting.swift in Sources */,
 				89576B0224FD412A0097BF87 /* IndicatorStackView.swift in Sources */,
+				8966C89825531FE300F037C3 /* WebSocketHeartbeatManager.swift in Sources */,
 				894B1F942505DA1A00D0D671 /* Reselectable.swift in Sources */,
 				89576B0324FD412A0097BF87 /* MultiplePathAnimator.swift in Sources */,
 				89017C972526752D00EC9DC8 /* NotifireWebSocketEvent.swift in Sources */,
@@ -2956,6 +2974,7 @@
 				89541917251CD1670046464D /* UpdateServiceRepresentablesOperation.swift in Sources */,
 				894B1F932505DA1A00D0D671 /* Reselectable.swift in Sources */,
 				89D4E1FE2139FD3E00630790 /* MultiplePathAnimator.swift in Sources */,
+				8966C89325530F9C00F037C3 /* RepeatingTimer.swift in Sources */,
 				894B1FAD2505DFC600D0D671 /* TabBarGestureHandler+UIGestureRecognizerDelegate.swift in Sources */,
 				89CA5A99250EB1880020A564 /* LaunchArgumentsHandler.swift in Sources */,
 				89BDADD6217928A9000E38FC /* CheckValidityOption.swift in Sources */,
@@ -2980,6 +2999,7 @@
 				8933F0F5214338FF00645B3A /* NotifireAPIManager.swift in Sources */,
 				897069EE2134B68300D798AA /* LoginViewModel.swift in Sources */,
 				89BDADD4217922FE000E38FC /* ConfirmEmailViewModel.swift in Sources */,
+				8966C89725531FE300F037C3 /* WebSocketHeartbeatManager.swift in Sources */,
 				894B1F882505D66600D0D671 /* SectionedCoordinator.swift in Sources */,
 				892B414221C1E42B00D28ABE /* APIUserErrorResponding.swift in Sources */,
 				89D4E1FC2139FD2200630790 /* NotifireLayer.swift in Sources */,
