@@ -203,6 +203,14 @@ class ServicesViewModel: APIFailable {
         synchronizedQueue.addOperations([getServicesOperation, serviceDataAdapterOperation, updateServicesOperation], waitUntilFinished: false)
     }
 
+    /// Updates the `ServiceSnippet` from services to the created `LocalServic `
+    func updateSnippet(to local: LocalService) {
+        for (index, snippet) in services.enumerated() where snippet is ServiceSnippet {
+            guard snippet.id == local.id else { continue }
+            services[index] = local
+        }
+    }
+
     // MARK: - Private
     private func updateConnectionViewState(_ status: WebSocketConnectionStatus) {
         let newViewState: WebSocketConnectionViewState

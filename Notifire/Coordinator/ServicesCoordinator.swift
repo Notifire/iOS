@@ -71,7 +71,7 @@ class ServicesCoordinator: NavigationCoordinator<GenericCoordinator<ServicesView
 
     override func start() {
         super.start()
-
+        delegate = self
         servicesViewController.delegate = self
     }
 
@@ -136,5 +136,23 @@ extension ServicesCoordinator: ServiceCreationDelegate {
 
     func didCancelCreation() {
         dismissServiceCreation()
+    }
+}
+
+extension ServicesCoordinator: NavigationCoordinatorDelegate {
+    func willAddChild(coordinator: ChildCoordinator) {
+
+    }
+
+    func didRemoveChild(coordinator: ChildCoordinator) {
+        guard
+            coordinator.viewController === presentedServiceController,
+            let dismissedLocalService = presentedServiceController?.viewModel.currentLocalService else
+        {
+            presentedServiceController = nil
+            return
+        }
+        presentedServiceController = nil
+        servicesViewController.viewModel.updateSnippet(to: dismissedLocalService)
     }
 }
