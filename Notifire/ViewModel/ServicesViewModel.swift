@@ -109,27 +109,6 @@ class ServicesViewModel: APIFailable {
         )
         self.websocketManager = ServiceWebSocketManager(apiManager: sessionHandler.notifireProtectedApiManager)
         self.synchronizationManager = ServicesSynchronizationManager(realmProvider: sessionHandler, servicesCollectionHandler: localServicesHandler)
-
-        // ThreadSafe tests
-//        let localOnMain = localServices
-//        let threadSafeLocalOnMain = synchronizationManager.threadSafeRepresentables(from: Array(localOnMain))
-//        Thread.detachNewThread {
-//            DispatchQueue.main.async {
-//                print(localOnMain.first?.id)
-//            }
-//
-//            let resolvedOnThread = self.synchronizationManager.resolve(threadSafeRepresentables: threadSafeLocalOnMain)!
-//            print(resolvedOnThread.first?.id)
-//
-//            let threadSafeResolvedOnThread = self.synchronizationManager.threadSafeRepresentables(from: resolvedOnThread)
-//            DispatchQueue.main.async {
-//                let resolvedOnMain = self.synchronizationManager.resolve(threadSafeRepresentables: threadSafeResolvedOnThread)
-//                print(resolvedOnMain?.first?.id)
-//            }
-//
-//            let localOnNewThread = self.localServices
-//            print(localOnNewThread.first?.id)
-//        }
     }
 
     // MARK: - Methods
