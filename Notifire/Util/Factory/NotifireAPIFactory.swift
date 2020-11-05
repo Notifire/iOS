@@ -30,10 +30,15 @@ struct NotifireAPIFactory {
     static func createWebSocket() -> WebSocket {
         var request = URLRequest(url: URL(string: Config.wsUrlString)!)
         request.timeoutInterval = 5
+        let callbackQueue = DispatchQueue(label: "\(Config.bundleID).ServiceWebSocketManager.callbackQueue")
         #if API_MOCK
-            return WebSocket(request: request, engine: WebsocketMockEngine())
+            let socket = WebSocket(request: request, engine: WebsocketMockEngine(queue: callbackQueue))
+            socket.callbackQueue = callbackQueue
+            return socket
         #else
-            return WebSocket(request: request)
+            let socket = WebSocket(request: request)
+            socket.callbackQueue = callbackQueue
+            return socket
         #endif
     }
 }

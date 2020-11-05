@@ -33,9 +33,11 @@ class ServicesViewModel: APIFailable {
     let synchronizationManager: ServicesSynchronizationManager
 
     /// queue for CRUD on LocalService + GET /services
+    lazy var synchronizedDispatchQueue = DispatchQueue(label: "\(Config.bundleID).ServicesViewModel.synchronizedQueue")
+
     lazy var synchronizedQueue: OperationQueue = {
         let queue = OperationQueue()
-        queue.underlyingQueue = DispatchQueue.main
+        queue.underlyingQueue = synchronizedDispatchQueue
         queue.maxConcurrentOperationCount = 1
         return queue
     }()
@@ -107,6 +109,27 @@ class ServicesViewModel: APIFailable {
         )
         self.websocketManager = ServiceWebSocketManager(apiManager: sessionHandler.notifireProtectedApiManager)
         self.synchronizationManager = ServicesSynchronizationManager(realmProvider: sessionHandler, servicesCollectionHandler: localServicesHandler)
+
+        // ThreadSafe tests
+//        let localOnMain = localServices
+//        let threadSafeLocalOnMain = synchronizationManager.threadSafeRepresentables(from: Array(localOnMain))
+//        Thread.detachNewThread {
+//            DispatchQueue.main.async {
+//                print(localOnMain.first?.id)
+//            }
+//
+//            let resolvedOnThread = self.synchronizationManager.resolve(threadSafeRepresentables: threadSafeLocalOnMain)!
+//            print(resolvedOnThread.first?.id)
+//
+//            let threadSafeResolvedOnThread = self.synchronizationManager.threadSafeRepresentables(from: resolvedOnThread)
+//            DispatchQueue.main.async {
+//                let resolvedOnMain = self.synchronizationManager.resolve(threadSafeRepresentables: threadSafeResolvedOnThread)
+//                print(resolvedOnMain?.first?.id)
+//            }
+//
+//            let localOnNewThread = self.localServices
+//            print(localOnNewThread.first?.id)
+//        }
     }
 
     // MARK: - Methods
@@ -168,6 +191,7 @@ class ServicesViewModel: APIFailable {
         // Get services operation
         getServicesOperation.completionHandler = { [unowned serviceDataAdapterOperation, unowned updateServicesOperation, weak self] response in
             guard case .success(let snippets) = response else {
+                // Cancel the other operations if we this one fails
                 serviceDataAdapterOperation.cancel()
                 updateServicesOperation.cancel()
                 self?.isFetching = false
@@ -196,7 +220,8 @@ class ServicesViewModel: APIFailable {
                 let action: LocalRemoteServiceAction = .add(batch: services)
                 updateServicesOperation.action = action
             }
-            updateServicesOperation.serviceRepresentables = self.services
+
+            updateServicesOperation.setThreadSafe(serviceRepresentables: self.services)
         }
 
         // Enqueue
@@ -304,23 +329,14 @@ class ServicesViewModel: APIFailable {
         // update services
         services = representables
 
-        DispatchQueue.main.async { [weak self] in
-            // notify listener
-            self?.onServicesChange?(changes)
-        }
+        // notify listener
+        onServicesChange?(changes)
     }
 
     private func handleServiceEvent(data: NotifireWebSocketServiceEventData) {
         let updateServicesOperation = UpdateServiceRepresentablesOperation(synchronizationManager: synchronizationManager)
-        let action: LocalRemoteServiceAction
-        switch data.type {
-        case .create: action = .create(service: data.service)
-        case .delete: action = .delete(service: data.service)
-        case .update: action = .update(service: data.service)
-        case .upsert: action = .upsert(service: data.service)
-        }
-        updateServicesOperation.action = action
-        updateServicesOperation.serviceRepresentables = services
+        updateServicesOperation.action = LocalRemoteServiceAction(from: data)
+        updateServicesOperation.setThreadSafe(serviceRepresentables: self.services, fromMainQueue: false)
         updateServicesOperation.completionHandler = { [weak self] newRepresentables, maybeChanges in
             self?.updateViewStateAndServiceRepresentableChanges(representables: newRepresentables, changes: maybeChanges)
         }

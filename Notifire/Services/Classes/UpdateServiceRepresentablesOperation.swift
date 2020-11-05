@@ -9,34 +9,10 @@
 import Foundation
 import RealmSwift
 
-enum LocalRemoteServiceAction: CustomStringConvertible {
-    // MARK: Pagination
-    /// The pagination / add batch action.
-    /// - Note: supports offline mode
-    case add(batch: [ServiceSnippet])
-
-    // MARK: Websocket
-    case create(service: Service)
-    case update(service: Service)
-    case delete(service: Service)
-    case upsert(service: Service)
-
-    var description: String {
-        switch self {
-        case .add: return "add batch"
-        case .create: return "create service"
-        case .update: return "update service"
-        case .delete: return "delete service"
-        case .upsert: return "upsert service"
-        }
-    }
-}
-
 /// The operation class that takes care of CRUD operations on ServiceSnippets / LocalService / Service (ServiceRepresentable) objects.
-class UpdateServiceRepresentablesOperation: Operation {
+class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresentableOperation {
 
     // MARK: - Properties
-    let synchronizationManager: ServicesSynchronizationManager
     /// The local services
     var localServices: RealmSwift.Results<LocalService> {
         return synchronizationManager.servicesHandler.collection
@@ -47,11 +23,13 @@ class UpdateServiceRepresentablesOperation: Operation {
 
     /// The main action of this operation.
     var action: LocalRemoteServiceAction?
-    /// The current service representables at the time of execution of this operation. (services displayed by the UI)
-    var serviceRepresentables: [ServiceRepresentable]?
+
+    // MARK: ThreadSafeServiceRepresentableOperation
+    var threadSafeServiceRepresentables: ThreadSafeServiceRepresentables?
+    let synchronizationManager: ServicesSynchronizationManager
 
     // MARK: Completion
-    var completionHandler: ((([ServiceRepresentable], ServiceRepresentableChanges?) -> Void))?
+    var completionHandler: (([ServiceRepresentable], ServiceRepresentableChanges?) -> Void)?
 
     // MARK: - Initialization
     init(synchronizationManager: ServicesSynchronizationManager) {
@@ -67,7 +45,7 @@ class UpdateServiceRepresentablesOperation: Operation {
 
         Logger.log(.debug, "\(self) handling action: \(action)")
 
-        // Choose proper handler
+        // Invoke proper handler
         switch action {
         case .add(let batch):
             add(batch: batch)
@@ -88,7 +66,15 @@ class UpdateServiceRepresentablesOperation: Operation {
         let actionString = action?.description ?? "none"
         Logger.log(.debug, "\(self) finished action: \(actionString). Changes: \(String(describing: changes))")
 
-        completionHandler?(representables, changes)
+        // Complete if needed
+        guard let completion = completionHandler else {
+            Logger.log(.info, "\(self) completionHandler=nil")
+            return
+        }
+
+        finishOperation(representables: representables) { resolvedRepresentables in
+            completion(resolvedRepresentables, changes)
+        }
     }
 
     // MARK: Pagination

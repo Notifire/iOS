@@ -15,9 +15,12 @@ class WebsocketMockEngine: Engine {
 
     let monitorObject: AnyObject?
 
+    let callbackQueue: DispatchQueue
+
     var airplaneMode = false
 
-    init() {
+    init(queue callbackQueue: DispatchQueue) {
+        self.callbackQueue = callbackQueue
         if #available(iOS 12.0, *) {
             let monitor = NWPathMonitor()
             self.monitorObject = monitor
@@ -43,18 +46,18 @@ class WebsocketMockEngine: Engine {
 
     func start(request: URLRequest) {
         guard !airplaneMode else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            callbackQueue.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 self?.delegate?.didReceive(event: .disconnected("airplane mode", 1000))
             }
             return
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+        callbackQueue.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.delegate?.didReceive(event: .connected(["Sec-WebSocket-Accept": "oF/XqxDC2AFqVQX1ZV2Twxt2oWU="]))
         }
     }
 
     func stop(closeCode: UInt16) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+        callbackQueue.asyncAfter(deadline: .now() + 0.3) { [weak self] in
             self?.delegate?.didReceive(event: .disconnected("{\"error_code\":0,\"verbose_error\":\"Missing authorization header\"}", closeCode))
         }
     }
@@ -72,10 +75,14 @@ class WebsocketMockEngine: Engine {
 
         if (try? JSONDecoder().decode(WebSocketConnectOperation.self, from: data)) != nil {
             // Connect
-            delegate?.didReceive(event: .text(readyEventStringData))
+            callbackQueue.async { [unowned self] in
+                self.delegate?.didReceive(event: .text(readyEventStringData))
+            }
         } else if (try? JSONDecoder().decode(WebSocketReconnectOperation.self, from: data)) != nil {
             // Reconnect
-            delegate?.didReceive(event: .text(readyEventStringData))
+            callbackQueue.async { [unowned self] in
+                self.delegate?.didReceive(event: .text(readyEventStringData))
+            }
         }
     }
 

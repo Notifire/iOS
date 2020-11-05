@@ -18,16 +18,13 @@ class ServicesSynchronizationManager {
     let realmProvider: RealmProviding
     let servicesHandler: RealmCollectionObserver<LocalService>
 
-    /// The last Main thread ThreadSafeReference to localServices
-    var lastLocalServicesRef: ThreadSafeReference<Results<LocalService>>
-
     // MARK: Offline Mode
     /// Representables in the last Online mode state.
     /// Used to come back from offline mode.
-    var serviceRepresentablesBeforeOfflineMode: [ServiceRepresentable]?
+    var lastThreadSafeServiceRepresentables: ThreadSafeServiceRepresentables?
 
     var isOfflineModeActive: Bool {
-        return serviceRepresentablesBeforeOfflineMode != nil
+        return lastThreadSafeServiceRepresentables != nil
     }
 
     // MARK: Pagination
@@ -42,12 +39,11 @@ class ServicesSynchronizationManager {
     init(realmProvider: RealmProviding, servicesCollectionHandler: RealmCollectionObserver<LocalService>) {
         self.realmProvider = realmProvider
         self.servicesHandler = servicesCollectionHandler
-        lastLocalServicesRef = servicesCollectionHandler.collectionRef
     }
 
     // MARK: - Methods
 
-    /// Merge the remote `ServiceSnippet`s and array of `LocalService`s into one synchronized array of `ServiceRepresentable`s.
+    /// Merge the remote `ServiceSnippet` and array of `LocalService` obtained from the servicesHandler into one synchronized array of `ServiceRepresentable`.
     /// - Note: Also writes changes to a user-specific realm whenever the remote `ServiceSnippet` contains changes diffing the pre-existing `LocalService` with the same ID.
     /// - Parameters:
     ///     - remote: array of `ServiceSnippet` fetched from the remote API
@@ -79,7 +75,8 @@ class ServicesSynchronizationManager {
         return serviceRepresentables
     }
 
-    //
+    /// Merge already existing representables with all of the local services obtained from servicesHandler
+    /// - Note: Used while swapping online / offline modes.
     func mergeRepresentablesAndLocal(representables: [ServiceRepresentable]) -> [ServiceRepresentable] {
         // The resulting array that will contain `ServiceSnippet` and/or `LocalService` objects
         var resultRepresentables = [ServiceRepresentable]()
@@ -127,5 +124,44 @@ class ServicesSynchronizationManager {
         try? realmProvider.realm.write {
             localService.updateDataExceptUUID(from: service)
         }
+    }
+
+    // MARK: - Thread Safety
+    /// Creates an array containing `ThreadSafeReference<LocalService>` and `ServiceSnippet` from an array of `ServiceRepresentable`
+    /// - Note: Used to return Realm instances from background threads.
+    func threadSafeRepresentables(from representables: [ServiceRepresentable]) -> ThreadSafeServiceRepresentables {
+        var result = ThreadSafeServiceRepresentables()
+
+        for representable in representables {
+            if let localServiceRepresentable = representable as? LocalService {
+                // LocalService case
+                result.append(ThreadSafeReference(to: localServiceRepresentable))
+            } else {
+                // ServiceSnippet case
+                result.append(representable)
+            }
+        }
+
+        return result
+    }
+
+    /// The inverse operation to `threadSafeRepresentables(from:)`
+    func resolve(threadSafeRepresentables: ThreadSafeServiceRepresentables) -> [ServiceRepresentable]? {
+        var result = [ServiceRepresentable]()
+
+        for threadSafeRepresentable in threadSafeRepresentables {
+            if let threadSafeReference = threadSafeRepresentable as? ThreadSafeReference<LocalService> {
+                guard let localService = realmProvider.realm.resolve(threadSafeReference) else { continue }
+                result.append(localService)
+            } else if let serviceSnippet = threadSafeRepresentable as? ServiceSnippet {
+                result.append(serviceSnippet)
+            }
+        }
+
+        guard result.count == threadSafeRepresentables.count else {
+            Logger.log(.fault, "\(self) couldn't resolve threadSafeRepresentables")
+            return nil
+        }
+        return result
     }
 }

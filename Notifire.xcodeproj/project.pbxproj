@@ -201,6 +201,10 @@
 		89541912251CB92F0046464D /* Logger+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89541910251CB92F0046464D /* Logger+Init.swift */; };
 		89541917251CD1670046464D /* UpdateServiceRepresentablesOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89541916251CD1670046464D /* UpdateServiceRepresentablesOperation.swift */; };
 		89541918251CD1670046464D /* UpdateServiceRepresentablesOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89541916251CD1670046464D /* UpdateServiceRepresentablesOperation.swift */; };
+		895637AF25547D50005E4A4E /* LocalRemoteServiceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895637AE25547D50005E4A4E /* LocalRemoteServiceAction.swift */; };
+		895637B025547D50005E4A4E /* LocalRemoteServiceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895637AE25547D50005E4A4E /* LocalRemoteServiceAction.swift */; };
+		895637B22554B52B005E4A4E /* ThreadSafeServiceRepresentableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895637B12554B52B005E4A4E /* ThreadSafeServiceRepresentableOperation.swift */; };
+		895637B32554B52B005E4A4E /* ThreadSafeServiceRepresentableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895637B12554B52B005E4A4E /* ThreadSafeServiceRepresentableOperation.swift */; };
 		89576AA024FD412A0097BF87 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399580216FE4E900687A79 /* AppCoordinator.swift */; };
 		89576AA124FD412A0097BF87 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADE2217A5693000E38FC /* Service.swift */; };
 		89576AA224FD412A0097BF87 /* FireLayerProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E2022139FDD100630790 /* FireLayerProperties.swift */; };
@@ -754,6 +758,8 @@
 		8954190A251CB8B40046464D /* ServicesSynchronizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesSynchronizationManager.swift; sourceTree = "<group>"; };
 		89541910251CB92F0046464D /* Logger+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Init.swift"; sourceTree = "<group>"; };
 		89541916251CD1670046464D /* UpdateServiceRepresentablesOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateServiceRepresentablesOperation.swift; sourceTree = "<group>"; };
+		895637AE25547D50005E4A4E /* LocalRemoteServiceAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRemoteServiceAction.swift; sourceTree = "<group>"; };
+		895637B12554B52B005E4A4E /* ThreadSafeServiceRepresentableOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeServiceRepresentableOperation.swift; sourceTree = "<group>"; };
 		89576B3B24FD412A0097BF87 /* Notifire Mock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Notifire Mock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89576B3D24FD42FD0097BF87 /* TestFlight.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = TestFlight.xcconfig; sourceTree = "<group>"; };
 		895A3B762500609B000A7B50 /* BottomNavigatorLabelContaining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigatorLabelContaining.swift; sourceTree = "<group>"; };
@@ -1320,6 +1326,7 @@
 			children = (
 				894AB6802512607B00F2CBF5 /* ServicesViewControllerDelegate.swift */,
 				895418DA251945AE0046464D /* ServiceRepresentable.swift */,
+				895637B12554B52B005E4A4E /* ThreadSafeServiceRepresentableOperation.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1441,6 +1448,7 @@
 				895418E1251965930046464D /* ServiceSnippet.swift */,
 				897B77B82523EE81008602BB /* ServiceRepresentableChanges.swift */,
 				8915FB2925260ABC00BD36B2 /* WebSocket */,
+				895637AE25547D50005E4A4E /* LocalRemoteServiceAction.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2606,6 +2614,7 @@
 				89250B2124FEEB4800BC7C2C /* RootViewModel.swift in Sources */,
 				893A4A602530BA8700DD02D0 /* WebSocketOperationType.swift in Sources */,
 				89576AC924FD412A0097BF87 /* NotificationLevelModel.swift in Sources */,
+				895637B025547D50005E4A4E /* LocalRemoteServiceAction.swift in Sources */,
 				89576ACA24FD412A0097BF87 /* NotificationsViewController.swift in Sources */,
 				89576ACB24FD412A0097BF87 /* CurvedTopView.swift in Sources */,
 				89576ACC24FD412A0097BF87 /* CAPersistentAnimationsShapeLayer.swift in Sources */,
@@ -2768,6 +2777,7 @@
 				895418DC251945AE0046464D /* ServiceRepresentable.swift in Sources */,
 				89576B2B24FD412A0097BF87 /* TabbedCoordinator.swift in Sources */,
 				89576B2C24FD412A0097BF87 /* TabBarViewModel.swift in Sources */,
+				895637B32554B52B005E4A4E /* ThreadSafeServiceRepresentableOperation.swift in Sources */,
 				89576B2D24FD412A0097BF87 /* NotifireAPIRequestContext.swift in Sources */,
 				8949EBE82511903B0045D1A7 /* ConfirmEmailViewControllerDelegate.swift in Sources */,
 			);
@@ -2926,6 +2936,7 @@
 				89E6B6BD24FF0E3E00F7A79C /* AppCoordinator+UserSessionHandlerDelegate.swift in Sources */,
 				896167F125017794007BF3F1 /* NavigationBarProviding.swift in Sources */,
 				89BDADDA217A5012000E38FC /* DeeplinkHandler.swift in Sources */,
+				895637AF25547D50005E4A4E /* LocalRemoteServiceAction.swift in Sources */,
 				890392102538F8C3005C5C99 /* ServiceViewController+TableView.swift in Sources */,
 				8922E269219DFB2E001984C4 /* NotifireNotificationHandler.swift in Sources */,
 				8948F57221A0AD8200BB6E10 /* RoundedImageView.swift in Sources */,
@@ -3033,6 +3044,7 @@
 				8933F0EE2143389F00645B3A /* NotifireAPIResponseContext.swift in Sources */,
 				896167F725018561007BF3F1 /* LoginViewControllerDelegate.swift in Sources */,
 				89A9048021B753F100D262E1 /* DateFormatterExtension.swift in Sources */,
+				895637B22554B52B005E4A4E /* ThreadSafeServiceRepresentableOperation.swift in Sources */,
 				897069F42134BF4C00D798AA /* KeyboardDismissing.swift in Sources */,
 				89BDADE7217A921A000E38FC /* ServiceViewController.swift in Sources */,
 				893995972170DEA500687A79 /* NotifireUserSessionManagerMock.swift in Sources */,

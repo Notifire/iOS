@@ -16,7 +16,7 @@ class RealmCollectionObserver<RealmObject: RealmSwift.Object> {
     let realmProvider: RealmProviding
 
     // MARK: Collection
-    private var underlyingCollection: Results<RealmObject> {
+    var collection: Results<RealmObject> {
         var results = realmProvider.realm.objects(RealmObject.self)
         if let predicate = filterPredicate {
             results = results.filter(predicate)
@@ -25,16 +25,6 @@ class RealmCollectionObserver<RealmObject: RealmSwift.Object> {
             results = results.sorted(byKeyPath: sortOptions.keyPath, ascending: sortOptions.ascending)
         }
         return results
-    }
-
-    var collectionRef: ThreadSafeReference<Results<RealmObject>> {
-        return ThreadSafeReference(to: underlyingCollection)
-    }
-
-    var collection: Results<RealmObject> {
-        return realmProvider.realm.resolve(collectionRef)!
-        //guard let collection = realmProvider.realm.resolve(collectionRef) else { return nil }
-        //return collection
     }
 
     var sortOptions: RealmSortingOptions?
