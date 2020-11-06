@@ -112,7 +112,11 @@ class AppCoordinator: Coordinator {
     @discardableResult
     func switchTo(userSession: UserSession) -> Bool {
         // Make sure that we have no session active at the moment.
-        guard let state = appState, case .noSession(let noSessionCoordinator) = state, let sessionHandler = UserSessionHandler(session: userSession) else { return false }
+        guard
+            let state = appState,
+            case .noSession(let noSessionCoordinator) = state,
+            let sessionHandler = UserSessionHandler(session: userSession)
+        else { return false }
         // Create new session with a logged in user.
         let sessionVC = createSessionVC(sessionHandler: sessionHandler)
         let completion: (() -> Void) = {
