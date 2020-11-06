@@ -9,6 +9,12 @@
 import Foundation
 import Starscream
 
+protocol ServiceWebSocketManagerDelegate: class {
+    /// Invoked whenever the websocket server enforces the client to do a new connect operation (not reconnect)
+    /// e.g. `expiredSessionID`
+    func didRequestFreshConnect()
+}
+
 /// Class reponsible for connecting to the websocket and observing Services changes
 /// create / update / delete
 class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
@@ -16,6 +22,7 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
     // MARK: - Properties
     let socket: WebSocket
     let apiManager: NotifireProtectedAPIManager
+    weak var delegate: ServiceWebSocketManagerDelegate?
 
     // MARK: Model
     /// `true` if `webSocketConnectionStatus = .disconnected`
@@ -230,6 +237,7 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
                 switch code {
                 case .expiredSessionID:
                     lastSessionID = nil
+                    delegate?.didRequestFreshConnect()
                 case .invalidAccessToken:
                     shouldGenerateNewAccessToken = true
                 case .invalidFormat, .unknown:

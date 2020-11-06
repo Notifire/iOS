@@ -59,7 +59,7 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
         }
     }
 
-    // MARK: - Requests
+    // MARK: - Access Token
     func fetchNewAccessToken(completion: @escaping Callback<String>) {
         let body = GenerateAccessTokenRequestBody(refreshToken: userSession.refreshToken)
         let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.generateAccessToken, method: .post, body: body, queryItems: nil)
@@ -84,7 +84,7 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
         }
     }
 
-    // MARK: /account/device
+    // MARK: - /account/device
     func register(deviceToken: String, completion: @escaping Callback<RegisterDeviceResponse>) {
         let body = RegisterDeviceRequestBody(deviceToken: deviceToken)
         let request = createAPIRequest(
@@ -96,6 +96,7 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
         performProtected(request: request, responseType: RegisterDeviceResponse.self, completion: completion)
     }
 
+    // MARK: Logout
     func logout(deviceToken: String, completion: @escaping Callback<RegisterDeviceResponse>) {
         let body = RegisterDeviceRequestBody(deviceToken: deviceToken)
         let request = createAPIRequest(
@@ -107,7 +108,7 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
         performProtected(request: request, responseType: RegisterDeviceResponse.self, completion: completion)
     }
 
-    // MARK: /services
+    // MARK: - /services
     // MARK: GET
     func getServices(limit: Int = 25, paginationData: PaginationData? = nil, completion: @escaping Callback<ServicesResponse>) {
         var parameters = [
@@ -120,19 +121,28 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
         performProtected(request: request, responseType: ServicesResponse.self, completion: completion)
     }
 
+    // MARK: Sync
+    func sync(services: [Service], completion: @escaping Callback<SyncServicesResponse>) {
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.servicesSync, method: .post, body: services, queryItems: nil)
+        performProtected(request: request, responseType: SyncServicesResponse.self, completion: completion)
+    }
+
     // MARK: /service
+    // MARK: GET
     func get(service: ServiceSnippet, completion: @escaping Callback<ServiceGetResponse>) {
         let id = service.id
         let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service(id: id), method: .get, body: nil as EmptyRequestBody?, queryItems: nil)
         performProtected(request: request, responseType: ServiceGetResponse.self, completion: completion)
     }
 
+    // MARK: Create
     func createService(name: String, image: String, completion: @escaping Callback<ServiceCreationResponse>) {
         let body = ServiceCreationBody(name: name, image: image)
         let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .post, body: body, queryItems: nil)
         performProtected(request: request, responseType: ServiceCreationResponse.self, completion: completion)
     }
 
+    // MARK: 
     func update(service: LocalService, completion: @escaping Callback<ServiceUpdateResponse>) {
         let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .put, body: service.asServiceRequestBody, queryItems: nil)
         performProtected(request: request, responseType: ServiceUpdateResponse.self, completion: completion)

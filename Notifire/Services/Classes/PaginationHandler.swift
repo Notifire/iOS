@@ -22,7 +22,7 @@ class PaginationHandler {
     /// Used to synchronize paginated services after coming back from offline mode.
     var paginationState: PaginationState = .initial
     /// The maximum number of services displayed on one 'page'
-    let servicesPaginationLimit = 25
+    static let servicesPaginationLimit = 25
 
     var noPagesFetched: Bool {
         return paginationState == .initial
@@ -39,13 +39,13 @@ class PaginationHandler {
     // MARK: - Methods
     /// Updates the pagination state depending on the latest array of `ServiceRepresentable` that was received from a remote call.
     func updatePaginationState(_ latestRepresentables: [ServiceRepresentable]) {
-        guard servicesPaginationLimit > 0 else { return }
+        guard PaginationHandler.servicesPaginationLimit > 0 else { return }
 
-        if latestRepresentables.isEmpty || latestRepresentables.count < servicesPaginationLimit {
+        if latestRepresentables.isEmpty || latestRepresentables.count < PaginationHandler.servicesPaginationLimit {
             // we've already reached the end of user's services
             // don't change the `lastPageRemoteServiceID`
             paginationState = .paginated
-        } else if latestRepresentables.count == servicesPaginationLimit, let lastService = latestRepresentables.last {
+        } else if latestRepresentables.count == PaginationHandler.servicesPaginationLimit, let lastService = latestRepresentables.last {
             paginationState = .partiallyPaginated(lastServiceID: lastService.id)
         }
     }

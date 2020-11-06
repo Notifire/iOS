@@ -126,6 +126,10 @@ class NotifireProtectedAPIManagerMock: NotifireProtectedAPIManager, NotifireAPIM
         }
     }
 
+    override func sync(services: [Service], completion: @escaping NotifireAPIBaseManager.Callback<SyncServicesResponse>) {
+        returnSuccessAfter(completion: completion, response: [])
+    }
+
     override func createService(name: String, image: String, completion: @escaping Callback<ServiceCreationResponse>) {
         returnSuccessAfter(completion: completion, response: Service(name: "New Service", imageURLString: "test", uuid: "3", levels: Service.Levels(info: true, warning: true, error: true), apiKey: "key 3", updatedAt: Date()))
     }

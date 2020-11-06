@@ -103,6 +103,9 @@ typealias SendResetPasswordResponse = NotifireAPIPlainSuccessResponse
 // MARK: - /services
 typealias ServicesResponse = [ServiceSnippet]
 
+typealias SyncServicesResponse = [ServiceChangeEvent]
+
+// MARK: - /service
 typealias ServiceGetResponse = Service
 
 typealias ServiceCreationResponse = Service

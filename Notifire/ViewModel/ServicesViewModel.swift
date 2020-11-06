@@ -84,9 +84,8 @@ class ServicesViewModel: APIFailable {
 
     var services: [ServiceRepresentable] = []
 
-    var localServices: Results<LocalService> {
-        return synchronizationManager.servicesHandler.collection
-    }
+    // `true` after the SyncAllServicesOperation finished
+    var areLocalServicesSynchronized: Bool = false
 
     // MARK: Callback
     typealias OldViewState = ViewState
@@ -143,11 +142,12 @@ class ServicesViewModel: APIFailable {
     ///     2. adapter operation to get the result of 1. and plug it into 3.
     ///     3. CRUD operation for new batch of services from 1.
     func fetchNextPageOfUserServices() {
-        // Fetch only if we aren't at the end of paginating
-        guard synchronizationManager.allowsPagination else { return }
+        guard
+            synchronizationManager.allowsPagination,    // Fetch only if we aren't at the end of paginating
+            !isFetching,
+            areLocalServicesSynchronized                // We can paginate only if the services have been synchronized
+        else { return }
 
-        // Fetching
-        guard !isFetching else { return }
         isFetching = true
 
         // Optional Pagination
@@ -155,7 +155,7 @@ class ServicesViewModel: APIFailable {
 
         // Operations
         let getServicesOperation = GetServicesBatchOperation(
-            servicesLimit: synchronizationManager.paginationHandler.servicesPaginationLimit,
+            servicesLimit: PaginationHandler.servicesPaginationLimit,
             paginationData: paginationData,
             apiManager: protectedApiManager
         )
@@ -170,7 +170,7 @@ class ServicesViewModel: APIFailable {
         // Get services operation
         getServicesOperation.completionHandler = { [unowned serviceDataAdapterOperation, unowned updateServicesOperation, weak self] response in
             guard case .success(let snippets) = response else {
-                // Cancel the other operations if we this one fails
+                // Cancel the other operations if this one fails
                 serviceDataAdapterOperation.cancel()
                 updateServicesOperation.cancel()
                 self?.isFetching = false
@@ -194,7 +194,7 @@ class ServicesViewModel: APIFailable {
         serviceDataAdapterOperation.addExecutionBlock { [unowned getServicesOperation, unowned updateServicesOperation, weak self] in
             guard let `self` = self else { return }
             if case .success(let services) = getServicesOperation.result {
-                let action: LocalRemoteServiceAction = .add(batch: services)
+                let action: LocalRemoteServicesAction = .add(batch: services)
                 updateServicesOperation.action = action
             }
 
@@ -205,6 +205,66 @@ class ServicesViewModel: APIFailable {
         synchronizedQueue.addOperations([getServicesOperation, serviceDataAdapterOperation, updateServicesOperation], waitUntilFinished: false)
     }
 
+    func synchronizeLocalServicesWithRemote() {
+        // Make sure that the services haven't been synchronized yet, we don't need to do it twice in one session.
+        guard !areLocalServicesSynchronized else { return }
+
+        // Operations
+        let syncAllServicesOperation = SyncAllServicesOperation(
+            synchronizationManager: synchronizationManager,
+            apiManager: protectedApiManager
+        )
+        let updateServicesOperation = UpdateServiceRepresentablesOperation(synchronizationManager: synchronizationManager)
+        let serviceDataAdapterOperation = BlockOperation()
+
+        // Get -> Adapter -> Update
+        serviceDataAdapterOperation.addDependency(syncAllServicesOperation)
+        updateServicesOperation.addDependency(serviceDataAdapterOperation)
+
+        //
+        // Sync all services operation
+        syncAllServicesOperation.completionHandler = { [unowned serviceDataAdapterOperation, unowned updateServicesOperation, weak self] response in
+            guard case .success(_) = response else {
+                // Cancel the other operations if this one fails
+                serviceDataAdapterOperation.cancel()
+                updateServicesOperation.cancel()
+                // Try again
+                self?.synchronizeLocalServicesWithRemote()
+                return
+            }
+        }
+
+        //
+        // Update services operation
+        updateServicesOperation.completionHandler = { [weak self] _, _ in
+            self?.areLocalServicesSynchronized = true
+
+            // Need to call `fetchNextPageOfUserServices` because of threadsafe reference from main thread
+            DispatchQueue.main.async {
+                // Fetch first page after the update operation is completed
+                self?.fetchNextPageOfUserServices()
+            }
+
+        }
+
+        //
+        // Adapter operation
+        serviceDataAdapterOperation.addExecutionBlock { [unowned syncAllServicesOperation, unowned updateServicesOperation] in
+            if case .success(let serviceChangeEvents) = syncAllServicesOperation.result {
+                let action: LocalRemoteServicesAction = .changeMultipleServices(serviceChangeEvents)
+                updateServicesOperation.action = action
+            }
+
+            updateServicesOperation.setThreadSafe(serviceRepresentables: [])
+        }
+
+        // Enqueue
+        synchronizedQueue.addOperations([syncAllServicesOperation, serviceDataAdapterOperation, updateServicesOperation], waitUntilFinished: false)
+    }
+
+    /// Swaps the service representables to another mode.
+    /// - Note: This function adds one operation into the `synchronizedQueue`.
+    ///     1. SwapOnlineOfflineRepresentablesOperation
     func swapOnlineOfflineMode(to newMode: SwapOnlineOfflineRepresentablesOperation.Mode, completionBlock: (() -> Void)? = nil) {
         let swapToOnlineOperation = SwapOnlineOfflineRepresentablesOperation(
             synchronizationManager: synchronizationManager,
@@ -254,12 +314,12 @@ class ServicesViewModel: APIFailable {
                 swapOnlineOfflineMode(to: .toOnline) { [weak self] in
                     DispatchQueue.main.async {
                         guard self?.isInitialPageFetch ?? false else { return }
-                        self?.fetchNextPageOfUserServices()
+                        self?.synchronizeLocalServicesWithRemote()
                     }
                 }
             } else if isInitialPageFetch {
-                // GET /services after connecting to the socket
-                fetchNextPageOfUserServices()
+                // POST /services/sync after connecting to the socket
+                synchronizeLocalServicesWithRemote()
             }
         case (_, .disconnected):
             if isFirstAttemptToConnect { isFirstAttemptToConnect = false }
@@ -319,7 +379,7 @@ class ServicesViewModel: APIFailable {
 
     private func handleServiceEvent(data: NotifireWebSocketServiceEventData) {
         let updateServicesOperation = UpdateServiceRepresentablesOperation(synchronizationManager: synchronizationManager)
-        updateServicesOperation.action = LocalRemoteServiceAction(from: data)
+        updateServicesOperation.action = .changeSingleService(data)
         updateServicesOperation.setThreadSafe(serviceRepresentables: self.services, fromMainQueue: false)
         updateServicesOperation.completionHandler = { [weak self] newRepresentables, maybeChanges in
             self?.updateViewStateAndServiceRepresentableChanges(representables: newRepresentables, changes: maybeChanges)
@@ -332,5 +392,12 @@ class ServicesViewModel: APIFailable {
         for eventData in eventsData {
             handleServiceEvent(data: eventData)
         }
+    }
+}
+
+extension ServicesViewModel: ServiceWebSocketManagerDelegate {
+    func didRequestFreshConnect() {
+        // Make sure to do a SyncAllServicesOperation again
+        areLocalServicesSynchronized = false
     }
 }

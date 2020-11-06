@@ -12,6 +12,8 @@ import RealmSwift
 /// The operation class that takes care of CRUD operations on ServiceSnippets / LocalService / Service (ServiceRepresentable) objects.
 class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresentableOperation {
 
+    typealias Result = (representables: [ServiceRepresentable], changes: ServiceRepresentableChanges?)
+
     // MARK: - Properties
     /// The local services
     var localServices: RealmSwift.Results<LocalService> {
@@ -22,7 +24,7 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
     /// These variables are supplied by the BlockOperation (adaptor)
 
     /// The main action of this operation.
-    var action: LocalRemoteServiceAction?
+    var action: LocalRemoteServicesAction?
 
     // MARK: ThreadSafeServiceRepresentableOperation
     var threadSafeServiceRepresentables: ThreadSafeServiceRepresentables?
@@ -49,22 +51,37 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
         switch action {
         case .add(let batch):
             add(batch: batch)
-        case .create(let service):
-            create(service: service)
-        case .update(let service):
-            update(service: service)
-        case .upsert(let service):
-            upsert(service: service)
-        case .delete(let service):
-            delete(service: service)
+        case .changeSingleService(let serviceChangeEvent):
+            handle(serviceChangeEvent: serviceChangeEvent)
+        case .changeMultipleServices(let serviceChangeEvents):
+            serviceChangeEvents.forEach({ handle(serviceChangeEvent: $0, shouldComplete: false) })
+            complete(([], nil))
         }
     }
 
     // MARK: - Action Handlers
     // MARK: Util
-    private func complete(_ representables: [ServiceRepresentable], _ changes: ServiceRepresentableChanges?) {
+    private func handle(serviceChangeEvent: ServiceChangeEvent, shouldComplete: Bool = true) {
+        let result: Result?
+        switch serviceChangeEvent.type {
+        case .create:
+            result = create(service: serviceChangeEvent.service)
+        case .update:
+            result = update(service: serviceChangeEvent.service)
+        case .delete:
+            result = delete(service: serviceChangeEvent.service)
+        case .upsert:
+            result = upsert(service: serviceChangeEvent.service)
+        }
+
+        if shouldComplete, let result = result {
+            complete(result)
+        }
+    }
+
+    private func complete(_ result: Result) {
         let actionString = action?.description ?? "none"
-        Logger.log(.debug, "\(self) finished action: \(actionString). Changes: \(String(describing: changes))")
+        Logger.log(.debug, "\(self) finished action: \(actionString). Changes: \(String(describing: result.changes))")
 
         // Complete if needed
         guard let completion = completionHandler else {
@@ -72,8 +89,8 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
             return
         }
 
-        finishOperation(representables: representables) { resolvedRepresentables in
-            completion(resolvedRepresentables, changes)
+        finishOperation(representables: result.representables) { _ in
+            completion(result.representables, result.changes)
         }
     }
 
@@ -99,14 +116,14 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
         )
 
         // Complete the operation
-        complete(serviceRepresentables + newServiceRepresentables, .partial(changesData: representableChanges))
+        complete((serviceRepresentables + newServiceRepresentables, .partial(changesData: representableChanges)))
     }
 
     // MARK: Websocket
-    func create(service: Service) {
+    func create(service: Service) -> Result? {
         guard var serviceRepresentables = serviceRepresentables else {
             Logger.log(.fault, "\(self) serviceRepresentables is nil")
-            return
+            return nil
         }
 
 //
@@ -124,7 +141,7 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
         serviceRepresentables.sort { $0.name < $1.name }
         guard let newIndex = serviceRepresentables.firstIndex(where: { $0.id == newServiceSnippet.id }) else {
             Logger.log(.fault, "\(self) couldn't get index of newly created LocalService")
-            return
+            return nil
         }
 
         let representableChanges = ServiceRepresentableChangesData(
@@ -134,14 +151,13 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
             moves: []
         )
 
-        // Complete the operation
-        complete(serviceRepresentables, .partial(changesData: representableChanges))
+        return (serviceRepresentables, .partial(changesData: representableChanges))
     }
 
-    func update(service: Service) {
+    func update(service: Service) -> Result? {
         guard var serviceRepresentables = serviceRepresentables else {
             Logger.log(.fault, "\(self) serviceRepresentables is nil")
-            return
+            return nil
         }
 
         var nameChanged = false
@@ -168,7 +184,7 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
             if nameChanged {
                 // if the name has changed, move the updated service to the correct row
                 serviceRepresentables.sort(by: { $0.name < $1.name })
-                guard let newIndex = serviceRepresentables.firstIndex(where: { $0.id == service.uuid }) else { return }
+                guard let newIndex = serviceRepresentables.firstIndex(where: { $0.id == service.uuid }) else { return nil }
 
                 if newIndex == serviceRepresentables.count - 1 && !synchronizationManager.paginationHandler.isFullyPaginated {
                     // the newIndex is the last row
@@ -186,7 +202,7 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
                 changes = .partial(changesData: ServiceRepresentableChangesData(deletions: [], insertions: [], modifications: [representable.offset.asIndexPath], moves: []))
             }
 
-            complete(serviceRepresentables, changes)
+            return (serviceRepresentables, changes)
         } else if let localService = localServices.first(where: { $0.uuid == service.uuid }) {
             // updated service is in local services but hasn't been presented yet
             synchronizationManager.update(localService: localService, from: service)
@@ -201,20 +217,21 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
                     // insert the service into representables
                     let changes = ServiceRepresentableChangesData(deletions: [], insertions: [localServiceIndex.asIndexPath], modifications: [], moves: [])
 
-                    complete(representableWithUpdatedLocal, .partial(changesData: changes))
+                    return (representableWithUpdatedLocal, .partial(changesData: changes))
                 }
             } else {
                 // complete without UI changes
-                complete(serviceRepresentables, nil)
+                return (serviceRepresentables, nil)
             }
         }
+        return nil
     }
 
     /// Update OR Insert (create) service
-    func upsert(service: Service) {
+    func upsert(service: Service) -> Result? {
         guard let serviceRepresentables = serviceRepresentables else {
             Logger.log(.fault, "\(self) serviceRepresentables is nil")
-            return
+            return nil
         }
 
         let serviceExists =
@@ -223,17 +240,17 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
 
         if serviceExists {
             // update it
-            update(service: service)
+            return update(service: service)
         } else {
             // create a new one
-            create(service: service)
+            return create(service: service)
         }
     }
 
-    func delete(service: Service) {
+    func delete(service: Service) -> Result? {
         guard var serviceRepresentables = serviceRepresentables else {
             Logger.log(.fault, "\(self) serviceRepresentables is nil")
-            return
+            return nil
         }
 
         synchronizationManager.deleteLocalServiceIfNeeded(from: service)
@@ -250,10 +267,10 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
                 moves: []
             )
 
-            complete(serviceRepresentables, .partial(changesData: changes))
+            return (serviceRepresentables, .partial(changesData: changes))
         } else {
             // service was not in the serviceRepresentables array
-            complete(serviceRepresentables, nil)
+            return (serviceRepresentables, nil)
         }
     }
 }

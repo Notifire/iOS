@@ -88,6 +88,12 @@ class ProtectedNetworkOperation<RequestResponse: Decodable>: ConcurrentOperation
         self.apiManager = apiManager
     }
 
+    // MARK: - Inherited
+    override func main() {
+        guard !isCancelled else { return }
+        super.main()
+    }
+
     // MARK: - Functions
     func complete(result: NotifireAPIBaseManager.ManagerResult<RequestResponse>) {
         finish()

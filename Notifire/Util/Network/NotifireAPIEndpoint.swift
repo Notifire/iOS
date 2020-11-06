@@ -33,6 +33,7 @@ enum NotifireProtectedAPIEndpoint: String, CustomStringConvertible {
     case logout = "/account/logout"
     case services = "/services"
     case service = "/service"
+    case servicesSync = "/services/sync"
     case serviceKey = "/service/key"
     case password = "/password"
 

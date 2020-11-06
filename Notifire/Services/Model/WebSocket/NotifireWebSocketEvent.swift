@@ -69,15 +69,9 @@ struct NotifireWebSocketReadyEventData: Codable, EventTypeable {
 typealias NotifireWebSocketReadyEvent = NotifireWebSocketEvent<NotifireWebSocketReadyEventData>
 
 // MARK: - Service Event
-struct NotifireWebSocketServiceEventData: Codable, EventTypeable {
+typealias NotifireWebSocketServiceEventData = ServiceChangeEvent
 
-    enum ServiceEventType: String, Codable {
-        case create, update, delete, upsert
-    }
-
-    let type: ServiceEventType
-    let service: Service
-
+extension NotifireWebSocketServiceEventData: EventTypeable {
     static let associatedEvent: EventType = .serviceEvent
 }
 

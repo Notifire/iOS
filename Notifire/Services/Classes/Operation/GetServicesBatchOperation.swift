@@ -24,7 +24,7 @@ class GetServicesBatchOperation: ProtectedNetworkOperation<ServicesResponse> {
 
     // MARK: - Main
     override func main() {
-        guard !isCancelled else { return }
+        super.main()
 
         apiManager.getServices(limit: limit, paginationData: paginationData) { [weak self] result in
             self?.complete(result: result)
