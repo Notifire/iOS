@@ -76,6 +76,9 @@ class RegisterSuccessViewController: VMViewController<RegisterSuccessViewModel>,
 
     // MARK: - Private
     private func layout() {
+        addBottomNavigator()
+        addBottomNavigatorLabel()
+
         let stackView = insertStackView(arrangedSubviews: [successLabel, ChoiceSeparatorView(), resendConfirmationEmailButton], spacing: Size.componentSpacing)
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 
