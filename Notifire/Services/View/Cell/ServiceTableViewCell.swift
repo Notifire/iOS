@@ -25,11 +25,12 @@ class ServiceTableViewCell: ReusableBaseTableViewCell {
         backgroundColor = .compatibleSystemBackground
         layout()
 
+        accessoryType = .disclosureIndicator
+        layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
         isSkeletonable = true
         serviceImageView.isSkeletonable = true
         serviceNameLabel.isSkeletonable = true
-        serviceNameLabel.linesCornerRadius = 50
-        //serviceNameLabel.skeletonLineSpacing = 0
+        serviceNameLabel.linesCornerRadius = 10
     }
 
     // MARK: Private
@@ -56,6 +57,11 @@ class ServiceTableViewCell: ReusableBaseTableViewCell {
         contentView.add(subview: serviceNameLabel)
         serviceNameLabel.leadingAnchor.constraint(equalTo: serviceImageView.trailingAnchor, constant: Size.Cell.extendedSideMargin).isActive = true
         serviceNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        // this constraint is used to correctly display a skeleton for this label
+        // Note: if the constraint isn't used, the skeleton is misaligned / has wrong height
+        let skeletonHeightConstraint = serviceNameLabel.heightAnchor.constraint(equalToConstant: 20)
+        skeletonHeightConstraint.priority = .init(500)
+        skeletonHeightConstraint.isActive = true
 
         contentView.add(subview: unreadNotificationsLabel)
         unreadNotificationsLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
