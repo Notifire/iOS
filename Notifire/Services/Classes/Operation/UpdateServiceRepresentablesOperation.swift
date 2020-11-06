@@ -89,8 +89,8 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
             return
         }
 
-        finishOperation(representables: result.representables) { _ in
-            completion(result.representables, result.changes)
+        finishOperation(representables: result.representables) { resolvedRepresentables in
+            completion(resolvedRepresentables, result.changes)
         }
     }
 
