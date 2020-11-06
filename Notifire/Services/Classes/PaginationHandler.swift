@@ -28,7 +28,7 @@ class PaginationHandler {
         return paginationState == .initial
     }
 
-    var shouldPaginate: Bool {
+    var canPaginate: Bool {
         return paginationState != .paginated
     }
 

@@ -60,6 +60,7 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
         guard isInitialLoad else { return }
         isInitialLoad = false
         updateViewStateAppearance(state: .skeleton, oldState: .skeleton)
+        viewModel.start()
     }
 
     // MARK: - Private
@@ -142,20 +143,20 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
 
     private func updateViewStateAppearance(state: ServicesViewModel.ViewState, oldState: ServicesViewModel.ViewState) {
         switch (oldState, state) {
-        case (.skeleton, .skeleton):
-            showVisibilityOfNavigationBarItems(visible: false)
+        case (_, .skeleton):
+            changeVisibilityOfNavigationBarItems(visible: false)
             tableView.showAnimatedGradientSkeleton()
         case (_, .emptyState):
-            showVisibilityOfNavigationBarItems()
+            changeVisibilityOfNavigationBarItems()
             tableView.hideSkeleton()
             if let emptyStateView = addEmptyState() {
                 emptyStateView.serviceButton.addTarget(self, action: #selector(didSelectAddNewService), for: .touchUpInside)
             }
         case (.skeleton, .displayingServices):
-            showVisibilityOfNavigationBarItems()
+            changeVisibilityOfNavigationBarItems()
             tableView.hideSkeleton()
         case (.emptyState, .displayingServices):
-            showVisibilityOfNavigationBarItems()
+            changeVisibilityOfNavigationBarItems()
             tableView.hideSkeleton()
             removeEmptyState()
         default:
@@ -163,7 +164,7 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
         }
     }
 
-    private func showVisibilityOfNavigationBarItems(visible: Bool = true) {
+    private func changeVisibilityOfNavigationBarItems(visible: Bool = true) {
         if visible {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didSelectAddNewService))
         } else {

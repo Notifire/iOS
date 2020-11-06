@@ -44,6 +44,8 @@ class SwapOnlineOfflineRepresentablesOperation: Operation, ThreadSafeServiceRepr
             return
         }
 
+        Logger.log(.debug, "\(self) handling swap \(mode)")
+
         let resultRepresentables: [ServiceRepresentable]
         switch mode {
         case .toOnline:
@@ -66,6 +68,8 @@ class SwapOnlineOfflineRepresentablesOperation: Operation, ThreadSafeServiceRepr
             Logger.log(.info, "\(self) completionHandler=nil")
             return
         }
+
+        Logger.log(.debug, "\(self) finished swap \(mode)")
 
         finishOperation(representables: resultRepresentables) { resolvedRepresentables in
             completion(resolvedRepresentables)

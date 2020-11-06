@@ -174,8 +174,6 @@ class ServicesViewModel: APIFailable {
                 serviceDataAdapterOperation.cancel()
                 updateServicesOperation.cancel()
                 self?.isFetching = false
-                // restart the fetch
-                self?.fetchNextPageOfUserServices()
                 return
             }
             self?.synchronizationManager.paginationHandler.updatePaginationState(snippets)
@@ -205,6 +203,19 @@ class ServicesViewModel: APIFailable {
 
         // Enqueue
         synchronizedQueue.addOperations([getServicesOperation, serviceDataAdapterOperation, updateServicesOperation], waitUntilFinished: false)
+    }
+
+    func swapOnlineOfflineMode(to newMode: SwapOnlineOfflineRepresentablesOperation.Mode, completionBlock: (() -> Void)? = nil) {
+        let swapToOnlineOperation = SwapOnlineOfflineRepresentablesOperation(
+            synchronizationManager: synchronizationManager,
+            mode: newMode,
+            representables: services
+        )
+        swapToOnlineOperation.completionHandler = { [weak self] newRepresentables in
+            self?.updateViewStateAndServiceRepresentableChanges(representables: newRepresentables, changes: .full)
+        }
+        swapToOnlineOperation.completionBlock = completionBlock
+        synchronizedQueue.addOperation(swapToOnlineOperation)
     }
 
     /// Updates the `ServiceSnippet` from services to the created `LocalServic `
@@ -240,18 +251,13 @@ class ServicesViewModel: APIFailable {
         case (_, .authorized):
             // Swap to online mode if needed
             if synchronizationManager.isOfflineModeActive {
-                // Swap to online mode
-                let swapToOnlineOpeartion = SwapOnlineOfflineRepresentablesOperation(
-                    synchronizationManager: synchronizationManager,
-                    mode: .toOnline,
-                    representables: services
-                )
-                swapToOnlineOpeartion.completionHandler = { [weak self] newRepresentables in
-                    self?.updateViewStateAndServiceRepresentableChanges(representables: newRepresentables, changes: .full)
+                swapOnlineOfflineMode(to: .toOnline) { [weak self] in
+                    DispatchQueue.main.async {
+                        guard self?.isInitialPageFetch ?? false else { return }
+                        self?.fetchNextPageOfUserServices()
+                    }
                 }
-                synchronizedQueue.addOperation(swapToOnlineOpeartion)
-            }
-            if isInitialPageFetch {
+            } else if isInitialPageFetch {
                 // GET /services after connecting to the socket
                 fetchNextPageOfUserServices()
             }
@@ -259,15 +265,7 @@ class ServicesViewModel: APIFailable {
             if isFirstAttemptToConnect { isFirstAttemptToConnect = false }
             // Swap to offline mode if needed
             if !synchronizationManager.isOfflineModeActive {
-                let swapToOfflineOperation = SwapOnlineOfflineRepresentablesOperation(
-                    synchronizationManager: synchronizationManager,
-                    mode: .toOffline,
-                    representables: services
-                )
-                swapToOfflineOperation.completionHandler = { [weak self] newRepresentables in
-                    self?.updateViewStateAndServiceRepresentableChanges(representables: newRepresentables, changes: .full)
-                }
-                synchronizedQueue.addOperation(swapToOfflineOperation)
+                swapOnlineOfflineMode(to: .toOffline)
             }
         default:
             break
@@ -295,8 +293,15 @@ class ServicesViewModel: APIFailable {
             }
         case .displayingServices:
             if let changes = changes {
-                // Display new services and propagate tableview updates
-                updateServiceRepresentables(with: newRepresentables, changes: changes)
+                if isInitialPageFetch {
+                    // We were currently .displayingServices, but if the page fetch is still initial, display skeleton
+                    // happens if the user starts the app into offline mode (first fetch / websocket connect wasn't possible)
+                    updateServiceRepresentables(with: newRepresentables)
+                    updateViewState(to: .skeleton)
+                } else {
+                    // Display new services and propagate tableview updates
+                    updateServiceRepresentables(with: newRepresentables, changes: changes)
+                }
             }
         }
     }
@@ -304,7 +309,7 @@ class ServicesViewModel: APIFailable {
     private func updateServiceRepresentables(with representables: [ServiceRepresentable], changes: ServiceRepresentableChanges = .full) {
         // make sure the new representables are different
         // or that there wasn't a successful attempt to fetch initial page
-        guard !services.elementsEqual(representables, by: { $0.id == $1.id }) || synchronizationManager.paginationHandler.noPagesFetched else { return }
+        guard !services.elementsEqual(representables, by: { $0.id == $1.id }) || isInitialPageFetch else { return }
         // update services
         services = representables
 

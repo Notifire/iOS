@@ -32,7 +32,8 @@ class ServicesSynchronizationManager {
 
     /// If the pagination should be allowed at this moment.
     var allowsPagination: Bool {
-        return paginationHandler.noPagesFetched || (paginationHandler.shouldPaginate && !isOfflineModeActive)
+        // Allow pagination IF: can paginate && offline mode is NOT active
+        return paginationHandler.canPaginate && !isOfflineModeActive
     }
 
     // MARK: - Initialization
@@ -83,14 +84,24 @@ class ServicesSynchronizationManager {
         let localServices = servicesHandler.collection
 
         // Gather service that we will merge later
-        var localServicesToMerge = [LocalService]()
-        for representable in representables where representable is ServiceSnippet {
-            guard let local = localServices.first(where: { $0.id == representable.id }) else { continue }
-            localServicesToMerge.append(local)
+        var localServicesInRepresentables = [LocalService]()
+        for representable in representables {
+            if representable is ServiceSnippet, let local = localServices.first(where: { $0.uuid == representable.id }) {
+                // case 1: ServiceSnippet but exists in localServices
+                localServicesInRepresentables.append(local)
+            } else if let local = representable as? LocalService {
+                // case 2: representable is already a LocalService
+                localServicesInRepresentables.append(local)
+            }
         }
 
+        // case 3: LocalServices that haven't been remotely fetched to [ServiceRepresentable] yet
+        let restOfLocalPredicate = NSPredicate(format: "NOT uuid IN %@", localServicesInRepresentables.map({ $0.uuid }))
+        let restOfLocalServices = Array(realmProvider.realm.objects(LocalService.self).filter(restOfLocalPredicate))
+
         // Merge current representables with non-duplicate local services
-        resultRepresentables = representables + localServicesToMerge
+        resultRepresentables = representables + restOfLocalServices
+
         // Sort
         resultRepresentables.sort(by: { $0.name < $1.name })
         return resultRepresentables

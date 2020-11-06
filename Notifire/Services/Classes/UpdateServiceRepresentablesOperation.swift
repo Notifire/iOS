@@ -147,7 +147,7 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
         var nameChanged = false
         if let snippetName = serviceRepresentables.first(where: { $0.id == service.uuid })?.name {
             nameChanged = snippetName != service.name
-        } else if let localName = localServices.first(where: { $0.id == service.uuid })?.name {
+        } else if let localName = localServices.first(where: { $0.uuid == service.uuid })?.name {
             nameChanged = localName != service.name
         }
 
@@ -187,7 +187,7 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
             }
 
             complete(serviceRepresentables, changes)
-        } else if let localService = localServices.first(where: { $0.id == service.uuid }) {
+        } else if let localService = localServices.first(where: { $0.uuid == service.uuid }) {
             // updated service is in local services but hasn't been presented yet
             synchronizationManager.update(localService: localService, from: service)
 
@@ -197,7 +197,7 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
                 representableWithUpdatedLocal.append(localService)
 
                 representableWithUpdatedLocal.sort(by: { $0.name < $1.name })
-                if let localServiceIndex = representableWithUpdatedLocal.firstIndex(where: { $0.id == localService.id }), localServiceIndex < representableWithUpdatedLocal.count - 1 {
+                if let localServiceIndex = representableWithUpdatedLocal.firstIndex(where: { $0.id == localService.uuid }), localServiceIndex < representableWithUpdatedLocal.count - 1 {
                     // insert the service into representables
                     let changes = ServiceRepresentableChangesData(deletions: [], insertions: [localServiceIndex.asIndexPath], modifications: [], moves: [])
 
@@ -219,7 +219,7 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
 
         let serviceExists =
             serviceRepresentables.first(where: { $0.id == service.uuid }) != nil ||
-            localServices.first(where: { $0.id == service.uuid }) != nil
+            localServices.first(where: { $0.uuid == service.uuid }) != nil
 
         if serviceExists {
             // update it

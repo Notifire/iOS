@@ -11,7 +11,8 @@ import Foundation
 extension ServicesViewController: AppRevealing {
     func customRevealContentCompletion() -> Bool {
         // ViewModel entrypoint
-        viewModel.start()
+        // Currently invoked from `viewDidAppear(animated:)`
+        // viewModel.start()
 
         // completed
         return true
