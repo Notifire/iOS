@@ -38,6 +38,18 @@ class NotifireButton: BaseButton {
         return view
     }()
 
+    public var borderWidth: CGFloat = 0 {
+        didSet {
+            layer.borderWidth = borderWidth
+        }
+    }
+
+    public var borderColor: UIColor = .primary {
+        didSet {
+            layer.borderColor = borderColor.cgColor
+        }
+    }
+
     /// Determines if the button has rounded corners equal to half of it's height
     public var halfHeightRounded: Bool = false
 
@@ -59,6 +71,14 @@ class NotifireButton: BaseButton {
         return CGSize(width: UIView.noIntrinsicMetric, height: Size.componentHeight)
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if #available(iOS 13.0, *) {
+            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+                updateAppearance()
+            }
+        }
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
 
@@ -75,8 +95,8 @@ class NotifireButton: BaseButton {
     }
 
     override open func setup() {
-        layer.cornerRadius = Theme.defaultCornerRadius
         backgroundColor = .primary
+        updateAppearance()
 
         clipsToBounds = true
 
@@ -84,6 +104,12 @@ class NotifireButton: BaseButton {
     }
 
     // MARK: - Private
+    private func updateAppearance() {
+        layer.cornerRadius = Theme.defaultCornerRadius
+        layer.borderWidth = borderWidth
+        layer.borderColor = borderColor.cgColor
+    }
+
     private func layout() {
         add(subview: grayOverlayView)
         grayOverlayView.embed(in: self)
