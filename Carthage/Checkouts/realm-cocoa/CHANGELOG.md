@@ -1,3 +1,167 @@
+5.5.0 Release notes (2020-10-12)
+=============================================================
+
+### Enhancements
+
+* Add the ability to capture a NotificationToken when using a Combine publisher
+  that observes a Realm Object or Collection. The user will call
+  `saveToken(on:at:)` directly after invoking the publisher to use the feature.
+
+### Fixed
+
+* When using `Realm.write(withoutNotifying:)` there was a chance that the
+  supplied observation blocks would not be skipped when in a write transaction.
+  ([Object Store #1103](https://github.com/realm/realm-object-store/pull/1103))
+* Comparing two identical unmanaged `List<>`/`RLMArray` objects would fail.
+  ([#5665](https://github.com/realm/realm-cocoa/issues/5665)).
+
+### Compatibility
+
+* File format: Generates Realms with format v11 (Reads and upgrades all previous formats)
+* Realm Object Server: 3.21.0 or later.
+* Realm Studio: 5.0.0 or later.
+* APIs are backwards compatible with all previous releases in the 5.x.y series.
+* Carthage release for Swift is built with Xcode 12.
+
+5.4.8 Release notes (2020-10-05)
+=============================================================
+
+### Fixed
+
+* Case-insensitive equality queries on indexed string properties failed to
+  clear some internal state when rerunning the query. This could manifest as
+  duplicate results or "key not found" errors.
+  ([#6830](https://github.com/realm/realm-cocoa/issues/6830), [#6694](https://github.com/realm/realm-cocoa/issues/6694), since 5.0.0).
+
+### Compatibility
+
+* File format: Generates Realms with format v11 (Reads and upgrades all previous formats)
+* Realm Object Server: 3.21.0 or later.
+* Realm Studio: 5.0.0 or later.
+* APIs are backwards compatible with all previous releases in the 5.x.y series.
+* Carthage release for Swift is built with Xcode 12.
+
+### Internal
+
+* Upgraded realm-core from v6.1.3 to v6.1.4
+* Upgraded realm-sync from v5.0.28 to v5.0.29
+
+5.4.7 Release notes (2020-09-30)
+=============================================================
+
+### Fixed
+
+* Equality queries on indexed string properties would sometimes throw "key not
+  found" exceptions if the hash of the string happened to have bit 62 set.
+  ([.NET #2025](https://github.com/realm/realm-dotnet/issues/2025), since v5.0.0).
+* Queries comparing non-optional int properties to nil would behave as if they
+  were comparing against zero instead (since v5.0.0).
+
+### Compatibility
+
+* File format: Generates Realms with format v11 (Reads and upgrades all previous formats)
+* Realm Object Server: 3.21.0 or later.
+* Realm Studio: 5.0.0 or later.
+* APIs are backwards compatible with all previous releases in the 5.x.y series.
+* Carthage release for Swift is built with Xcode 12.
+
+### Internal
+
+* Upgraded realm-core from v6.1.2 to v6.1.3
+* Upgraded realm-sync from v5.0.27 to v5.0.28
+
+5.4.6 Release notes (2020-09-29)
+=============================================================
+
+5.4.5 failed to actually update the core version for installation methods other
+than SPM. All changes listed there actually happened in this version for
+non-SPM installation methods.
+
+### Compatibility
+
+* File format: Generates Realms with format v11 (Reads and upgrades all previous formats)
+* Realm Object Server: 3.21.0 or later.
+* Realm Studio: 5.0.0 or later.
+* APIs are backwards compatible with all previous releases in the 5.x.y series.
+* Carthage release for Swift is built with Xcode 12.
+
+### Internal
+
+* Upgraded realm-sync from v5.0.26 to v5.0.27
+
+5.4.5 Release notes (2020-09-28)
+=============================================================
+
+### Enhancements
+
+* Slightly (<5%) improve the performance of most operations which involve
+  reading from a Realm file.
+
+### Fixed
+
+* Rerunning a equality query on an indexed string property would give incorrect
+  results if a previous run of the query matched multiple objects and it now
+  matches one object. This could manifest as either finding a non-matching
+  object or a "key not found" exception being thrown.
+  ([#6536](https://github.com/realm/realm-cocoa/issues/6536), since 5.0.0).
+
+### Compatibility
+
+* File format: Generates Realms with format v11 (Reads and upgrades all previous formats)
+* Realm Object Server: 3.21.0 or later.
+* Realm Studio: 5.0.0 or later.
+* APIs are backwards compatible with all previous releases in the 5.x.y series.
+* Carthage release for Swift is built with Xcode 12.
+
+### Internal
+
+* Upgraded realm-core from v6.1.1 to v6.1.2
+* Upgraded realm-sync from v5.0.25 to v5.0.26
+
+5.4.4 Release notes (2020-09-25)
+=============================================================
+
+### Enhancements
+* Improve the asymtotic performance of NOT IN queries on indexed properties. It
+  is now O(Number of Rows) rather than O(Number of Rows \* Number of values in IN clause.)
+
+### Fixed
+
+* Fix a crash inside `realm::Array(Type)::init_from_mem()` which would
+  sometimes occur when running a query over links immediately after creating
+  objects of the queried type.
+  ([#6789](https://github.com/realm/realm-cocoa/issues/6789) and possibly others, since 5.0.0).
+* Possibly fix problems when changing the type of the primary key of an object
+  from optional to non-optional.
+
+### Compatibility
+
+* File format: Generates Realms with format v11 (Reads and upgrades all previous formats)
+* Realm Object Server: 3.21.0 or later.
+* Realm Studio: 5.0.0 or later.
+* APIs are backwards compatible with all previous releases in the 5.x.y series.
+* Carthage release for Swift is built with Xcode 12.
+
+### Internal
+
+* Upgraded realm-core from v6.0.26 to v6.1.1
+* Upgraded realm-sync from v5.0.23 to v5.0.25
+
+5.4.3 Release notes (2020-09-21)
+=============================================================
+
+### Fixed
+
+* Fix compilation via Carthage when using Xcode 12 ([#6717](https://github.com/realm/realm-cocoa/issues/6717)).
+
+### Compatibility
+
+* File format: Generates Realms with format v11 (Reads and upgrades all previous formats)
+* Realm Object Server: 3.21.0 or later.
+* Realm Studio: 3.12 or later.
+* APIs are backwards compatible with all previous releases in the 5.x.y series.
+* Carthage release for Swift is built with Xcode 12.
+
 5.4.2 Release notes (2020-09-17)
 =============================================================
 
