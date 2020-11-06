@@ -26,8 +26,9 @@ class RealmProvider: RealmProviding {
         do {
             // double check if the realm configuration works.
             _ = try Realm(configuration: userConfiguration)
-        } catch {
+        } catch let error {
             // if it doesn't, cancel initialization of the session handler
+            Logger.log(.error, "\(self) initialization error=<\(error.localizedDescription)>")
             return nil
         }
     }
