@@ -205,6 +205,7 @@
 		895637B025547D50005E4A4E /* LocalRemoteServiceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895637AE25547D50005E4A4E /* LocalRemoteServiceAction.swift */; };
 		895637B22554B52B005E4A4E /* ThreadSafeServiceRepresentableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895637B12554B52B005E4A4E /* ThreadSafeServiceRepresentableOperation.swift */; };
 		895637B32554B52B005E4A4E /* ThreadSafeServiceRepresentableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895637B12554B52B005E4A4E /* ThreadSafeServiceRepresentableOperation.swift */; };
+		895637B42554E786005E4A4E /* Logger+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89541910251CB92F0046464D /* Logger+Init.swift */; };
 		89576AA024FD412A0097BF87 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399580216FE4E900687A79 /* AppCoordinator.swift */; };
 		89576AA124FD412A0097BF87 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADE2217A5693000E38FC /* Service.swift */; };
 		89576AA224FD412A0097BF87 /* FireLayerProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E2022139FDD100630790 /* FireLayerProperties.swift */; };
@@ -2792,6 +2793,7 @@
 				8902A680250DAE70007BB5DF /* UserSessionManager.swift in Sources */,
 				89A9048121B754A800D262E1 /* DateFormatterExtension.swift in Sources */,
 				8902A67E250DAE64007BB5DF /* AuthenticationProvider.swift in Sources */,
+				895637B42554E786005E4A4E /* Logger+Init.swift in Sources */,
 				8902A67C250DAE58007BB5DF /* RealmProviding.swift in Sources */,
 				89D6169E25052F8B00287331 /* Config.swift in Sources */,
 				898533C4219FB94900E0A656 /* NotificationService.swift in Sources */,
