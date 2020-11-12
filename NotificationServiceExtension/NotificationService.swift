@@ -20,10 +20,9 @@ class NotificationService: UNNotificationServiceExtension {
         // Modify the notification content here...
         if let bestAttemptContent = bestAttemptContent {
             let notificationHandler = NotifireNotificationsHandler()
-            let sessionManager = UserSessionManager()
             // make sure a user is logged in before displaying the notification
             // (notifications are user-specific resources, we need to ensure *some* user is logged in)
-            guard let previousSession = sessionManager.previousUserSession() else {
+            guard let previousSession = UserSessionManager.previousUserSession() else {
                 contentHandler(bestAttemptContent)
                 return
             }

@@ -8,7 +8,16 @@
 
 import UIKit
 
-class RootViewController: VMViewController<RootViewModel> {
+class RootViewController: VMViewController<RootViewModel>, NotifireAlertPresenting {
+
+    // MARK: - View Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        viewModel.onNewVersionAvailable = { [weak self] appVersionData in
+            self?.handleNewAppVersion(data: appVersionData)
+        }
+    }
 
     /// Change the main child viewcontroller that's in focus with a cycle animation.
     func cycleFrom(oldVC: UIViewController, to newVC: UIViewController, completion: (() -> Void)? = nil) {
@@ -35,5 +44,38 @@ class RootViewController: VMViewController<RootViewModel> {
             completion?()
         }
         animator.startAnimation()
+    }
+
+    // MARK: - Event Handlers
+    func handleNewAppVersion(data: AppVersionData) {
+        let latestVersion = data.appVersionResponse.latestVersion
+        let forceUpdate = data.appVersionResponse.forceUpdate
+
+        let alertVC = NotifireAlertViewController(alertTitle: nil, alertText: nil)
+        alertVC.add(action: NotifireAlertAction(title: "Update now", style: .positive, handler: { [unowned alertVC] _ in
+            // Dismiss the alert if the update is not forced
+            defer { if !forceUpdate { alertVC.dismiss(animated: false, completion: nil) } }
+            // Redirect to the App Store page
+            // FIXME: App Store url
+            guard let url = URL(string: "https://google.com") else { return }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }))
+        if forceUpdate {
+            alertVC.alertTitle = "New version required!"
+            alertVC.alertText = "Looks like you are using an old version of Notifire. In order to continue using it, please update to the latest version (\(latestVersion)) on the App Store."
+        } else {
+            alertVC.alertTitle = "New version available!"
+            alertVC.alertText = "You can download a new version (\(latestVersion)) of Notifire on the App Store."
+            alertVC.add(action: NotifireAlertAction(title: "Turn off these alerts", style: .neutral, handler: { [unowned alertVC, weak self] _ in
+                if let session = self?.viewModel.currentSessionHandler?.userSession {
+                    session.settings.appUpdateReminderDisabled = true
+                }
+                alertVC.dismiss(animated: true, completion: nil)
+            }))
+            alertVC.add(action: NotifireAlertAction(title: "Maybe later", style: .neutral, handler: { [unowned alertVC] _ in
+                alertVC.dismiss(animated: true, completion: nil)
+            }))
+        }
+        present(alert: alertVC, animated: true, completion: nil)
     }
 }

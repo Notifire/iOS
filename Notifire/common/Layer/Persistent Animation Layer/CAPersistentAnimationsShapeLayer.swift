@@ -35,11 +35,11 @@ class CAPersistentAnimationsShapeLayer: CAShapeLayer, PersistentAnimationsObserv
     }
 
     deinit {
-        removeObservers()
+        stopObservingNotifications()
     }
 
     // MARK: - Private
     private func setupSublayers() {
-        setupObservers()
+        startObservingNotifications()
     }
 }

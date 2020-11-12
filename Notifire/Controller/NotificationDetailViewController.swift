@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NotificationDetailViewController: UIViewController, NavigationBarDisplaying, NotifirePoppablePresenting {
+class NotificationDetailViewController: UIViewController, NavigationBarDisplaying, NotifireAlertPresenting {
 
     // MARK: - Properties
     let viewModel: NotificationDetailViewModel

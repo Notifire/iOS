@@ -29,7 +29,7 @@ struct LaunchArgumentsHandler {
     private func handleLaunch(argument: LaunchArgument) {
         switch argument {
         case .resetKeychainData:
-            UserSessionManager().removePreviousSessionIfNeeded()
+            UserSessionManager.removePreviousSessionIfNeeded()
         case .turnOffAnimations:
             UIView.setAnimationsEnabled(false)
         }

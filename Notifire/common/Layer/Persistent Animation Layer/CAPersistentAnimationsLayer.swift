@@ -17,10 +17,10 @@ class CAPersistentAnimationsLayer: BaseLayer, PersistentAnimationsObserving {
 
     // MARK: - Inherited
     override func setupSublayers() {
-        setupObservers()
+        startObservingNotifications()
     }
 
     deinit {
-        removeObservers()
+        stopObservingNotifications()
     }
 }

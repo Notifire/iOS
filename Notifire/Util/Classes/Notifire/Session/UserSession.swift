@@ -28,6 +28,8 @@ class UserSession {
     /// Current access token
     var accessToken: String?
 
+    lazy var settings = UserSessionSettings(session: self)
+
     // MARK: Computed
     var email: String {
         // sugar

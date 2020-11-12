@@ -28,6 +28,12 @@ struct NotifireAPISuccessResponse<Payload: Decodable, RequestSpecificError: Deco
     let error: NotifireAPIUserError<RequestSpecificError>?
 }
 
+// MARK: - /version
+struct AppVersionResponse: Codable {
+    let forceUpdate: Bool
+    let latestVersion: String
+}
+
 // MARK: - /register
 typealias RegisterResponse = NotifireAPIPlainSuccessResponse
 

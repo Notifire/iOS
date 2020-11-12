@@ -28,7 +28,7 @@ protocol ServiceViewControllerDelegate: class {
     func shouldShowNotifications(for service: LocalService)
 }
 
-class ServiceViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, NavigationBarDisplaying, NotifirePoppablePresenting {
+class ServiceViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, NavigationBarDisplaying, NotifireAlertPresenting {
 
     // MARK: - Properties
     let viewModel: ServiceViewModel

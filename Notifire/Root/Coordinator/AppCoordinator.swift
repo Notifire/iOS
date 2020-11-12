@@ -12,15 +12,6 @@ import UIKit
 /// This coordinator is responsible for switching between Logged in / out states of the app as well as handling deeplinks.
 class AppCoordinator: Coordinator {
 
-    // MARK: - App State
-    /// Describes the application's state. Each state contains the current coordinator responsbile for the view hierarchy.
-    enum AppState {
-        /// The user has logged in thus a session is available.
-        case sessionAvailable(SessionCoordinator)
-        /// The user is not logged in.
-        case noSession(NoSessionCoordinator)
-    }
-
     // MARK: - Properties
     // MARK: UI
     let window: UIWindow
@@ -28,20 +19,6 @@ class AppCoordinator: Coordinator {
 
     // MARK: Handlers
     let deeplinkHandler = DeeplinkHandler()
-    let notificationsHandler = NotifireNotificationsHandler()
-
-    // MARK: State
-    var appState: AppState? {
-        didSet {
-            guard let unwrappedState = appState else { return}
-            switch unwrappedState {
-            case .noSession:
-                notificationsHandler.activeRealmProvider = nil
-            case .sessionAvailable(let sessionCoordinator):
-                notificationsHandler.activeRealmProvider = sessionCoordinator.userSessionHandler
-            }
-        }
-    }
 
     // MARK: Coordinator
     var sessionCoordinator: SessionCoordinator? {
@@ -49,6 +26,12 @@ class AppCoordinator: Coordinator {
             return nil
         }
         return sessionCoordinator
+    }
+
+    // MARK: AppState
+    var appState: RootViewModel.AppState? {
+        get { return rootViewController.viewModel.appState }
+        set { rootViewController.viewModel.appState = newValue }
     }
 
     // MARK: - Initialization
@@ -68,26 +51,11 @@ class AppCoordinator: Coordinator {
         // Deeplink handler delegate
         deeplinkHandler.appCoordinator = self
 
-        // Application reveal logic
-        let revealingViewController: UIViewController & AppRevealing
-        var completion: (() -> Void)?
-
-        if let sessionHandler = rootViewController.viewModel.sessionManager.getUserSessionHandler() {
-            revealingViewController = createSessionVC(sessionHandler: sessionHandler)
-            completion = {
-                // TODO: Move the registering for push notifications into a new popup VC
-                sessionHandler.deviceTokenManager.registerForPushNotifications()
-            }
-        } else {
-            revealingViewController = createNoSessionVC()
-        }
-        rootViewController.add(childViewController: revealingViewController)
-        revealingViewController.revealContent(completion: completion) // start the initial revealing animation
+        revealAppContent()
     }
 
     // MARK: Private
     /// Create a `NoSessionContainerViewController`
-    @discardableResult
     private func createNoSessionVC() -> NoSessionContainerViewController {
         let noSessionContainerViewController = NoSessionContainerViewController()
         let noSessionCoordinator = NoSessionCoordinator(noSessionContainerViewController: noSessionContainerViewController)
@@ -97,7 +65,6 @@ class AppCoordinator: Coordinator {
         return noSessionContainerViewController
     }
 
-    @discardableResult
     private func createSessionVC(sessionHandler: UserSessionHandler) -> TabBarViewController {
         sessionHandler.sessionDelegate = self
         let tabBarViewModel = TabBarViewModel(sessionHandler: sessionHandler)
@@ -109,7 +76,35 @@ class AppCoordinator: Coordinator {
     }
 
     // MARK: Internal
+    /// Reveals the application content (the first visible VC)
+    /// - Important: Should only be called once in the `start()` method.
+    func revealAppContent() {
+        // Application reveal logic
+        let revealingViewController: UIViewController & AppRevealing
+        var completion: (() -> Void)?
+
+        if let sessionHandler = UserSessionManager.getUserSessionHandler() {
+            revealingViewController = createSessionVC(sessionHandler: sessionHandler)
+            completion = {
+                // Check for app version updates after revealing the app
+                self.rootViewController.viewModel.checkAppVersion()
+
+                // TODO: Move the registering for push notifications into a new popup VC
+                sessionHandler.deviceTokenManager.registerForPushNotifications()
+            }
+        } else {
+            revealingViewController = createNoSessionVC()
+            completion = { [unowned self] in
+                // Check for app version updates after revealing the app
+                self.rootViewController.viewModel.checkAppVersion()
+            }
+        }
+        rootViewController.add(childViewController: revealingViewController)
+        revealingViewController.revealContent(completion: completion) // start the initial revealing animation
+    }
+
     @discardableResult
+    /// Switch the application to the state where a user is logged in.
     func switchTo(userSession: UserSession) -> Bool {
         // Make sure that we have no session active at the moment.
         guard
@@ -135,6 +130,7 @@ class AppCoordinator: Coordinator {
         return true
     }
 
+    /// Switch the application to a state where no user is logged in.
     func switchToLoginFlow() {
         guard let state = appState, case .sessionAvailable(let sessionCoordinator) = state else { return }
         let noSessionVc = createNoSessionVC()

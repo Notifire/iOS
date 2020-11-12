@@ -8,22 +8,7 @@
 
 import UIKit
 
-extension APIFailableResponding where Self: VMViewController<APIFailable>, Self: APIFailableDisplaying {
-
-    var failableDisplaying: APIFailableDisplaying {
-        return self
-    }
-
-}
-
-protocol ForgotPasswordViewControllerDelegate: class {
-    func shouldDisplaySuccessfulEmailSend()
-}
-
-class ForgotPasswordViewController: VMViewController<ForgotPasswordViewModel>, NavigationBarDisplaying, APIFailableResponding, APIFailableDisplaying, NotifirePoppablePresenting, CenterStackViewPresenting, KeyboardObserving {
-
-    // MARK: - Properties
-    weak var delegate: ForgotPasswordViewControllerDelegate?
+class ForgotPasswordViewController: VMViewController<ForgotPasswordViewModel>, NavigationBarDisplaying, APIFailableResponding, APIFailableDisplaying, NotifireAlertPresenting, CenterStackViewPresenting, KeyboardObserving {
 
     // MARK: UI
     let headerLabel: UILabel = {
@@ -80,17 +65,17 @@ class ForgotPasswordViewController: VMViewController<ForgotPasswordViewModel>, N
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // Observers
-        setupObservers()
+        startObservingNotifications()
         emailTextInput.textField.becomeFirstResponder()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        removeObservers()
+        stopObservingNotifications()
     }
 
     deinit {
-        removeObservers()
+        stopObservingNotifications()
     }
 
     // MARK: - Private
@@ -149,10 +134,6 @@ class ForgotPasswordViewController: VMViewController<ForgotPasswordViewModel>, N
                 self?.emailTextInput.textField.isEnabled = true
                 self?.sendEmailButton.stopLoading()
             }
-        }
-
-        viewModel.onSendEmailSuccess = { [weak self] in
-            self?.delegate?.shouldDisplaySuccessfulEmailSend()
         }
 
         setViewModelOnError()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: VMViewController<LoginViewModel>, AppRevealing, KeyboardObserving, NavigationBarDisplaying, CenterStackViewPresenting, APIFailableResponding, APIFailableDisplaying, NotifirePoppablePresenting {
+class LoginViewController: VMViewController<LoginViewModel>, AppRevealing, KeyboardObserving, NavigationBarDisplaying, CenterStackViewPresenting, APIFailableResponding, APIFailableDisplaying, NotifireAlertPresenting {
 
     // MARK: - APIFailableResponding
     typealias FailableViewModel = LoginViewModel
@@ -93,7 +93,7 @@ class LoginViewController: VMViewController<LoginViewModel>, AppRevealing, Keybo
 
         setupSubviews()
         hideNavigationBarBackButtonText()
-        setupObservers()
+        startObservingNotifications()
         setupUserEvents()
         prepareViewModel()
     }
@@ -101,7 +101,7 @@ class LoginViewController: VMViewController<LoginViewModel>, AppRevealing, Keybo
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // Add observers if the view is about to appear
-        setupObservers()
+        startObservingNotifications()
 
         guard !emailTextInput.textField.isFirstResponder && !passwordTextInput.textField.isFirstResponder && firstTimeAppearing else { return }
         firstTimeAppearing = false
@@ -111,11 +111,11 @@ class LoginViewController: VMViewController<LoginViewModel>, AppRevealing, Keybo
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Remove keyboard observers when the view is about to disappear
-        removeObservers()
+        stopObservingNotifications()
     }
 
     deinit {
-        removeObservers()
+        stopObservingNotifications()
     }
 
     // MARK: - Inherited

@@ -10,27 +10,80 @@ import UIKit
 
 class RootViewModel {
 
-    // MARK: - Properties
-    // MARK: User Session Manager
-    let sessionManager: UserSessionManager
-
-    // MARK: - Initialization
-    init(sessionManager: UserSessionManager = UserSessionManager()) {
-        self.sessionManager = sessionManager
+    // MARK: - App State
+    /// Describes the application's state. Each state contains the current coordinator responsbile for the view hierarchy.
+    enum AppState {
+        /// The user has logged in thus a session is available.
+        case sessionAvailable(SessionCoordinator)
+        /// The user is not logged in.
+        case noSession(NoSessionCoordinator)
     }
 
-    // MARK: - Public
+    // MARK: - Properties
+    let appVersionManager = AppVersionManager()
+    let notificationsHandler = NotifireNotificationsHandler()
+    var versionNotificationObserver: NotificationObserver?
 
+    // MARK: State
+    var appState: AppState? {
+        didSet {
+            guard let unwrappedState = appState else { return}
+            switch unwrappedState {
+            case .noSession:
+                notificationsHandler.activeRealmProvider = nil
+            case .sessionAvailable(let sessionCoordinator):
+                notificationsHandler.activeRealmProvider = sessionCoordinator.userSessionHandler
+            }
+        }
+    }
+
+    /// The current `UserSessionHandler`. Not nil if some user is logged in.
+    var currentSessionHandler: UserSessionHandler? {
+        guard case .sessionAvailable(let coordinator) = appState else { return nil }
+        return coordinator.userSessionHandler
+    }
+
+    // MARK: Callback
+    /// Called when a new version of the app is available.
+    var onNewVersionAvailable: ((AppVersionData) -> Void)?
+
+    // MARK: - Public
     // MARK: Session
-    /// Save the new user session in the manager object.
+    /// Save the new user session via the manager object.
     public func save(new session: UserSession) {
-        sessionManager.saveSession(userSession: session)
+        UserSessionManager.saveSession(userSession: session)
     }
 
     /// Remove the session passed in the parameter.
     public func remove(old session: UserSession) {
-        sessionManager.removeSession(userSession: session)
+        UserSessionManager.removeSession(userSession: session)
         // Reset the number of notifications in the app icon badge
         UIApplication.shared.applicationIconBadgeNumber = 0
+    }
+
+    // MARK: App Version
+    public func checkAppVersion() {
+        if versionNotificationObserver == nil {
+            versionNotificationObserver = NotificationObserver(notificationName: .didReceiveAppVersionCheck, notificationHandler: { [weak self] notification in
+                guard let `self` = self else { return }
+                guard
+                    let appVersionDataDict = notification.userInfo,
+                    let appVersionData = AppVersionData.decodeDictionary(to: AppVersionData.self, from: appVersionDataDict)
+                else {
+                    Logger.log(.error, "\(self) couldn't decode didReceiveAppVersionCheck userInfo")
+                    return
+                }
+
+                let updateAction = self.appVersionManager.decideIfUserShouldUpdate(versionData: appVersionData, userSession: self.currentSessionHandler?.userSession)
+                Logger.log(.info, "\(self) appUpdateAction=<\(updateAction)> (latest=\(appVersionData.appVersionResponse.latestVersion), current=\(Config.appVersion))")
+
+                guard updateAction.shouldPromptUpdate else { return }
+
+                // notify the delegate
+                self.onNewVersionAvailable?(appVersionData)
+            })
+        }
+
+        appVersionManager.fetchAppVersionData()
     }
 }

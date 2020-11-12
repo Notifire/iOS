@@ -10,7 +10,7 @@ import Foundation
 
 extension UserSessionManager {
     /// Return the session handler if a previous session is availalble. Othewrise return nil.
-    public func getUserSessionHandler() -> UserSessionHandler? {
+    public class func getUserSessionHandler() -> UserSessionHandler? {
         guard let session = previousUserSession() else { return nil }
         // previous session found
         guard let sessionHandler = UserSessionHandler(session: session) else {

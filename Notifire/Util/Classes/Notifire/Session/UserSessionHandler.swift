@@ -43,7 +43,7 @@ class UserSessionHandler: RealmProviding {
 
     weak var sessionDelegate: UserSessionHandlerDelegate?
 
-    // MARK: Observing
+    // MARK: NotificationObserving
     var observers = [NSObjectProtocol]()
 
     // MARK: - Initialization
@@ -52,11 +52,11 @@ class UserSessionHandler: RealmProviding {
         notifireProtectedApiManager = NotifireAPIFactory.createProtectedAPIManager(session: session)
         guard let realmProvider = RealmProvider(userSession: session) else { return nil }
         self.realmProvider = realmProvider
-        setupObservers()
+        startObservingNotifications()
     }
 
     deinit {
-        removeObservers()
+        stopObservingNotifications()
     }
 
     // MARK: - Public
@@ -92,7 +92,7 @@ class UserSessionHandler: RealmProviding {
     }
 }
 
-extension UserSessionHandler: Observing {
+extension UserSessionHandler: NotificationObserving {
 
     var notificationNames: [NSNotification.Name] {
         guard #available(iOS 13, *) else { return [] }

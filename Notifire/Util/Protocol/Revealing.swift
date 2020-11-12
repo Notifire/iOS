@@ -27,7 +27,7 @@ extension AppRevealing where Self: UIViewController {
     func customRevealContentCompletion() -> Bool {
         for childVC in getNestedChildren() where childVC is AppRevealing {
             let handled = (childVC as? AppRevealing)?.customRevealContentCompletion() ?? false
-            guard !handled else { continue }
+            guard !handled else { return true }
         }
         return false
     }

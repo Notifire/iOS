@@ -14,7 +14,7 @@ protocol NotifirePoppable {
 
 typealias NotifirePoppableViewController = UIViewController & NotifirePoppable
 
-protocol NotifirePoppablePresenting: UIViewControllerTransitioningDelegate {
+protocol NotifireAlertPresenting: UIViewControllerTransitioningDelegate {
 
     var poppablePresentingViewController: UIViewController { get }
 
@@ -22,7 +22,7 @@ protocol NotifirePoppablePresenting: UIViewControllerTransitioningDelegate {
     func present(alert: NotifireAlertViewController, animated: Bool, completion: (() -> Void)?)
 }
 
-extension NotifirePoppablePresenting {
+extension NotifireAlertPresenting {
     func present(alert: NotifireAlertViewController, animated: Bool, completion: (() -> Void)?) {
         alert.transitioningDelegate = self
         alert.modalPresentationStyle = .overFullScreen
@@ -35,7 +35,7 @@ extension NotifirePoppablePresenting {
     }
 }
 
-extension NotifirePoppablePresenting where Self: UIViewController {
+extension NotifireAlertPresenting where Self: UIViewController {
     var poppablePresentingViewController: UIViewController {
         return self
     }

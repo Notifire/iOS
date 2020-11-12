@@ -28,7 +28,8 @@ class DeeplinkHandler {
         }
     }
 
-    private func switchToAppropriateNotifireDeeplink(from url: URL) -> Bool {
+    // MARK: Handlers
+    private func handleAppropriateNotifireDeeplink(from url: URL) -> Bool {
         var comp = url.pathComponents
         guard !comp.isEmpty else {
             return false
@@ -54,11 +55,10 @@ class DeeplinkHandler {
     }
 
     // MARK: - Internal
-    // MARK: Handlers
     func switchToAppropriateDeeplink(from url: URL) -> Bool {
         switch determineURLOrigin(url: url) {
         case .google: return handleGoogleDeeplink(from: url)
-        case .notifire: return switchToAppropriateNotifireDeeplink(from: url)
+        case .notifire: return handleAppropriateNotifireDeeplink(from: url)
         }
     }
 

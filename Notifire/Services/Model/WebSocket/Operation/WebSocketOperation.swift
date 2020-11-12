@@ -32,14 +32,14 @@ struct WebSocketOperation<OperationData: Codable>: Codable {
 /// The data sent along with the connect operation.
 struct WebSocketConnectOperationData: Codable {
     /// User's access token. Used for authenticating the socket.
-    let token: String
+    let accessToken: String
 }
 
 typealias WebSocketConnectOperation = WebSocketOperation<WebSocketConnectOperationData>
 
 extension WebSocketConnectOperation where OperationData == WebSocketConnectOperationData {
     init(authorizationToken: String) {
-        self.init(operation: .identify, data: WebSocketConnectOperationData(token: authorizationToken))
+        self.init(operation: .identify, data: WebSocketConnectOperationData(accessToken: authorizationToken))
     }
 }
 

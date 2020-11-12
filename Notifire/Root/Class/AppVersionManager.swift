@@ -1,0 +1,116 @@
+//
+//  AppVersionManager.swift
+//  Notifire
+//
+//  Created by David Bielik on 07/11/2020.
+//  Copyright © 2020 David Bielik. All rights reserved.
+//
+
+import Foundation
+
+class AppVersionManager {
+
+    enum AppVersionState {
+        /// Default AppVersion status after instantiating the AppVersionManager or whenever the new version fetch fails.
+        case initial
+        /// Whenver the app version data are fetching from the remote API.
+        case fetching
+        /// Set when the data are retrieved
+        case checked(appVersionData: AppVersionData)
+    }
+
+    enum AppVersionUpdateAction: String {
+        /// User is running the latest version of the app. Don't prompt update alert.
+        case latestVersion
+        /// User has hidden the alerts in user settings. Don't prompt update alert.
+        case userHasHiddenAlerts
+
+        /// A new update is available, show the optional alert.
+        case updateAvailable
+        /// A new update is required, show the unclosable alert.
+        case updateRequired
+
+        var shouldPromptUpdate: Bool {
+            switch self {
+            case .latestVersion, .userHasHiddenAlerts: return false
+            case .updateAvailable, .updateRequired: return true
+            }
+        }
+    }
+
+    // MARK: - Properties
+    var state: AppVersionState = .initial
+    let apiManager = NotifireAPIFactory.createAPIManager()
+
+    // MARK: Private
+    /// `true` if AppVersionState = `.initial`
+    private var canFetchAppVersionData: Bool {
+        guard case .initial = state else { return false }
+        return true
+    }
+
+    /// Delay in seconds for another fetch attempt after the previous one resulted in an error
+    private static let delayAfterFetchAttempt: TimeInterval = 5
+
+    // MARK: - Methods
+    /// Fetches the AppVersionData from the remote API and notifies listeners (`Notification.Name.didReceiveAppVersionCheck`)
+    func fetchAppVersionData() {
+        guard canFetchAppVersionData else {
+            Logger.log(.debug, "\(self) attempted to fetch version data when state=<\(state)>")
+            return
+        }
+
+        // Set the new state
+        state = .fetching
+
+        // Fetch
+        apiManager.checkAppVersion { [weak self] response in
+            switch response {
+            case .error:
+                // Reset the state
+                self?.state = .initial
+                // try again a bit later...
+                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + Self.delayAfterFetchAttempt) { [weak self] in
+                    self?.fetchAppVersionData()
+                }
+            case .success(let response):
+                // Create the version data from the response
+                let versionData = AppVersionData(appVersionResponse: response)
+                // Set the state to checked
+                self?.state = .checked(appVersionData: versionData)
+
+                // Notify observers
+                NotificationCenter.default.post(name: .didReceiveAppVersionCheck, object: nil, userInfo: versionData.asDictionary)
+            }
+        }
+    }
+
+    /// Returns `AppVersionUpdateAction` depending on the versionData from the remote server and user's settings.
+    func decideIfUserShouldUpdate(versionData: AppVersionData, userSession: UserSession?) -> AppVersionUpdateAction {
+        // Check if the updated isn't forced by the server
+        guard !versionData.appVersionResponse.forceUpdate else { return .updateRequired }
+
+        // Check if the user has disabled alerts
+        let userDisabledAlerts = userSession?.settings.appUpdateReminderDisabled ?? false
+        guard !userDisabledAlerts else { return .userHasHiddenAlerts }
+
+        // Check the versions versions
+        let comparisonResult = AppVersionData.compareVersions(
+            version1: versionData.appVersionResponse.latestVersion,
+            version2: Config.appVersion
+        )
+
+        // latest > current
+        if comparisonResult == .orderedDescending {
+            return .updateAvailable
+        } else {
+            return .latestVersion
+        }
+    }
+}
+
+// MARK: - Notification
+extension Notification.Name {
+    /// Posted whenver AppVersionManager receives a new version of the app.
+    static let didReceiveAppVersionCheck = Notification.Name("didReceiveAppVersionCheck")
+}

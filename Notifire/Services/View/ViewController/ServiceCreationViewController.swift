@@ -70,7 +70,7 @@ class ServiceCreationViewController: UIViewController, CenterStackViewPresenting
     required init?(coder aDecoder: NSCoder) { fatalError() }
 
     deinit {
-        removeObservers()
+        stopObservingNotifications()
     }
 
     // MARK: - View lifecycle
@@ -81,7 +81,7 @@ class ServiceCreationViewController: UIViewController, CenterStackViewPresenting
         newServiceTextField.addTarget(self, action: #selector(didChange(textField:)), for: .editingChanged)
         title = "New service"
         prepareViewModel()
-        setupObservers()
+        startObservingNotifications()
         layout()
 
         keyboardObserverHandler.onKeyboardNotificationCallback = { [weak self] expanding, notification in

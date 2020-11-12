@@ -11,7 +11,9 @@ import UIKit
 class NotifireAlertViewController: NotifirePoppableViewController {
 
     enum AlertStyle: Equatable {
+        /// The alert style to use for alerts that show a successful user action. (shows a checkmark ✅)
         case success
+        /// The alert style to use for alerts that show that something failed (shows a cross ❌)
         case fail
 
         var image: UIImage {
@@ -57,8 +59,11 @@ class NotifireAlertViewController: NotifirePoppableViewController {
     }()
 
     // MARK: Model
+    /// The title of the alert
     var alertTitle: String? = nil { didSet { updateLabels() } }
+    /// The main text of the alert
     var alertText: String? = nil { didSet { updateLabels() } }
+    /// The style of the alert displayed (optional)
     let alertStyle: AlertStyle?
     var actionControls: [NotifireAlertAction: UIControl] = [:]
     var actions: [NotifireAlertAction] = []
@@ -219,14 +224,14 @@ class NotifireInputAlertViewController: NotifireAlertViewController, KeyboardObs
     required init?(coder aDecoder: NSCoder) { fatalError() }
 
     deinit {
-        removeObservers()
+        stopObservingNotifications()
     }
 
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         addKeyboardDismissOnTap(to: view)
-        setupObservers()
+        startObservingNotifications()
         setupValidatingAction()
 
         keyboardObserverHandler.onKeyboardNotificationCallback = { [weak self] expanding, notification in

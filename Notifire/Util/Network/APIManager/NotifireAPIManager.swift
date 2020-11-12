@@ -10,6 +10,16 @@ import Foundation
 
 class NotifireAPIManager: NotifireAPIBaseManager {
 
+    // MARK: - /version?currentVersion=<version>
+    func checkAppVersion(currentVersion: String = Config.appVersion, completion: @escaping Callback<AppVersionResponse>) {
+        let params = [
+            URLQueryItem(name: "currentVersion", value: currentVersion)
+        ]
+        let request = createAPIRequest(endpoint: NotifireAPIEndpoint.version, method: .get, body: nil as EmptyRequestBody?, queryItems: params)
+        let requestContext = URLRequestContext(responseBodyType: AppVersionResponse.self, apiRequest: request)
+        perform(requestContext: requestContext, managerCompletion: completion)
+    }
+
     // MARK: - /register
     func register(email: String, password: String, completion: @escaping Callback<RegisterResponse>) {
         let body = RegisterRequestBody(email: email, password: password)

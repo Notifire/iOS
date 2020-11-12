@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PersistentAnimationsObserving: Observing {
+protocol PersistentAnimationsObserving: NotificationObserving {
     var persistentAnimations: [String: CAAnimation] { get set }
     var persistentSpeed: Float { get set }
 }

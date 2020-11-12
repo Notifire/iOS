@@ -31,7 +31,7 @@ class NotifireAPIBaseManager {
     }
 
     // MARK: - Open
-    open func createAPIRequest<Body>(endpoint: CustomStringConvertible, method: HTTPMethod, body: Body?, queryItems: [URLQueryItem]?) -> URLRequest where Body: Encodable {
+    open func createAPIRequest<Body: Encodable>(endpoint: CustomStringConvertible, method: HTTPMethod, body: Body?, queryItems: [URLQueryItem]? = nil) -> URLRequest {
         let url = URL(string: endpoint.description, relativeTo: NotifireAPIManager.baseURL) ?? NotifireAPIManager.baseURL
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         if let parameters = queryItems {

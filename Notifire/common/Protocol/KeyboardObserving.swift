@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol KeyboardObserving: Observing {
+protocol KeyboardObserving: NotificationObserving {
     var keyboardObserverHandler: KeyboardObserverHandler { get }
 }
 

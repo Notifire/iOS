@@ -76,7 +76,7 @@ class ConfirmEmailViewController: VMViewController<ConfirmEmailViewModel>, Cente
 }
 
 // MARK: - NotifirePoppablePresenting
-extension ConfirmEmailViewController: NotifirePoppablePresenting {
+extension ConfirmEmailViewController: NotifireAlertPresenting {
     func dismissCompletion(error: UserErrorRepresenting) {
         view.isUserInteractionEnabled = false
         delegate?.didFinishEmailConfirmation()

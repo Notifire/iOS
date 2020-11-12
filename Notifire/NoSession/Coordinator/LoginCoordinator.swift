@@ -35,7 +35,6 @@ class LoginCoordinator: NavigationCoordinator<GenericCoordinator<LoginViewContro
         let forgotPWVM = ForgotPasswordViewModel(maybeEmail: loginViewController.emailTextInput.validatableInput)
         let forgotPWVC = ForgotPasswordViewController(viewModel: forgotPWVM)
         let forgotPWCoordinator = ForgotPasswordCoordinator(forgotPasswordViewController: forgotPWVC)
-        forgotPWVC.delegate = forgotPWCoordinator
         add(childCoordinator: forgotPWCoordinator, push: true )
     }
 }

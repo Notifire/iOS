@@ -15,15 +15,10 @@ class NotifireUserSessionManagerMock: UserSessionManager {
         case noSession
     }
 
-    let sessionState: SessionState
-
-    // MARK: - Initialization
-    init(sessionState: SessionState = .mockSession) {
-        self.sessionState = sessionState
-    }
+    static let sessionState: SessionState = .mockSession
 
     // MARK: - Inherited
-    override func previousUserSession() -> UserSession? {
+    override class func previousUserSession() -> UserSession? {
         switch sessionState {
         case .mockSession:
             let providerData = AuthenticationProviderData(provider: .email, email: "testicek@testicek.com", userID: nil)

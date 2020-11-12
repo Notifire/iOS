@@ -56,11 +56,10 @@ struct NotifireWebSocketEvent<EventData: Codable & EventTypeable>: Codable {
 // MARK: - Ready Event
 struct NotifireWebSocketReadyEventData: Codable, EventTypeable {
     let sessionID: String
-    let timestamp: Date
     let heartbeatInterval: TimeInterval
 
     private enum CodingKeys: String, CodingKey {
-        case sessionID, timestamp, heartbeatInterval = "pingInterval"
+        case sessionID, heartbeatInterval = "pingInterval"
     }
 
     static let associatedEvent: EventType = .ready

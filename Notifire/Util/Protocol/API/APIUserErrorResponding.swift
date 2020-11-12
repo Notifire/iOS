@@ -21,7 +21,7 @@ extension UserErrorFailable {
 }
 
 // MARK: - Responding
-protocol UserErrorFailableResponding: class, NotifirePoppablePresenting {
+protocol UserErrorFailableResponding: class, NotifireAlertPresenting {
     associatedtype FailableViewModel: UserErrorFailable
 
     var viewModel: FailableViewModel { get }

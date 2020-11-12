@@ -33,6 +33,10 @@ extension NotifireAPIManagerMocking {
 class NotifireAPIManagerMock: NotifireAPIManager, NotifireAPIManagerMocking {
 
     // MARK: - Inherited
+    override func checkAppVersion(currentVersion: String = Config.appVersion, completion: @escaping NotifireAPIBaseManager.Callback<AppVersionResponse>) {
+        returnSuccessAfter(completion: completion, response: AppVersionResponse(forceUpdate: false, latestVersion: "1.1.0"))
+    }
+
     override func register(email: String, password: String, completion: @escaping Callback<RegisterResponse>) {
         returnPlainSuccessResponseAfter(duration: 0.3, completion: completion)
     }

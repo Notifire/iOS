@@ -10,6 +10,7 @@ import Foundation
 
 /// Enumeration of unprotected endpoints
 enum NotifireAPIEndpoint: String, CustomStringConvertible, CaseIterable {
+    case version = "/version"
     case register = "/account/register"
     case check = "/account/check"
     case resendConfirm = "/account/send/confirm"
