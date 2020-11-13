@@ -8,44 +8,6 @@
 
 import UIKit
 
-class ServiceCoordinator: ChildCoordinator, NavigatingChildCoordinator {
-
-    // MARK: - Properties
-    let serviceViewController: ServiceViewController
-
-    weak var parentNavigatingCoordinator: NavigatingCoordinator?
-
-    var viewController: UIViewController {
-        return serviceViewController
-    }
-
-    // MARK: - Initialization
-    init(serviceViewController: ServiceViewController) {
-        self.serviceViewController = serviceViewController
-    }
-
-    // MARK: - Methods
-    func start() {
-
-    }
-
-    func showNotifications() {
-        guard let localService = serviceViewController.viewModel.currentLocalService else {
-            Logger.log(.info, "\(self) wanted to open notifications but currentLocalService is nil")
-            return
-        }
-        let realmProvider = serviceViewController.viewModel.userSessionHandler
-        let serviceNotificationsViewModel = ServiceNotificationsViewModel(realmProvider: realmProvider, service: localService)
-        let notificationsCoordinator = NotificationsCoordinator(notificationsViewModel: serviceNotificationsViewModel)
-        notificationsCoordinator.start()
-    }
-}
-
-/// A `ChildCoordinator` that allows pushing/popping from a parent navigationCoordinator.
-protocol NavigatingChildCoordinator: ChildCoordinator {
-    var parentNavigatingCoordinator: NavigatingCoordinator? { get set }
-}
-
 class ServicesCoordinator: NavigationCoordinator<GenericCoordinator<ServicesViewController>> {
 
     // MARK: - Properties

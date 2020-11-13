@@ -17,6 +17,11 @@ protocol NavigatingCoordinator: Coordinator, UINavigationControllerDelegate {
     var delegate: NavigationCoordinatorDelegate? { get }
 }
 
+/// A `ChildCoordinator` that allows pushing/popping from a parent navigationCoordinator.
+protocol NavigatingChildCoordinator: ChildCoordinator {
+    var parentNavigatingCoordinator: NavigatingCoordinator? { get set }
+}
+
 extension NavigatingCoordinator {
     /// Adds a child coordinator to the `childCoordinators` stack and starts it via `start()`
     /// - Parameters:

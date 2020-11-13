@@ -84,6 +84,8 @@
 		892DC09E255E06200067EB12 /* NotifireAPIManagerMocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC08E255E00A00067EB12 /* NotifireAPIManagerMocking.swift */; };
 		892DC0A2255E0C670067EB12 /* NotifireAPIManagerFetchMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0A0255E0A3E0067EB12 /* NotifireAPIManagerFetchMockTests.swift */; };
 		892DC0A4255ED9FC0067EB12 /* AppVersionDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0A3255ED9FC0067EB12 /* AppVersionDataTests.swift */; };
+		892DC0A6255F01C70067EB12 /* ServiceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0A5255F01C70067EB12 /* ServiceCoordinator.swift */; };
+		892DC0A7255F01C70067EB12 /* ServiceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0A5255F01C70067EB12 /* ServiceCoordinator.swift */; };
 		8933F0AE2140421700645B3A /* NotifireBackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0AD2140421700645B3A /* NotifireBackgroundLayer.swift */; };
 		8933F0B02140424400645B3A /* CAPersistentAnimationsShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0AF2140424400645B3A /* CAPersistentAnimationsShapeLayer.swift */; };
 		8933F0B3214062F300645B3A /* ValidatableTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0B2214062F300645B3A /* ValidatableTextInput.swift */; };
@@ -699,6 +701,7 @@
 		892DC08E255E00A00067EB12 /* NotifireAPIManagerMocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIManagerMocking.swift; sourceTree = "<group>"; };
 		892DC0A0255E0A3E0067EB12 /* NotifireAPIManagerFetchMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIManagerFetchMockTests.swift; sourceTree = "<group>"; };
 		892DC0A3255ED9FC0067EB12 /* AppVersionDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionDataTests.swift; sourceTree = "<group>"; };
+		892DC0A5255F01C70067EB12 /* ServiceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCoordinator.swift; sourceTree = "<group>"; };
 		8933F0AD2140421700645B3A /* NotifireBackgroundLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireBackgroundLayer.swift; sourceTree = "<group>"; };
 		8933F0AF2140424400645B3A /* CAPersistentAnimationsShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAPersistentAnimationsShapeLayer.swift; sourceTree = "<group>"; };
 		8933F0B2214062F300645B3A /* ValidatableTextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableTextInput.swift; sourceTree = "<group>"; };
@@ -1321,6 +1324,7 @@
 				893995A72170EDDA00687A79 /* NotificationsCoordinator.swift */,
 				893995A92170EDE800687A79 /* ServicesCoordinator.swift */,
 				893995AB2170EDF300687A79 /* SettingsCoordinator.swift */,
+				892DC0A5255F01C70067EB12 /* ServiceCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -2729,6 +2733,7 @@
 				89576AD024FD412A0097BF87 /* NotificationLevelTableViewCell.swift in Sources */,
 				89576AD124FD412A0097BF87 /* Loadable.swift in Sources */,
 				89576AD224FD412A0097BF87 /* InputValidating.swift in Sources */,
+				892DC0A7255F01C70067EB12 /* ServiceCoordinator.swift in Sources */,
 				89D6169C2503002A00287331 /* NavigationBarDisplaying.swift in Sources */,
 				897B77C325250576008602BB /* SwapOnlineOfflineRepresentablesOperation.swift in Sources */,
 				894AB6822512607B00F2CBF5 /* ServicesViewControllerDelegate.swift in Sources */,
@@ -2972,6 +2977,7 @@
 				89D4E1FA2139F94000630790 /* BaseLayer.swift in Sources */,
 				8920CA74217144DF00A72BD0 /* NavigationActionViewController.swift in Sources */,
 				89B3EC7320232A310068BA64 /* LoginViewController.swift in Sources */,
+				892DC0A6255F01C70067EB12 /* ServiceCoordinator.swift in Sources */,
 				89D616A52505A7DD00287331 /* UserSessionManager+UserSessionHandler.swift in Sources */,
 				8949EBDE251189F00045D1A7 /* RegisterSuccessViewModel.swift in Sources */,
 				895418E2251965930046464D /* ServiceSnippet.swift in Sources */,
