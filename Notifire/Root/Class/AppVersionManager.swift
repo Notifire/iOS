@@ -24,7 +24,7 @@ class AppVersionManager {
         case checked(appVersionData: AppVersionData)
     }
 
-    enum AppVersionUpdateAction: String {
+    enum AppVersionUpdateAction: String, Equatable {
         /// User is running the latest version of the app. Don't prompt update alert.
         case latestVersion
         /// User has hidden the alerts in user settings. Don't prompt update alert.
@@ -47,9 +47,13 @@ class AppVersionManager {
     var state: AppVersionState = .initial
     let apiManager: NotifireAPIManager
 
+    // MARK: Private
+    private let currentVersionString: String
+
     // MARK: - Initialization
-    init(apiManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager()) {
+    init(apiManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager(), currentVersion: String = Config.appVersion) {
         self.apiManager = apiManager
+        self.currentVersionString = currentVersion
     }
 
     // MARK: Private
@@ -101,7 +105,7 @@ class AppVersionManager {
 
     /// Returns `AppVersionUpdateAction` depending on the versionData from the remote server and user's settings.
     func decideIfUserShouldUpdate(versionData: AppVersionData, userSession: UserSession?) -> AppVersionUpdateAction {
-        // Check if the updated isn't forced by the server
+        // Check if the update isn't forced by the server
         guard !versionData.appVersionResponse.forceUpdate else { return .updateRequired }
 
         // Check if the user has disabled alerts
@@ -109,9 +113,9 @@ class AppVersionManager {
         guard !userDisabledAlerts else { return .userHasHiddenAlerts }
 
         // Check the versions versions
-        let comparisonResult = AppVersionData.compareVersions(
+        let comparisonResult = AppVersionData.compareVersionsIgnoringPatch(
             version1: versionData.appVersionResponse.latestVersion,
-            version2: Config.appVersion
+            version2: currentVersionString
         )
 
         // latest > current

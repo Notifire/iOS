@@ -20,14 +20,13 @@ class AppVersionManagerTests: XCTestCase {
     }
 
     // MARK: - Util
-    func createManager(apiManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager()) -> AppVersionManager {
-        return AppVersionManager(apiManager: apiManager)
+    func createManager(apiManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager(), currentVersion: String = "1.0.0") -> AppVersionManager {
+        return AppVersionManager(apiManager: apiManager, currentVersion: currentVersion)
     }
 
     let response = AppVersionResponse(forceUpdate: true, latestVersion: "1.0.0")
 
-    // MARK: - Tests
-    // MARK: State
+    // MARK: - State Tests
     /// Test whether the initial state of AppVersionManager is correct.
     func testInitialState() {
         // Given
@@ -92,7 +91,7 @@ class AppVersionManagerTests: XCTestCase {
         XCTAssertThrowsError(try manager.fetchAppVersionData())
     }
 
-    // MARK: Fetch App Version Data
+    // MARK: - Fetch App Version Data Tests
     /// Test if AppVersionManager changes state to fetching after starting a fetchAppVersionData request.
     func testFetchAppVersionDataImmediateStateChange() {
         // Given
@@ -180,5 +179,77 @@ class AppVersionManagerTests: XCTestCase {
         XCTAssertNoThrow(try manager.fetchAppVersionData())
         // Then
         wait(for: [retryExpectation], timeout: 20)
+    }
+
+    // MARK: - DecideIfUserShouldUpdate Tests
+    func commonDecideIfUserShouldUpdate(currentVersion: String, latestVersion: String, forceUpdate: Bool, appUpdateReminderDisabled: Bool = false, expectedAction: AppVersionManager.AppVersionUpdateAction) {
+        // Given
+        let appVersionData = AppVersionData(
+            appVersionResponse: AppVersionResponse(forceUpdate: forceUpdate, latestVersion: latestVersion)
+        )
+        let manager = createManager(currentVersion: currentVersion)
+        let session = UserSession(refreshToken: "", providerData: AuthenticationProviderData(provider: .email, email: "", userID: ""))
+        session.settings.appUpdateReminderDisabled = appUpdateReminderDisabled
+        // When
+        let updateAction = manager.decideIfUserShouldUpdate(versionData: appVersionData, userSession: session)
+        // Then
+        XCTAssertEqual(updateAction, expectedAction)
+    }
+
+    /// Test whether `.updateRequired` is returned when the server requests it.
+    func testDecideUserUpdateRequired() {
+        // Given
+        let version = "1.0.0"
+        commonDecideIfUserShouldUpdate(
+            currentVersion: version,
+            latestVersion: version,
+            forceUpdate: true,
+            expectedAction: .updateRequired
+        )
+    }
+
+    /// Test whether `.userHasHiddenAlerts` is returned when the user has hidden update alerts and update is not forced.
+    func testDecideUserUpdateAlertsHidden() {
+        commonDecideIfUserShouldUpdate(
+            currentVersion: "1.0.0",
+            latestVersion: "1.2.0",
+            forceUpdate: false,
+            appUpdateReminderDisabled: true,
+            expectedAction: .userHasHiddenAlerts
+        )
+    }
+
+    /// Test whether `.updateRequired` is returned when the user has hidden update alerts and update is forced.
+    func testDecideUserUpdateAlertsHiddenUpdateRequired() {
+        commonDecideIfUserShouldUpdate(
+            currentVersion: "1.0.0",
+            latestVersion: "1.2.0",
+            forceUpdate: true,
+            appUpdateReminderDisabled: true,
+            expectedAction: .updateRequired
+        )
+    }
+
+    /// Test whether `.updateAvailable` is returned when a higher minor version is returned from server.
+    func testDecideUserUpdateAvailable() {
+        commonDecideIfUserShouldUpdate(
+            currentVersion: "1.0.0",
+            latestVersion: "1.2.0",
+            forceUpdate: false,
+            appUpdateReminderDisabled: false,
+            expectedAction: .updateAvailable
+        )
+    }
+
+    /// Test whether `.updateAvailable` is returned when a higher minor version is returned from server.
+    func testDecideUserUpdateLatestVersion() {
+        let version = "1.2.0"
+        commonDecideIfUserShouldUpdate(
+            currentVersion: version,
+            latestVersion: version,
+            forceUpdate: false,
+            appUpdateReminderDisabled: false,
+            expectedAction: .latestVersion
+        )
     }
 }

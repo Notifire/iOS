@@ -12,8 +12,29 @@ import Foundation
 struct AppVersionData: Codable {
     let appVersionResponse: AppVersionResponse
 
-    static func compareVersions(version1: String, version2: String) -> ComparisonResult {
-        let removeMinorVersionClosure: ((String) -> String) = { version in
+    /// Compares two version strings while ignoring the PATCH value.
+    /// For more info on the versioning check: https://semver.org/
+    ///
+    /// - Parameters:
+    ///     -   version1: Should be the latest version of the app if you want to compare the result to .orderedDescending and then proceed with an update.
+    ///     -   version2: Should be the current version of the app.
+    ///
+    /// The versioning system example:
+    /// ```
+    ///     <MAJOR>.<MINOR>.<PATCH>
+    ///        1   .   0   .   1
+    /// ```
+    /// Function result example:
+    /// ```
+    ///     let result = compareVersionsWithoutPatch(
+    ///         version1: "1.0.1",
+    ///         version2: "1.0.5"
+    ///     )
+    ///
+    ///     print(result)  // .orderedSame even though the patch value is higher in version2
+    /// ```
+    static func compareVersionsIgnoringPatch(version1: String, version2: String) -> ComparisonResult {
+        let removePatchClosure: ((String) -> String) = { version in
             switch version.components(separatedBy: ".").count {
             case 3:
                 return version.split(separator: ".").dropLast().joined(separator: ".")
@@ -22,9 +43,9 @@ struct AppVersionData: Codable {
             }
         }
 
-        let version1WithoutMinor = removeMinorVersionClosure(version1)
-        let version2WithoutMinor = removeMinorVersionClosure(version2)
+        let version1WithoutPatch = removePatchClosure(version1)
+        let version2WithoutPatch = removePatchClosure(version2)
 
-        return version1WithoutMinor.compare(version2WithoutMinor, options: [.numeric])
+        return version1WithoutPatch.compare(version2WithoutPatch, options: [.numeric])
     }
 }

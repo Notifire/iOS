@@ -83,6 +83,7 @@
 		892DC08F255E00A00067EB12 /* NotifireAPIManagerMocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC08E255E00A00067EB12 /* NotifireAPIManagerMocking.swift */; };
 		892DC09E255E06200067EB12 /* NotifireAPIManagerMocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC08E255E00A00067EB12 /* NotifireAPIManagerMocking.swift */; };
 		892DC0A2255E0C670067EB12 /* NotifireAPIManagerFetchMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0A0255E0A3E0067EB12 /* NotifireAPIManagerFetchMockTests.swift */; };
+		892DC0A4255ED9FC0067EB12 /* AppVersionDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0A3255ED9FC0067EB12 /* AppVersionDataTests.swift */; };
 		8933F0AE2140421700645B3A /* NotifireBackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0AD2140421700645B3A /* NotifireBackgroundLayer.swift */; };
 		8933F0B02140424400645B3A /* CAPersistentAnimationsShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0AF2140424400645B3A /* CAPersistentAnimationsShapeLayer.swift */; };
 		8933F0B3214062F300645B3A /* ValidatableTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0B2214062F300645B3A /* ValidatableTextInput.swift */; };
@@ -697,6 +698,7 @@
 		892DC08B255DF2E50067EB12 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		892DC08E255E00A00067EB12 /* NotifireAPIManagerMocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIManagerMocking.swift; sourceTree = "<group>"; };
 		892DC0A0255E0A3E0067EB12 /* NotifireAPIManagerFetchMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIManagerFetchMockTests.swift; sourceTree = "<group>"; };
+		892DC0A3255ED9FC0067EB12 /* AppVersionDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionDataTests.swift; sourceTree = "<group>"; };
 		8933F0AD2140421700645B3A /* NotifireBackgroundLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireBackgroundLayer.swift; sourceTree = "<group>"; };
 		8933F0AF2140424400645B3A /* CAPersistentAnimationsShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAPersistentAnimationsShapeLayer.swift; sourceTree = "<group>"; };
 		8933F0B2214062F300645B3A /* ValidatableTextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableTextInput.swift; sourceTree = "<group>"; };
@@ -1698,6 +1700,7 @@
 				89942AFD250D36710036DBDC /* Info.plist */,
 				8967F777250ECE810079BCB8 /* UnprotectedAPIIntegrationTests.swift */,
 				892DC086255DE9580067EB12 /* AppVersionManagerTests.swift */,
+				892DC0A3255ED9FC0067EB12 /* AppVersionDataTests.swift */,
 				892DC09F255E0A280067EB12 /* Mocks */,
 				892DC08D255DF2F20067EB12 /* Util */,
 			);
@@ -2917,6 +2920,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				892DC0A4255ED9FC0067EB12 /* AppVersionDataTests.swift in Sources */,
 				892DC08C255DF2E50067EB12 /* TestingAppDelegate.swift in Sources */,
 				892DC0A2255E0C670067EB12 /* NotifireAPIManagerFetchMockTests.swift in Sources */,
 				892DC087255DE9580067EB12 /* AppVersionManagerTests.swift in Sources */,
