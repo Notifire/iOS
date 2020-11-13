@@ -12,7 +12,7 @@ enum NotifireAPIError: Error, CustomStringConvertible {
     case unknown
     case urlResponseNotCreated
     case responseDataIsNil
-    /// The request resulted in a status code 400
+    /// The request resulted in an invalid status code
     /// - Parameters:
     ///     - Int: the status code
     ///     - String?:  the response body containg the automated format error message
@@ -42,5 +42,18 @@ enum NotifireAPIError: Error, CustomStringConvertible {
         case .urlSession(let underlyingError): return "URLSession error: \(underlyingError)"
         }
     }
+}
 
+extension NotifireAPIError: Equatable {
+    static func == (lhs: NotifireAPIError, rhs: NotifireAPIError) -> Bool {
+        switch (lhs, rhs) {
+        case (.unknown, .unknown): return true
+        case (.urlResponseNotCreated, .urlResponseNotCreated): return true
+        case (.responseDataIsNil, .responseDataIsNil): return true
+        case (.invalidStatusCode(let codeL, _), .invalidStatusCode(let codeR, _)): return codeL == codeR
+        case (.invalidResponseBody(let typeL, let responseStringL), .invalidResponseBody(let typeR, let responseStringR)): return typeL == typeR && responseStringL == responseStringR
+        case (.urlSession(let errorL), .urlSession(let errorR)): return errorL.localizedDescription == errorR.localizedDescription
+        case (_, _): return false
+        }
+    }
 }

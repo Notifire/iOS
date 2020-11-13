@@ -10,6 +10,11 @@ import Foundation
 
 class AppVersionManager {
 
+    /// Errors thrown while attempting to fetch new version
+    enum AppVersionCheckError: Error {
+        case alreadyFetching
+    }
+
     enum AppVersionState {
         /// Default AppVersion status after instantiating the AppVersionManager or whenever the new version fetch fails.
         case initial
@@ -40,24 +45,31 @@ class AppVersionManager {
 
     // MARK: - Properties
     var state: AppVersionState = .initial
-    let apiManager = NotifireAPIFactory.createAPIManager()
+    let apiManager: NotifireAPIManager
+
+    // MARK: - Initialization
+    init(apiManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager()) {
+        self.apiManager = apiManager
+    }
 
     // MARK: Private
     /// `true` if AppVersionState = `.initial`
-    private var canFetchAppVersionData: Bool {
+    var canFetchAppVersionData: Bool {
         guard case .initial = state else { return false }
         return true
     }
 
     /// Delay in seconds for another fetch attempt after the previous one resulted in an error
-    private static let delayAfterFetchAttempt: TimeInterval = 5
+    static let delayAfterFetchAttempt: TimeInterval = 5
+    /// A flag indicating whether this manager class retries the fetch app version data request.
+    var shouldAutoRetryFetchAppVersionData = true
 
     // MARK: - Methods
     /// Fetches the AppVersionData from the remote API and notifies listeners (`Notification.Name.didReceiveAppVersionCheck`)
-    func fetchAppVersionData() {
+    func fetchAppVersionData() throws {
         guard canFetchAppVersionData else {
             Logger.log(.debug, "\(self) attempted to fetch version data when state=<\(state)>")
-            return
+            throw AppVersionCheckError.alreadyFetching
         }
 
         // Set the new state
@@ -69,9 +81,11 @@ class AppVersionManager {
             case .error:
                 // Reset the state
                 self?.state = .initial
-                // try again a bit later...
+
+                // try again a bit later if needed...
+                guard self?.shouldAutoRetryFetchAppVersionData ?? false else { return }
                 DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + Self.delayAfterFetchAttempt) { [weak self] in
-                    self?.fetchAppVersionData()
+                    try? self?.fetchAppVersionData()
                 }
             case .success(let response):
                 // Create the version data from the response

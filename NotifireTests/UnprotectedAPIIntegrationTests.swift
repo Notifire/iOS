@@ -9,7 +9,9 @@
 import XCTest
 @testable import Notifire
 
-class UnprotectedAPIIntegrationTests: XCTestCase {
+// swiftlint:disable type_name
+class _UnprotectedAPIIntegrationTests: XCTestCase {
+// swiftlint:enable type_name
 
      // MARK: - Properties
        var apiManager: NotifireAPIManager {
@@ -73,7 +75,7 @@ class UnprotectedAPIIntegrationTests: XCTestCase {
 
     // MARK: NotifireAPIEndpoint
     /// Tests access to each unprotected endpoint. If any of the endpoints urls are not matching those on a remote server, this test will fail.
-    func testUnprotectedEndpointsAccess() {
+    func testUnprotectedEndpointsReachability() {
         // Create endpoint array which will contain all endpoints as strings
         var endpoints = NotifireAPIEndpoint.allCases.map { $0.rawValue }
         let providers: [SSOAuthenticationProvider] = [.google, .apple]
@@ -83,11 +85,8 @@ class UnprotectedAPIIntegrationTests: XCTestCase {
 
         for endpoint in endpoints {
             let endpointExpectation = expectation(description: "\(endpoint.description) should return 400 or 405")
-
             // create a request for each endpoint
-            let url = URL(string: endpoint, relativeTo: NotifireAPIManager.baseURL)
-            XCTAssertNotNil(url)
-            let request = URLRequest(url: url!)
+            let request = apiManager.createAPIRequest(endpoint: endpoint, method: .get, body: nil as EmptyRequestBody?)
             let requestContext = URLRequestContext(responseBodyType: EmptyRequestBody.self, apiRequest: request)
             // manual perform
             apiManager.perform(requestContext: requestContext) { result in
@@ -120,15 +119,6 @@ class UnprotectedAPIIntegrationTests: XCTestCase {
         let requestSuccessExpectation = expectation(description: "Resend confirm email request should return 200.")
 
         apiManager.sendConfirmEmail(to: email, completion: commonCompletion(expectation: requestSuccessExpectation))
-
-        wait(for: [requestSuccessExpectation], timeout: timeout)
-    }
-
-    // MARK: Confirm Account
-    func testConfirmAccount() {
-        let requestSuccessExpectation = expectation(description: "Confirm account request should return 200.")
-
-        apiManager.confirmAccount(emailToken: confirmAccountToken, completion: commonCompletion(expectation: requestSuccessExpectation))
 
         wait(for: [requestSuccessExpectation], timeout: timeout)
     }

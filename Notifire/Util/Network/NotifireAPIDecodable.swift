@@ -29,7 +29,7 @@ struct NotifireAPISuccessResponse<Payload: Decodable, RequestSpecificError: Deco
 }
 
 // MARK: - /version
-struct AppVersionResponse: Codable {
+struct AppVersionResponse: Codable, Equatable {
     let forceUpdate: Bool
     let latestVersion: String
 }

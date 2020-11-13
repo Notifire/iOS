@@ -76,6 +76,13 @@
 		892DC083255DDB270067EB12 /* UserSessionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC081255DDB270067EB12 /* UserSessionSettings.swift */; };
 		892DC084255DDB270067EB12 /* UserSessionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC081255DDB270067EB12 /* UserSessionSettings.swift */; };
 		892DC085255DDB3B0067EB12 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC07E255DDAD30067EB12 /* UserDefault.swift */; };
+		892DC087255DE9580067EB12 /* AppVersionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC086255DE9580067EB12 /* AppVersionManagerTests.swift */; };
+		892DC089255DF2030067EB12 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC088255DF2030067EB12 /* main.swift */; };
+		892DC08A255DF2030067EB12 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC088255DF2030067EB12 /* main.swift */; };
+		892DC08C255DF2E50067EB12 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC08B255DF2E50067EB12 /* TestingAppDelegate.swift */; };
+		892DC08F255E00A00067EB12 /* NotifireAPIManagerMocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC08E255E00A00067EB12 /* NotifireAPIManagerMocking.swift */; };
+		892DC09E255E06200067EB12 /* NotifireAPIManagerMocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC08E255E00A00067EB12 /* NotifireAPIManagerMocking.swift */; };
+		892DC0A2255E0C670067EB12 /* NotifireAPIManagerFetchMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0A0255E0A3E0067EB12 /* NotifireAPIManagerFetchMockTests.swift */; };
 		8933F0AE2140421700645B3A /* NotifireBackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0AD2140421700645B3A /* NotifireBackgroundLayer.swift */; };
 		8933F0B02140424400645B3A /* CAPersistentAnimationsShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0AF2140424400645B3A /* CAPersistentAnimationsShapeLayer.swift */; };
 		8933F0B3214062F300645B3A /* ValidatableTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0B2214062F300645B3A /* ValidatableTextInput.swift */; };
@@ -685,6 +692,11 @@
 		892B415821C4150B00D28ABE /* NotificationLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationLevel.swift; sourceTree = "<group>"; };
 		892DC07E255DDAD30067EB12 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		892DC081255DDB270067EB12 /* UserSessionSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionSettings.swift; sourceTree = "<group>"; };
+		892DC086255DE9580067EB12 /* AppVersionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionManagerTests.swift; sourceTree = "<group>"; };
+		892DC088255DF2030067EB12 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		892DC08B255DF2E50067EB12 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
+		892DC08E255E00A00067EB12 /* NotifireAPIManagerMocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIManagerMocking.swift; sourceTree = "<group>"; };
+		892DC0A0255E0A3E0067EB12 /* NotifireAPIManagerFetchMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIManagerFetchMockTests.swift; sourceTree = "<group>"; };
 		8933F0AD2140421700645B3A /* NotifireBackgroundLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireBackgroundLayer.swift; sourceTree = "<group>"; };
 		8933F0AF2140424400645B3A /* CAPersistentAnimationsShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAPersistentAnimationsShapeLayer.swift; sourceTree = "<group>"; };
 		8933F0B2214062F300645B3A /* ValidatableTextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableTextInput.swift; sourceTree = "<group>"; };
@@ -1172,6 +1184,22 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		892DC08D255DF2F20067EB12 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				892DC08B255DF2E50067EB12 /* TestingAppDelegate.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		892DC09F255E0A280067EB12 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				892DC0A0255E0A3E0067EB12 /* NotifireAPIManagerFetchMockTests.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		8933F0A8213D7EFC00645B3A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -1279,6 +1307,7 @@
 				8933F0F2214338EA00645B3A /* NotifireAPIBaseManager.swift */,
 				8933F0F4214338FF00645B3A /* NotifireAPIManager.swift */,
 				8933F0F62143391000645B3A /* NotifireProtectedAPIManager.swift */,
+				892DC08E255E00A00067EB12 /* NotifireAPIManagerMocking.swift */,
 			);
 			path = APIManager;
 			sourceTree = "<group>";
@@ -1668,6 +1697,9 @@
 			children = (
 				89942AFD250D36710036DBDC /* Info.plist */,
 				8967F777250ECE810079BCB8 /* UnprotectedAPIIntegrationTests.swift */,
+				892DC086255DE9580067EB12 /* AppVersionManagerTests.swift */,
+				892DC09F255E0A280067EB12 /* Mocks */,
+				892DC08D255DF2F20067EB12 /* Util */,
 			);
 			path = NotifireTests;
 			sourceTree = "<group>";
@@ -1700,6 +1732,7 @@
 		89B3EC472020E4900068BA64 /* Notifire */ = {
 			isa = PBXGroup;
 			children = (
+				892DC088255DF2030067EB12 /* main.swift */,
 				89B3EC482020E4900068BA64 /* AppDelegate.swift */,
 				89250B1B24FEE7A300BC7C2C /* Root */,
 				89E6B6C72500030900F7A79C /* NoSession */,
@@ -2679,6 +2712,7 @@
 				89250A1525004F2A00F00630 /* BottomNavigatorContaining.swift in Sources */,
 				89576AC824FD412A0097BF87 /* SettingsViewController.swift in Sources */,
 				895637CC255759C3005E4A4E /* AppVersionData.swift in Sources */,
+				892DC08A255DF2030067EB12 /* main.swift in Sources */,
 				89250B2124FEEB4800BC7C2C /* RootViewModel.swift in Sources */,
 				893A4A602530BA8700DD02D0 /* WebSocketOperationType.swift in Sources */,
 				89576AC924FD412A0097BF87 /* NotificationLevelModel.swift in Sources */,
@@ -2819,6 +2853,7 @@
 				89BD25CC251E34AB00280929 /* RealmSortingOptions.swift in Sources */,
 				895418E3251965930046464D /* ServiceSnippet.swift in Sources */,
 				89576B1A24FD412A0097BF87 /* ValidatableComponentState.swift in Sources */,
+				892DC08F255E00A00067EB12 /* NotifireAPIManagerMocking.swift in Sources */,
 				89576B1B24FD412A0097BF87 /* ServicesViewModel.swift in Sources */,
 				89576B1C24FD412A0097BF87 /* UserSessionManager.swift in Sources */,
 				895637BA25551A20005E4A4E /* Array+Chunks.swift in Sources */,
@@ -2882,6 +2917,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				892DC08C255DF2E50067EB12 /* TestingAppDelegate.swift in Sources */,
+				892DC0A2255E0C670067EB12 /* NotifireAPIManagerFetchMockTests.swift in Sources */,
+				892DC087255DE9580067EB12 /* AppVersionManagerTests.swift in Sources */,
 				8967F778250ECE810079BCB8 /* UnprotectedAPIIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2972,6 +3010,7 @@
 				8933F0B02140424400645B3A /* CAPersistentAnimationsShapeLayer.swift in Sources */,
 				8922E26F219F3D0A001984C4 /* NotificationsViewModel.swift in Sources */,
 				890391F72537C942005C5C99 /* RealmManager+Service.swift in Sources */,
+				892DC09E255E06200067EB12 /* NotifireAPIManagerMocking.swift in Sources */,
 				89BD25C8251E34A900280929 /* RealmSortingOptions.swift in Sources */,
 				897B77B92523EE81008602BB /* ServiceRepresentableChanges.swift in Sources */,
 				8998D8842520D435002A597B /* IndexPath+RowInit.swift in Sources */,
@@ -3030,6 +3069,7 @@
 				893FE02421962C3E002CD846 /* ServiceNotificationsHeaderView.swift in Sources */,
 				89A904A121C03E1400D262E1 /* NotificationDetailCells.swift in Sources */,
 				893FE02621962DC0002CD846 /* ServiceHeaderView.swift in Sources */,
+				892DC089255DF2030067EB12 /* main.swift in Sources */,
 				898533C821A03ED000E0A656 /* RealmManager.swift in Sources */,
 				8933F0F72143391000645B3A /* NotifireProtectedAPIManager.swift in Sources */,
 				893A4A832530D42800DD02D0 /* RealmObjectObserver.swift in Sources */,

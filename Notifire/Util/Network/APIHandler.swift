@@ -47,7 +47,7 @@ extension URLSession: APIHandler {
                 return
             }
             guard let statusCode = NotifireAPIStatusCode(rawValue: httpURLResponse.statusCode) else {
-                URLSession.finish(nil, .invalidStatusCode(httpURLResponse.statusCode, nil), responseBodyString: stringData, requestContext: requestContext, completion: completionHandler)
+                URLSession.finish(nil, .invalidStatusCode(httpURLResponse.statusCode, nil), statusCode: httpURLResponse.statusCode, responseBodyString: stringData, requestContext: requestContext, completion: completionHandler)
                 return
             }
             let decoder = JSONDecoder()

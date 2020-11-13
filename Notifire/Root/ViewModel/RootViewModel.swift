@@ -84,6 +84,6 @@ class RootViewModel {
             })
         }
 
-        appVersionManager.fetchAppVersionData()
+        try? appVersionManager.fetchAppVersionData()
     }
 }

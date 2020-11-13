@@ -8,28 +8,6 @@
 
 import Foundation
 
-protocol NotifireAPIManagerMocking {}
-
-extension NotifireAPIManagerMocking {
-    fileprivate func returnSuccessAfter<Response: Decodable>(duration: TimeInterval = 1.5, completion: @escaping NotifireAPIBaseManager.Callback<Response>, response: Response) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-            completion(.success(response))
-        }
-    }
-
-    fileprivate func returnPlainSuccessResponseAfter(duration: TimeInterval = 1.5, completion: @escaping NotifireAPIBaseManager.Callback<NotifireAPIPlainSuccessResponse>) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-            completion(.success(NotifireAPIPlainSuccessResponse(success: true)))
-        }
-    }
-
-    fileprivate func returnErrorResponseAfter(duration: TimeInterval = 1.5, completion: @escaping NotifireAPIBaseManager.Callback<NotifireAPIPlainSuccessResponse>) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-            completion(.error(.unknown))
-        }
-    }
-}
-
 class NotifireAPIManagerMock: NotifireAPIManager, NotifireAPIManagerMocking {
 
     // MARK: - Inherited

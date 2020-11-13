@@ -21,7 +21,6 @@ class NotifireAPIBaseManager {
     // MARK: - Properties
     // MARK: Static
     static let requestTimeout: TimeInterval = 20
-    static let baseURL = URL(string: Config.apiUrlString)!
 
     let apiHandler: APIHandler
 
@@ -32,12 +31,15 @@ class NotifireAPIBaseManager {
 
     // MARK: - Open
     open func createAPIRequest<Body: Encodable>(endpoint: CustomStringConvertible, method: HTTPMethod, body: Body?, queryItems: [URLQueryItem]? = nil) -> URLRequest {
-        let url = URL(string: endpoint.description, relativeTo: NotifireAPIManager.baseURL) ?? NotifireAPIManager.baseURL
-        var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = Config.apiUrlString
+        urlComponents.path = endpoint.description
         if let parameters = queryItems {
             urlComponents.queryItems = parameters
         }
-        var request = URLRequest(url: urlComponents.url!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: NotifireAPIBaseManager.requestTimeout)
+        let url = urlComponents.url ?? URL(string: Config.apiUrlString)!
+        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: NotifireAPIBaseManager.requestTimeout)
         request.httpMethod = method.rawValue
         if let requestBody = body {
             request.addBody(requestBody)
