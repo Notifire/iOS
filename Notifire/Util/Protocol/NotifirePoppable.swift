@@ -26,6 +26,7 @@ extension NotifireAlertPresenting {
     func present(alert: NotifireAlertViewController, animated: Bool, completion: (() -> Void)?) {
         alert.transitioningDelegate = self
         alert.modalPresentationStyle = .overFullScreen
+        poppablePresentingViewController.view.endEditing(true)
         poppablePresentingViewController.present(alert, animated: animated, completion: completion)
     }
 

@@ -66,16 +66,21 @@ class RootViewController: VMViewController<RootViewModel>, NotifireAlertPresenti
         } else {
             alertVC.alertTitle = "New version available!"
             alertVC.alertText = "You can download a new version (\(latestVersion)) of Notifire on the App Store."
-            alertVC.add(action: NotifireAlertAction(title: "Turn off these alerts", style: .neutral, handler: { [unowned alertVC, weak self] _ in
-                if let session = self?.viewModel.currentSessionHandler?.userSession {
+            // Only add this option if a user is logged in == session is not nil
+            if let session = viewModel.currentSessionHandler?.userSession {
+                alertVC.add(action: NotifireAlertAction(title: "Turn off these alerts", style: .neutral, handler: { [unowned alertVC] _ in
                     session.settings.appUpdateReminderDisabled = true
-                }
-                alertVC.dismiss(animated: true, completion: nil)
-            }))
+                    alertVC.dismiss(animated: true, completion: nil)
+                }))
+            }
             alertVC.add(action: NotifireAlertAction(title: "Maybe later", style: .neutral, handler: { [unowned alertVC] _ in
                 alertVC.dismiss(animated: true, completion: nil)
             }))
         }
         present(alert: alertVC, animated: true, completion: nil)
+    }
+
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return animationController(forPresented: presented)
     }
 }
