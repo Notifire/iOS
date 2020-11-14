@@ -12,7 +12,6 @@ class NotificationsCoordinator: NavigatingChildCoordinator, TabbedCoordinator {
 
     // MARK: - Properties
     let notificationsViewController: NotificationsViewController
-    let realmProvider: RealmProviding
 
     // MARK: TabbedCoordinator
     var viewController: UIViewController {
@@ -24,7 +23,6 @@ class NotificationsCoordinator: NavigatingChildCoordinator, TabbedCoordinator {
 
     // MARK: - Initialization
     init(notificationsViewModel: NotificationsViewModel) {
-        self.realmProvider = notificationsViewModel.realmProvider
         let notificationsViewController = NotificationsViewController(viewModel: notificationsViewModel)
         self.notificationsViewController = notificationsViewController
     }
@@ -34,6 +32,7 @@ class NotificationsCoordinator: NavigatingChildCoordinator, TabbedCoordinator {
     }
 
     func showDetailed(notification: LocalNotifireNotification) {
+        let realmProvider = notificationsViewController.viewModel.realmProvider
         let notificationDetailVM = NotificationDetailViewModel(realmProvider: realmProvider, notification: notification)
         let notificationDetailVC = NotificationDetailViewController(viewModel: notificationDetailVM)
         notificationDetailVC.view.backgroundColor = .compatibleSystemBackground
@@ -51,6 +50,6 @@ extension NotificationsCoordinator: NotificationsViewControllerDelegate {
 
 extension NotificationsCoordinator: NotificationDetailViewModelDelegate {
     func onNotificationDeletion() {
-        parentNavigatingCoordinator?.removeLastCoordinator()
+        parentNavigatingCoordinator?.popChildCoordinator()
     }
 }

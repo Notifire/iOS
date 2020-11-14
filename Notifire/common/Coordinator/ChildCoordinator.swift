@@ -8,6 +8,8 @@
 
 import UIKit
 
+/// Describes Coordinators that will be presented or embedded into a parent Coordinator.
 protocol ChildCoordinator: Coordinator {
+    /// The `UIViewController` that will get presented by a parent Coordinator.
     var viewController: UIViewController { get }
 }

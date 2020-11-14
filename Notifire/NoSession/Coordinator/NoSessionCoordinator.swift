@@ -46,11 +46,11 @@ class NoSessionCoordinator: Coordinator {
         let loginVM = LoginViewModel(notifireApiManager: loginRegisterSplitterVC.viewModel.notifireApiManager)
         let loginVC = LoginViewController(viewModel: loginVM)
         loginVC.delegate = self
-        let loginCoordinator = LoginCoordinator(rootChildCoordinator: GenericCoordinator(viewController: loginVC))
-        loginCoordinator.parentCoordinator = self
-        loginCoordinator.start()
-        presentedCoordinator = loginCoordinator
-        noSessionContainerViewController.presentCoverVertical(viewController: loginCoordinator.viewController)
+        let loginCoordinator = LoginCoordinator(loginViewController: loginVC)
+        let loginNavigationCoordinator = NavigationCoordinator(rootChildCoordinator: loginCoordinator, navigationController: LoginNavigationController())
+        loginNavigationCoordinator.start()
+        presentedCoordinator = loginNavigationCoordinator
+        noSessionContainerViewController.presentCoverVertical(viewController: loginNavigationCoordinator.viewController)
     }
 
     func finishRegisterOrLoginFlow() {

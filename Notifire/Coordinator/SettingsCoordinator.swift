@@ -8,10 +8,13 @@
 
 import UIKit
 
-class SettingsCoordinator: TabbedCoordinator {
+class SettingsCoordinator: NavigatingChildCoordinator {
 
     // MARK: - Properties
     let settingsViewController: SettingsViewController
+
+    // MARK: NavigatingChildCoordinator
+    weak var parentNavigatingCoordinator: NavigatingCoordinator?
 
     // MARK: TabbedCoordinator
     var viewController: UIViewController {

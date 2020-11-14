@@ -8,13 +8,10 @@
 
 import UIKit
 
-class ServicesCoordinator: NavigationCoordinator<GenericCoordinator<ServicesViewController>> {
+class ServicesCoordinator: NavigatingChildCoordinator {
 
     // MARK: - Properties
-    var servicesViewController: ServicesViewController {
-        return rootChildCoordinator.rootViewController
-    }
-
+    let servicesViewController: ServicesViewController
     let userSessionHandler: UserSessionHandler
 
     private var presentedServiceController: ServiceViewController?
@@ -23,17 +20,22 @@ class ServicesCoordinator: NavigationCoordinator<GenericCoordinator<ServicesView
         return servicesViewController.viewModel.protectedApiManager
     }
 
-    // MARK: - Initialization
-    init(servicesNavigationController: UINavigationController, sessionHandler: UserSessionHandler) {
-        self.userSessionHandler = sessionHandler
-        let servicesViewModel = ServicesViewModel(sessionHandler: sessionHandler)
-        let rootVC = ServicesViewController(viewModel: servicesViewModel)
-        super.init(rootChildCoordinator: GenericCoordinator(viewController: rootVC), navigationController: servicesNavigationController)
+    // MARK: ChildCoordinator
+    var viewController: UIViewController {
+        return servicesViewController
     }
 
-    override func start() {
-        super.start()
-        delegate = self
+    // MARK: NavigatingChildCoordinator
+    weak var parentNavigatingCoordinator: NavigatingCoordinator?
+
+    // MARK: - Initialization
+    init(sessionHandler: UserSessionHandler) {
+        self.userSessionHandler = sessionHandler
+        let servicesViewModel = ServicesViewModel(sessionHandler: sessionHandler)
+        self.servicesViewController = ServicesViewController(viewModel: servicesViewModel)
+    }
+
+    func start() {
         servicesViewController.delegate = self
     }
 
@@ -41,7 +43,7 @@ class ServicesCoordinator: NavigationCoordinator<GenericCoordinator<ServicesView
         let serviceCreationVC = ServiceCreationViewController(viewModel: ServiceCreationViewModel(protectedApiManager: protectedApiManager))
         let serviceNavigation = NotifireActionNavigationController(rootViewController: serviceCreationVC)
         serviceCreationVC.delegate = self
-        navigationController.present(serviceNavigation, animated: true, completion: nil)
+        servicesViewController.present(serviceNavigation, animated: true, completion: nil)
     }
 
     func show(service: ServiceRepresentable) {
@@ -50,22 +52,25 @@ class ServicesCoordinator: NavigationCoordinator<GenericCoordinator<ServicesView
         serviceViewController.delegate = self
         presentedServiceController = serviceViewController
         let serviceCoordinator = ServiceCoordinator(serviceViewController: serviceViewController)
-        add(childCoordinator: serviceCoordinator, push: true)
+        parentNavigatingCoordinator?.add(childCoordinator: serviceCoordinator, push: true)
     }
 
-    func dismiss(service: LocalService) {
-        guard let serviceViewController = presentedServiceController, navigationController.topViewController == serviceViewController else { return }
-        navigationController.popViewController(animated: true)
+    func dismiss(serviceRepresentable: ServiceRepresentable) {
+        guard
+            let serviceViewController = presentedServiceController,
+            serviceViewController.viewModel.serviceRepresentable.isEqualTo(other: serviceRepresentable)
+        else { return }
+        parentNavigatingCoordinator?.popChildCoordinator(animated: true)
     }
 
     func dismissServiceCreation(service: Service? = nil) {
-        navigationController.dismiss(animated: true, completion: nil)
+        servicesViewController.dismiss(animated: true, completion: nil)
     }
 
     func showNotifications(service: LocalService) {
         let serviceNotificationsViewModel = ServiceNotificationsViewModel(realmProvider: userSessionHandler, service: service)
         let notificationsCoordinator = NotificationsCoordinator(notificationsViewModel: serviceNotificationsViewModel)
-        notificationsCoordinator.start()
+        parentNavigatingCoordinator?.add(childCoordinator: notificationsCoordinator)
     }
 }
 
@@ -82,7 +87,8 @@ extension ServicesCoordinator: ServicesViewControllerDelegate {
 
 extension ServicesCoordinator: ServiceViewControllerDelegate {
     func didDelete(service: LocalService) {
-        dismiss(service: service)
+        // FIXME: Add ServiceRepresentable instead of LocalService here
+        //dismiss(service: service)
     }
 
     func shouldShowNotifications(for service: LocalService) {
@@ -102,10 +108,6 @@ extension ServicesCoordinator: ServiceCreationDelegate {
 }
 
 extension ServicesCoordinator: NavigationCoordinatorDelegate {
-    func willAddChild(coordinator: ChildCoordinator) {
-
-    }
-
     func didRemoveChild(coordinator: ChildCoordinator) {
         guard
             coordinator.viewController === presentedServiceController,

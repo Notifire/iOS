@@ -283,6 +283,7 @@ class ServicesViewModel: APIFailable {
         for (index, snippet) in services.enumerated() where snippet is ServiceSnippet {
             guard snippet.id == local.id else { continue }
             services[index] = local
+            break
         }
     }
 

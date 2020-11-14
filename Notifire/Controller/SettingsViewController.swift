@@ -12,7 +12,13 @@ protocol SettingsViewControllerDelegate: class {
     func didTapLogoutButton()
 }
 
-class SettingsViewController: UIViewController {
+class SettingsViewModel {
+    var title: String {
+        return "Settings"
+    }
+}
+
+class SettingsViewController: VMViewController<SettingsViewModel>, NavigationBarDisplaying {
 
     // MARK: - Properties
     weak var delegate: SettingsViewControllerDelegate?
@@ -30,9 +36,12 @@ class SettingsViewController: UIViewController {
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = viewModel.title
+        hideNavigationBar()
         view.backgroundColor = .compatibleSystemBackground
 
         layout()
+        addNavigationBarSeparator()
     }
 
     // MARK: - Private

@@ -36,23 +36,18 @@ extension NavigatingCoordinator {
         }
         childCoordinators.append(childCoordinator)
         childCoordinator.start()
+
+        // call the didAddChild delegate method
+        defer { delegate?.didAddChild(coordinator: childCoordinator, pushed: push) }
+
         guard push else { return }
         navigationController.pushViewController(childCoordinator.viewController, animated: true)
     }
 
-    /// Removes a child coordinator from the coordinator hierarchy
-    func childDidFinish(_ child: ChildCoordinator?, childIndex: Int? = nil) {
-        for (index, coordinator) in childCoordinators.enumerated() where coordinator === child {
-            childCoordinators.remove(at: index)
-            delegate?.didRemoveChild(coordinator: coordinator)
-            break
-        }
-    }
-
     /// Removes the last coordinator that was added to the childCoordinator hierarchy.
     /// - Parameter animated: if the pop should be animated
-    func removeLastCoordinator(animated: Bool = true) {
-        navigationController.popViewController(animated: true)
+    func popChildCoordinator(animated: Bool = true) {
+        navigationController.popViewController(animated: animated)
     }
 
     /// Default implementation for `navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool)`
@@ -63,8 +58,11 @@ extension NavigatingCoordinator {
         // Guard that the navigation view controller hierarchy doesn't contain the fromViewController
         guard !navigationController.viewControllers.contains(fromViewController) else { return }
 
-        for childCoordinator in childCoordinators where childCoordinator.viewController === fromViewController {
-            childDidFinish(childCoordinator)
+        // Find the first childCoordinator that coordinates fromViewController
+        for (index, childCoordinator) in childCoordinators.enumerated() where childCoordinator.viewController === fromViewController {
+            // childDidFinish
+            childCoordinators.remove(at: index)
+            delegate?.didRemoveChild(coordinator: childCoordinator)
             break
         }
     }
@@ -74,9 +72,11 @@ extension NavigatingCoordinator {
 class NavigationCoordinator<RootChildCoordinator: ChildCoordinator>: NSObject, NavigatingCoordinator, UINavigationControllerDelegate, ChildCoordinator {
 
     // MARK: - Properties
-    var childCoordinators = [ChildCoordinator]()
     let navigationController: UINavigationController
     let rootChildCoordinator: RootChildCoordinator
+
+    /// Array of childCoordinators that are currently pushed on the navigation stack.
+    var childCoordinators = [ChildCoordinator]()
 
     var rootViewController: UIViewController {
         return rootChildCoordinator.viewController
@@ -99,9 +99,12 @@ class NavigationCoordinator<RootChildCoordinator: ChildCoordinator>: NSObject, N
     // MARK: - Lifecycle
     /// - Important: If you are overriding this method, always call the parent method (`super.start()`) first.
     open func start() {
+        // Set the UINavigationControllerDelegate
         navigationController.delegate = self
-        navigationController.setViewControllers([rootViewController], animated: false)
+        // Add root child coordinator
         add(childCoordinator: rootChildCoordinator)
+        // Set the rootVC for the navigationContoller
+        navigationController.setViewControllers([rootViewController], animated: false)
     }
 
     // MARK: - UINavigationControllerDelegate

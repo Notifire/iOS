@@ -41,11 +41,17 @@ class SessionCoordinator: SectioningCoordinator {
         case .services:
             let servicesNavigationController = NotifireNavigationController()
             servicesNavigationController.navigationBar.isTranslucent = false
-            childCoordinator = ServicesCoordinator(servicesNavigationController: servicesNavigationController, sessionHandler: userSessionHandler)
+            let servicesCoordinator = ServicesCoordinator(sessionHandler: userSessionHandler)
+            let navigationCoordinator = NavigationCoordinator(rootChildCoordinator: servicesCoordinator, navigationController: servicesNavigationController)
+            navigationCoordinator.delegate = servicesCoordinator
+            childCoordinator = navigationCoordinator
         case .settings:
-            let settingsViewController = SettingsViewController()
+            let settingsNavigationController = NotifireNavigationController()
+            let settingsViewModel = SettingsViewModel()
+            let settingsViewController = SettingsViewController(viewModel: settingsViewModel)
             settingsViewController.delegate = self
-            childCoordinator = SettingsCoordinator(settingsViewController: settingsViewController)
+            let settingsCoordinator = SettingsCoordinator(settingsViewController: settingsViewController)
+            childCoordinator = NavigationCoordinator(rootChildCoordinator: settingsCoordinator, navigationController: settingsNavigationController)
         }
         return childCoordinator
     }

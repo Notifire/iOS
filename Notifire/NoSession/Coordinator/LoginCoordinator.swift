@@ -8,24 +8,26 @@
 
 import UIKit
 
-class LoginCoordinator: NavigationCoordinator<GenericCoordinator<LoginViewController>> {
+class LoginCoordinator: NavigatingChildCoordinator {
 
     // MARK: - Properties
-    weak var parentCoordinator: NoSessionCoordinator?
+    let loginViewController: LoginViewController
 
-    var loginViewController: LoginViewController {
-        return rootChildCoordinator.rootViewController
+    // MARK: ChildCoordinator
+    var viewController: UIViewController {
+        return loginViewController
     }
 
+    // MARK: NavigatingChildCoordinator
+    weak var parentNavigatingCoordinator: NavigatingCoordinator?
+
     // MARK: - Initialization
-    override init(rootChildCoordinator: GenericCoordinator<LoginViewController>, navigationController: UINavigationController = UINavigationController()) {
-        super.init(rootChildCoordinator: rootChildCoordinator, navigationController: LoginNavigationController())
+    init(loginViewController: LoginViewController) {
+        self.loginViewController = loginViewController
     }
 
     // MARK: - Coordinator
-    override func start() {
-        super.start()
-
+    func start() {
         loginViewController.onForgotPassword = { [weak self] in
             self?.startForgotPasswordFlow()
         }
@@ -35,6 +37,6 @@ class LoginCoordinator: NavigationCoordinator<GenericCoordinator<LoginViewContro
         let forgotPWVM = ForgotPasswordViewModel(maybeEmail: loginViewController.emailTextInput.validatableInput)
         let forgotPWVC = ForgotPasswordViewController(viewModel: forgotPWVM)
         let forgotPWCoordinator = ForgotPasswordCoordinator(forgotPasswordViewController: forgotPWVC)
-        add(childCoordinator: forgotPWCoordinator, push: true )
+        parentNavigatingCoordinator?.add(childCoordinator: forgotPWCoordinator, push: true)
     }
 }
