@@ -172,10 +172,23 @@ extension ValidatableTextInput: UITextFieldDelegate {
         let newLength = currentText.count + string.count - range.length
         return newLength <= allowedMaxLength
     }
+}
 
-    // TODO: If this returns false, the textfield can't resignFirstResponder.
-    // Use this to avoid hiding the keyboard in some VCs (e.g. ForgotPasswordViewController)
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        return false
-//    }
+extension ValidatableTextInput {
+
+    /// Create ValidatableTextInput for a password entry textfield.
+    static func createPasswordTextInput<VM: InputValidatingViewModel>(textFieldType: CustomTextField.Type, newPasswordTextContentType: Bool, placeholderText: String, rules: [ComponentRule] = ComponentRule.passwordRules, viewModel: VM, bindableKeyPath: ReferenceWritableKeyPath<VM, String>) -> ValidatableTextInput {
+        let textField = textFieldType.init()
+        textField.isSecureTextEntry = true
+        if #available(iOS 12.0, *), newPasswordTextContentType {
+            textField.textContentType = .newPassword
+        } else {
+            textField.textContentType = .password
+        }
+        textField.setPlaceholder(text: placeholderText)
+        let input = ValidatableTextInput(textField: textField)
+        input.rules = rules
+        input.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: bindableKeyPath)
+        return input
+    }
 }

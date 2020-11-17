@@ -28,7 +28,7 @@ class CustomTextField: UITextField {
     private var lastAppearance: Appearance?
 
     // MARK: - Inherited
-    init() {
+    required init() {
         super.init(frame: .zero)
         privateSetup()
     }

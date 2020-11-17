@@ -8,129 +8,6 @@
 
 import UIKit
 
-protocol TitleProviding {
-    var title: String { get }
-}
-
-class LoadingModel {
-
-    // MARK: - Properties
-    public var isLoading: Bool = false {
-           didSet {
-               guard oldValue != isLoading else { return }
-               onLoadingChange?(isLoading)
-           }
-       }
-
-    public var onLoadingChange: ((Bool) -> Void)?
-
-    public func toggle() {
-        isLoading = !isLoading
-    }
-}
-
-protocol SuccessAlertDataProviding {
-    var onSuccess: (() -> Void)? { get set }
-
-    // Alert
-    /// The title of the alert
-    var successAlertTitle: String? { get }
-    /// The text for the alert
-    var successAlertText: String? { get }
-    /// If the view should be dismissed after pressing OK.
-    var shouldDismissViewAfterSuccessOk: Bool { get }
-}
-
-extension SuccessAlertDataProviding {
-    var successAlertTitle: String? {
-        return nil
-    }
-
-    var successAlertText: String? {
-        return nil
-    }
-}
-
-class ChangePasswordCoordinator: GenericSuccessCoordinator<ChangePasswordViewController>, NavigatingChildCoordinator {
-
-    // MARK: - Properties
-    // MARK: NavigatingChildCoordinator
-    var parentNavigatingCoordinator: NavigatingCoordinator?
-
-    // MARK: Inherited
-    override func dismissAfterSuccessOk() {
-        parentNavigatingCoordinator?.popChildCoordinator()
-    }
-}
-
-class ChangePasswordViewModel: InputValidatingViewModel, SuccessAlertDataProviding, TitleProviding, APIErrorProducing, UserErrorProducing {
-
-    // MARK: - Properties
-    let sessionHandler: UserSessionHandler
-
-    var oldPassword = ""
-    var newPassword = ""
-    var newPassword2 = ""
-
-    /// `true` if this was the first appearance of the view
-    var isFirstAppearance = true
-
-    let loadingModel = LoadingModel()
-
-    // MARK: TitleProviding
-    var title: String {
-        return "Password"
-    }
-
-    // MARK: APIErrorProducing
-    var onError: ((NotifireAPIError) -> Void)?
-
-    // MARK: UserErrorFailable
-    typealias UserError = ChangePasswordUserError
-    var onUserError: ((ChangePasswordUserError) -> Void)?
-
-    // MARK: SuccessAlertDataProviding
-    var onSuccess: (() -> Void)?
-    var shouldDismissViewAfterSuccessOk: Bool {
-        return true
-    }
-
-    var successAlertText: String? {
-        return "You have successfully changed your password!"
-    }
-
-    // MARK: - Initialization
-    init(sessionHandler: UserSessionHandler) {
-        self.sessionHandler = sessionHandler
-        super.init()
-    }
-
-    // MARK: - Public
-    func saveNewPassword() {
-        guard allComponentsValidated, !loadingModel.isLoading else { return }
-        loadingModel.toggle()
-
-        sessionHandler.notifireProtectedApiManager.change(oldPassword: oldPassword, to: newPassword2) { [weak self] result in
-            guard let `self` = self else { return }
-            self.loadingModel.toggle()
-            switch result {
-            case .error(let error):
-                self.onError?(error)
-            case .success(let response):
-                if let payload = response.payload {
-                    self.sessionHandler.updateUserSession(
-                        refreshToken: payload.refreshToken,
-                        accessToken: payload.accessToken
-                    )
-                    self.onSuccess?()
-                } else if let userError = response.error {
-                    self.onUserError?(userError.code)
-                }
-            }
-        }
-    }
-}
-
 class ChangePasswordViewController: VMViewController<ChangePasswordViewModel>, NotifireAlertPresenting, CenterStackViewPresenting, UserErrorResponding, APIErrorResponding, APIErrorPresenting {
 
     // MARK: - Properties
@@ -141,52 +18,34 @@ class ChangePasswordViewController: VMViewController<ChangePasswordViewModel>, N
     lazy var textFieldReturnChainer = TextFieldReturnChainer(textFields: textFields)
 
     // MARK: Text inputs
-    lazy var oldPasswordTextInput: ValidatableTextInput = {
-        let passwordTextField = BottomBarTextField()
-        passwordTextField.isSecureTextEntry = true
-        passwordTextField.textContentType = .password
-        passwordTextField.setPlaceholder(text: "Current password")
-        let input = ValidatableTextInput(textField: passwordTextField)
-        input.rules = ComponentRule.passwordRules
-        input.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: \.oldPassword)
-        return input
-    }()
+    lazy var oldPasswordTextInput = ValidatableTextInput.createPasswordTextInput(
+        textFieldType: BottomBarTextField.self,
+        newPasswordTextContentType: false,
+        placeholderText: "Current password",
+        viewModel: viewModel,
+        bindableKeyPath: \.oldPassword
+    )
 
-    lazy var newPasswordTextInput: ValidatableTextInput = {
-        let passwordTextField = BottomBarTextField()
-        passwordTextField.isSecureTextEntry = true
-        if #available(iOS 12.0, *) {
-            passwordTextField.textContentType = .newPassword
-        } else {
-            passwordTextField.textContentType = .password
-        }
-        passwordTextField.setPlaceholder(text: "New password")
-        let input = ValidatableTextInput(textField: passwordTextField)
-        input.rules = ComponentRule.passwordRules + [
+    lazy var newPasswordTextInput = ValidatableTextInput.createPasswordTextInput(
+        textFieldType: BottomBarTextField.self,
+        newPasswordTextContentType: true,
+        placeholderText: "New password",
+        rules: ComponentRule.passwordRules + [
             ComponentRule(kind: .notEqualToComponent(oldPasswordTextInput), showIfBroken: true, brokenRuleDescription: "New password must be different.")
-        ]
-        input.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: \.newPassword)
-        return input
-    }()
+        ],
+        viewModel: viewModel, bindableKeyPath: \.newPassword
+    )
 
-    lazy var newPassword2TextInput: ValidatableTextInput = {
-        let passwordTextField = BottomBarTextField()
-        passwordTextField.isSecureTextEntry = true
-        if #available(iOS 12.0, *) {
-            passwordTextField.textContentType = .newPassword
-        } else {
-            passwordTextField.textContentType = .password
-        }
-        passwordTextField.returnKeyType = .done
-        passwordTextField.setPlaceholder(text: "New password, again")
-        let input = ValidatableTextInput(textField: passwordTextField)
-        input.rules = ComponentRule.passwordRules + [
+    lazy var newPassword2TextInput = ValidatableTextInput.createPasswordTextInput(
+        textFieldType: BottomBarTextField.self,
+        newPasswordTextContentType: true,
+        placeholderText: "New password, again",
+        rules: ComponentRule.passwordRules + [
             ComponentRule(kind: .notEqualToComponent(oldPasswordTextInput), showIfBroken: true, brokenRuleDescription: "New password must be different."),
             ComponentRule(kind: .equalToComponent(newPasswordTextInput), showIfBroken: true, brokenRuleDescription: "New passwords are different")
-        ]
-        input.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: \.newPassword2)
-        return input
-    }()
+        ],
+        viewModel: viewModel, bindableKeyPath: \.newPassword2
+    )
 
     // MARK: NavBar buttons
     lazy var saveBarButton: UIBarButtonItem = {

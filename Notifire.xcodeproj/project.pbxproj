@@ -147,6 +147,16 @@
 		8936E3C2256333E7007424A7 /* ViewModelled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3C0256333E7007424A7 /* ViewModelled.swift */; };
 		8936E3C425633766007424A7 /* GenericSuccessCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3C325633766007424A7 /* GenericSuccessCoordinator.swift */; };
 		8936E3C525633766007424A7 /* GenericSuccessCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3C325633766007424A7 /* GenericSuccessCoordinator.swift */; };
+		8936E3C82563594E007424A7 /* TitleProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3C72563594E007424A7 /* TitleProviding.swift */; };
+		8936E3C92563594E007424A7 /* TitleProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3C72563594E007424A7 /* TitleProviding.swift */; };
+		8936E3CC2563599A007424A7 /* LoadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3CB2563599A007424A7 /* LoadingModel.swift */; };
+		8936E3CD2563599A007424A7 /* LoadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3CB2563599A007424A7 /* LoadingModel.swift */; };
+		8936E3CF256359C7007424A7 /* SuccessAlertDataProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3CE256359C7007424A7 /* SuccessAlertDataProviding.swift */; };
+		8936E3D0256359C7007424A7 /* SuccessAlertDataProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3CE256359C7007424A7 /* SuccessAlertDataProviding.swift */; };
+		8936E3D2256359E1007424A7 /* ChangePasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3D1256359E1007424A7 /* ChangePasswordCoordinator.swift */; };
+		8936E3D3256359E1007424A7 /* ChangePasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3D1256359E1007424A7 /* ChangePasswordCoordinator.swift */; };
+		8936E3D5256359F4007424A7 /* ChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3D4256359F4007424A7 /* ChangePasswordViewModel.swift */; };
+		8936E3D6256359F4007424A7 /* ChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3D4256359F4007424A7 /* ChangePasswordViewModel.swift */; };
 		8939957F216FE4D800687A79 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939957E216FE4D800687A79 /* Coordinator.swift */; };
 		89399581216FE4E900687A79 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399580216FE4E900687A79 /* AppCoordinator.swift */; };
 		89399585216FEFD500687A79 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399584216FEFD500687A79 /* UIViewExtension.swift */; };
@@ -781,6 +791,11 @@
 		8936E3BD256333D7007424A7 /* ViewModelRepresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelRepresenting.swift; sourceTree = "<group>"; };
 		8936E3C0256333E7007424A7 /* ViewModelled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelled.swift; sourceTree = "<group>"; };
 		8936E3C325633766007424A7 /* GenericSuccessCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericSuccessCoordinator.swift; sourceTree = "<group>"; };
+		8936E3C72563594E007424A7 /* TitleProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleProviding.swift; sourceTree = "<group>"; };
+		8936E3CB2563599A007424A7 /* LoadingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModel.swift; sourceTree = "<group>"; };
+		8936E3CE256359C7007424A7 /* SuccessAlertDataProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessAlertDataProviding.swift; sourceTree = "<group>"; };
+		8936E3D1256359E1007424A7 /* ChangePasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordCoordinator.swift; sourceTree = "<group>"; };
+		8936E3D4256359F4007424A7 /* ChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModel.swift; sourceTree = "<group>"; };
 		8939957E216FE4D800687A79 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		89399580216FE4E900687A79 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		89399584216FEFD500687A79 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
@@ -1094,6 +1109,7 @@
 			isa = PBXGroup;
 			children = (
 				893995AB2170EDF300687A79 /* SettingsCoordinator.swift */,
+				8936E3D1256359E1007424A7 /* ChangePasswordCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -1221,6 +1237,7 @@
 		89250A1225004E9900F00630 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				8936E3C625635935007424A7 /* View Model Protocols */,
 				892DC0C92560A0570067EB12 /* TableView */,
 				89D4E1F42139F43E00630790 /* NotificationObserving.swift */,
 				897069E12134051E00D798AA /* KeyboardObserving.swift */,
@@ -1228,8 +1245,6 @@
 				894B1F962505DA3300D0D671 /* NavigationBar */,
 				894B1F952505DA2800D0D671 /* Reselectable */,
 				899C07162551E2E00005228E /* NavigationCoordinatorDelegate.swift */,
-				8936E3BD256333D7007424A7 /* ViewModelRepresenting.swift */,
-				8936E3C0256333E7007424A7 /* ViewModelled.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1276,6 +1291,7 @@
 		89250B2224FEEB6900BC7C2C /* common */ = {
 			isa = PBXGroup;
 			children = (
+				8936E3CA25635993007424A7 /* Model */,
 				89E6B6C624FF209600F7A79C /* View */,
 				8936E3B52562E66A007424A7 /* ViewModel */,
 				89250B2324FEEB7000BC7C2C /* ViewController */,
@@ -1362,6 +1378,7 @@
 			isa = PBXGroup;
 			children = (
 				892DC0AB256074EC0067EB12 /* SettingsViewModel.swift */,
+				8936E3D4256359F4007424A7 /* ChangePasswordViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1581,6 +1598,25 @@
 				893995A02170ED9700687A79 /* TabBarViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8936E3C625635935007424A7 /* View Model Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8936E3BD256333D7007424A7 /* ViewModelRepresenting.swift */,
+				8936E3C0256333E7007424A7 /* ViewModelled.swift */,
+				8936E3C72563594E007424A7 /* TitleProviding.swift */,
+				8936E3CE256359C7007424A7 /* SuccessAlertDataProviding.swift */,
+			);
+			path = "View Model Protocols";
+			sourceTree = "<group>";
+		};
+		8936E3CA25635993007424A7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8936E3CB2563599A007424A7 /* LoadingModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		8939958A216FF3FC00687A79 /* Session */ = {
@@ -2884,6 +2920,7 @@
 				89576AA824FD412A0097BF87 /* ChoiceSeparatorView.swift in Sources */,
 				89576AA924FD412A0097BF87 /* NoSessionContainerViewController.swift in Sources */,
 				89576AAA24FD412A0097BF87 /* ServiceAPIKeyTableViewCell.swift in Sources */,
+				8936E3D0256359C7007424A7 /* SuccessAlertDataProviding.swift in Sources */,
 				89576AAB24FD412A0097BF87 /* Coordinator.swift in Sources */,
 				89576AAC24FD412A0097BF87 /* NotifireNavigationController.swift in Sources */,
 				895A3B8D25008A26000A7B50 /* UIImage+Resize.swift in Sources */,
@@ -3026,10 +3063,13 @@
 				895A3B8A25006DC5000A7B50 /* LoginRegisterSplitterViewModel.swift in Sources */,
 				894B1F9D2505DE0E00D0D671 /* TabBarViewControllerDelegate.swift in Sources */,
 				893A4A842530D42800DD02D0 /* RealmObjectObserver.swift in Sources */,
+				8936E3C92563594E007424A7 /* TitleProviding.swift in Sources */,
+				8936E3D3256359E1007424A7 /* ChangePasswordCoordinator.swift in Sources */,
 				89576AF924FD412A0097BF87 /* BaseButton.swift in Sources */,
 				89576AFA24FD412A0097BF87 /* RealmProviding.swift in Sources */,
 				89576AFB24FD412A0097BF87 /* URLRequestExtension.swift in Sources */,
 				895418FD251CAA660046464D /* GetServicesBatchOperation.swift in Sources */,
+				8936E3D6256359F4007424A7 /* ChangePasswordViewModel.swift in Sources */,
 				89576AFC24FD412A0097BF87 /* BaseViewController.swift in Sources */,
 				89576AFD24FD412A0097BF87 /* UIViewExtension.swift in Sources */,
 				896168012501B3A3007BF3F1 /* UIView+Embed.swift in Sources */,
@@ -3106,6 +3146,7 @@
 				892DC083255DDB270067EB12 /* UserSessionSettings.swift in Sources */,
 				89576B2024FD412A0097BF87 /* CAPersistentAnimationsLayer.swift in Sources */,
 				89576B2124FD412A0097BF87 /* Theme.swift in Sources */,
+				8936E3CD2563599A007424A7 /* LoadingModel.swift in Sources */,
 				89576B2224FD412A0097BF87 /* NotificationTableViewCell.swift in Sources */,
 				89576B2324FD412A0097BF87 /* NotificationsCoordinator.swift in Sources */,
 				893B90232512B99A0056DBF9 /* UITableView+Reusable.swift in Sources */,
@@ -3213,6 +3254,7 @@
 				89D4E1FA2139F94000630790 /* BaseLayer.swift in Sources */,
 				8920CA74217144DF00A72BD0 /* NavigationActionViewController.swift in Sources */,
 				89B3EC7320232A310068BA64 /* LoginViewController.swift in Sources */,
+				8936E3D5256359F4007424A7 /* ChangePasswordViewModel.swift in Sources */,
 				892DC0A6255F01C70067EB12 /* ServiceCoordinator.swift in Sources */,
 				89D616A52505A7DD00287331 /* UserSessionManager+UserSessionHandler.swift in Sources */,
 				8949EBDE251189F00045D1A7 /* RegisterSuccessViewModel.swift in Sources */,
@@ -3240,7 +3282,9 @@
 				8939958E2170011100687A79 /* SplashView.swift in Sources */,
 				893A4A5F2530BA8700DD02D0 /* WebSocketOperationType.swift in Sources */,
 				8948F57421A0C00000BB6E10 /* NotifirePoppable.swift in Sources */,
+				8936E3CF256359C7007424A7 /* SuccessAlertDataProviding.swift in Sources */,
 				89E6B6C424FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */,
+				8936E3C82563594E007424A7 /* TitleProviding.swift in Sources */,
 				89541911251CB92F0046464D /* Logger+Init.swift in Sources */,
 				895637B6255517A0005E4A4E /* ServiceChangeEvent.swift in Sources */,
 				892DC07F255DDAD30067EB12 /* UserDefault.swift in Sources */,
@@ -3362,6 +3406,7 @@
 				8920CA772171578900A72BD0 /* CenterStackPresenting.swift in Sources */,
 				89A9048321B8589300D262E1 /* IndicatorStackView.swift in Sources */,
 				89541917251CD1670046464D /* UpdateServiceRepresentablesOperation.swift in Sources */,
+				8936E3D2256359E1007424A7 /* ChangePasswordCoordinator.swift in Sources */,
 				894B1F932505DA1A00D0D671 /* Reselectable.swift in Sources */,
 				89D4E1FE2139FD3E00630790 /* MultiplePathAnimator.swift in Sources */,
 				892DC0B02560750B0067EB12 /* SettingsViewControllerDelegate.swift in Sources */,
@@ -3402,6 +3447,7 @@
 				894B1F8C2505D69900D0D671 /* ChildViewControllerContainerProviding.swift in Sources */,
 				8922E26D219F3CF6001984C4 /* RealmCollectionViewModel.swift in Sources */,
 				8933F0C82141D0C000645B3A /* RootViewController.swift in Sources */,
+				8936E3CC2563599A007424A7 /* LoadingModel.swift in Sources */,
 				8933F0B9214131F900645B3A /* ValidatableComponentState.swift in Sources */,
 				89BDADE5217A5C5B000E38FC /* ServicesViewModel.swift in Sources */,
 				8939958C216FF40A00687A79 /* UserSessionManager.swift in Sources */,
