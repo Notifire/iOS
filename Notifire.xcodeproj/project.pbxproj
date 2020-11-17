@@ -2390,7 +2390,8 @@
 			buildConfigurationList = 89B3EC652020E4900068BA64 /* Build configuration list for PBXNativeTarget "Notifire" */;
 			buildPhases = (
 				D0CFEE0675E3A6E153F3DE71 /* [CP] Check Pods Manifest.lock */,
-				89250AFF24FE6B0B00BC7C2C /* Run Script */,
+				890F7FD1256483860037BB5B /* Add Config+Secrets.swift */,
+				89250AFF24FE6B0B00BC7C2C /* Swiftlint */,
 				89B3EC412020E4900068BA64 /* Sources */,
 				89B3EC422020E4900068BA64 /* Frameworks */,
 				89B3EC432020E4900068BA64 /* Resources */,
@@ -2398,7 +2399,7 @@
 				62889FEA49136180BFBE6193 /* [CP] Embed Pods Frameworks */,
 				E3BEC60BA3178E138421AB99 /* [CP] Copy Pods Resources */,
 				896ADD792506DBB500EE7B51 /* Embed Frameworks */,
-				89250B0D24FE6FC100BC7C2C /* ShellScript */,
+				89250B0D24FE6FC100BC7C2C /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -2699,7 +2700,27 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ -f ${SRCROOT}/.env.default ]\nthen\n    set -o allexport\n    source ${SRCROOT}/.env.default\n    set +o allexport\nelse\n    echo \".env.default file not found, please create it in the root directory.\"\n    exit 1\nfi\nruby ${SRCROOT}/scripts/create_config_secrets_extension.rb\n";
 		};
-		89250AFF24FE6B0B00BC7C2C /* Run Script */ = {
+		890F7FD1256483860037BB5B /* Add Config+Secrets.swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/scripts/create_config_secrets_extension.rb",
+			);
+			name = "Add Config+Secrets.swift";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Notifire/Config/Config+Secrets.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f ${SRCROOT}/.env.default ]\nthen\n    set -o allexport\n    source ${SRCROOT}/.env.default\n    set +o allexport\nelse\n    echo \".env.default file not found, please create it in the root directory.\"\n    exit 1\nfi\n\nruby ${SRCROOT}/scripts/create_config_secrets_extension.rb\n";
+		};
+		89250AFF24FE6B0B00BC7C2C /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2708,7 +2729,7 @@
 			);
 			inputPaths = (
 			);
-			name = "Run Script";
+			name = Swiftlint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -2735,7 +2756,7 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint autocorrect && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		89250B0D24FE6FC100BC7C2C /* ShellScript */ = {
+		89250B0D24FE6FC100BC7C2C /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2746,6 +2767,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
 			);
+			name = Carthage;
 			outputFileListPaths = (
 			);
 			outputPaths = (
