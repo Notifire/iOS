@@ -42,7 +42,7 @@ class ChangePasswordViewController: VMViewController<ChangePasswordViewModel>, N
         placeholderText: "New password, again",
         rules: ComponentRule.passwordRules + [
             ComponentRule(kind: .notEqualToComponent(oldPasswordTextInput), showIfBroken: true, brokenRuleDescription: "New password must be different."),
-            ComponentRule(kind: .equalToComponent(newPasswordTextInput), showIfBroken: true, brokenRuleDescription: "New passwords are different")
+            ComponentRule(kind: .equalToComponent(newPasswordTextInput), showIfBroken: true, brokenRuleDescription: "New passwords are different.")
         ],
         viewModel: viewModel, bindableKeyPath: \.newPassword2
     )
