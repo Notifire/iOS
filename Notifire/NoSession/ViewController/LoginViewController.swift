@@ -30,9 +30,11 @@ class LoginViewController: VMViewController<LoginViewModel>, AppRevealing, Keybo
     var keyboardObserverHandler = KeyboardObserverHandler()
 
     // MARK: Static
-    static let notifireBackgroundViewHeightInRelationToViewHeight: CGFloat = 0.28
+    static let notifireBackgroundViewHeightToViewHeight: CGFloat = 0.28
 
-    // MARK: Views
+    // MARK: UI
+    lazy var textFieldReturnChainer = TextFieldReturnChainer(textFields: [emailTextInput.textField, passwordTextInput.textField])
+
     let notifireBackgroundView = NotifireBackgroundView()
 
     let headerLabel: UILabel = {
@@ -57,17 +59,13 @@ class LoginViewController: VMViewController<LoginViewModel>, AppRevealing, Keybo
         return input
     }()
 
-    lazy var passwordTextInput: ValidatableTextInput = {
-        let passwordTextField = BorderedTextField()
-        passwordTextField.isSecureTextEntry = true
-        passwordTextField.returnKeyType = .done
-        passwordTextField.textContentType = .password
-        passwordTextField.setPlaceholder(text: "Enter your password")
-        let input = ValidatableTextInput(textField: passwordTextField)
-        input.rules = ComponentRule.passwordRules
-        input.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: \.password)
-        return input
-    }()
+    lazy var passwordTextInput = ValidatableTextInput.createPasswordTextInput(
+        textFieldType: BorderedTextField.self,
+        newPasswordTextContentType: false,
+        placeholderText: "Enter your password",
+        viewModel: viewModel,
+        bindableKeyPath: \.password
+    )
 
     lazy var forgotPasswordContainerView = ConstrainableView()
 
@@ -97,7 +95,9 @@ class LoginViewController: VMViewController<LoginViewModel>, AppRevealing, Keybo
         setupSubviews()
         hideNavigationBarBackButtonText()
         startObservingNotifications()
-        setupUserEvents()
+        textFieldReturnChainer.onFinalReturn = { [weak self] in
+            self?.viewModel.login()
+        }
         prepareViewModel()
     }
 
@@ -149,9 +149,9 @@ class LoginViewController: VMViewController<LoginViewModel>, AppRevealing, Keybo
         notifireBackgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         notifireBackgroundView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor).isActive = true
         notifireBackgroundView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
-        animatedViewNormalHeightConstraint = notifireBackgroundView.heightAnchor.constraint(lessThanOrEqualTo: view.heightAnchor, multiplier: LoginViewController.notifireBackgroundViewHeightInRelationToViewHeight)
+        animatedViewNormalHeightConstraint = notifireBackgroundView.heightAnchor.constraint(lessThanOrEqualTo: view.heightAnchor, multiplier: LoginViewController.notifireBackgroundViewHeightToViewHeight)
         animatedViewNormalHeightConstraint.isActive = true
-        backgroundViewExpandedHeightConstraint = notifireBackgroundView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: LoginViewController.notifireBackgroundViewHeightInRelationToViewHeight)
+        backgroundViewExpandedHeightConstraint = notifireBackgroundView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: LoginViewController.notifireBackgroundViewHeightToViewHeight)
         backgroundViewExpandedHeightConstraint.priority = .init(300)
         backgroundViewExpandedHeightConstraint.isActive = true
 
@@ -202,13 +202,6 @@ class LoginViewController: VMViewController<LoginViewModel>, AppRevealing, Keybo
         keyboardObserverHandler.keyboardExpandedConstraints = [stackViewKeyboardBottomConstraint]
     }
 
-    private func setupUserEvents() {
-        let textFields = [emailTextInput.textField, passwordTextInput.textField]
-        textFields.forEach {
-            $0.addTarget(self, action: #selector(didStopEditing(textField:)), for: .editingDidEndOnExit)
-        }
-    }
-
     private func prepareViewModel() {
         viewModel.createComponentValidator(with: [emailTextInput, passwordTextInput])
 
@@ -236,15 +229,6 @@ class LoginViewController: VMViewController<LoginViewModel>, AppRevealing, Keybo
     }
 
     // MARK: - Event Handlers
-    // MARK: TextField
-    @objc func didStopEditing(textField: UITextField) {
-        if textField == emailTextInput.textField {
-            passwordTextInput.textField.becomeFirstResponder()
-        } else {
-            viewModel.login()
-        }
-    }
-
     @objc private func didPressCloseButton() {
         view.endEditing(true)
         delegate?.shouldDismissLogin()

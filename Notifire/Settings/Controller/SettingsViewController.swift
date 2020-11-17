@@ -54,7 +54,7 @@ class SettingsViewController: VMViewController<SettingsViewModel>, NavigationBar
         logoutAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { _ in
             logoutAlert.dismiss(animated: true, completion: nil)
         }))
-        logoutAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
+        logoutAlert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
             self.delegate?.didSelectLogoutButton()
         }))
         present(logoutAlert, animated: true, completion: nil)

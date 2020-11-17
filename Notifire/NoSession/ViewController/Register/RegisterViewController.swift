@@ -19,6 +19,8 @@ class RegisterViewController: VMViewController<RegisterViewModel>, BottomNavigat
     weak var delegate: RegisterViewControllerDelegate?
 
     // MARK: UI
+    lazy var textFieldReturnChainer = TextFieldReturnChainer(textFields: [emailTextInput.textField, passwordTextInput.textField])
+
     let signUpButton: NotifireButton = {
         let button = NotifireButton()
         button.isEnabled = false
@@ -37,19 +39,13 @@ class RegisterViewController: VMViewController<RegisterViewModel>, BottomNavigat
         return input
     }()
 
-    lazy var passwordTextInput: ValidatableTextInput = {
-        let textField = BorderedTextField()
-        textField.isSecureTextEntry = true
-        textField.returnKeyType = .done
-        textField.setPlaceholder(text: "Password")
-        let input = ValidatableTextInput(textField: textField)
-        input.rules = [
-            ComponentRule(kind: .minimum(length: 5), showIfBroken: false),
-            ComponentRule(kind: .maximum(length: Settings.Text.maximumPasswordLength), showIfBroken: true)
-        ]
-        input.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: \.password)
-        return input
-    }()
+    lazy var passwordTextInput = ValidatableTextInput.createPasswordTextInput(
+        textFieldType: BorderedTextField.self,
+        newPasswordTextContentType: true,
+        placeholderText: "Password",
+        viewModel: viewModel,
+        bindableKeyPath: \.password
+    )
 
     // MARK: BottomNavigatorLabelContaining
     lazy var bottomNavigator: UIView = defaultBottomNavigatorView()
@@ -101,12 +97,12 @@ class RegisterViewController: VMViewController<RegisterViewModel>, BottomNavigat
     }
 
     private func setupUserEvents() {
-         addKeyboardDismissOnTap(to: view)
+        addKeyboardDismissOnTap(to: view)
 
-        let textFields = [emailTextInput.textField, passwordTextInput.textField]
-         textFields.forEach {
-             $0.addTarget(self, action: #selector(didStopEditing(textField:)), for: .editingDidEndOnExit)
-         }
+        textFieldReturnChainer.onFinalReturn = { [weak self] in
+            self?.dismissKeyboard()
+            self?.viewModel.register()
+        }
 
         signUpButton.onProperTap = { [unowned self] _ in // unowned when we are tapping
             self.dismissKeyboard()
