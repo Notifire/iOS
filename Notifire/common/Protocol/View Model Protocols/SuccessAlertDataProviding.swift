@@ -23,11 +23,9 @@ protocol SuccessAlertDataProviding {
 
 // MARK: Default Implementation
 extension SuccessAlertDataProviding {
-    var successAlertTitle: String? {
-        return nil
-    }
+    var successAlertTitle: String? { return nil }
 
-    var successAlertText: String? {
-        return nil
-    }
+    var successAlertText: String? { return nil }
+
+    var shouldDismissViewAfterSuccessOk: Bool { return false }
 }

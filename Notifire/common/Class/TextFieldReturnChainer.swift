@@ -35,6 +35,10 @@ class TextFieldReturnChainer {
         }
     }
 
+    convenience init(textField: UITextField, setLastReturnKeyTypeToDone: Bool = true) {
+        self.init(textFields: [textField], setLastReturnKeyTypeToDone: setLastReturnKeyTypeToDone)
+    }
+
     // MARK: - Private
     /// Handle 'return' press
     @objc private func didStopEditing(textField: UITextField) {

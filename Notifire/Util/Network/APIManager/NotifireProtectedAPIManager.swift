@@ -113,11 +113,20 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
     func change(oldPassword: String, to newPassword: String, completion: @escaping Callback<ChangePasswordResponse>) {
         let body = ChangePasswordRequestBody(oldPassword: oldPassword, newPassword: newPassword)
         let request = createAPIRequest(
-            endpoint: NotifireProtectedAPIEndpoint.changePassword,
-            method: .post,
+            endpoint: NotifireProtectedAPIEndpoint.password,
+            method: .put,
             body: body
         )
         performProtected(request: request, responseType: ChangePasswordResponse.self, completion: completion)
+    }
+
+    // MARK: Send Email
+    func sendChangeEmail(to newEmail: String, completion: @escaping Callback<SendChangeEmailResponse>) {
+        let params = [
+            URLQueryItem(name: "email", value: newEmail)
+        ]
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.sendChangeEmail, method: .get, body: nil as EmptyRequestBody?, queryItems: params)
+        performProtected(request: request, responseType: SendChangeEmailResponse.self, completion: completion)
     }
 
     // MARK: - /services

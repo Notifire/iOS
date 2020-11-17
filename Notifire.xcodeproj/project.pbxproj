@@ -157,6 +157,10 @@
 		8936E3D3256359E1007424A7 /* ChangePasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3D1256359E1007424A7 /* ChangePasswordCoordinator.swift */; };
 		8936E3D5256359F4007424A7 /* ChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3D4256359F4007424A7 /* ChangePasswordViewModel.swift */; };
 		8936E3D6256359F4007424A7 /* ChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3D4256359F4007424A7 /* ChangePasswordViewModel.swift */; };
+		8936E3D825639278007424A7 /* ChangeEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3D725639278007424A7 /* ChangeEmailViewModel.swift */; };
+		8936E3D92563927C007424A7 /* ChangeEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3D725639278007424A7 /* ChangeEmailViewModel.swift */; };
+		8936E3DB25639293007424A7 /* ChangeEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3DA25639293007424A7 /* ChangeEmailViewController.swift */; };
+		8936E3DC25639293007424A7 /* ChangeEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3DA25639293007424A7 /* ChangeEmailViewController.swift */; };
 		8939957F216FE4D800687A79 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939957E216FE4D800687A79 /* Coordinator.swift */; };
 		89399581216FE4E900687A79 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399580216FE4E900687A79 /* AppCoordinator.swift */; };
 		89399585216FEFD500687A79 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399584216FEFD500687A79 /* UIViewExtension.swift */; };
@@ -547,8 +551,8 @@
 		89BF1AD4256225EE00A9FD61 /* LocalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533B9219FAA1700E0A656 /* LocalService.swift */; };
 		89BF1ADE256229E300A9FD61 /* RegisterSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF1ADD256229E200A9FD61 /* RegisterSuccessViewController.swift */; };
 		89BF1ADF256229E300A9FD61 /* RegisterSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF1ADD256229E200A9FD61 /* RegisterSuccessViewController.swift */; };
-		89BF1AE12562302400A9FD61 /* ChangeUserDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF1AE02562302400A9FD61 /* ChangeUserDataViewController.swift */; };
-		89BF1AE22562302400A9FD61 /* ChangeUserDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF1AE02562302400A9FD61 /* ChangeUserDataViewController.swift */; };
+		89BF1AE12562302400A9FD61 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF1AE02562302400A9FD61 /* ChangePasswordViewController.swift */; };
+		89BF1AE22562302400A9FD61 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF1AE02562302400A9FD61 /* ChangePasswordViewController.swift */; };
 		89CA5A99250EB1880020A564 /* LaunchArgumentsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CA5A98250EB1880020A564 /* LaunchArgumentsHandler.swift */; };
 		89CA5A9A250EB1880020A564 /* LaunchArgumentsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CA5A98250EB1880020A564 /* LaunchArgumentsHandler.swift */; };
 		89CA5A9D250EB3130020A564 /* LaunchArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CA5A9C250EB3120020A564 /* LaunchArgument.swift */; };
@@ -796,6 +800,8 @@
 		8936E3CE256359C7007424A7 /* SuccessAlertDataProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessAlertDataProviding.swift; sourceTree = "<group>"; };
 		8936E3D1256359E1007424A7 /* ChangePasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordCoordinator.swift; sourceTree = "<group>"; };
 		8936E3D4256359F4007424A7 /* ChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModel.swift; sourceTree = "<group>"; };
+		8936E3D725639278007424A7 /* ChangeEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailViewModel.swift; sourceTree = "<group>"; };
+		8936E3DA25639293007424A7 /* ChangeEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailViewController.swift; sourceTree = "<group>"; };
 		8939957E216FE4D800687A79 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		89399580216FE4E900687A79 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		89399584216FEFD500687A79 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
@@ -967,7 +973,7 @@
 		89BDADE4217A5C5B000E38FC /* ServicesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesViewModel.swift; sourceTree = "<group>"; };
 		89BDADE6217A921A000E38FC /* ServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceViewController.swift; sourceTree = "<group>"; };
 		89BF1ADD256229E200A9FD61 /* RegisterSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterSuccessViewController.swift; sourceTree = "<group>"; };
-		89BF1AE02562302400A9FD61 /* ChangeUserDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserDataViewController.swift; sourceTree = "<group>"; };
+		89BF1AE02562302400A9FD61 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		89CA5A98250EB1880020A564 /* LaunchArgumentsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchArgumentsHandler.swift; sourceTree = "<group>"; };
 		89CA5A9C250EB3120020A564 /* LaunchArgument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchArgument.swift; sourceTree = "<group>"; };
 		89CA5AA0250EB5910020A564 /* XCTestCase+Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Delay.swift"; sourceTree = "<group>"; };
@@ -1369,7 +1375,8 @@
 			isa = PBXGroup;
 			children = (
 				893995AF2170EEE500687A79 /* SettingsViewController.swift */,
-				89BF1AE02562302400A9FD61 /* ChangeUserDataViewController.swift */,
+				89BF1AE02562302400A9FD61 /* ChangePasswordViewController.swift */,
+				8936E3DA25639293007424A7 /* ChangeEmailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1379,6 +1386,7 @@
 			children = (
 				892DC0AB256074EC0067EB12 /* SettingsViewModel.swift */,
 				8936E3D4256359F4007424A7 /* ChangePasswordViewModel.swift */,
+				8936E3D725639278007424A7 /* ChangeEmailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2912,6 +2920,7 @@
 				89576AA324FD412A0097BF87 /* UserSessionHandler.swift in Sources */,
 				89576AA424FD412A0097BF87 /* Revealing.swift in Sources */,
 				895637BD2555231E005E4A4E /* SyncAllServicesOperation.swift in Sources */,
+				8936E3D92563927C007424A7 /* ChangeEmailViewModel.swift in Sources */,
 				89576AA524FD412A0097BF87 /* CustomTextField.swift in Sources */,
 				89576AA624FD412A0097BF87 /* DeviceTokenManager.swift in Sources */,
 				89576AA724FD412A0097BF87 /* ServicesEmptyStateView.swift in Sources */,
@@ -2927,7 +2936,7 @@
 				89576AAD24FD412A0097BF87 /* ComponentValidator.swift in Sources */,
 				89E6B6C124FF0E5300F7A79C /* AppCoordinator+ConfirmEmailViewControllerDelegate.swift in Sources */,
 				892DC0AD256074EC0067EB12 /* SettingsViewModel.swift in Sources */,
-				89BF1AE22562302400A9FD61 /* ChangeUserDataViewController.swift in Sources */,
+				89BF1AE22562302400A9FD61 /* ChangePasswordViewController.swift in Sources */,
 				89576AAE24FD412A0097BF87 /* LocalNotifireNotification.swift in Sources */,
 				89576AAF24FD412A0097BF87 /* NotifireAPIFactory.swift in Sources */,
 				89576AB024FD412A0097BF87 /* HairlineView.swift in Sources */,
@@ -3021,6 +3030,7 @@
 				89576AE024FD412A0097BF87 /* Tab.swift in Sources */,
 				89576AE124FD412A0097BF87 /* NotifireBackgroundLayer.swift in Sources */,
 				892DC0D02560E4090067EB12 /* GenericUITableViewCells.swift in Sources */,
+				8936E3DC25639293007424A7 /* ChangeEmailViewController.swift in Sources */,
 				89576AE224FD412A0097BF87 /* RegisterCoordinator.swift in Sources */,
 				89576AE324FD412A0097BF87 /* TappableLabel.swift in Sources */,
 				895A3B8325006D97000A7B50 /* AuthenticationProvidersViewModel.swift in Sources */,
@@ -3276,7 +3286,7 @@
 				892B413F21C1E40800D28ABE /* APIErrorProducing.swift in Sources */,
 				895A3B772500609B000A7B50 /* BottomNavigatorLabelContaining.swift in Sources */,
 				8933F0FE214339E200645B3A /* NotifireAPIEncodable.swift in Sources */,
-				89BF1AE12562302400A9FD61 /* ChangeUserDataViewController.swift in Sources */,
+				89BF1AE12562302400A9FD61 /* ChangePasswordViewController.swift in Sources */,
 				896167EB25016EF1007BF3F1 /* NavigationCoordinator.swift in Sources */,
 				8933F0F3214338EA00645B3A /* NotifireAPIBaseManager.swift in Sources */,
 				8939958E2170011100687A79 /* SplashView.swift in Sources */,
@@ -3430,6 +3440,7 @@
 				893FE01D2195E3C1002CD846 /* ServiceCreationViewController.swift in Sources */,
 				892B413A21C1DFDE00D28ABE /* EmptyStatePresentable.swift in Sources */,
 				893B90252512C1EB0056DBF9 /* UITableViewCell+Margins.swift in Sources */,
+				8936E3DB25639293007424A7 /* ChangeEmailViewController.swift in Sources */,
 				897069CE21335C3400D798AA /* UIViewControllerExtension.swift in Sources */,
 				8933F0CC2141D94700645B3A /* RegisterViewModel.swift in Sources */,
 				8933F0F5214338FF00645B3A /* NotifireAPIManager.swift in Sources */,
@@ -3483,6 +3494,7 @@
 				893995A62170EDC900687A79 /* TabbedCoordinator.swift in Sources */,
 				893995A12170ED9700687A79 /* TabBarViewModel.swift in Sources */,
 				8933F0EC2143388E00645B3A /* NotifireAPIRequestContext.swift in Sources */,
+				8936E3D825639278007424A7 /* ChangeEmailViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

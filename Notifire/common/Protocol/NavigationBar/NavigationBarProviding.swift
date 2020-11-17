@@ -20,6 +20,9 @@ extension UINavigationController: NavigationBarProviding {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithTransparentBackground()
             appearance.backgroundColor = .clear
+            if let attributes = navigationBar.titleTextAttributes {
+                appearance.titleTextAttributes = attributes
+            }
             navigationBar.standardAppearance = appearance
             navigationBar.compactAppearance = appearance
             navigationBar.scrollEdgeAppearance = appearance
@@ -36,6 +39,9 @@ extension UINavigationController: NavigationBarProviding {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithDefaultBackground()
             appearance.backgroundColor = .compatibleSystemBackground
+            if let attributes = navigationBar.titleTextAttributes {
+                appearance.titleTextAttributes = attributes
+            }
             navigationBar.standardAppearance = appearance
             navigationBar.compactAppearance = appearance
             navigationBar.scrollEdgeAppearance = appearance

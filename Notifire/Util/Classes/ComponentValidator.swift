@@ -84,6 +84,8 @@ class ComponentValidator {
             completion(rule, expressionTest.evaluate(with: string))
         case .equalToString(let equalString):
             completion(rule, string == equalString)
+        case .notEqualToString(let notEqualString):
+            completion(rule, string != notEqualString)
         case .equalToComponent(let component):
             completion(rule, string == component.validatableInput)
         case .notEqualToComponent(let component):

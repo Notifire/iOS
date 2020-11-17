@@ -1,5 +1,5 @@
 //
-//  ChangeUserDataViewController.swift
+//  ChangePasswordViewController.swift
 //  Notifire
 //
 //  Created by David Bielik on 16/11/2020.
@@ -98,7 +98,7 @@ class ChangePasswordViewController: VMViewController<ChangePasswordViewModel>, N
 
     private func setupSubviews() {
         let stackView = insertStackView(arrangedSubviews: [oldPasswordTextInput, newPasswordTextInput, newPassword2TextInput], spacing: Size.textFieldSpacing)
-        stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Size.textFieldSpacing).isActive = true
+        stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Size.componentSpacing).isActive = true
     }
 
     private func prepareViewModel() {

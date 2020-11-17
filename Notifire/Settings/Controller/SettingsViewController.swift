@@ -35,7 +35,6 @@ class SettingsViewController: VMViewController<SettingsViewModel>, NavigationBar
         view.backgroundColor = .compatibleSystemBackground
 
         // Navigation
-        hideNavigationBar()
         hideNavigationBarBackButtonText()
 
         // Layout

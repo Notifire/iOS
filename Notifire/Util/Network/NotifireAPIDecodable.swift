@@ -101,7 +101,7 @@ struct SSOLoginResponse: Decodable {
     let payload: LoginSuccessResponse
 }
 
-// MARK: - /account/change/password
+// MARK: - /account/password
 struct ChangePasswordResponsePayload: Decodable {
     let refreshToken: String
     let accessToken: String
@@ -120,6 +120,9 @@ enum ChangePasswordUserError: Int, DecodableUserErrorRepresenting {
 }
 
 typealias ChangePasswordResponse = NotifireAPISuccessResponse<ChangePasswordResponsePayload, ChangePasswordUserError>
+
+// MARK: - /account/send/change/email
+typealias SendChangeEmailResponse = NotifireAPIPlainSuccessResponse
 
 // MARK: - /account/send/reset/password
 typealias SendResetPasswordResponse = NotifireAPIPlainSuccessResponse

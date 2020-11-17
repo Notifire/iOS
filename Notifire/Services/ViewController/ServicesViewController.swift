@@ -42,9 +42,9 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
     override func viewDidLoad() {
         super.viewDidLoad()
         // Navigation
+        title = "Services"
         hideNavigationBarBackButtonText()
         hideNavigationBar()
-        title = "Services"
 
         // View
         view.backgroundColor = .compatibleSystemBackground

@@ -35,9 +35,9 @@ class SettingsCoordinator: NavigatingChildCoordinator {
 // MARK: - SettingsViewControllerDelegate
 extension SettingsCoordinator: SettingsViewControllerDelegate {
     func didSelectChangeEmailButton() {
-//        let viewModel = ChangeUserEmailViewModel()
-//        let changeUserDataVC = ChangeUserDataViewController(viewModel: viewModel)
-//        parentNavigatingCoordinator?.push(childCoordinator: GenericCoordinator(viewController: changeUserDataVC))
+        let viewModel = ChangeEmailViewModel(sessionHandler: settingsViewController.viewModel.userSessionHandler)
+        let changeEmailVC = ChangeEmailViewController(viewModel: viewModel)
+        parentNavigatingCoordinator?.push(childCoordinator: GenericSuccessCoordinator(viewController: changeEmailVC))
     }
 
     func didSelectChangePasswordButton() {

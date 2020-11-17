@@ -32,12 +32,12 @@ enum NotifireProtectedAPIEndpoint: String, CustomStringConvertible {
     case generateAccessToken = "/account/access"
     case registerDevice = "/account/register/device"
     case logout = "/account/logout"
-    case changePassword = "/account/change/password"
     case services = "/services"
     case service = "/service"
     case servicesSync = "/services/sync"
     case serviceKey = "/service/key"
-    case password = "/password"
+    case password = "/account/password"
+    case sendChangeEmail = "/account/send/change/email"
 
     var description: String {
         return rawValue

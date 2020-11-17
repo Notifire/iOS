@@ -72,6 +72,14 @@ extension Loadable {
         activeSpinner.removeFromSuperview()
         onLoadingFinished()
     }
+
+    func changeLoading(to loading: Bool) {
+        if loading {
+            startLoading()
+        } else {
+            stopLoading()
+        }
+    }
 }
 
 extension Loadable where Self: UIView {

@@ -86,6 +86,10 @@ class NotifireProtectedAPIManagerMock: NotifireProtectedAPIManager, NotifireAPIM
         returnSuccessAfter(completion: completion, response: ChangePasswordResponse(success: false, payload: nil, error: NotifireAPIUserError(code: .sameOldAndNewPassword, message: "")))
     }
 
+    override func sendChangeEmail(to newEmail: String, completion: @escaping NotifireAPIBaseManager.Callback<SendChangeEmailResponse>) {
+        returnSuccessAfter(completion: completion, response: SendChangeEmailResponse(success: false))
+    }
+
     override func logout(deviceToken: String, completion: @escaping Callback<RegisterDeviceResponse>) {
         returnSuccessAfter(completion: completion, response: RegisterDeviceResponse())
     }

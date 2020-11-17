@@ -17,7 +17,7 @@ class NotifireNavigationController: UINavigationController {
             NSAttributedString.Key.foregroundColor: UIColor.compatibleLabel
         ]
         view.backgroundColor = .compatibleSystemBackground
-        navigationBar.barTintColor = .compatibleBackgroundAccent
+        navigationBar.barTintColor = .compatibleSystemBackground
         navigationBar.tintColor = .compatibleLabel
     }
 }

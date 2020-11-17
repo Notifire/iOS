@@ -94,6 +94,13 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
         case .valid:
             removeErrorLabel()
             removeSpinner()
+
+            // This is necessary to enable the return key after a delayed response from the API
+            // Otherwise the UIKeyboard gets the textField.hasText property too soon (before the real value is relevant).
+            if rules.contains(where: { $0.kind == ComponentRule.Kind.validity(.email) }) {
+                textField.reloadInputViews()
+            }
+
             newAppearance = showsValidState ? .positive : .neutral
         }
         if let appearance = newAppearance {

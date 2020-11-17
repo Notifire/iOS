@@ -14,14 +14,29 @@ struct Regex {
 }
 
 struct ComponentRule {
-    enum Kind {
+    enum Kind: Equatable {
         case minimum(length: Int)
         case maximum(length: Int)
         case regex(String)
         case equalToComponent(ValidatableComponent)
         case notEqualToComponent(ValidatableComponent)
         case equalToString(String)
+        case notEqualToString(String)
         case validity(CheckValidityOption)
+
+        static func == (lhs: Kind, rhs: Kind) -> Bool {
+            switch (lhs, rhs) {
+            case (.minimum(let lengthLeft), .minimum(let lengthRight)): return lengthLeft == lengthRight
+            case (.maximum(let lengthLeft), .maximum(let lengthRight)): return lengthLeft == lengthRight
+            case (.regex(let regexL), .regex(let regexR)): return regexL == regexR
+            case (.equalToComponent(let componentL), .equalToComponent(let componentR)): return componentL === componentR
+            case (.notEqualToComponent(let componentL), .notEqualToComponent(let componentR)): return componentL === componentR
+            case (.equalToString(let stringL), .equalToString(let stringR)): return stringL == stringR
+            case (.notEqualToString(let stringL), .notEqualToString(let stringR)): return stringL == stringR
+            case (.validity(let optionL), .validity(let optionR)): return optionL == optionR
+            default: return false
+            }
+        }
     }
 
     let kind: Kind
@@ -65,7 +80,7 @@ extension ComponentRule: CustomStringConvertible {
         case .maximum(let maxLength): return "Maximum length exceeded. (\(maxLength))"
         case .regex: return "Invalid characters used."
         case .validity(let option): return "This \(option.rawValue) is not available."
-        case .equalToString, .equalToComponent, .notEqualToComponent: return ""
+        case .equalToString, .notEqualToString, .equalToComponent, .notEqualToComponent: return ""
         }
     }
 }
