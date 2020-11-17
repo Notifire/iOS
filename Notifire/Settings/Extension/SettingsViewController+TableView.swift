@@ -48,8 +48,8 @@ extension SettingsViewController: UITableViewDelegate {
             delegate?.didSelectChangePasswordButton()
         case .frequentlyAskedQuestions:
             delegate?.didSelectFAQButton()
-        case .termsOfService:
-            delegate?.didSelectTOSButton()
+        case .privacyPolicy:
+            delegate?.didSelectPrivacyPolicyButton()
         case .contact:
             delegate?.didSelectContactButton()
         case .logout:

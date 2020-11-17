@@ -101,8 +101,6 @@
 		892DC0C525609B840067EB12 /* SettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0C325609B840067EB12 /* SettingsSection.swift */; };
 		892DC0C725609BA40067EB12 /* SettingsRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0C625609BA40067EB12 /* SettingsRows.swift */; };
 		892DC0C825609BA40067EB12 /* SettingsRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0C625609BA40067EB12 /* SettingsRows.swift */; };
-		892DC0CB2560A06B0067EB12 /* TableViewRowDescribing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0CA2560A06B0067EB12 /* TableViewRowDescribing.swift */; };
-		892DC0CC2560A06B0067EB12 /* TableViewRowDescribing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0CA2560A06B0067EB12 /* TableViewRowDescribing.swift */; };
 		892DC0CF2560E4090067EB12 /* GenericUITableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0CE2560E4090067EB12 /* GenericUITableViewCells.swift */; };
 		892DC0D02560E4090067EB12 /* GenericUITableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0CE2560E4090067EB12 /* GenericUITableViewCells.swift */; };
 		8933F0AE2140421700645B3A /* NotifireBackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0AD2140421700645B3A /* NotifireBackgroundLayer.swift */; };
@@ -759,7 +757,6 @@
 		892DC0BF25609B6E0067EB12 /* TableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSection.swift; sourceTree = "<group>"; };
 		892DC0C325609B840067EB12 /* SettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSection.swift; sourceTree = "<group>"; };
 		892DC0C625609BA40067EB12 /* SettingsRows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRows.swift; sourceTree = "<group>"; };
-		892DC0CA2560A06B0067EB12 /* TableViewRowDescribing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewRowDescribing.swift; sourceTree = "<group>"; };
 		892DC0CE2560E4090067EB12 /* GenericUITableViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericUITableViewCells.swift; sourceTree = "<group>"; };
 		8933F0AD2140421700645B3A /* NotifireBackgroundLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireBackgroundLayer.swift; sourceTree = "<group>"; };
 		8933F0AF2140424400645B3A /* CAPersistentAnimationsShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAPersistentAnimationsShapeLayer.swift; sourceTree = "<group>"; };
@@ -1437,7 +1434,6 @@
 			children = (
 				893B901E2512B9700056DBF9 /* Reusable.swift */,
 				892DC0BF25609B6E0067EB12 /* TableViewSection.swift */,
-				892DC0CA2560A06B0067EB12 /* TableViewRowDescribing.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -3172,7 +3168,6 @@
 				89576B2824FD412A0097BF87 /* ServiceViewController.swift in Sources */,
 				892DC0BD256082E50067EB12 /* SettingsCellConfigurations.swift in Sources */,
 				89576B2924FD412A0097BF87 /* NotifireUserSessionManagerMock.swift in Sources */,
-				892DC0CC2560A06B0067EB12 /* TableViewRowDescribing.swift in Sources */,
 				899C07182551E2E00005228E /* NavigationCoordinatorDelegate.swift in Sources */,
 				895418DC251945AE0046464D /* ServiceRepresentable.swift in Sources */,
 				89576B2B24FD412A0097BF87 /* TabbedCoordinator.swift in Sources */,
@@ -3336,7 +3331,6 @@
 				893FE0372197C225002CD846 /* CopyableLabel.swift in Sources */,
 				8933F0C02141329500645B3A /* ComponentRule.swift in Sources */,
 				895418F4251BF5BD0046464D /* ConcurrentOperation.swift in Sources */,
-				892DC0CB2560A06B0067EB12 /* TableViewRowDescribing.swift in Sources */,
 				892DC0C725609BA40067EB12 /* SettingsRows.swift in Sources */,
 				8933F0DF2143379700645B3A /* HTTPHeader.swift in Sources */,
 				892DC0B725607B3D0067EB12 /* CaseIterable+Init.swift in Sources */,

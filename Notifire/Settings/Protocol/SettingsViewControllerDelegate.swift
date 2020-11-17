@@ -18,8 +18,8 @@ protocol SettingsViewControllerDelegate: class {
     func didSelectLogoutButton()
     /// Called when the user presses the logout button in settings.
     func didSelectFAQButton()
-    /// Called when the user presses the FAQ button in settings.
-    func didSelectTOSButton()
+    /// Called when the user presses the Privacy Policy button in settings.
+    func didSelectPrivacyPolicyButton()
     /// Called when the user presses the contact button in settings.
     func didSelectContactButton()
 }

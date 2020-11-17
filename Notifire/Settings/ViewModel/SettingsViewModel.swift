@@ -55,7 +55,7 @@ class SettingsViewModel: ViewModelRepresenting {
         // General
         rowsAtSection[.general] = [.applicationVersion, .applicationUpdateAlert]
         // General Last
-        rowsAtSection[.generalLast] = [.frequentlyAskedQuestions, .termsOfService, .contact]
+        rowsAtSection[.generalLast] = [.frequentlyAskedQuestions, .privacyPolicy, .contact]
     }
 
     // MARK: - Public Methods
@@ -130,8 +130,8 @@ class SettingsViewModel: ViewModelRepresenting {
             newConfiguration = SettingsDisclosureCellConfiguration(item: ("FAQ", nil))
         case .applicationVersion:
             newConfiguration = SettingsDefaultCellConfiguration(item: ("Version", "\(Config.appVersion)"))
-        case .termsOfService:
-            newConfiguration = SettingsDisclosureCellConfiguration(item: ("Terms of service", nil))
+        case .privacyPolicy:
+            newConfiguration = SettingsDisclosureCellConfiguration(item: ("Privacy policy", nil))
         case .contact:
             newConfiguration = SettingsDisclosureCellConfiguration(item: ("Contact us", nil))
         }

@@ -55,7 +55,7 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
         parentNavigatingCoordinator?.push(childCoordinator: GenericCoordinator(viewController: changeEmailVC))
     }
 
-    func didSelectTOSButton() {
+    func didSelectPrivacyPolicyButton() {
         let changeEmailVC = UIViewController()
         parentNavigatingCoordinator?.push(childCoordinator: GenericCoordinator(viewController: changeEmailVC))
     }
