@@ -32,5 +32,4 @@ enum SettingsSectionRow: Int {
     case applicationVersion
     case privacyPolicy
     case contact
-
 }

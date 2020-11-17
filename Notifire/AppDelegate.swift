@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Sentry
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -20,6 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Launch arguments
         LaunchArgumentsHandler().handleLaunchArgumentsIfNeeded()
+
+        // Sentry
+        SentrySDK.start { options in
+            options.dsn = Config.sentryDsn
+            options.debug = true
+            options.environment = Config.bundleID
+        }
 
         // Window
         let applicationWindow = UIWindow(frame: UIScreen.main.bounds)
