@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ForgotPasswordViewController: VMViewController<ForgotPasswordViewModel>, NavigationBarDisplaying, APIFailableResponding, APIFailableDisplaying, NotifireAlertPresenting, CenterStackViewPresenting, KeyboardObserving {
+class ForgotPasswordViewController: VMViewController<ForgotPasswordViewModel>, NavigationBarDisplaying, APIErrorResponding, APIErrorPresenting, NotifireAlertPresenting, CenterStackViewPresenting, KeyboardObserving {
 
     // MARK: UI
     let headerLabel: UILabel = {
@@ -19,12 +19,12 @@ class ForgotPasswordViewController: VMViewController<ForgotPasswordViewModel>, N
     }()
 
     lazy var emailTextInput: ValidatableTextInput = {
-        let emailTextField = CustomTextField()
+        let emailTextField = BorderedTextField()
         emailTextField.keyboardType = .emailAddress
         emailTextField.setPlaceholder(text: "Enter your e-mail")
         let input = ValidatableTextInput(textField: emailTextField)
         input.rules = ComponentRule.emailRules
-        input.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: .email)
+        input.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: \.email)
         return input
     }()
 

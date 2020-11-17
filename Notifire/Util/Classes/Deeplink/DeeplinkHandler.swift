@@ -103,12 +103,12 @@ class DeeplinkHandler {
     }
 }
 
-class ResetPasswordViewModel: APIFailable {
+class ResetPasswordViewModel: ViewModelRepresenting, APIErrorProducing {
 
     // MARK: - Properties
     let token: String
 
-    // MARK: APIFailable
+    // MARK: APIErrorProducing
     var onError: ((NotifireAPIError) -> Void)?
 
     // MARK: - Initialization
@@ -117,7 +117,7 @@ class ResetPasswordViewModel: APIFailable {
     }
 }
 
-class ResetPasswordViewController: VMViewController<ResetPasswordViewModel>, CenterStackViewPresenting, APIFailableResponding, APIFailableDisplaying {
+class ResetPasswordViewController: VMViewController<ResetPasswordViewModel>, CenterStackViewPresenting, APIErrorResponding, APIErrorPresenting {
 
     weak var delegate: ConfirmEmailViewControllerDelegate?
 

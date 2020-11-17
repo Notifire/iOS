@@ -20,12 +20,18 @@ struct RealmManager {
         return "\(userSession.email).\(realmFileExtension)"
     }
 
+    static let realmSharedDatabaseDirectoryURL: URL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupIdentifier)!
+
     /// Create `Realm.Configuration` specific for a given `UserSession`
     static func createUserConfiguration(from userSession: UserSession) -> Realm.Configuration? {
-        guard let sharedContainerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupIdentifier) else {
-            return nil
+        if !FileManager.default.fileExists(atPath: realmSharedDatabaseDirectoryURL.path) {
+            do {
+                try FileManager.default.createDirectory(atPath: realmSharedDatabaseDirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                Logger.log(.error, "\(self) create directory error <\(error.localizedDescription)>")
+            }
         }
-        let url = sharedContainerURL.appendingPathComponent(realmConfigurationFile(for: userSession))
+        let url = realmSharedDatabaseDirectoryURL.appendingPathComponent(realmConfigurationFile(for: userSession))
         var configuration = Realm.Configuration()
         configuration.migrationBlock = { migration, oldSchemaVersion in
             if oldSchemaVersion < 1 {

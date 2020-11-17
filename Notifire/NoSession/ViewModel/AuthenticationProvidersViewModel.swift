@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AuthenticationProvidersViewModel {
+class AuthenticationProvidersViewModel: ViewModelRepresenting {
 
     // MARK: - Properties
     let providers: [AuthenticationProvider]

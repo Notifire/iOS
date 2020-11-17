@@ -108,9 +108,9 @@ class AppVersionManager {
         // Check if the update isn't forced by the server
         guard !versionData.appVersionResponse.forceUpdate else { return .updateRequired }
 
-        // Check if the user has disabled alerts
-        let userDisabledAlerts = userSession?.settings.appUpdateReminderDisabled ?? false
-        guard !userDisabledAlerts else { return .userHasHiddenAlerts }
+        // Check if the user has enabled alerts
+        let userEnabledAlerts = userSession?.settings.appUpdateReminderEnabled ?? true
+        guard userEnabledAlerts else { return .userHasHiddenAlerts }
 
         // Check the versions versions
         let comparisonResult = AppVersionData.compareVersionsIgnoringPatch(

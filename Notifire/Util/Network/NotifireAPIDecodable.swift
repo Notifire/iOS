@@ -71,7 +71,7 @@ struct GenerateAccessTokenResponse: Decodable {
     let accessToken: String?
 }
 
-// MARK: - /register/device
+// MARK: - /account/device
 typealias RegisterDeviceResponse = EmptyRequestBody
 
 // MARK: - /account/login
@@ -82,15 +82,13 @@ struct LoginSuccessResponse: Decodable {
 }
 
 enum LoginUserError: Int, DecodableUserErrorRepresenting {
-    case invalidEmail = 1
-    case invalidPassword = 2
-    case notVerified = 3
+    case wrongPasswordOrAccountNotExist = 1
+    case accountNotVerified = 2
 
     var description: String {
         switch self {
-        case .invalidEmail: return "The email you've entered was not recognized by the server."
-        case .invalidPassword: return "The password you've entered was invalid."
-        case .notVerified: return "Your account is not verified yet! Check your email."
+        case .wrongPasswordOrAccountNotExist: return "You have entered a wrong password or this account doesn't exist."
+        case .accountNotVerified: return "Your account is not verified yet! Check the link we've sent to your email."
         }
     }
 }
@@ -102,6 +100,26 @@ struct SSOLoginResponse: Decodable {
     let success: Bool
     let payload: LoginSuccessResponse
 }
+
+// MARK: - /account/change/password
+struct ChangePasswordResponsePayload: Decodable {
+    let refreshToken: String
+    let accessToken: String
+}
+
+enum ChangePasswordUserError: Int, DecodableUserErrorRepresenting {
+    case wrongPassword = 1
+    case sameOldAndNewPassword = 2
+
+    var description: String {
+        switch self {
+        case .wrongPassword: return "Your current password was wrong. Please try again."
+        case .sameOldAndNewPassword: return "Your new password must be different from your old one!"
+        }
+    }
+}
+
+typealias ChangePasswordResponse = NotifireAPISuccessResponse<ChangePasswordResponsePayload, ChangePasswordUserError>
 
 // MARK: - /account/send/reset/password
 typealias SendResetPasswordResponse = NotifireAPIPlainSuccessResponse

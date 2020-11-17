@@ -76,3 +76,8 @@ struct PaginationData {
         return URLQueryItem(name: mode.rawValue, value: id)
     }
 }
+
+struct ChangePasswordRequestBody: Encodable {
+    let oldPassword: String
+    let newPassword: String
+}

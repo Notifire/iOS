@@ -8,13 +8,13 @@
 
 import Foundation
 
-class LoginRegisterSplitterViewModel: APIFailable, UserErrorFailable {
+class LoginRegisterSplitterViewModel: ViewModelRepresenting, APIErrorProducing, UserErrorProducing {
 
     // MARK: - Properties
     let notifireApiManager: NotifireAPIManager
     weak var authenticationProvidersVM: AuthenticationProvidersViewModel?
 
-    // MARK: APIFailable
+    // MARK: APIErrorProducing
     var onError: ((NotifireAPIError) -> Void)?
 
     // MARK: UserErrorFailable

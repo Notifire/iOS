@@ -11,8 +11,6 @@ import UIKit
 class PaginationLoadingTableViewCell: BaseTableViewCell, Reusable {
 
     // MARK: - Properties
-    static var reuseIdentifier: String = "PaginationLoadingTableViewCell"
-
     lazy var loadingIndicator: UIActivityIndicatorView = {
         let style: UIActivityIndicatorView.Style
         if #available(iOS 13.0, *) {

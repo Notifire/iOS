@@ -8,31 +8,34 @@
 
 import UIKit
 
-protocol UserErrorFailable: class {
+protocol UserErrorProducing: class {
+    /// The UserError associated with this UserErrorFailable
     associatedtype UserError: UserErrorRepresenting
+    /// Called whenever the userError is encountered.
     var onUserError: ((UserError) -> Void)? { get set }
+    /// Called before handling the error. `true` if the error has a custom handler. Default implementation returns `false` for all errors.
     func shouldHandleManually(userError: UserError) -> Bool
 }
 
-extension UserErrorFailable {
+extension UserErrorProducing {
     func shouldHandleManually(userError: UserError) -> Bool {
         return false
     }
 }
 
 // MARK: - Responding
-protocol UserErrorFailableResponding: class, NotifireAlertPresenting {
-    associatedtype FailableViewModel: UserErrorFailable
+protocol UserErrorResponding: class, NotifireAlertPresenting {
+    associatedtype UserErrorProducingViewModel: UserErrorProducing
 
-    var viewModel: FailableViewModel { get }
+    var viewModel: UserErrorProducingViewModel { get }
 
     func setViewModelOnUserError()
-    func dismissCompletion(error: FailableViewModel.UserError)
-    func alertActions(for error: FailableViewModel.UserError, dismissCallback: @escaping (() -> Void)) -> [NotifireAlertAction]?
+    func dismissCompletion(error: UserErrorProducingViewModel.UserError)
+    func alertActions(for error: UserErrorProducingViewModel.UserError, dismissCallback: @escaping (() -> Void)) -> [NotifireAlertAction]?
 }
 
-extension UserErrorFailableResponding where Self: UIViewController {
-    func dismissCompletion(error: FailableViewModel.UserError) {}
+extension UserErrorResponding where Self: UIViewController {
+    func dismissCompletion(error: UserErrorProducingViewModel.UserError) {}
 
     func setViewModelOnUserError() {
         viewModel.onUserError = { [weak self] error in
@@ -40,14 +43,14 @@ extension UserErrorFailableResponding where Self: UIViewController {
         }
     }
 
-    func present(error: FailableViewModel.UserError) {
-        let alert = NotifireAlertViewController(alertTitle: "", alertText: error.description)
+    func present(error: UserErrorProducingViewModel.UserError) {
+        let alert = NotifireAlertViewController(alertTitle: nil, alertText: error.description, alertStyle: .fail)
         let dismissCompletionClosure = {
             alert.dismiss(animated: true, completion: { [weak self] in
                 self?.dismissCompletion(error: error)
             })
         }
-        alert.add(action: NotifireAlertAction(title: "Ok", style: .neutral, handler: { _ in
+        alert.add(action: NotifireAlertAction(title: "OK", style: .positive, handler: { _ in
             dismissCompletionClosure()
         }))
         if let alertActions = alertActions(for: error, dismissCallback: dismissCompletionClosure) {
@@ -56,7 +59,7 @@ extension UserErrorFailableResponding where Self: UIViewController {
         present(alert: alert, animated: true, completion: nil)
     }
 
-    func alertActions(for error: FailableViewModel.UserError, dismissCallback: @escaping (() -> Void)) -> [NotifireAlertAction]? {
+    func alertActions(for error: UserErrorProducingViewModel.UserError, dismissCallback: @escaping (() -> Void)) -> [NotifireAlertAction]? {
         return nil
     }
 }

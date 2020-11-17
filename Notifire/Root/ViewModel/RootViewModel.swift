@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RootViewModel {
+class RootViewModel: ViewModelRepresenting {
 
     // MARK: - App State
     /// Describes the application's state. Each state contains the current coordinator responsbile for the view hierarchy.

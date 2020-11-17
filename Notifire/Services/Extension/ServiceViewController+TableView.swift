@@ -51,7 +51,7 @@ extension ServiceViewController: UITableViewDataSource {
             }
 
         case 2, 3:
-            guard let cell = tableView.dequeue(reusableCell: ServiceTableViewCell.self, for: indexPath)  else { return UITableViewCell() }
+            guard let cell = tableView.dequeue(reusableCell: ServiceTableViewCell.self, for: indexPath) else { return UITableViewCell() }
             if indexPath.section == 2 {
                 cell.textLabel?.text = "Delete notifications"
                 cell.textLabel?.set(style: .negative)
@@ -59,8 +59,6 @@ extension ServiceViewController: UITableViewDataSource {
                 cell.textLabel?.text = "Delete service"
                 cell.textLabel?.set(style: .negativeMedium)
             }
-            cell.isSkeletonable = true
-            cell.textLabel?.isSkeletonable = true
             return cell
         default:
             return UITableViewCell()

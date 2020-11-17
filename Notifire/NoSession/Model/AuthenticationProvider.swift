@@ -52,6 +52,14 @@ enum AuthenticationProvider: Hashable, CustomStringConvertible {
         }
     }
 
+    /// The logged in provider text displayed in SettingsViewController
+    var providerText: String {
+        switch self {
+        case .sso: return description
+        case .email: return "Notifire"
+        }
+    }
+
     // MARK: - Functions
     /// Returns the SSO provider if it is available.
     func getExternalSSOProvider() -> SSOAuthenticationProvider? {

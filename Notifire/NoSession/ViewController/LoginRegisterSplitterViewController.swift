@@ -20,7 +20,7 @@ This ViewController allows the user to choose between signing up and logging int
 - Sign in with Twitter
 - Already using Notifire? Login here instead.
  */
-class LoginRegisterSplitterViewController: VMViewController<LoginRegisterSplitterViewModel>, BottomNavigatorLabelContaining, UserErrorFailableResponding, APIFailableResponding, APIFailableDisplaying, NotifireAlertPresenting {
+class LoginRegisterSplitterViewController: VMViewController<LoginRegisterSplitterViewModel>, BottomNavigatorLabelContaining, UserErrorResponding, APIErrorResponding, APIErrorPresenting, NotifireAlertPresenting {
 
     // MARK: - Properties
     weak var delegate: LoginRegisterSplitterViewControllerDelegate?

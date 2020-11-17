@@ -9,9 +9,9 @@
 import UIKit
 
 /// ViewController base class with dependency injection for a generic ViewModel
-class VMViewController<ViewModel>: UIViewController {
+class VMViewController<ViewModel: ViewModelRepresenting>: UIViewController, ViewModelled {
 
-    let viewModel: ViewModel
+    var viewModel: ViewModel
 
     init(viewModel: ViewModel) {
         self.viewModel = viewModel

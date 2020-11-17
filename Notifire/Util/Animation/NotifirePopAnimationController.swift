@@ -60,9 +60,9 @@ class NotifireAlertViewController: NotifirePoppableViewController {
 
     // MARK: Model
     /// The title of the alert
-    var alertTitle: String? = nil { didSet { updateLabels() } }
+    var alertTitle: String? { didSet { updateLabels() } }
     /// The main text of the alert
-    var alertText: String? = nil { didSet { updateLabels() } }
+    var alertText: String? { didSet { updateLabels() } }
     /// The style of the alert displayed (optional)
     let alertStyle: AlertStyle?
     var actionControls: [NotifireAlertAction: UIControl] = [:]
@@ -268,11 +268,11 @@ class NotifireInputAlertViewController: NotifireAlertViewController, KeyboardObs
     // MARK: - Public
     public func createValidatableInput(title: String, secure: Bool, rules: [ComponentRule], validatingAction: NotifireAlertAction) {
         guard self.validatableInput == nil else { return }
-        let textField = CustomTextField()
+        let textField = BorderedTextField()
         textField.setPlaceholder(text: title)
         textField.isSecureTextEntry = secure
         let validatableInput = ValidatableTextInput(textField: textField)
-        validatableInput.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: .textFieldText)
+        validatableInput.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: \.textFieldText)
         validatableInput.rules = rules
         validatableInput.showsValidState = false
         self.validatableInput = validatableInput
@@ -283,16 +283,7 @@ class NotifireInputAlertViewController: NotifireAlertViewController, KeyboardObs
     var keyboardObserverHandler = KeyboardObserverHandler()
 }
 
-final class NotifireAlertViewModel: BindableInputValidatingViewModel {
-    func keyPath(for value: KeyPaths) -> ReferenceWritableKeyPath<NotifireAlertViewModel, String> {
-        return \.textFieldText
-    }
-
-    enum KeyPaths: InputValidatingBindableEnum {
-        case textFieldText
-    }
-    typealias EnumDescribingKeyPaths = KeyPaths
-
+final class NotifireAlertViewModel: InputValidatingViewModel {
     var textFieldText: String = ""
 }
 

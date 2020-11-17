@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ForgotPasswordViewModel: BindableInputValidatingViewModel, APIFailable {
+final class ForgotPasswordViewModel: InputValidatingViewModel, APIErrorProducing {
 
     // MARK: - Properties
     var email: String
@@ -23,18 +23,7 @@ final class ForgotPasswordViewModel: BindableInputValidatingViewModel, APIFailab
     var onLoadingChange: ((Bool) -> Void)?
     var onSendEmailSuccess: (() -> Void)?
 
-    // MARK: InputValidatingBindable
-    func keyPath(for value: KeyPaths) -> ReferenceWritableKeyPath<ForgotPasswordViewModel, String> {
-        return \.email
-    }
-
-    enum KeyPaths: InputValidatingBindableEnum {
-        case email
-    }
-
-    typealias EnumDescribingKeyPaths = KeyPaths
-
-    // MARK: APIFailable
+    // MARK: APIErrorProducing
     var onError: ((NotifireAPIError) -> Void)?
 
     // MARK: - Initialization

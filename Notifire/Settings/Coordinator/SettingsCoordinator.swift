@@ -1,0 +1,67 @@
+//
+//  SettingsCoordinator.swift
+//  Notifire
+//
+//  Created by David Bielik on 12/10/2018.
+//  Copyright © 2018 David Bielik. All rights reserved.
+//
+
+import UIKit
+
+class SettingsCoordinator: NavigatingChildCoordinator {
+
+    // MARK: - Properties
+    let settingsViewController: SettingsViewController
+
+    // MARK: NavigatingChildCoordinator
+    weak var parentNavigatingCoordinator: NavigatingCoordinator?
+
+    // MARK: TabbedCoordinator
+    var viewController: UIViewController {
+        return settingsViewController
+    }
+
+    // MARK: - Initialization
+    init(settingsViewController: SettingsViewController) {
+        self.settingsViewController = settingsViewController
+    }
+
+    // MARK: - Methods
+    func start() {
+        settingsViewController.delegate = self
+    }
+}
+
+// MARK: - SettingsViewControllerDelegate
+extension SettingsCoordinator: SettingsViewControllerDelegate {
+    func didSelectChangeEmailButton() {
+//        let viewModel = ChangeUserEmailViewModel()
+//        let changeUserDataVC = ChangeUserDataViewController(viewModel: viewModel)
+//        parentNavigatingCoordinator?.push(childCoordinator: GenericCoordinator(viewController: changeUserDataVC))
+    }
+
+    func didSelectChangePasswordButton() {
+        let viewModel = ChangePasswordViewModel(sessionHandler: settingsViewController.viewModel.userSessionHandler)
+        let changePasswordVC = ChangePasswordViewController(viewModel: viewModel)
+        parentNavigatingCoordinator?.push(childCoordinator: ChangePasswordCoordinator(viewController: changePasswordVC))
+    }
+
+    func didSelectLogoutButton() {
+        settingsViewController.viewModel.userSessionHandler.exitUserSession(reason: .userLoggedOut)
+    }
+
+    func didSelectFAQButton() {
+        let changeEmailVC = UIViewController()
+        parentNavigatingCoordinator?.push(childCoordinator: GenericCoordinator(viewController: changeEmailVC))
+    }
+
+    func didSelectTOSButton() {
+        let changeEmailVC = UIViewController()
+        parentNavigatingCoordinator?.push(childCoordinator: GenericCoordinator(viewController: changeEmailVC))
+    }
+
+    func didSelectContactButton() {
+        guard let url = URL(string: "https://google.com") else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+}

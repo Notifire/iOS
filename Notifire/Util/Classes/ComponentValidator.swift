@@ -86,6 +86,8 @@ class ComponentValidator {
             completion(rule, string == equalString)
         case .equalToComponent(let component):
             completion(rule, string == component.validatableInput)
+        case .notEqualToComponent(let component):
+            completion(rule, string != component.validatableInput)
         case .validity(let option):
             apiManager.checkValidity(option: option, input: string) { result in
                 switch result {

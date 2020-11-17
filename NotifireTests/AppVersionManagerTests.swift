@@ -182,14 +182,14 @@ class AppVersionManagerTests: XCTestCase {
     }
 
     // MARK: - DecideIfUserShouldUpdate Tests
-    func commonDecideIfUserShouldUpdate(currentVersion: String, latestVersion: String, forceUpdate: Bool, appUpdateReminderDisabled: Bool = false, expectedAction: AppVersionManager.AppVersionUpdateAction) {
+    func commonDecideIfUserShouldUpdate(currentVersion: String, latestVersion: String, forceUpdate: Bool, appUpdateReminderEnabled: Bool = true, expectedAction: AppVersionManager.AppVersionUpdateAction) {
         // Given
         let appVersionData = AppVersionData(
             appVersionResponse: AppVersionResponse(forceUpdate: forceUpdate, latestVersion: latestVersion)
         )
         let manager = createManager(currentVersion: currentVersion)
         let session = UserSession(refreshToken: "", providerData: AuthenticationProviderData(provider: .email, email: "", userID: ""))
-        session.settings.appUpdateReminderDisabled = appUpdateReminderDisabled
+        session.settings.appUpdateReminderEnabled = appUpdateReminderEnabled
         // When
         let updateAction = manager.decideIfUserShouldUpdate(versionData: appVersionData, userSession: session)
         // Then
@@ -214,7 +214,7 @@ class AppVersionManagerTests: XCTestCase {
             currentVersion: "1.0.0",
             latestVersion: "1.2.0",
             forceUpdate: false,
-            appUpdateReminderDisabled: true,
+            appUpdateReminderEnabled: false,
             expectedAction: .userHasHiddenAlerts
         )
     }
@@ -225,7 +225,7 @@ class AppVersionManagerTests: XCTestCase {
             currentVersion: "1.0.0",
             latestVersion: "1.2.0",
             forceUpdate: true,
-            appUpdateReminderDisabled: true,
+            appUpdateReminderEnabled: false,
             expectedAction: .updateRequired
         )
     }
@@ -236,7 +236,7 @@ class AppVersionManagerTests: XCTestCase {
             currentVersion: "1.0.0",
             latestVersion: "1.2.0",
             forceUpdate: false,
-            appUpdateReminderDisabled: false,
+            appUpdateReminderEnabled: true,
             expectedAction: .updateAvailable
         )
     }
@@ -248,7 +248,7 @@ class AppVersionManagerTests: XCTestCase {
             currentVersion: version,
             latestVersion: version,
             forceUpdate: false,
-            appUpdateReminderDisabled: false,
+            appUpdateReminderEnabled: true,
             expectedAction: .latestVersion
         )
     }

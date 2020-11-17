@@ -34,10 +34,10 @@ enum NotifireAPIError: Error, CustomStringConvertible {
     /// Returns a message that is displayed to the user if this error occurs
     public var userFriendlyMessage: String {
         switch self {
-        case .unknown: return "unknown"
-        case .urlResponseNotCreated: return "Url response couldn't be created"
-        case .responseDataIsNil: return "Response data was nil"
-        case .invalidStatusCode(let statusCode, let responseBody): return "Invalid status code: \(statusCode) | response body: \(responseBody ?? "empty-response-body")"
+        case .unknown: return "Unknown error has occured while communicating with the server."
+        case .urlResponseNotCreated: return "URL response couldn't be created."
+        case .responseDataIsNil: return "Response data was nil."
+        case .invalidStatusCode(let statusCode, let responseBody): return "Invalid status code: \(statusCode)"
         case .invalidResponseBody(let bodyType, let actualData): return "Couldn't match \(actualData) with \(bodyType)"
         case .urlSession(let underlyingError): return "URLSession error: \(underlyingError)"
         }

@@ -44,10 +44,10 @@ extension ServicesViewController: SkeletonTableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return Size.Cell.height
+            return Size.Cell.heightExtended
         } else {
             if viewModel.isFetching {
-                return Size.Cell.height + 20
+                return Size.Cell.heightExtended + 20
             } else {
                 return 0
             }

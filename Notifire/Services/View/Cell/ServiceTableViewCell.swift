@@ -10,9 +10,6 @@ import UIKit
 import SkeletonView
 
 class ServiceTableViewCell: ReusableBaseTableViewCell {
-    // MARK: - Properties
-    // MARK: Static
-    static var reuseIdentifier = "ServiceTableViewCell"
 
     // MARK: Views
     let serviceImageView = RoundedImageView()

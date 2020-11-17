@@ -8,35 +8,84 @@
 
 import UIKit
 
-protocol CellConfigurable {
-    associatedtype DataType
-    func configure(data: DataType)
+protocol CellAppearanceDescribing {
+    /// The required height for this cell.
+    /// - Note: Return `nil` for cells that don't need a specific setting.
+    static var height: CGFloat? { get }
+    static var selectionStyle: UITableViewCell.SelectionStyle { get }
+    static var accessoryType: UITableViewCell.AccessoryType { get }
 }
 
-protocol CellConfiguring {
-    static var reuseIdentifier: String { get }
-    static var cellType: UITableViewCell.Type { get }
-    static var height: CGFloat { get }
-    func configure(cell: UITableViewCell)
+extension CellAppearanceDescribing {
+    static var height: CGFloat? {
+        return nil
+    }
+
+    static var selectionStyle: UITableViewCell.SelectionStyle {
+        return .none
+    }
+
+    static var accessoryType: UITableViewCell.AccessoryType {
+        return .none
+    }
 }
 
-extension CellConfiguring {
-    static var height: CGFloat {
+struct DefaultCellAppearance: CellAppearanceDescribing {}
+struct DefaultTappableCellAppearance: CellAppearanceDescribing {
+    static var selectionStyle: UITableViewCell.SelectionStyle {
+        return .default
+    }
+}
+struct DefaultAutomaticHeightCellAppearance: CellAppearanceDescribing {
+    static var height: CGFloat? {
         return UITableView.automaticDimension
     }
 }
 
-struct CellConfiguration<CellType: UITableViewCell & CellConfigurable, DataType>: CellConfiguring where CellType.DataType == DataType {
+protocol CellConfigurable {
+    associatedtype DataType
+    func configure(data: DataType)
+    func configure(appearance: CellAppearanceDescribing.Type)
+}
+
+extension CellConfigurable where Self: UITableViewCell {
+    func configure(appearance: CellAppearanceDescribing.Type) {
+        accessoryType = appearance.accessoryType
+        selectionStyle = appearance.selectionStyle
+    }
+}
+
+protocol CellConfiguring: Reusable {
+    static var cellType: UITableViewCell.Type { get }
+    func configure(cell: UITableViewCell)
+}
+
+enum CellConfigurationContent {
+    /// Available immediatelly. Used when the cell content is static.
+    case `static`(CellConfiguring)
+    /// ViewModels have to provide the CellConfiguration dynamically.
+    case `dynamic`
+}
+
+struct CellConfiguration<CellType: UITableViewCell & CellConfigurable, Appearance: CellAppearanceDescribing>: CellConfiguring {
     static var reuseIdentifier: String { return String(describing: cellType) }
     static var cellType: UITableViewCell.Type { return CellType.self }
 
-    let item: DataType
+    let item: CellType.DataType
+    let appearance: CellAppearanceDescribing.Type = Appearance.self
 
-    init(item: DataType) {
+    init(item: CellType.DataType) {
         self.item = item
     }
 
     func configure(cell: UITableViewCell) {
-        (cell as? CellType)?.configure(data: item)
+        guard let configurableCell = cell as? CellType else {
+            Logger.log(.fault, "\(self) unable to configure cell (\(cell)), expected \(CellType.self)")
+            return
+        }
+        // Data
+        configurableCell.configure(data: item)
+        // Appearance
+        configurableCell.configure(appearance: appearance)
     }
 }

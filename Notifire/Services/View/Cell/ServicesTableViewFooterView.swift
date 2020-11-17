@@ -10,8 +10,6 @@ import UIKit
 
 class ServicesTableViewFooterView: ReusableHeaderFooter {
 
-    static var reuseIdentifier: String = "ServicesTableViewFooterView"
-
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setup()

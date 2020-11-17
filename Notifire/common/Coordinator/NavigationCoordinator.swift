@@ -25,9 +25,11 @@ protocol NavigatingChildCoordinator: ChildCoordinator {
 extension NavigatingCoordinator {
     /// Adds a child coordinator to the `childCoordinators` stack and starts it via `start()`
     /// - Parameters:
-    ///     - childCoordinator: the child coordinator that will be added to the stack of childCoordinators and animated via push
-    ///     - push: if the viewcontroller associated with the childCoordinator should be pushed immediately (animated)
-    func add(childCoordinator: ChildCoordinator, push: Bool = false) {
+    ///     - childCoordinator: the child coordinator that will be added to the stack of childCoordinators
+    func add(childCoordinator: ChildCoordinator) {
+        // Check if the childCoordinator is not already present in the childCoordinators array
+        guard !childCoordinators.contains(where: { $0 === childCoordinator }) else { return }
+
         delegate?.willAddChild(coordinator: childCoordinator)
         // if the child to be added will require push/pop interaction with the navigation controller
         // set its parentNavigationCoordinator
@@ -38,14 +40,20 @@ extension NavigatingCoordinator {
         childCoordinator.start()
 
         // call the didAddChild delegate method
-        defer { delegate?.didAddChild(coordinator: childCoordinator, pushed: push) }
+        delegate?.didAddChild(coordinator: childCoordinator)
+    }
 
-        guard push else { return }
-        navigationController.pushViewController(childCoordinator.viewController, animated: true)
+    /// Add a new childCoordinator to the childCoordinators array and push its `ChildCoordinator.viewController` to the navigation stack.
+    /// - Parameter animated: whether the `pushViewController` should be animated.
+    func push(childCoordinator: ChildCoordinator, animated: Bool = true) {
+        // Add the child first
+        add(childCoordinator: childCoordinator)
+        // Push it to the navigationHierarchy stack
+        navigationController.pushViewController(childCoordinator.viewController, animated: animated)
     }
 
     /// Removes the last coordinator that was added to the childCoordinator hierarchy.
-    /// - Parameter animated: if the pop should be animated
+    /// - Parameter animated: if the pop should be animated. Default value is `true`.
     func popChildCoordinator(animated: Bool = true) {
         navigationController.popViewController(animated: animated)
     }

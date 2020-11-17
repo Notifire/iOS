@@ -22,13 +22,13 @@ class UserSession {
     /// The data from the login provider (e.g. email / userID)
     let providerData: AuthenticationProviderData
     /// Used to obtain the access token
-    let refreshToken: String
+    var refreshToken: String
     /// Current device token
     var deviceToken: String?
     /// Current access token
     var accessToken: String?
-
-    lazy var settings = UserSessionSettings(session: self)
+    /// Users preferences (`UserDefaults`)
+    let settings: UserSessionSettings
 
     // MARK: Computed
     var email: String {
@@ -36,9 +36,18 @@ class UserSession {
         return providerData.email
     }
 
+    /// `true` if the user is logged in with an external SSO provider.
+    var isLoggedWithExternalProvider: Bool {
+        switch providerData.provider {
+        case .email: return false
+        case .sso: return true
+        }
+    }
+
     // MARK: - Initialization
     init(refreshToken: String, providerData: AuthenticationProviderData) {
         self.refreshToken = refreshToken
         self.providerData = providerData
+        self.settings = UserSessionSettings(identifier: providerData.email)
     }
 }

@@ -90,6 +90,13 @@ class UserSessionHandler: RealmProviding {
         // Inform the delegate about the removal
         sessionDelegate?.shouldRemoveUser(session: userSession, reason: reason)
     }
+
+    public func updateUserSession(refreshToken: String, accessToken: String) {
+        userSession.refreshToken = refreshToken
+        userSession.accessToken = accessToken
+        // Save the new refresh token to the keychain
+        UserSessionManager.saveSessionInParts(session: userSession, email: false, refreshToken: true, providerData: false, deviceToken: false)
+    }
 }
 
 extension UserSessionHandler: NotificationObserving {

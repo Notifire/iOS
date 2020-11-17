@@ -10,6 +10,8 @@ import Foundation
 
 enum LaunchArgument: String, CaseIterable {
     case resetKeychainData
+    case resetUserDefaultsData
+    case resetRealmData
     case turnOffAnimations
 
     static func append(_ arg: LaunchArgument, to arguments: inout [String]) {

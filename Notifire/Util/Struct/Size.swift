@@ -16,6 +16,7 @@ struct Size {
     static let componentWidthRelativeToScreenWidth: CGFloat = 0.8
 
     static let iconSize: CGFloat = 32
+    static let smallestMargin: CGFloat = 6
     static let smallMargin: CGFloat = 8
     static let standardMargin: CGFloat = 16
     static let extendedMargin: CGFloat = 18
@@ -32,7 +33,8 @@ struct Size {
     }
 
     struct Cell {
-        static let height: CGFloat = 60
+        static let height: CGFloat = 44
+        static let heightExtended: CGFloat = 60
         static let narrowSideMargin: CGFloat = 12
         static let sideMargin: CGFloat = 16
         static let extendedSideMargin: CGFloat = 18

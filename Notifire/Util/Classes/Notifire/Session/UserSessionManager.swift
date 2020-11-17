@@ -84,18 +84,41 @@ class UserSessionManager {
     }
 
     static func saveSession(userSession: UserSession) {
-        let email = userSession.email
-        // set the last logged in email to the email in this userSession
-        setKeychainValue(value: email, key: KeychainKey.email)
-        // set the email of the userSession
-        setKeychainValue(value: email, key: KeychainKey.email, userIdentifier: email)
-        setKeychainValue(value: userSession.refreshToken, key: KeychainKey.refreshToken, userIdentifier: email)
-        setKeychainValue(value: userSession.providerData.provider.description, key: KeychainKey.provider, userIdentifier: email)
-        if let ssoUserID = userSession.providerData.userID {
-            setKeychainValue(value: ssoUserID, key: KeychainKey.ssoUserIdentifier, userIdentifier: email)
+        saveSessionInParts(
+            session: userSession,
+            email: true,
+            refreshToken: true,
+            providerData: true,
+            deviceToken: true
+        )
+    }
+
+    static func saveSessionInParts(session: UserSession, email: Bool, refreshToken: Bool, providerData: Bool, deviceToken: Bool) {
+        let userIdentifier = session.email
+        // Email
+        if email {
+            // set the last logged in email to the email in this userSession
+            setKeychainValue(value: session.email, key: KeychainKey.email)
+            // set the email of the userSession
+            setKeychainValue(value: session.email, key: KeychainKey.email, userIdentifier: userIdentifier)
         }
-        if let deviceToken = userSession.deviceToken {
-            setKeychainValue(value: deviceToken, key: KeychainKey.deviceToken, userIdentifier: email)
+
+        // Refresh token
+        if refreshToken {
+            setKeychainValue(value: session.refreshToken, key: KeychainKey.refreshToken, userIdentifier: userIdentifier)
+        }
+
+        // Provider data
+        if providerData {
+            setKeychainValue(value: session.providerData.provider.description, key: KeychainKey.provider, userIdentifier: userIdentifier)
+            if let ssoUserID = session.providerData.userID {
+                setKeychainValue(value: ssoUserID, key: KeychainKey.ssoUserIdentifier, userIdentifier: userIdentifier)
+            }
+        }
+
+        // Device token
+        if deviceToken, let token = session.deviceToken {
+            setKeychainValue(value: token, key: KeychainKey.deviceToken, userIdentifier: userIdentifier)
         }
     }
 

@@ -19,6 +19,7 @@ struct ComponentRule {
         case maximum(length: Int)
         case regex(String)
         case equalToComponent(ValidatableComponent)
+        case notEqualToComponent(ValidatableComponent)
         case equalToString(String)
         case validity(CheckValidityOption)
     }
@@ -64,7 +65,7 @@ extension ComponentRule: CustomStringConvertible {
         case .maximum(let maxLength): return "Maximum length exceeded. (\(maxLength))"
         case .regex: return "Invalid characters used."
         case .validity(let option): return "This \(option.rawValue) is not available."
-        case .equalToString, .equalToComponent: return ""
+        case .equalToString, .equalToComponent, .notEqualToComponent: return ""
         }
     }
 }

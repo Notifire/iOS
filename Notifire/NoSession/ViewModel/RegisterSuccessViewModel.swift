@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RegisterSuccessViewModel {
+class RegisterSuccessViewModel: ViewModelRepresenting {
 
     enum ResendButtonState {
         case loading

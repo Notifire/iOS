@@ -11,11 +11,11 @@ import UIKit
 class HairlineView: ConstrainableView {
     override func setupSubviews() {
         backgroundColor = .customOpaqueSeparator
-        let height = HairlineView.minimalWidth
+        let height = HairlineView.minimalHeight
         heightAnchor.constraint(equalToConstant: height).isActive = true
     }
 
-    static var minimalWidth: CGFloat {
+    static var minimalHeight: CGFloat {
         return (1.0 / UIScreen.main.scale)
     }
 }

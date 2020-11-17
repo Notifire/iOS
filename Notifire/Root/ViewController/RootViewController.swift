@@ -69,7 +69,7 @@ class RootViewController: VMViewController<RootViewModel>, NotifireAlertPresenti
             // Only add this option if a user is logged in == session is not nil
             if let session = viewModel.currentSessionHandler?.userSession {
                 alertVC.add(action: NotifireAlertAction(title: "Turn off these alerts", style: .neutral, handler: { [unowned alertVC] _ in
-                    session.settings.appUpdateReminderDisabled = true
+                    session.settings.appUpdateReminderEnabled = false
                     alertVC.dismiss(animated: true, completion: nil)
                 }))
             }

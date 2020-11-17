@@ -40,6 +40,8 @@ extension NavigationBarDisplaying where Self: UIViewController {
     }
 
     /// Hides the back button text from the navigation bar (but keeps the chevron).
+    /// - Important: Call this on the ViewController that will present another one.
+    ///              In other words, this function hides the text on the next pushed VC.
     func hideNavigationBarBackButtonText() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
