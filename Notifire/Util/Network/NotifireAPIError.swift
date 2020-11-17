@@ -37,9 +37,14 @@ enum NotifireAPIError: Error, CustomStringConvertible {
         case .unknown: return "Unknown error has occured while communicating with the server."
         case .urlResponseNotCreated: return "URL response couldn't be created."
         case .responseDataIsNil: return "Response data was nil."
-        case .invalidStatusCode(let statusCode, let responseBody): return "Invalid status code: \(statusCode)"
-        case .invalidResponseBody(let bodyType, let actualData): return "Couldn't match \(actualData) with \(bodyType)"
-        case .urlSession(let underlyingError): return "URLSession error: \(underlyingError)"
+        case .invalidStatusCode(let statusCode, _): return "Invalid status code: \(statusCode)"
+        case .invalidResponseBody: return "Unexpected response data."
+        case .urlSession(let underlyingError):
+            let error = underlyingError as NSError
+            if error.domain == NSURLErrorDomain {
+                return error.localizedDescription
+            }
+            return "URLSession error: \(underlyingError)"
         }
     }
 }
