@@ -49,11 +49,11 @@ class SettingsViewController: VMViewController<SettingsViewModel>, NavigationBar
     }
 
     func promptLogout() {
-        let logoutAlert = UIAlertController(title: "Logout from Notifire?", message: "Are you sure? You won't receive any notifications after logging out.", preferredStyle: .alert)
-        logoutAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { _ in
+        let logoutAlert = UIAlertController(title: "Log out of Notifire?", message: "Are you sure you want to log out? You won't receive any notifications after logging out.", preferredStyle: .alert)
+        logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
             logoutAlert.dismiss(animated: true, completion: nil)
         }))
-        logoutAlert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
+        logoutAlert.addAction(UIAlertAction(title: "Log out", style: .destructive, handler: { _ in
             self.delegate?.didSelectLogoutButton()
         }))
         present(logoutAlert, animated: true, completion: nil)

@@ -103,7 +103,7 @@ class SettingsViewModel: ViewModelRepresenting {
             newConfiguration = SettingsDisclosureCellConfiguration(item: ("Change your password", nil))
         // Logout
         case .logout:
-            newConfiguration = SettingsCenteredCellConfiguration(item: "Logout")
+            newConfiguration = SettingsCenteredCellConfiguration(item: "Log out")
         // Notifications
         case .deviceTokenStatus:
             newConfiguration = SettingsDefaultCellConfiguration(item: ("Notifications enabled", "OK"))
