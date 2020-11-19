@@ -27,3 +27,19 @@ class LoadingModel {
         isLoading = !isLoading
     }
 }
+
+class StateModel<State: Equatable> {
+
+    public var state: State {
+        didSet {
+            guard oldValue != state else { return }
+            onStateChange?(oldValue, state)
+        }
+    }
+
+    public var onStateChange: ((State, State) -> Void)?
+
+    init(defaultValue: State) {
+        self.state = defaultValue
+    }
+}

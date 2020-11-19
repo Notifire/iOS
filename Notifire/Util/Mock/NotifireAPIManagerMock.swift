@@ -23,8 +23,13 @@ class NotifireAPIManagerMock: NotifireAPIManager, NotifireAPIManagerMocking {
         returnPlainSuccessResponseAfter(completion: completion)
     }
 
-    override func confirmAccount(emailToken: String, completion: @escaping Callback<VerifyAccountResponse>) {
-        returnSuccessAfter(completion: completion, response: VerifyAccountResponse(success: true, payload: VerifyAccountSuccessResponse(email: "testtest", refreshToken: "testtestRefreshToken", accessToken: "jwt"), error: nil))
+    override func confirmAccount(emailToken: String, completion: @escaping Callback<ConfirmAccountResponse>) {
+        returnSuccessAfter(completion: completion, response: ConfirmAccountResponse(success: true, payload: ConfirmAccountSuccessResponse(email: "testtest", refreshToken: "testtestRefreshToken", accessToken: "jwt"), error: nil))
+    }
+
+    override func resetPassword(password: String, token: String, completion: @escaping NotifireAPIBaseManager.Callback<ResetPasswordResponse>) {
+        //returnSuccessAfter(completion: completion, response: ResetPasswordResponse(success: true, payload: LoginSuccessResponse(email: "testicek@testicek.com", refreshToken: "asdasd", accessToken: "asdasd")))
+        returnErrorResponseAfter(error: .clientError(NotifireAPIError.ClientError(code: 2, message: "Testicek")), completion: completion)
     }
 
     override func checkValidity(option: CheckValidityOption, input: String, completion: @escaping Callback<CheckValidityResponse>) {

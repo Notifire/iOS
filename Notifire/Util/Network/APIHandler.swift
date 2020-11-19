@@ -9,15 +9,17 @@
 import Foundation
 
 protocol APIHandler {
+    /// Perform the network request.
     func perform<ResponseBody: Decodable>(requestContext: URLRequestContext<ResponseBody>, completionHandler: @escaping ((NotifireAPIResponseContext<ResponseBody>) -> Void))
 }
 
-// MARK: NotifireAPIHandler
-extension URLSession: APIHandler {
+extension APIHandler {
 
+    /// The completion callback type
     typealias CompletionCallback<ResponseBody: Decodable> = (NotifireAPIResponseContext<ResponseBody>) -> Void
 
-    private static func finish<ResponseBody: Decodable>(_ maybeResponseBody: ResponseBody?, _ maybeError: NotifireAPIError?, statusCode: HTTPStatusCode? = nil, responseBodyString: String? = nil, requestContext: URLRequestContext<ResponseBody>, completion: @escaping CompletionCallback<ResponseBody>) {
+    /// Finish a request with the appropriate completion result
+    static func finish<ResponseBody: Decodable>(_ maybeResponseBody: ResponseBody?, _ maybeError: NotifireAPIError?, statusCode: HTTPStatusCode? = nil, responseBodyString: String? = nil, requestContext: URLRequestContext<ResponseBody>, completion: @escaping CompletionCallback<ResponseBody>) {
         if let notifireAPIError = maybeError {
             let errorContext = URLRequestErrorContext(error: notifireAPIError, requestContext: requestContext, statusCode: statusCode, responseBodyString: responseBodyString)
             Logger.logNetwork(.default, "\(self) errorContext=<\(errorContext)>")
@@ -30,18 +32,26 @@ extension URLSession: APIHandler {
             }
         }
     }
+}
 
+// MARK: NotifireAPIHandler
+extension URLSession: APIHandler {
+
+    // swiftlint:disable function_body_length
     func perform<ResponseBody: Decodable>(requestContext: URLRequestContext<ResponseBody>, completionHandler: @escaping ((NotifireAPIResponseContext<ResponseBody>) -> Void)) {
         // Create a task
         let task = dataTask(with: requestContext.apiRequest) { data, urlResponse, maybeError in
+            // Error
             if let error = maybeError {
                 URLSession.finish(nil, .urlSession(error: error), requestContext: requestContext, completion: completionHandler)
                 return
             }
+            // Data
             guard let data = data, let stringData = String(bytes: data, encoding: .utf8) else {
                 URLSession.finish(nil, .responseDataIsNil, requestContext: requestContext, completion: completionHandler)
                 return
             }
+            // Status Code
             guard let httpURLResponse = urlResponse as? HTTPURLResponse else {
                 URLSession.finish(nil, .urlResponseNotCreated, responseBodyString: stringData, requestContext: requestContext, completion: completionHandler)
                 return
@@ -94,6 +104,18 @@ extension URLSession: APIHandler {
                     requestContext: requestContext,
                     completion: completionHandler
                 )
+            case .unauthorized, .methodNotAllowed, .badRequest:
+                guard let clientErrorResponse = try? decoder.decode(NotifireAPIError.ClientError.self, from: data) else {
+                    fallthrough
+                }
+                URLSession.finish(
+                    nil,
+                    .clientError(clientErrorResponse),
+                    statusCode: statusCode.rawValue,
+                    responseBodyString: stringData,
+                    requestContext: requestContext,
+                    completion: completionHandler
+                )
             default:
                 URLSession.finish(
                     nil,
@@ -108,4 +130,5 @@ extension URLSession: APIHandler {
         Logger.logNetwork(.debug, "\(self) performing requestContext=<\(requestContext)>")
         task.resume()
     }
+    // swiftlint:enable function_body_length
 }

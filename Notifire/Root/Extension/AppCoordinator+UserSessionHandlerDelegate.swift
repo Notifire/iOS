@@ -30,6 +30,7 @@ extension AppCoordinator: UserSessionHandlerDelegate {
                 message: otherReason.reasonDescription(provider: session.providerData.provider),
                 preferredStyle: .alert
             )
+            alertController.view.tintColor = .primary
             alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
                 logoutBlock()
             }))

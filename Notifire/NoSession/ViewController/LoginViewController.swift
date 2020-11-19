@@ -140,8 +140,7 @@ class LoginViewController: VMViewController<LoginViewModel>, AppRevealing, Keybo
     // MARK: - Private
     func setupSubviews() {
 
-        let image = UIImage(imageLiteralResourceName: "cross_symbol").resized(to: Size.Navigator.symbolSize)
-        navigationItem.leftBarButtonItem = ActionButton.createActionBarButtonItem(image: image, target: self, action: #selector(didPressCloseButton))
+        navigationItem.leftBarButtonItem = ActionButton.createCloseCrossBarButtonItem(target: self, action: #selector(didPressCloseButton))
 
         let safeArea = view.safeAreaLayoutGuide
         // animated view

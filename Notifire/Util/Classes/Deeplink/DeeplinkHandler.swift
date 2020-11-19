@@ -38,9 +38,9 @@ class DeeplinkHandler {
         let token = comp.removeLast()
         switch comp {
         case ["/", "account", "confirm"]:
-            switchTo(deeplinkOption: .emailConfirmation(token: token))
+            switchTo(deeplinkOption: .accountConfirmation(token: token))
         case ["/", "account", "reset", "email"]:
-            switchTo(deeplinkOption: .resetEmail(token: token))
+            switchTo(deeplinkOption: .changeEmail(token: token))
         case ["/", "account", "reset", "password"]:
             switchTo(deeplinkOption: .resetPassword(token: token))
         default:
@@ -62,6 +62,14 @@ class DeeplinkHandler {
         }
     }
 
+    func createDeeplinkableVC<VC: DeeplinkedVMViewController<VM>, VM: UserSessionCreating & DeeplinkResponding>(viewControllerType: VC.Type, token: String) -> DeeplinkedVMViewController<VM> {
+        let viewModel = viewControllerType.ViewModel.init(apiManager: NotifireAPIFactory.createAPIManager(), token: token)
+        viewModel.sessionDelegate = appCoordinator
+        let viewController = viewControllerType.init(viewModel: viewModel)
+        viewController.delegate = appCoordinator
+        return viewController
+    }
+
     func switchTo(deeplinkOption: Deeplink.Option) {
         // dismiss any presented deeplink
         if currentDeeplink != nil {
@@ -71,21 +79,20 @@ class DeeplinkHandler {
         let newDeeplink = Deeplink(option: deeplinkOption, presenter: appCoordinator?.window.rootViewController)
         let deeplinkViewController: UIViewController
         switch deeplinkOption {
-        case .emailConfirmation(let token):
-            let confirmEmailViewModel = ConfirmEmailViewModel(token: token)
-            let confirmEmailViewController = ConfirmEmailViewController(viewModel: confirmEmailViewModel)
-            confirmEmailViewController.delegate = appCoordinator
-            confirmEmailViewController.sessionDelegate = appCoordinator
-            deeplinkViewController = confirmEmailViewController
-        case .resetEmail:
+        case .accountConfirmation(let token):
+            deeplinkViewController = createDeeplinkableVC(viewControllerType: ConfirmEmailViewController.self, token: token)
+        case .changeEmail:
             deeplinkViewController = UIViewController()
         case .resetPassword(let token):
-            let resetPasswordVM = ResetPasswordViewModel(token: token)
-            let resetPasswordVC = ResetPasswordViewController(viewModel: resetPasswordVM)
-            resetPasswordVC.delegate = appCoordinator
-            deeplinkViewController = resetPasswordVC
+            deeplinkViewController = createDeeplinkableVC(viewControllerType: ResetPasswordViewController.self, token: token)
+        case .changEmailRevert:
+            deeplinkViewController = UIViewController()
         }
-        newDeeplink.deeplinkPresenter.present(deeplinkViewController, animated: true, completion: nil)
+        let wrapper = NotifireNavigationController(rootViewController: deeplinkViewController)
+        if #available(iOS 13.0, *) {
+            wrapper.isModalInPresentation = true
+        }
+        newDeeplink.deeplinkPresenter.present(wrapper, animated: true, completion: nil)
         self.currentDeeplink = newDeeplink
     }
 
@@ -100,30 +107,5 @@ class DeeplinkHandler {
             }
             completion?()
         })
-    }
-}
-
-class ResetPasswordViewModel: ViewModelRepresenting, APIErrorProducing {
-
-    // MARK: - Properties
-    let token: String
-
-    // MARK: APIErrorProducing
-    var onError: ((NotifireAPIError) -> Void)?
-
-    // MARK: - Initialization
-    init(token: String) {
-        self.token = token
-    }
-}
-
-class ResetPasswordViewController: VMViewController<ResetPasswordViewModel>, CenterStackViewPresenting, APIErrorResponding, APIErrorPresenting {
-
-    weak var delegate: ConfirmEmailViewControllerDelegate?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        view.backgroundColor = .compatibleSystemBackground
     }
 }

@@ -61,7 +61,8 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
     }
 
     func didSelectContactButton() {
-        guard let url = URL(string: "https://google.com") else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        //guard let url = URL(string: "https://google.com") else { return }
+        //UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        (UIApplication.shared.delegate as? AppDelegate)?.appCoordinator.deeplinkHandler.switchTo(deeplinkOption: .resetPassword(token: "asd"))
     }
 }

@@ -55,4 +55,9 @@ class ActionButton: BaseButton, Loadable {
         button.tintColor = .compatibleLabel
         return button
     }
+
+    public static func createCloseCrossBarButtonItem(target: Any?, action: Selector?) -> UIBarButtonItem {
+        let image = UIImage(imageLiteralResourceName: "cross_symbol").resized(to: Size.Navigator.symbolSize)
+        return ActionButton.createActionBarButtonItem(image: image, target: target, action: action)
+    }
 }

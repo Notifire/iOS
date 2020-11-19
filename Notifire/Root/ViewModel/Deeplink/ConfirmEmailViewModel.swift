@@ -6,17 +6,19 @@
 //  Copyright © 2018 David Bielik. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class ConfirmEmailViewModel: ViewModelRepresenting, APIErrorProducing, UserErrorProducing {
+class ConfirmEmailViewModel: ViewModelRepresenting, APIErrorProducing, UserErrorProducing, DeeplinkResponding, UserSessionCreating {
 
-    typealias UserError = VerifyAccountUserError
+    typealias UserError = ConfirmAccountUserError
 
     // MARK: - Properties
+    weak var sessionDelegate: UserSessionCreationDelegate?
+
     // MARK: APIErrorProducing
     let notifireApiManager: NotifireAPIManager
     var onError: ((NotifireAPIError) -> Void)?
-    var onUserError: ((VerifyAccountUserError) -> Void)?
+    var onUserError: ((ConfirmAccountUserError) -> Void)?
 
     // MARK: Model
     let token: String
@@ -33,13 +35,13 @@ class ConfirmEmailViewModel: ViewModelRepresenting, APIErrorProducing, UserError
     var onConfirmation: ((UserSession) -> Void)?
 
     // MARK: - Initialization
-    init(notifireApiManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager(), token: String) {
-        self.notifireApiManager = notifireApiManager
+    required init(apiManager: NotifireAPIManager, token: String) {
         self.token = token
+        self.notifireApiManager = apiManager
     }
 
     // MARK: - Methods
-    func confirmAccount(_ btn: UIButton) {
+    func confirmAccount() {
         loading = true
         notifireApiManager.confirmAccount(emailToken: token) { [weak self] result in
             guard let `self` = self else { return }
@@ -50,11 +52,9 @@ class ConfirmEmailViewModel: ViewModelRepresenting, APIErrorProducing, UserError
             case .success(let response):
                 if let userError = response.error {
                     self.onUserError?(userError.code)
-                } else if let verifyAccountSuccessResponse = response.payload {
-                    let providerData = AuthenticationProviderData(provider: .email, email: verifyAccountSuccessResponse.email, userID: nil)
-                    let session = UserSession(refreshToken: verifyAccountSuccessResponse.refreshToken, providerData: providerData)
-                    session.accessToken = verifyAccountSuccessResponse.accessToken
-                    self.onConfirmation?(session)
+                } else if let confirmAccountSuccessResponse = response.payload {
+                    let session = UserSessionManager.createEmailSession(loginSuccessResponse: confirmAccountSuccessResponse)
+                    self.sessionDelegate?.didCreate(session: session)
                 } else {
                     self.onError?(.unknown)
                 }

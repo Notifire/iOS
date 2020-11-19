@@ -39,10 +39,10 @@ class NotifireAPIManager: NotifireAPIBaseManager {
     }
 
     // MARK: - /account/confirm
-    func confirmAccount(emailToken: String, completion: @escaping Callback<VerifyAccountResponse>) {
+    func confirmAccount(emailToken: String, completion: @escaping Callback<ConfirmAccountResponse>) {
         let body = ConfirmAccountRequestBody(token: emailToken)
         let request = createAPIRequest(endpoint: NotifireAPIEndpoint.confirmAccount, method: .put, body: body, queryItems: nil)
-        let requestContext = URLRequestContext(responseBodyType: VerifyAccountResponse.self, apiRequest: request)
+        let requestContext = URLRequestContext(responseBodyType: ConfirmAccountResponse.self, apiRequest: request)
         perform(requestContext: requestContext, managerCompletion: completion)
     }
 
@@ -77,6 +77,14 @@ class NotifireAPIManager: NotifireAPIBaseManager {
         ]
         let request = createAPIRequest(endpoint: NotifireAPIEndpoint.sendResetPassword, method: .get, body: nil as EmptyRequestBody?, queryItems: parameters)
         let requestContext = URLRequestContext(responseBodyType: SendResetPasswordResponse.self, apiRequest: request)
+        perform(requestContext: requestContext, managerCompletion: completion)
+    }
+
+    // MARK: - /account/reset/password
+    func resetPassword(password: String, token: String, completion: @escaping Callback<ResetPasswordResponse>) {
+        let body = ResetPasswordRequestBody(password: password, token: token)
+        let request = createAPIRequest(endpoint: NotifireAPIEndpoint.resetPassword, method: .put, body: body)
+        let requestContext = URLRequestContext(responseBodyType: ResetPasswordResponse.self, apiRequest: request)
         perform(requestContext: requestContext, managerCompletion: completion)
     }
 }

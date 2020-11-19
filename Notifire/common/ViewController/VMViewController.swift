@@ -13,7 +13,7 @@ class VMViewController<ViewModel: ViewModelRepresenting>: UIViewController, View
 
     var viewModel: ViewModel
 
-    init(viewModel: ViewModel) {
+    required init(viewModel: ViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

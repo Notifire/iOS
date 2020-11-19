@@ -44,10 +44,7 @@ final class LoginViewModel: InputValidatingViewModel, APIErrorProducing, UserErr
                 self.onError?(error)
             case .success(let response):
                 if let loginSuccessResponse = response.payload {
-                    // userID is nil because email doesn't provide a userID token
-                    let providerData = AuthenticationProviderData(provider: .email, email: self.email, userID: nil)
-                    let session = UserSession(refreshToken: loginSuccessResponse.refreshToken, providerData: providerData)
-                    session.accessToken = loginSuccessResponse.accessToken
+                    let session = UserSessionManager.createEmailSession(loginSuccessResponse: loginSuccessResponse)
                     self.onLogin?(session)
                 } else if let loginErrorResponse = response.error {
                     self.onUserError?(loginErrorResponse.code)

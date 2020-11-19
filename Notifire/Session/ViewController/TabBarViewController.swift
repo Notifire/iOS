@@ -37,7 +37,7 @@ class TabBarViewController: VMViewController<TabBarViewModel>, AppRevealing {
     }
 
     // MARK: - Initialization
-    override init(viewModel: TabBarViewModel) {
+    required init(viewModel: TabBarViewModel) {
         super.init(viewModel: viewModel)
         // Update appearance and notify delegate when the tab changes
         viewModel.onTabChange = { [unowned self] tab in
@@ -129,11 +129,11 @@ class TabBarViewController: VMViewController<TabBarViewModel>, AppRevealing {
         containerView.bottomAnchor.constraint(equalTo: buttonsContainerView.topAnchor).isActive = true
 
         // separator
-        let hairlineView = HairlineView()
-        view.addSubview(hairlineView)
-        hairlineView.leadingAnchor.constraint(equalTo: buttonsContainerView.leadingAnchor).isActive = true
-        hairlineView.trailingAnchor.constraint(equalTo: buttonsContainerView.trailingAnchor).isActive = true
-        hairlineView.bottomAnchor.constraint(equalTo: buttonsContainerView.topAnchor).isActive = true
+        let separatorView = SeparatorView()
+        view.addSubview(separatorView)
+        separatorView.leadingAnchor.constraint(equalTo: buttonsContainerView.leadingAnchor).isActive = true
+        separatorView.trailingAnchor.constraint(equalTo: buttonsContainerView.trailingAnchor).isActive = true
+        separatorView.bottomAnchor.constraint(equalTo: buttonsContainerView.topAnchor).isActive = true
     }
 
     // MARK: Appearance

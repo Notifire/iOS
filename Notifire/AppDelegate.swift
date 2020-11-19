@@ -36,6 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = applicationWindow
         appCoordinator = AppCoordinator(window: applicationWindow)
         appCoordinator.start()
+
+        appCoordinator.deeplinkHandler.switchTo(deeplinkOption: .resetPassword(token: "test"))
         return true
     }
 

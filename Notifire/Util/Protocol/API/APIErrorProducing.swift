@@ -46,6 +46,7 @@ extension APIErrorPresenting where Self: UIViewController {
     func present(error: NotifireAPIError) {
         let message = error.userFriendlyMessage
         let alertController = UIAlertController(title: "Network error encountered", message: message, preferredStyle: .alert)
+        alertController.view.tintColor = .primary
         alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { _ in
             alertController.dismiss(animated: true, completion: nil)
         }))

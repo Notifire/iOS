@@ -75,7 +75,7 @@ extension Loadable {
 
     func changeLoading(to loading: Bool) {
         if loading {
-            startLoading()
+            _ = startLoading()
         } else {
             stopLoading()
         }

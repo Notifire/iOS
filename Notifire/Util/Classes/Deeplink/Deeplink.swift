@@ -11,9 +11,14 @@ import UIKit
 class Deeplink {
 
     enum Option: Equatable {
-        case emailConfirmation(token: String)
+        /// Account confirmation after creating a new account.
+        case accountConfirmation(token: String)
+        /// Password reset in case an existing user forgot his last password.
         case resetPassword(token: String)
-        case resetEmail(token: String)
+        /// Email change in case an existing user wants to change it through settings.
+        case changeEmail(token: String)
+        /// Revert to the previous email.
+        case changEmailRevert(token: String)
     }
 
     let option: Option

@@ -39,7 +39,6 @@ class SettingsViewController: VMViewController<SettingsViewModel>, NavigationBar
 
         // Layout
         layout()
-        addNavigationBarSeparator()
     }
 
     // MARK: - Private

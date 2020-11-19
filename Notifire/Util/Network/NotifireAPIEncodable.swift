@@ -81,3 +81,8 @@ struct ChangePasswordRequestBody: Encodable {
     let oldPassword: String
     let newPassword: String
 }
+
+struct ResetPasswordRequestBody: Encodable {
+    let password: String
+    let token: String
+}

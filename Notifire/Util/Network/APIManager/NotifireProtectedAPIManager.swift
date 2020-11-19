@@ -120,7 +120,7 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
         performProtected(request: request, responseType: ChangePasswordResponse.self, completion: completion)
     }
 
-    // MARK: Send Email
+    // MARK: Send Change Email
     func sendChangeEmail(to newEmail: String, completion: @escaping Callback<SendChangeEmailResponse>) {
         let params = [
             URLQueryItem(name: "email", value: newEmail)

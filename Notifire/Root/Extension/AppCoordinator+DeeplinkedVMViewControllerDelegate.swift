@@ -1,5 +1,5 @@
 //
-//  AppCoordinator+ConfirmEmailViewControllerDelegate.swift
+//  AppCoordinator+DeeplinkedVMViewControllerDelegate.swift
 //  Notifire
 //
 //  Created by David Bielik on 02/09/2020.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-extension AppCoordinator: ConfirmEmailViewControllerDelegate {
-    func didFinishEmailConfirmation() {
+extension AppCoordinator: DeeplinkedVMViewControllerDelegate {
+    func shouldCloseDeeplink() {
         deeplinkHandler.finishDeeplink()
     }
 }

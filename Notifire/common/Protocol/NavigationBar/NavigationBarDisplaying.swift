@@ -31,8 +31,8 @@ extension NavigationBarDisplaying where Self: UIViewController {
     /// - Note:
     ///     - Usually call this after adding all subviews to make sure this view is on top of all of them.
     @discardableResult
-    func addNavigationBarSeparator() -> HairlineView {
-        let separator = HairlineView()
+    func addNavigationBarSeparator() -> SeparatorView {
+        let separator = SeparatorView()
         view.add(subview: separator)
         separator.embedSides(in: view)
         separator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true

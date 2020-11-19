@@ -38,13 +38,13 @@ struct AppVersionResponse: Codable, Equatable {
 typealias RegisterResponse = NotifireAPIPlainSuccessResponse
 
 // MARK: - /register/confirm
-struct VerifyAccountSuccessResponse: Decodable {
+struct ConfirmAccountSuccessResponse: Decodable {
     let email: String
     let refreshToken: String
     let accessToken: String
 }
 
-enum VerifyAccountUserError: Int, DecodableUserErrorRepresenting {
+enum ConfirmAccountUserError: Int, DecodableUserErrorRepresenting {
     case alreadyVerified = 1
     case expired = 2
 
@@ -56,7 +56,7 @@ enum VerifyAccountUserError: Int, DecodableUserErrorRepresenting {
     }
 }
 
-typealias VerifyAccountResponse = NotifireAPISuccessResponse<VerifyAccountSuccessResponse, VerifyAccountUserError>
+typealias ConfirmAccountResponse = NotifireAPISuccessResponse<ConfirmAccountSuccessResponse, ConfirmAccountUserError>
 
 // MARK: - /account/send/confirm
 typealias ResendConfirmResponse = NotifireAPIPlainSuccessResponse
@@ -75,11 +75,7 @@ struct GenerateAccessTokenResponse: Decodable {
 typealias RegisterDeviceResponse = EmptyRequestBody
 
 // MARK: - /account/login
-struct LoginSuccessResponse: Decodable {
-    let email: String
-    let refreshToken: String
-    let accessToken: String
-}
+typealias LoginSuccessResponse = ConfirmAccountSuccessResponse
 
 enum LoginUserError: Int, DecodableUserErrorRepresenting {
     case wrongPasswordOrAccountNotExist = 1
@@ -120,6 +116,9 @@ enum ChangePasswordUserError: Int, DecodableUserErrorRepresenting {
 }
 
 typealias ChangePasswordResponse = NotifireAPISuccessResponse<ChangePasswordResponsePayload, ChangePasswordUserError>
+
+// MARK: - /account/reset/password
+typealias ResetPasswordResponse = SSOLoginResponse
 
 // MARK: - /account/send/change/email
 typealias SendChangeEmailResponse = NotifireAPIPlainSuccessResponse
