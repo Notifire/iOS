@@ -11,18 +11,7 @@ import UIKit
 class PaginationLoadingTableViewCell: BaseTableViewCell, Reusable {
 
     // MARK: - Properties
-    lazy var loadingIndicator: UIActivityIndicatorView = {
-        let style: UIActivityIndicatorView.Style
-        if #available(iOS 13.0, *) {
-            style = .medium
-        } else {
-            style = .gray
-        }
-        let control = UIActivityIndicatorView(style: style)
-        control.hidesWhenStopped = true
-        control.startAnimating()
-        return control
-    }()
+    lazy var loadingIndicator = UIActivityIndicatorView.loadingIndicator
 
     // MARK: - Inherited
     override open func setup() {

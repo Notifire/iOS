@@ -1,14 +1,14 @@
 //
-//  DLConfirmAccountViewModel.swift
+//  DLRevertEmailViewController.swift
 //  Notifire
 //
-//  Created by David Bielik on 18/10/2018.
-//  Copyright © 2018 David Bielik. All rights reserved.
+//  Created by David Bielik on 19/11/2020.
+//  Copyright © 2020 David Bielik. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-class DLConfirmAccountViewModel: DeeplinkViewModelRepresenting {
+class DLRevertEmailViewModel: DeeplinkViewModelRepresenting {
 
     // MARK: - Properties
     let apiManager: NotifireAPIManager
@@ -17,7 +17,8 @@ class DLConfirmAccountViewModel: DeeplinkViewModelRepresenting {
     let stateModel = StateModel(defaultValue: DeeplinkViewState.initial)
 
     // MARK: UI
-    var headerText: String { return "Account verification" }
+    var headerText: String { return "Revert email change" }
+    var loadingText: String { return "Reverting to previous email..." }
 
     // MARK: UserSessionCreating
     weak var sessionDelegate: UserSessionCreationDelegate?
@@ -38,6 +39,8 @@ class DLConfirmAccountViewModel: DeeplinkViewModelRepresenting {
     // MARK: - Methods
     /// Confirm email change
     func apiRequestFunction() -> ((String, @escaping NotifireAPIBaseManager.Callback<NotifireAPISuccessResponseWithLoginData>) -> Void) {
-        return apiManager.confirmAccount(emailToken:completion:)
+        return apiManager.revertEmail(token:completion:)
     }
 }
+
+typealias DLRevertEmailViewController = DeeplinkedSimpleVMViewController<DLRevertEmailViewModel>

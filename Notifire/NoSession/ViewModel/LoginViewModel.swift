@@ -36,7 +36,7 @@ final class LoginViewModel: InputValidatingViewModel, APIErrorProducing, UserErr
     func login() {
         guard allComponentsValidated else { return }
         loading = true
-        notifireApiManager.login(email: email, password: password) { [weak self] result in
+        apiManager.login(email: email, password: password) { [weak self] result in
             guard let `self` = self else { return }
             self.loading = false
             switch result {
@@ -54,7 +54,7 @@ final class LoginViewModel: InputValidatingViewModel, APIErrorProducing, UserErr
     }
 
     func resendEmail() {
-        notifireApiManager.sendConfirmEmail(to: email) { _ in }
+        apiManager.sendConfirmEmail(to: email) { _ in }
     }
 
     func shouldHandleManually(userError: UserError) -> Bool {

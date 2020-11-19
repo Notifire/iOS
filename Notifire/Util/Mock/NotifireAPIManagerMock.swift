@@ -24,12 +24,20 @@ class NotifireAPIManagerMock: NotifireAPIManager, NotifireAPIManagerMocking {
     }
 
     override func confirmAccount(emailToken: String, completion: @escaping Callback<ConfirmAccountResponse>) {
-        returnSuccessAfter(completion: completion, response: ConfirmAccountResponse(success: true, payload: ConfirmAccountSuccessResponse(email: "testtest", refreshToken: "testtestRefreshToken", accessToken: "jwt"), error: nil))
+        returnSuccessAfter(completion: completion, response: ConfirmAccountResponse(success: true, payload: LoginDataResponse(email: "testtest", refreshToken: "testtestRefreshToken", accessToken: "jwt")))
     }
 
     override func resetPassword(password: String, token: String, completion: @escaping NotifireAPIBaseManager.Callback<ResetPasswordResponse>) {
         //returnSuccessAfter(completion: completion, response: ResetPasswordResponse(success: true, payload: LoginSuccessResponse(email: "testicek@testicek.com", refreshToken: "asdasd", accessToken: "asdasd")))
         returnErrorResponseAfter(error: .clientError(NotifireAPIError.ClientError(code: 2, message: "Testicek")), completion: completion)
+    }
+
+    override func changeEmail(token: String, completion: @escaping NotifireAPIBaseManager.Callback<ChangeEmailResponse>) {
+        returnSuccessAfter(completion: completion, response: ChangeEmailResponse(success: true, payload: LoginSuccessResponse(email: "asd@asd.com", refreshToken: "Asd", accessToken: "Asd")))
+    }
+
+    override func revertEmail(token: String, completion: @escaping NotifireAPIBaseManager.Callback<ChangeEmailResponse>) {
+        returnSuccessAfter(completion: completion, response: ChangeEmailResponse(success: true, payload: LoginSuccessResponse(email: "asd@asd.com", refreshToken: "Asd", accessToken: "Asd")))
     }
 
     override func checkValidity(option: CheckValidityOption, input: String, completion: @escaping Callback<CheckValidityResponse>) {

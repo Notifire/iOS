@@ -18,7 +18,7 @@ class Deeplink {
         /// Email change in case an existing user wants to change it through settings.
         case changeEmail(token: String)
         /// Revert to the previous email.
-        case changEmailRevert(token: String)
+        case changeEmailRevert(token: String)
     }
 
     let option: Option

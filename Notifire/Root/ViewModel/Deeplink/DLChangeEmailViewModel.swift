@@ -1,14 +1,14 @@
 //
-//  DLConfirmAccountViewModel.swift
+//  DLChangeEmailViewModel.swift
 //  Notifire
 //
-//  Created by David Bielik on 18/10/2018.
-//  Copyright © 2018 David Bielik. All rights reserved.
+//  Created by David Bielik on 19/11/2020.
+//  Copyright © 2020 David Bielik. All rights reserved.
 //
 
 import Foundation
 
-class DLConfirmAccountViewModel: DeeplinkViewModelRepresenting {
+class DLChangeEmailViewModel: DeeplinkViewModelRepresenting {
 
     // MARK: - Properties
     let apiManager: NotifireAPIManager
@@ -17,7 +17,7 @@ class DLConfirmAccountViewModel: DeeplinkViewModelRepresenting {
     let stateModel = StateModel(defaultValue: DeeplinkViewState.initial)
 
     // MARK: UI
-    var headerText: String { return "Account verification" }
+    var headerText: String { return "Change e-mail" }
 
     // MARK: UserSessionCreating
     weak var sessionDelegate: UserSessionCreationDelegate?
@@ -31,13 +31,13 @@ class DLConfirmAccountViewModel: DeeplinkViewModelRepresenting {
 
     // MARK: - Initialization
     required init(apiManager: NotifireAPIManager, token: String) {
-       self.apiManager = apiManager
-       self.token = token
+        self.apiManager = apiManager
+        self.token = token
     }
 
     // MARK: - Methods
     /// Confirm email change
     func apiRequestFunction() -> ((String, @escaping NotifireAPIBaseManager.Callback<NotifireAPISuccessResponseWithLoginData>) -> Void) {
-        return apiManager.confirmAccount(emailToken:completion:)
+        return apiManager.changeEmail(token:completion:)
     }
 }

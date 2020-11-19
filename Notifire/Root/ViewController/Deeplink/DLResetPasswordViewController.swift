@@ -99,4 +99,9 @@ class DLResetPasswordViewController: DeeplinkedVMViewController<DLResetPasswordV
         setViewModelOnError()
         setViewModelOnUserError()
     }
+
+    // MARK: - UserErrorPresenting
+    func dismissCompletion(error: EmailTokenError) {
+        delegate?.shouldCloseDeeplink()
+    }
 }

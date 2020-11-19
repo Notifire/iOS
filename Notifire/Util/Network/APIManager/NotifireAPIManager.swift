@@ -87,4 +87,20 @@ class NotifireAPIManager: NotifireAPIBaseManager {
         let requestContext = URLRequestContext(responseBodyType: ResetPasswordResponse.self, apiRequest: request)
         perform(requestContext: requestContext, managerCompletion: completion)
     }
+
+    // MARK: - /account/change/email
+    func changeEmail(token: String, completion: @escaping Callback<ChangeEmailResponse>) {
+        let body = ChangeEmailRequestBody(token: token)
+        let request = createAPIRequest(endpoint: NotifireAPIEndpoint.changeEmail, method: .put, body: body)
+        let requestContext = URLRequestContext(responseBodyType: ChangeEmailResponse.self, apiRequest: request)
+        perform(requestContext: requestContext, managerCompletion: completion)
+    }
+
+    // MARK: - /account/revert/email
+    func revertEmail(token: String, completion: @escaping Callback<ChangeEmailResponse>) {
+        let body = ChangeEmailRequestBody(token: token)
+        let request = createAPIRequest(endpoint: NotifireAPIEndpoint.revertEmail, method: .post, body: body)
+        let requestContext = URLRequestContext(responseBodyType: ChangeEmailResponse.self, apiRequest: request)
+        perform(requestContext: requestContext, managerCompletion: completion)
+    }
 }

@@ -42,7 +42,7 @@ class DLResetPasswordViewModel: InputValidatingViewModel, UserSessionCreating, D
     // MARK: - Initialization
     required init(apiManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager(), token: String) {
         self.token = token
-        super.init(notifireApiManager: apiManager)
+        super.init(apiManager: apiManager)
     }
 
     // MARK: - Methods
@@ -50,7 +50,7 @@ class DLResetPasswordViewModel: InputValidatingViewModel, UserSessionCreating, D
         guard allComponentsValidated, !loadingModel.isLoading else { return }
         loadingModel.toggle()
 
-        notifireApiManager.resetPassword(password: newPassword, token: token) { [weak self] result in
+        apiManager.resetPassword(password: newPassword, token: token) { [weak self] result in
             guard let `self` = self else { return }
             self.loadingModel.toggle()
 

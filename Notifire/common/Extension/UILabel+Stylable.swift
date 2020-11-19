@@ -25,6 +25,7 @@ enum LabelStyle {
     case cellTitle
 
     case dimmedInformation
+    case centeredDimmedLightInformation
     case cellInformation
     case cellSubtitle
     case centeredLightInformation
@@ -39,6 +40,13 @@ extension UILabel: Stylable {
     convenience init(style: LabelStyle) {
         self.init(frame: .zero)
         set(style: style)
+    }
+
+    convenience init(style: LabelStyle, text: String = "", alignment: NSTextAlignment = .natural) {
+        self.init(frame: .zero)
+        set(style: style)
+        self.text = text
+        self.textAlignment = alignment
     }
 
     // swiftlint:disable function_body_length
@@ -91,6 +99,10 @@ extension UILabel: Stylable {
         case .centeredLightInformation:
             textColor = .compatibleLabel
             font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.light)
+            textAlignment = .center
+        case .centeredDimmedLightInformation:
+            textColor = UIColor.compatibleLabel.withAlphaComponent(0.8)
+            font = UIFont.systemFont(ofSize: 13, weight: .light)
             textAlignment = .center
         case .connectionStatus:
             textColor = .white

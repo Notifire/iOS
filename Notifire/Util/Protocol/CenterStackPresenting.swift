@@ -10,22 +10,22 @@ import UIKit
 
 protocol CenterStackViewPresenting {
     var stackViewSuperview: UIView { get }
-    func insertStackView(arrangedSubviews: [UIView], spacing: CGFloat) -> UIStackView
+    func insertStackView(arrangedSubviews: [UIView], spacing: CGFloat, priority: UILayoutPriority) -> UIStackView
 }
 
 extension CenterStackViewPresenting {
 
     /// convenience function for adding a stackview that has equal centerXanchor with it's superview
     @discardableResult
-    func insertStackView(arrangedSubviews: [UIView], spacing: CGFloat = Size.componentSpacing) -> UIStackView {
+    func insertStackView(arrangedSubviews: [UIView], spacing: CGFloat = Size.componentSpacing, priority: UILayoutPriority = .required) -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: arrangedSubviews, spacing: spacing)
         stackViewSuperview.add(subview: stackView)
-        stackView.centerXAnchor.constraint(equalTo: stackViewSuperview.centerXAnchor).isActive = true
+        stackView.centerXAnchor.constraint(equalTo: stackViewSuperview.centerXAnchor).with(priority: priority).isActive = true
         func setEqualWidth(subview: UIView) {
             if let stackView = subview as? UIStackView {
                 stackView.arrangedSubviews.forEach { setEqualWidth(subview: $0) }
             } else if (subview is NotifireButton) || !(subview is UIButton) {
-                subview.widthAnchor.constraint(equalTo: stackViewSuperview.widthAnchor, multiplier: Size.componentWidthRelativeToScreenWidth).isActive = true
+                subview.widthAnchor.constraint(equalTo: stackViewSuperview.widthAnchor, multiplier: Size.componentWidthRelativeToScreenWidth).with(priority: priority).isActive = true
             }
         }
         arrangedSubviews.forEach { setEqualWidth(subview: $0) }

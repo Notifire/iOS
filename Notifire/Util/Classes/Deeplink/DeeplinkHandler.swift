@@ -39,8 +39,10 @@ class DeeplinkHandler {
         switch comp {
         case ["/", "account", "confirm"]:
             switchTo(deeplinkOption: .accountConfirmation(token: token))
-        case ["/", "account", "reset", "email"]:
+        case ["/", "account", "change", "email"]:
             switchTo(deeplinkOption: .changeEmail(token: token))
+        case ["/", "account", "revert", "email"]:
+            switchTo(deeplinkOption: .changeEmailRevert(token: token))
         case ["/", "account", "reset", "password"]:
             switchTo(deeplinkOption: .resetPassword(token: token))
         default:
@@ -81,12 +83,12 @@ class DeeplinkHandler {
         switch deeplinkOption {
         case .accountConfirmation(let token):
             deeplinkViewController = createDeeplinkableVC(viewControllerType: DLConfirmAccountViewController.self, token: token)
-        case .changeEmail:
-            deeplinkViewController = UIViewController()
+        case .changeEmail(let token):
+            deeplinkViewController = createDeeplinkableVC(viewControllerType: DLChangeEmailViewController.self, token: token)
         case .resetPassword(let token):
             deeplinkViewController = createDeeplinkableVC(viewControllerType: DLResetPasswordViewController.self, token: token)
-        case .changEmailRevert:
-            deeplinkViewController = UIViewController()
+        case .changeEmailRevert(let token):
+            deeplinkViewController = createDeeplinkableVC(viewControllerType: DLRevertEmailViewController.self, token: token)
         }
         let wrapper = NotifireNavigationController(rootViewController: deeplinkViewController)
         if #available(iOS 13.0, *) {

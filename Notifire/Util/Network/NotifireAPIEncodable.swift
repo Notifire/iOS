@@ -86,3 +86,5 @@ struct ResetPasswordRequestBody: Encodable {
     let password: String
     let token: String
 }
+
+typealias ChangeEmailRequestBody = ConfirmAccountRequestBody

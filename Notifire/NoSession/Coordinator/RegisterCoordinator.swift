@@ -30,7 +30,7 @@ class RegisterCoordinator: ChildCoordinator {
 
     // MARK: - Initialization
     init(apiManager: NotifireAPIManager) {
-        registerViewController = RegisterViewController(viewModel: RegisterViewModel(notifireApiManager: apiManager))
+        registerViewController = RegisterViewController(viewModel: RegisterViewModel(apiManager: apiManager))
         self.navigationController = NotifireActionNavigationController(rootViewController: registerViewController)
     }
 
@@ -43,7 +43,7 @@ class RegisterCoordinator: ChildCoordinator {
 
     private func presentSuccessVC() {
         guard successViewController == nil else { return }
-        let registerSuccessViewModel = RegisterSuccessViewModel(apiManager: registerViewController.viewModel.notifireApiManager, email: registerViewController.viewModel.email)
+        let registerSuccessViewModel = RegisterSuccessViewModel(apiManager: registerViewController.viewModel.apiManager, email: registerViewController.viewModel.email)
         let registerSuccessViewController = RegisterSuccessViewController(viewModel: registerSuccessViewModel)
         successViewController = registerSuccessViewController
         registerSuccessViewController.delegate = self

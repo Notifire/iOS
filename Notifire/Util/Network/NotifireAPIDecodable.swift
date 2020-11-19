@@ -28,6 +28,18 @@ struct NotifireAPISuccessResponse<Payload: Decodable, RequestSpecificError: Deco
     let error: NotifireAPIUserError<RequestSpecificError>?
 }
 
+// MARK: Login Data Response
+struct LoginDataResponse: Decodable {
+    let email: String
+    let refreshToken: String
+    let accessToken: String
+}
+
+struct NotifireAPISuccessResponseWithLoginData: Decodable {
+    let success: Bool
+    let payload: LoginDataResponse
+}
+
 // MARK: - /version
 struct AppVersionResponse: Codable, Equatable {
     let forceUpdate: Bool
@@ -38,25 +50,7 @@ struct AppVersionResponse: Codable, Equatable {
 typealias RegisterResponse = NotifireAPIPlainSuccessResponse
 
 // MARK: - /register/confirm
-struct ConfirmAccountSuccessResponse: Decodable {
-    let email: String
-    let refreshToken: String
-    let accessToken: String
-}
-
-enum ConfirmAccountUserError: Int, DecodableUserErrorRepresenting {
-    case alreadyVerified = 1
-    case expired = 2
-
-    var description: String {
-        switch self {
-        case .alreadyVerified: return "This account is verified already!"
-        case .expired: return "The verification link has expired."
-        }
-    }
-}
-
-typealias ConfirmAccountResponse = NotifireAPISuccessResponse<ConfirmAccountSuccessResponse, ConfirmAccountUserError>
+typealias ConfirmAccountResponse = NotifireAPISuccessResponseWithLoginData
 
 // MARK: - /account/send/confirm
 typealias ResendConfirmResponse = NotifireAPIPlainSuccessResponse
@@ -75,7 +69,7 @@ struct GenerateAccessTokenResponse: Decodable {
 typealias RegisterDeviceResponse = EmptyRequestBody
 
 // MARK: - /account/login
-typealias LoginSuccessResponse = ConfirmAccountSuccessResponse
+typealias LoginSuccessResponse = LoginDataResponse
 
 enum LoginUserError: Int, DecodableUserErrorRepresenting {
     case wrongPasswordOrAccountNotExist = 1
@@ -92,10 +86,7 @@ enum LoginUserError: Int, DecodableUserErrorRepresenting {
 typealias LoginResponse = NotifireAPISuccessResponse<LoginSuccessResponse, LoginUserError>
 
 // MARK: - /account/login/{provider}
-struct SSOLoginResponse: Decodable {
-    let success: Bool
-    let payload: LoginSuccessResponse
-}
+typealias SSOLoginResponse = NotifireAPISuccessResponseWithLoginData
 
 // MARK: - /account/password
 struct ChangePasswordResponsePayload: Decodable {
@@ -118,10 +109,13 @@ enum ChangePasswordUserError: Int, DecodableUserErrorRepresenting {
 typealias ChangePasswordResponse = NotifireAPISuccessResponse<ChangePasswordResponsePayload, ChangePasswordUserError>
 
 // MARK: - /account/reset/password
-typealias ResetPasswordResponse = SSOLoginResponse
+typealias ResetPasswordResponse = NotifireAPISuccessResponseWithLoginData
 
 // MARK: - /account/send/change/email
 typealias SendChangeEmailResponse = NotifireAPIPlainSuccessResponse
+
+// MARK: - /account/change/email
+typealias ChangeEmailResponse = NotifireAPISuccessResponseWithLoginData
 
 // MARK: - /account/send/reset/password
 typealias SendResetPasswordResponse = NotifireAPIPlainSuccessResponse

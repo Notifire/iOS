@@ -18,6 +18,8 @@ enum NotifireAPIEndpoint: String, CustomStringConvertible, CaseIterable {
     case login = "/account/login"
     case resetPassword = "/account/reset/password"
     case sendResetPassword = "/account/send/reset/password"
+    case changeEmail = "/account/change/email"
+    case revertEmail = "/account/revert/email"
 
     var description: String {
         return rawValue

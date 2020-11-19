@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// All Deeplink viewcontrollers should inherit from this class.
 class DeeplinkedVMViewController<VM: UserSessionCreating & DeeplinkResponding>: VMViewController<VM>, NavigationBarDisplaying {
 
     // MARK: - Properties

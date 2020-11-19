@@ -43,7 +43,7 @@ class NoSessionCoordinator: Coordinator {
     // MARK: Login
     func startLoginFlow() {
         guard presentedCoordinator == nil else { return }
-        let loginVM = LoginViewModel(notifireApiManager: loginRegisterSplitterVC.viewModel.notifireApiManager)
+        let loginVM = LoginViewModel(apiManager: loginRegisterSplitterVC.viewModel.notifireApiManager)
         let loginVC = LoginViewController(viewModel: loginVM)
         loginVC.delegate = self
         let loginCoordinator = LoginCoordinator(loginViewController: loginVC)

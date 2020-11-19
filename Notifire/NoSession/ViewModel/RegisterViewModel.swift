@@ -32,7 +32,7 @@ final class RegisterViewModel: InputValidatingViewModel, APIErrorProducing {
     func register() {
         guard allComponentsValidated else { return }
         loading = true
-        notifireApiManager.register(email: email, password: password) { [weak self] result in
+        apiManager.register(email: email, password: password) { [weak self] result in
             guard let `self` = self else { return }
             self.loading = false
             switch result {

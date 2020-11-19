@@ -29,7 +29,7 @@ final class ForgotPasswordViewModel: InputValidatingViewModel, APIErrorProducing
     // MARK: - Initialization
     init(maybeEmail: String, notifireAPIManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager()) {
         self.email = Self.isEmail(string: maybeEmail) ? maybeEmail : ""
-        super.init(notifireApiManager: notifireAPIManager)
+        super.init(apiManager: notifireAPIManager)
     }
 
     // MARK: - Private
@@ -43,7 +43,7 @@ final class ForgotPasswordViewModel: InputValidatingViewModel, APIErrorProducing
     func sendResetPasswordEmail() {
         guard componentValidator?.allComponentsValid ?? false else { return }
         loading = true
-        notifireApiManager.sendResetPassword(email: email) { [weak self] result in
+        apiManager.sendResetPassword(email: email) { [weak self] result in
             guard let `self` = self else { return }
             self.loading = false
             switch result {

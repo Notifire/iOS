@@ -131,7 +131,7 @@ extension ServiceViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 1 && indexPath.row == 1 {
-            let notifireAlertVM = NotifireAlertViewModel(notifireApiManager: NotifireAPIFactory.createAPIManager())
+            let notifireAlertVM = NotifireAlertViewModel(apiManager: NotifireAPIFactory.createAPIManager())
             let notifireAlertVC = NotifireInputAlertViewController(alertTitle: "Are you sure?", alertText: "Generating a new API key will invalidate your current one. Confirm your decision by entering your password in the form below.", viewModel: notifireAlertVM)
             let confirmAction = NotifireAlertAction(title: "Confirm", style: .positive, handler: { _ in
                 notifireAlertVC.dismiss(animated: true, completion: {
@@ -159,7 +159,7 @@ extension ServiceViewController: UITableViewDelegate {
             notifireAlertVC.createValidatableInput(title: "Password", secure: true, rules: ComponentRule.passwordRules, validatingAction: confirmAction)
             present(alert: notifireAlertVC, animated: true, completion: nil)
         } else if indexPath.section == 2 {
-            let notifireAlertVM = NotifireAlertViewModel(notifireApiManager: NotifireAPIFactory.createAPIManager())
+            let notifireAlertVM = NotifireAlertViewModel(apiManager: NotifireAPIFactory.createAPIManager())
 //            let notifireAlertVC = NotifireInputAlertViewController(alertTitle: "Delete all notifications for \(viewModel.localService.name)?", alertText: "CAUTION: this action is irreversible. Your notifications are saved only on the device that received them.", viewModel: notifireAlertVM)
 //                notifireAlertVC.add(action: NotifireAlertAction(title: "Yes", style: .positive, handler: { _ in
 //                    notifireAlertVC.dismiss(animated: true, completion: { [weak self] in
@@ -177,7 +177,7 @@ extension ServiceViewController: UITableViewDelegate {
 //            }))
 //            present(alert: notifireAlertVC, animated: true, completion: nil)
         } else if indexPath.section == 3 {
-            let notifireAlertVM = NotifireAlertViewModel(notifireApiManager: NotifireAPIFactory.createAPIManager())
+            let notifireAlertVM = NotifireAlertViewModel(apiManager: NotifireAPIFactory.createAPIManager())
             let notifireAlertVC = NotifireInputAlertViewController(alertTitle: "Are you sure?", alertText: "Confirm your decision by entering the service name below.", viewModel: notifireAlertVM)
             let confirmAction = NotifireAlertAction(title: "Delete", style: .negative, handler: { _ in
                 notifireAlertVC.dismiss(animated: true, completion: {

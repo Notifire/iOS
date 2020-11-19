@@ -19,14 +19,14 @@ class InputValidatingViewModel: ViewModelRepresenting, InputValidating {
         }
     }
     var componentValidator: ComponentValidator?
-    let notifireApiManager: NotifireAPIManager
+    let apiManager: NotifireAPIManager
 
     // MARK: Callbacks
     var afterValidation: ((Bool) -> Void)?
 
     // MARK: - Initialization
-    init(notifireApiManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager()) {
-        self.notifireApiManager = notifireApiManager
+    init(apiManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager()) {
+        self.apiManager = apiManager
     }
 
     // MARK: - Methods
@@ -35,7 +35,7 @@ class InputValidatingViewModel: ViewModelRepresenting, InputValidating {
             activeComponentValidator.afterValidationCallback = nil
             self.componentValidator = nil
         }
-        let componentValidator = ComponentValidator(components: components, apiManager: notifireApiManager)
+        let componentValidator = ComponentValidator(components: components, apiManager: apiManager)
         componentValidator.afterValidationCallback = { [weak self] valid in
             self?.afterValidation?(valid)
         }

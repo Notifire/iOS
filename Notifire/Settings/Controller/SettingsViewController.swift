@@ -36,6 +36,7 @@ class SettingsViewController: VMViewController<SettingsViewModel>, NavigationBar
 
         // Navigation
         hideNavigationBarBackButtonText()
+        showNavigationBar()
 
         // Layout
         layout()
