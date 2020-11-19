@@ -1,5 +1,5 @@
 //
-//  ConfirmEmailViewModel.swift
+//  DLConfirmAccountViewModel.swift
 //  Notifire
 //
 //  Created by David Bielik on 18/10/2018.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ConfirmEmailViewModel: ViewModelRepresenting, APIErrorProducing, UserErrorProducing, DeeplinkResponding, UserSessionCreating {
+class DLConfirmAccountViewModel: ViewModelRepresenting, APIErrorProducing, UserErrorProducing, DeeplinkResponding, UserSessionCreating {
 
     typealias UserError = ConfirmAccountUserError
 

@@ -80,11 +80,11 @@ class DeeplinkHandler {
         let deeplinkViewController: UIViewController
         switch deeplinkOption {
         case .accountConfirmation(let token):
-            deeplinkViewController = createDeeplinkableVC(viewControllerType: ConfirmEmailViewController.self, token: token)
+            deeplinkViewController = createDeeplinkableVC(viewControllerType: DLConfirmAccountViewController.self, token: token)
         case .changeEmail:
             deeplinkViewController = UIViewController()
         case .resetPassword(let token):
-            deeplinkViewController = createDeeplinkableVC(viewControllerType: ResetPasswordViewController.self, token: token)
+            deeplinkViewController = createDeeplinkableVC(viewControllerType: DLResetPasswordViewController.self, token: token)
         case .changEmailRevert:
             deeplinkViewController = UIViewController()
         }

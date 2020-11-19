@@ -1,5 +1,5 @@
 //
-//  ResetPasswordViewModel.swift
+//  DLResetPasswordViewModel.swift
 //  Notifire
 //
 //  Created by David Bielik on 19/11/2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ResetPasswordViewModel: InputValidatingViewModel, UserSessionCreating, DeeplinkResponding, APIErrorProducing, UserErrorProducing {
+class DLResetPasswordViewModel: InputValidatingViewModel, UserSessionCreating, DeeplinkResponding, APIErrorProducing, UserErrorProducing {
 
     // MARK: - Properties
     /// Token from the deeplink.
@@ -25,6 +25,19 @@ class ResetPasswordViewModel: InputValidatingViewModel, UserSessionCreating, Dee
     // MARK: UserErrorProducing
     typealias UserError = EmailTokenError
     var onUserError: ((UserError) -> Void)?
+
+    // MARK: UI
+    var headerText: String {
+        return "Reset your password"
+    }
+
+    var placeholderText: String {
+        return "Enter a new password"
+    }
+
+    var confirmText: String {
+        return "Confirm change"
+    }
 
     // MARK: - Initialization
     required init(apiManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager(), token: String) {

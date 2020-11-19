@@ -1,5 +1,5 @@
 //
-//  ResetPasswordViewController.swift
+//  DLResetPasswordViewController.swift
 //  Notifire
 //
 //  Created by David Bielik on 19/11/2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ResetPasswordViewController: DeeplinkedVMViewController<ResetPasswordViewModel>, CenterStackViewPresenting, APIErrorResponding, APIErrorPresenting, UserErrorResponding, KeyboardFollowingButtonContaining {
+class DLResetPasswordViewController: DeeplinkedVMViewController<DLResetPasswordViewModel>, CenterStackViewPresenting, APIErrorResponding, APIErrorPresenting, UserErrorResponding, KeyboardFollowingButtonContaining {
 
     // MARK: - Properties
     lazy var textFieldReturnChainer = TextFieldReturnChainer(textField: newPasswordTextInput.textField)
@@ -17,9 +17,9 @@ class ResetPasswordViewController: DeeplinkedVMViewController<ResetPasswordViewM
     let keyboardObserverHandler = KeyboardObserverHandler()
 
     // MARK: UI
-    let headerLabel: UILabel = {
+    lazy var headerLabel: UILabel = {
         let label = UILabel(style: .title)
-        label.text = "Reset your password"
+        label.text = viewModel.headerText
         label.textAlignment = .left
         return label
     }()
@@ -27,7 +27,7 @@ class ResetPasswordViewController: DeeplinkedVMViewController<ResetPasswordViewM
     lazy var newPasswordTextInput = ValidatableTextInput.createPasswordTextInput(
         textFieldType: BorderedTextField.self,
         newPasswordTextContentType: true,
-        placeholderText: "Enter a new password",
+        placeholderText: viewModel.placeholderText,
         rules: ComponentRule.passwordRules,
         viewModel: viewModel,
         bindableKeyPath: \.newPassword
@@ -36,7 +36,7 @@ class ResetPasswordViewController: DeeplinkedVMViewController<ResetPasswordViewM
     lazy var confirmButton: NotifireButton = {
         let button = NotifireButton()
         button.isEnabled = false
-        button.setTitle("Change password", for: .normal)
+        button.setTitle(viewModel.confirmText, for: .normal)
         button.onProperTap = { [weak self] _ in
             self?.viewModel.resetPassword()
         }

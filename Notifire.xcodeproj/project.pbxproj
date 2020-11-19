@@ -31,7 +31,7 @@
 		890391FC2537C97B005C5C99 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533C721A03ED000E0A656 /* RealmManager.swift */; };
 		890392102538F8C3005C5C99 /* ServiceViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8903920F2538F8C2005C5C99 /* ServiceViewController+TableView.swift */; };
 		890392112538F8C3005C5C99 /* ServiceViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8903920F2538F8C2005C5C99 /* ServiceViewController+TableView.swift */; };
-		8906E9742170FB2100D45BCA /* ConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906E9732170FB2100D45BCA /* ConfirmEmailViewController.swift */; };
+		8906E9742170FB2100D45BCA /* DLConfirmAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906E9732170FB2100D45BCA /* DLConfirmAccountViewController.swift */; };
 		8909A3BC218F24EE00EADD09 /* LocalNotifireNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */; };
 		890F7FCE25647ED00037BB5B /* Config+Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890F7FCD25647ED00037BB5B /* Config+Secrets.swift */; };
 		890F7FCF25647ED00037BB5B /* Config+Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890F7FCD25647ED00037BB5B /* Config+Secrets.swift */; };
@@ -250,6 +250,8 @@
 		894B1FAB2505DF5E00D0D671 /* TabBarGestureHandler+TabPressActionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1FA92505DF5E00D0D671 /* TabBarGestureHandler+TabPressActionData.swift */; };
 		894B1FAD2505DFC600D0D671 /* TabBarGestureHandler+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1FAC2505DFC600D0D671 /* TabBarGestureHandler+UIGestureRecognizerDelegate.swift */; };
 		894B1FAE2505DFC600D0D671 /* TabBarGestureHandler+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894B1FAC2505DFC600D0D671 /* TabBarGestureHandler+UIGestureRecognizerDelegate.swift */; };
+		894F44D325660C280043102C /* NSLayoutConstraint+Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894F44D225660C280043102C /* NSLayoutConstraint+Priority.swift */; };
+		894F44D425660C280043102C /* NSLayoutConstraint+Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894F44D225660C280043102C /* NSLayoutConstraint+Priority.swift */; };
 		895418DB251945AE0046464D /* ServiceRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895418DA251945AE0046464D /* ServiceRepresentable.swift */; };
 		895418DC251945AE0046464D /* ServiceRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895418DA251945AE0046464D /* ServiceRepresentable.swift */; };
 		895418E2251965930046464D /* ServiceSnippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895418E1251965930046464D /* ServiceSnippet.swift */; };
@@ -382,7 +384,7 @@
 		89576B0424FD412A0097BF87 /* CheckValidityOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADD5217928A9000E38FC /* CheckValidityOption.swift */; };
 		89576B0524FD412A0097BF87 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA782171739900A72BD0 /* ActionButton.swift */; };
 		89576B0624FD412A0097BF87 /* NotifireAPIManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA7A217212B200A72BD0 /* NotifireAPIManagerMock.swift */; };
-		89576B0724FD412A0097BF87 /* ConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906E9732170FB2100D45BCA /* ConfirmEmailViewController.swift */; };
+		89576B0724FD412A0097BF87 /* DLConfirmAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906E9732170FB2100D45BCA /* DLConfirmAccountViewController.swift */; };
 		89576B0824FD412A0097BF87 /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0CE2141E40900645B3A /* APIHandler.swift */; };
 		89576B0924FD412A0097BF87 /* ServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995AD2170EECE00687A79 /* ServicesViewController.swift */; };
 		89576B0A24FD412A0097BF87 /* NotifirePopAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8922E2482198AF8D001984C4 /* NotifirePopAnimationController.swift */; };
@@ -395,7 +397,7 @@
 		89576B1224FD412A0097BF87 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0CB2141D94700645B3A /* RegisterViewModel.swift */; };
 		89576B1324FD412A0097BF87 /* NotifireAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0F4214338FF00645B3A /* NotifireAPIManager.swift */; };
 		89576B1424FD412A0097BF87 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069ED2134B68300D798AA /* LoginViewModel.swift */; };
-		89576B1524FD412A0097BF87 /* ConfirmEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADD3217922FE000E38FC /* ConfirmEmailViewModel.swift */; };
+		89576B1524FD412A0097BF87 /* DLConfirmAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADD3217922FE000E38FC /* DLConfirmAccountViewModel.swift */; };
 		89576B1624FD412A0097BF87 /* APIUserErrorResponding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B414121C1E42B00D28ABE /* APIUserErrorResponding.swift */; };
 		89576B1724FD412A0097BF87 /* NotifireLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1FB2139FD2200630790 /* NotifireLayer.swift */; };
 		89576B1824FD412A0097BF87 /* RealmCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8922E26C219F3CF6001984C4 /* RealmCollectionViewModel.swift */; };
@@ -540,7 +542,7 @@
 		89BD25C3251E349700280929 /* RealmCollectionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BD25BB251E349400280929 /* RealmCollectionObserver.swift */; };
 		89BD25C8251E34A900280929 /* RealmSortingOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BD25C7251E34A900280929 /* RealmSortingOptions.swift */; };
 		89BD25CC251E34AB00280929 /* RealmSortingOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BD25C7251E34A900280929 /* RealmSortingOptions.swift */; };
-		89BDADD4217922FE000E38FC /* ConfirmEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADD3217922FE000E38FC /* ConfirmEmailViewModel.swift */; };
+		89BDADD4217922FE000E38FC /* DLConfirmAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADD3217922FE000E38FC /* DLConfirmAccountViewModel.swift */; };
 		89BDADD6217928A9000E38FC /* CheckValidityOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADD5217928A9000E38FC /* CheckValidityOption.swift */; };
 		89BDADD8217A2596000E38FC /* HairlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADD7217A2596000E38FC /* HairlineView.swift */; };
 		89BDADDA217A5012000E38FC /* DeeplinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADD9217A5012000E38FC /* DeeplinkHandler.swift */; };
@@ -603,8 +605,8 @@
 		89E8B866250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */; };
 		89FAFD332566008900D1A64C /* EmailTokenError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD322566008900D1A64C /* EmailTokenError.swift */; };
 		89FAFD342566008900D1A64C /* EmailTokenError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD322566008900D1A64C /* EmailTokenError.swift */; };
-		89FAFD362566009D00D1A64C /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD352566009D00D1A64C /* ResetPasswordViewModel.swift */; };
-		89FAFD372566009D00D1A64C /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD352566009D00D1A64C /* ResetPasswordViewModel.swift */; };
+		89FAFD362566009D00D1A64C /* DLResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD352566009D00D1A64C /* DLResetPasswordViewModel.swift */; };
+		89FAFD372566009D00D1A64C /* DLResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD352566009D00D1A64C /* DLResetPasswordViewModel.swift */; };
 		89FAFD3B256600C100D1A64C /* UserSessionCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD3A256600C100D1A64C /* UserSessionCreating.swift */; };
 		89FAFD3C256600C100D1A64C /* UserSessionCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD3A256600C100D1A64C /* UserSessionCreating.swift */; };
 		89FAFD3E256600EA00D1A64C /* DeeplinkResponding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD3D256600EA00D1A64C /* DeeplinkResponding.swift */; };
@@ -613,8 +615,8 @@
 		89FAFD42256600FE00D1A64C /* DeeplinkedVMViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD40256600FE00D1A64C /* DeeplinkedVMViewControllerDelegate.swift */; };
 		89FAFD442566012B00D1A64C /* DeeplinkedVMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD432566012B00D1A64C /* DeeplinkedVMViewController.swift */; };
 		89FAFD452566012B00D1A64C /* DeeplinkedVMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD432566012B00D1A64C /* DeeplinkedVMViewController.swift */; };
-		89FAFD472566014000D1A64C /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD462566014000D1A64C /* ResetPasswordViewController.swift */; };
-		89FAFD482566014000D1A64C /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD462566014000D1A64C /* ResetPasswordViewController.swift */; };
+		89FAFD472566014000D1A64C /* DLResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD462566014000D1A64C /* DLResetPasswordViewController.swift */; };
+		89FAFD482566014000D1A64C /* DLResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD462566014000D1A64C /* DLResetPasswordViewController.swift */; };
 		91A4C865A6FF77FCF5F5FE14 /* Pods_Abst_Notifire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF48406CF4114A37FB479C6B /* Pods_Abst_Notifire.framework */; };
 		ECB6D59A787136CA160FD8AF /* Pods_Abst_NotifireUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8F4F569EF32D5580E6955C4 /* Pods_Abst_NotifireUITests.framework */; };
 /* End PBXBuildFile section */
@@ -724,7 +726,7 @@
 		8902A691250DB22B007BB5DF /* GoogleSSOUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSSOUITests.swift; sourceTree = "<group>"; };
 		890391F62537C942005C5C99 /* RealmManager+Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmManager+Service.swift"; sourceTree = "<group>"; };
 		8903920F2538F8C2005C5C99 /* ServiceViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServiceViewController+TableView.swift"; sourceTree = "<group>"; };
-		8906E9732170FB2100D45BCA /* ConfirmEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailViewController.swift; sourceTree = "<group>"; };
+		8906E9732170FB2100D45BCA /* DLConfirmAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLConfirmAccountViewController.swift; sourceTree = "<group>"; };
 		8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifireNotification.swift; sourceTree = "<group>"; };
 		890F7FCD25647ED00037BB5B /* Config+Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Config+Secrets.swift"; sourceTree = "<group>"; };
 		8915FB2325260AB400BD36B2 /* WebSocketOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketOperation.swift; sourceTree = "<group>"; };
@@ -879,6 +881,7 @@
 		894B1FA62505DF2E00D0D671 /* TabBarGestureHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarGestureHandler.swift; sourceTree = "<group>"; };
 		894B1FA92505DF5E00D0D671 /* TabBarGestureHandler+TabPressActionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarGestureHandler+TabPressActionData.swift"; sourceTree = "<group>"; };
 		894B1FAC2505DFC600D0D671 /* TabBarGestureHandler+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarGestureHandler+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
+		894F44D225660C280043102C /* NSLayoutConstraint+Priority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Priority.swift"; sourceTree = "<group>"; };
 		895418DA251945AE0046464D /* ServiceRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRepresentable.swift; sourceTree = "<group>"; };
 		895418E1251965930046464D /* ServiceSnippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceSnippet.swift; sourceTree = "<group>"; };
 		895418ED251B986A0046464D /* WebsocketMockEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsocketMockEngine.swift; sourceTree = "<group>"; };
@@ -979,7 +982,7 @@
 		89B3EC7520239D170068BA64 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		89BD25BB251E349400280929 /* RealmCollectionObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCollectionObserver.swift; sourceTree = "<group>"; };
 		89BD25C7251E34A900280929 /* RealmSortingOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSortingOptions.swift; sourceTree = "<group>"; };
-		89BDADD3217922FE000E38FC /* ConfirmEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailViewModel.swift; sourceTree = "<group>"; };
+		89BDADD3217922FE000E38FC /* DLConfirmAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLConfirmAccountViewModel.swift; sourceTree = "<group>"; };
 		89BDADD5217928A9000E38FC /* CheckValidityOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckValidityOption.swift; sourceTree = "<group>"; };
 		89BDADD7217A2596000E38FC /* HairlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HairlineView.swift; sourceTree = "<group>"; };
 		89BDADD9217A5012000E38FC /* DeeplinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkHandler.swift; sourceTree = "<group>"; };
@@ -1020,12 +1023,12 @@
 		89E777EC2173E9F3009CF3DE /* NoSessionContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSessionContainerViewController.swift; sourceTree = "<group>"; };
 		89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotifireButton+Loadable.swift"; sourceTree = "<group>"; };
 		89FAFD322566008900D1A64C /* EmailTokenError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTokenError.swift; sourceTree = "<group>"; };
-		89FAFD352566009D00D1A64C /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
+		89FAFD352566009D00D1A64C /* DLResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		89FAFD3A256600C100D1A64C /* UserSessionCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionCreating.swift; sourceTree = "<group>"; };
 		89FAFD3D256600EA00D1A64C /* DeeplinkResponding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkResponding.swift; sourceTree = "<group>"; };
 		89FAFD40256600FE00D1A64C /* DeeplinkedVMViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkedVMViewControllerDelegate.swift; sourceTree = "<group>"; };
 		89FAFD432566012B00D1A64C /* DeeplinkedVMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkedVMViewController.swift; sourceTree = "<group>"; };
-		89FAFD462566014000D1A64C /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		89FAFD462566014000D1A64C /* DLResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLResetPasswordViewController.swift; sourceTree = "<group>"; };
 		928D68240DE9EDF7C6F0C4A6 /* Pods-Abst-Notifire Mock.testflight.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire Mock.testflight.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire Mock/Pods-Abst-Notifire Mock.testflight.xcconfig"; sourceTree = "<group>"; };
 		A3DC1CAF7E5B0E0CC05B7278 /* Pods-Abst-Notifire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abst-Notifire.debug.xcconfig"; path = "Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire.debug.xcconfig"; sourceTree = "<group>"; };
 		A589C840810EE01CF500294F /* Pods_NotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2218,6 +2221,7 @@
 				893B90212512B9990056DBF9 /* UITableView+Reusable.swift */,
 				893B90242512C1EB0056DBF9 /* UITableViewCell+Margins.swift */,
 				892DC0B625607B3D0067EB12 /* CaseIterable+Init.swift */,
+				894F44D225660C280043102C /* NSLayoutConstraint+Priority.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2312,8 +2316,8 @@
 		89FAFD38256600A000D1A64C /* Deeplink */ = {
 			isa = PBXGroup;
 			children = (
-				89BDADD3217922FE000E38FC /* ConfirmEmailViewModel.swift */,
-				89FAFD352566009D00D1A64C /* ResetPasswordViewModel.swift */,
+				89BDADD3217922FE000E38FC /* DLConfirmAccountViewModel.swift */,
+				89FAFD352566009D00D1A64C /* DLResetPasswordViewModel.swift */,
 			);
 			path = Deeplink;
 			sourceTree = "<group>";
@@ -2332,8 +2336,8 @@
 			isa = PBXGroup;
 			children = (
 				89FAFD432566012B00D1A64C /* DeeplinkedVMViewController.swift */,
-				8906E9732170FB2100D45BCA /* ConfirmEmailViewController.swift */,
-				89FAFD462566014000D1A64C /* ResetPasswordViewController.swift */,
+				8906E9732170FB2100D45BCA /* DLConfirmAccountViewController.swift */,
+				89FAFD462566014000D1A64C /* DLResetPasswordViewController.swift */,
 			);
 			path = Deeplink;
 			sourceTree = "<group>";
@@ -3038,6 +3042,7 @@
 				89576AAA24FD412A0097BF87 /* ServiceAPIKeyTableViewCell.swift in Sources */,
 				8936E3D0256359C7007424A7 /* SuccessAlertDataProviding.swift in Sources */,
 				89576AAB24FD412A0097BF87 /* Coordinator.swift in Sources */,
+				894F44D425660C280043102C /* NSLayoutConstraint+Priority.swift in Sources */,
 				89576AAC24FD412A0097BF87 /* NotifireNavigationController.swift in Sources */,
 				895A3B8D25008A26000A7B50 /* UIImage+Resize.swift in Sources */,
 				89576AAD24FD412A0097BF87 /* ComponentValidator.swift in Sources */,
@@ -3093,7 +3098,7 @@
 				89250A1525004F2A00F00630 /* BottomNavigatorContaining.swift in Sources */,
 				89576AC824FD412A0097BF87 /* SettingsViewController.swift in Sources */,
 				8936E3B22562E5C3007424A7 /* ValidatingViewModelBinder.swift in Sources */,
-				89FAFD482566014000D1A64C /* ResetPasswordViewController.swift in Sources */,
+				89FAFD482566014000D1A64C /* DLResetPasswordViewController.swift in Sources */,
 				895637CC255759C3005E4A4E /* AppVersionData.swift in Sources */,
 				892DC08A255DF2030067EB12 /* main.swift in Sources */,
 				89250B2124FEEB4800BC7C2C /* RootViewModel.swift in Sources */,
@@ -3210,7 +3215,7 @@
 				894B1FAB2505DF5E00D0D671 /* TabBarGestureHandler+TabPressActionData.swift in Sources */,
 				89576B0624FD412A0097BF87 /* NotifireAPIManagerMock.swift in Sources */,
 				895637B7255517A0005E4A4E /* ServiceChangeEvent.swift in Sources */,
-				89576B0724FD412A0097BF87 /* ConfirmEmailViewController.swift in Sources */,
+				89576B0724FD412A0097BF87 /* DLConfirmAccountViewController.swift in Sources */,
 				89576B0824FD412A0097BF87 /* APIHandler.swift in Sources */,
 				89576B0924FD412A0097BF87 /* ServicesViewController.swift in Sources */,
 				8936E3BF256333D7007424A7 /* ViewModelRepresenting.swift in Sources */,
@@ -3236,7 +3241,7 @@
 				89576B1324FD412A0097BF87 /* NotifireAPIManager.swift in Sources */,
 				892DC0C125609B6E0067EB12 /* TableViewSection.swift in Sources */,
 				89576B1424FD412A0097BF87 /* LoginViewModel.swift in Sources */,
-				89576B1524FD412A0097BF87 /* ConfirmEmailViewModel.swift in Sources */,
+				89576B1524FD412A0097BF87 /* DLConfirmAccountViewModel.swift in Sources */,
 				894B1F892505D66600D0D671 /* SectionedCoordinator.swift in Sources */,
 				893B90262512C1EB0056DBF9 /* UITableViewCell+Margins.swift in Sources */,
 				89576B1624FD412A0097BF87 /* APIUserErrorResponding.swift in Sources */,
@@ -3282,7 +3287,7 @@
 				896167F825018561007BF3F1 /* LoginViewControllerDelegate.swift in Sources */,
 				89576B2624FD412A0097BF87 /* DateFormatterExtension.swift in Sources */,
 				89576B2724FD412A0097BF87 /* KeyboardDismissing.swift in Sources */,
-				89FAFD372566009D00D1A64C /* ResetPasswordViewModel.swift in Sources */,
+				89FAFD372566009D00D1A64C /* DLResetPasswordViewModel.swift in Sources */,
 				89576B2824FD412A0097BF87 /* ServiceViewController.swift in Sources */,
 				892DC0BD256082E50067EB12 /* SettingsCellConfigurations.swift in Sources */,
 				89576B2924FD412A0097BF87 /* NotifireUserSessionManagerMock.swift in Sources */,
@@ -3379,6 +3384,7 @@
 				8920CA74217144DF00A72BD0 /* NavigationActionViewController.swift in Sources */,
 				89B3EC7320232A310068BA64 /* LoginViewController.swift in Sources */,
 				8936E3D5256359F4007424A7 /* ChangePasswordViewModel.swift in Sources */,
+				894F44D325660C280043102C /* NSLayoutConstraint+Priority.swift in Sources */,
 				892DC0A6255F01C70067EB12 /* ServiceCoordinator.swift in Sources */,
 				89D616A52505A7DD00287331 /* UserSessionManager+UserSessionHandler.swift in Sources */,
 				8949EBDE251189F00045D1A7 /* RegisterSuccessViewModel.swift in Sources */,
@@ -3413,7 +3419,7 @@
 				895637B6255517A0005E4A4E /* ServiceChangeEvent.swift in Sources */,
 				892DC07F255DDAD30067EB12 /* UserDefault.swift in Sources */,
 				89017CA52526BF1900EC9DC8 /* ServicesViewController+AppRevealing.swift in Sources */,
-				89FAFD362566009D00D1A64C /* ResetPasswordViewModel.swift in Sources */,
+				89FAFD362566009D00D1A64C /* DLResetPasswordViewModel.swift in Sources */,
 				895637C125575989005E4A4E /* AppVersionManager.swift in Sources */,
 				89E6B6D42500434F00F7A79C /* LoginCoordinator.swift in Sources */,
 				89250A1425004F2A00F00630 /* BottomNavigatorContaining.swift in Sources */,
@@ -3545,7 +3551,7 @@
 				89BDADD6217928A9000E38FC /* CheckValidityOption.swift in Sources */,
 				8920CA792171739900A72BD0 /* ActionButton.swift in Sources */,
 				894B1FAA2505DF5E00D0D671 /* TabBarGestureHandler+TabPressActionData.swift in Sources */,
-				8906E9742170FB2100D45BCA /* ConfirmEmailViewController.swift in Sources */,
+				8906E9742170FB2100D45BCA /* DLConfirmAccountViewController.swift in Sources */,
 				8933F0CF2141E40900645B3A /* APIHandler.swift in Sources */,
 				893995AE2170EECE00687A79 /* ServicesViewController.swift in Sources */,
 				8922E2492198AF8D001984C4 /* NotifirePopAnimationController.swift in Sources */,
@@ -3565,7 +3571,7 @@
 				8933F0F5214338FF00645B3A /* NotifireAPIManager.swift in Sources */,
 				892DC0C025609B6E0067EB12 /* TableViewSection.swift in Sources */,
 				897069EE2134B68300D798AA /* LoginViewModel.swift in Sources */,
-				89BDADD4217922FE000E38FC /* ConfirmEmailViewModel.swift in Sources */,
+				89BDADD4217922FE000E38FC /* DLConfirmAccountViewModel.swift in Sources */,
 				8966C89725531FE300F037C3 /* WebSocketHeartbeatManager.swift in Sources */,
 				894B1F882505D66600D0D671 /* SectionedCoordinator.swift in Sources */,
 				892B414221C1E42B00D28ABE /* APIUserErrorResponding.swift in Sources */,
@@ -3589,7 +3595,7 @@
 				89017C932526197700EC9DC8 /* NotifireWebSocketEvent.swift in Sources */,
 				893B90222512B99A0056DBF9 /* UITableView+Reusable.swift in Sources */,
 				8933F0E3214337D900645B3A /* NotifireAPIEndpoint.swift in Sources */,
-				89FAFD472566014000D1A64C /* ResetPasswordViewController.swift in Sources */,
+				89FAFD472566014000D1A64C /* DLResetPasswordViewController.swift in Sources */,
 				895A3B8F25008A35000A7B50 /* CGSize+Equal.swift in Sources */,
 				895418DB251945AE0046464D /* ServiceRepresentable.swift in Sources */,
 				894AB6862512609700F2CBF5 /* ServiceTableViewCell.swift in Sources */,

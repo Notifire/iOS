@@ -1,5 +1,5 @@
 //
-//  ConfirmEmailViewController.swift
+//  DLConfirmAccountViewController.swift
 //  Notifire
 //
 //  Created by David Bielik on 12/10/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConfirmEmailViewController: DeeplinkedVMViewController<ConfirmEmailViewModel>, CenterStackViewPresenting, APIErrorResponding, APIErrorPresenting, UserErrorResponding {
+class DLConfirmAccountViewController: DeeplinkedVMViewController<DLConfirmAccountViewModel>, CenterStackViewPresenting, APIErrorResponding, APIErrorPresenting, UserErrorResponding {
 
     // MARK: - Properties
     // MARK: Views
@@ -60,7 +60,7 @@ class ConfirmEmailViewController: DeeplinkedVMViewController<ConfirmEmailViewMod
 }
 
 // MARK: - NotifirePoppablePresenting
-extension ConfirmEmailViewController: NotifireAlertPresenting {
+extension DLConfirmAccountViewController: NotifireAlertPresenting {
     func dismissCompletion(error: UserErrorRepresenting) {
         view.isUserInteractionEnabled = false
         delegate?.shouldCloseDeeplink()
