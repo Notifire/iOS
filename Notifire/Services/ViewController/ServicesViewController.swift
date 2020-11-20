@@ -9,7 +9,7 @@
 import UIKit
 import SkeletonView
 
-class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBarDisplaying, EmptyStatePresentable, TableViewReselectable {
+class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBarDisplaying, EmptyStatePresentable, TableViewReselectable, APIErrorPresenting, APIErrorResponding {
 
     // MARK: - Properties
     weak var delegate: ServicesViewControllerDelegate?
@@ -120,6 +120,8 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
 
             self.connectionStatusView?.updateStyle(from: state)
         }
+
+        setViewModelOnError()
     }
 
     private func layout() {

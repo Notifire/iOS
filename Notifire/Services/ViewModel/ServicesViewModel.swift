@@ -168,15 +168,17 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
 
         //
         // Get services operation
-        getServicesOperation.completionHandler = { [unowned serviceDataAdapterOperation, unowned updateServicesOperation, weak self] response in
-            guard case .success(let snippets) = response else {
+        getServicesOperation.completionHandler = { [unowned serviceDataAdapterOperation, unowned updateServicesOperation, weak self] result in
+            switch result {
+            case .error(let error):
                 // Cancel the other operations if this one fails
                 serviceDataAdapterOperation.cancel()
                 updateServicesOperation.cancel()
                 self?.isFetching = false
-                return
+                self?.onError?(error)
+            case .success(let snippets):
+                self?.synchronizationManager.paginationHandler.updatePaginationState(snippets)
             }
-            self?.synchronizationManager.paginationHandler.updatePaginationState(snippets)
         }
 
         //

@@ -53,6 +53,10 @@ struct NotifireWebSocketEvent<EventData: Codable & EventTypeable>: Codable {
     }
 }
 
+struct NotifireWebSocketEventType: Decodable {
+    let event: EventType
+}
+
 // MARK: - Ready Event
 struct NotifireWebSocketReadyEventData: Codable, EventTypeable {
     let sessionID: String

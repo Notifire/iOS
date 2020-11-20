@@ -34,7 +34,9 @@ class WebSocketHeartbeatManager {
     func startSendingHeartbeat(interval: TimeInterval) {
         // Check if an underlying timer already exists
         guard let existingTimer = heartbeatTimer else {
-            let newTimer = RepeatingTimer(timeInterval: interval, queue: heartbeatQueue)
+            // FIXME: Use this when @Memonil decides to fix the backend
+            // let newTimer = RepeatingTimer(timeInterval: interval, queue: heartbeatQueue)
+            let newTimer = RepeatingTimer(timeInterval: 30, queue: heartbeatQueue)
             newTimer.eventHandler = { [weak self] in
                 self?.socketWriter?.send(operationType: .heartbeat)
             }

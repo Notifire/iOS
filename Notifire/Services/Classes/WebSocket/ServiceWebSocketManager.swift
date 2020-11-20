@@ -96,16 +96,26 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
         let decoder = JSONDecoder()
         let jsonData = Data(text.utf8)
 
-        if let readyEvent = try? decoder.decode(NotifireWebSocketReadyEvent.self, from: jsonData) {
-            handle(ready: readyEvent)
-        } else if let serviceEvent = try? decoder.decode(NotifireWebSocketServiceEvent.self, from: jsonData) {
-            handle(service: serviceEvent)
-        } else if let replayEvent = try? decoder.decode(NotifireWebSocketReplayEvent.self, from: jsonData) {
-            handle(replay: replayEvent)
-        } else if let errorEvent = try? decoder.decode(NotifireWebSocketErrorEvent.self, from: jsonData) {
-            handle(error: errorEvent)
-        } else {
-            Logger.logNetwork(.default, "\(self) ignoring handling of event. textData=<\"\(text)>\"")
+        do {
+            // Get the event type
+            let eventType = try decoder.decode(NotifireWebSocketEventType.self, from: jsonData)
+            // Handle the event
+            switch eventType.event {
+            case .ready:
+                let readyEvent = try decoder.decode(NotifireWebSocketReadyEvent.self, from: jsonData)
+                handle(ready: readyEvent)
+            case .serviceEvent:
+                let serviceEvent = try decoder.decode(NotifireWebSocketServiceEvent.self, from: jsonData)
+                handle(service: serviceEvent)
+            case .replay:
+                let replayEvent = try decoder.decode(NotifireWebSocketReplayEvent.self, from: jsonData)
+                handle(replay: replayEvent)
+            case .error:
+                let errorEvent = try decoder.decode(NotifireWebSocketErrorEvent.self, from: jsonData)
+                handle(error: errorEvent)
+            }
+        } catch let error {
+            Logger.log(.default, "\(self) event handling error: <\(error.localizedDescription)>. Ignoring event.")
         }
     }
 
