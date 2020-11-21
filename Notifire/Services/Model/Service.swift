@@ -17,7 +17,7 @@ struct Service: Codable, Equatable {
 
     let name: String
     let imageURLString: String?
-    let uuid: String
+    let id: Int
     let levels: Levels
     let apiKey: String
     let updatedAt: Date?
@@ -25,7 +25,7 @@ struct Service: Codable, Equatable {
     var asServiceSnippet: ServiceSnippet {
         return ServiceSnippet(
             name: name,
-            id: uuid,
+            id: id,
             snippetImageURLString: imageURLString
         )
     }

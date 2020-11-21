@@ -12,7 +12,7 @@ class PaginationHandler {
 
     enum PaginationState: Equatable {
         case initial
-        case partiallyPaginated(lastServiceID: String)
+        case partiallyPaginated(lastServiceID: Int)
         case paginated
     }
 

@@ -9,10 +9,22 @@
 import UIKit
 import UserNotifications
 
+/// Takes care of registering for notifications and user prompts
 class DeviceTokenManager {
 
+    enum RegistrationState {
+        case initial
+        /// After successfully obtaining a deviceToken from APNS
+        case registeredRemoteNotifications
+        /// After successfully registering the device with Notifire API
+        case registeredDevice
+        case obtainedAuthorization
+    }
+
+    // MARK: - Properties
     var isAlreadyRegistered = false
 
+    // MARK: - Methods
     func registerForPushNotifications() {
         guard !isAlreadyRegistered else { return }
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .carPlay, .sound]) { _, _ in

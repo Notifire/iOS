@@ -92,7 +92,7 @@ class ServiceNotificationsViewModel: NotificationsViewModel {
     }
 
     override func resultsFilterPredicate() -> NSPredicate? {
-        return NSPredicate(format: "ANY service.uuid = %@", service.uuid)
+        return NSPredicate(format: "ANY service.id = %@", service.id)
     }
 
     override func title() -> String {

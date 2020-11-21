@@ -58,7 +58,7 @@ class ServicesSynchronizationManager {
         var localServicesToUpdate = LocalServicesToUpdate()
         for remoteServiceSnippet in remote {
             // Check if the remote service is already present in local services
-            let maybeLocalService = local.first { $0.uuid == remoteServiceSnippet.id }
+            let maybeLocalService = local.first { $0.id == remoteServiceSnippet.id }
             if let localService = maybeLocalService {
                 // Found a local service on the device realm matching the remote service id
                 localServicesToUpdate.append((localService, remoteServiceSnippet))
@@ -86,7 +86,7 @@ class ServicesSynchronizationManager {
         // Gather service that we will merge later
         var localServicesInRepresentables = [LocalService]()
         for representable in representables {
-            if representable is ServiceSnippet, let local = localServices.first(where: { $0.uuid == representable.id }) {
+            if representable is ServiceSnippet, let local = localServices.first(where: { $0.id == representable.id }) {
                 // case 1: ServiceSnippet but exists in localServices
                 localServicesInRepresentables.append(local)
             } else if let local = representable as? LocalService {
@@ -96,7 +96,7 @@ class ServicesSynchronizationManager {
         }
 
         // case 3: LocalServices that haven't been remotely fetched to [ServiceRepresentable] yet
-        let restOfLocalPredicate = NSPredicate(format: "NOT uuid IN %@", localServicesInRepresentables.map({ $0.uuid }))
+        let restOfLocalPredicate = NSPredicate(format: "NOT \(LocalService.nonOptionalPrimaryKey) IN %@", localServicesInRepresentables.map({ $0.id }))
         let restOfLocalServices = Array(realmProvider.realm.objects(LocalService.self).filter(restOfLocalPredicate))
 
         // Merge current representables with non-duplicate local services
@@ -114,7 +114,7 @@ class ServicesSynchronizationManager {
         // Update local services that already exist so they match the remote ones
         try? realmProvider.realm.write {
             for (outdatedLocalService, serviceSnippet) in localServices {
-                outdatedLocalService.updateDataExceptUUID(from: serviceSnippet)
+                outdatedLocalService.updateDataExceptID(from: serviceSnippet)
             }
         }
     }
@@ -123,7 +123,7 @@ class ServicesSynchronizationManager {
         let realm = realmProvider.realm
         try? realm.write {
             // check if the service already exists
-            guard let localService = realm.object(ofType: LocalService.self, forPrimaryKey: service.uuid) else { return }
+            guard let localService = realm.object(ofType: LocalService.self, forPrimaryKey: service.id) else { return }
             // delete service notifications
             realm.delete(localService.notifications)
             // delete the service
@@ -133,7 +133,7 @@ class ServicesSynchronizationManager {
 
     func update(localService: LocalService, from service: Service) {
         try? realmProvider.realm.write {
-            localService.updateDataExceptUUID(from: service)
+            localService.updateDataExceptID(from: service)
         }
     }
 

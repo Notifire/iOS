@@ -161,19 +161,19 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
         }
 
         var nameChanged = false
-        if let snippetName = serviceRepresentables.first(where: { $0.id == service.uuid })?.name {
+        if let snippetName = serviceRepresentables.first(where: { $0.id == service.id })?.name {
             nameChanged = snippetName != service.name
-        } else if let localName = localServices.first(where: { $0.uuid == service.uuid })?.name {
+        } else if let localName = localServices.first(where: { $0.id == service.id })?.name {
             nameChanged = localName != service.name
         }
 
         // We have to take into account the position of the updated service as the name changes the sort order.
-        if let representable = serviceRepresentables.enumerated().first(where: { $0.element.id == service.uuid }) {
+        if let representable = serviceRepresentables.enumerated().first(where: { $0.element.id == service.id }) {
             // updated service is already in the serviceRepresentables array
 
             if representable.element is ServiceSnippet {
                 // already displayed ServiceSnippet
-                let newRepresentable = ServiceSnippet(name: service.name, id: service.uuid, snippetImageURLString: service.imageURLString)
+                let newRepresentable = ServiceSnippet(name: service.name, id: service.id, snippetImageURLString: service.imageURLString)
                 serviceRepresentables[representable.offset] = newRepresentable
             } else if let local = representable.element as? LocalService {
                 // already displayed LocalService
@@ -184,7 +184,7 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
             if nameChanged {
                 // if the name has changed, move the updated service to the correct row
                 serviceRepresentables.sort(by: { $0.name < $1.name })
-                guard let newIndex = serviceRepresentables.firstIndex(where: { $0.id == service.uuid }) else { return nil }
+                guard let newIndex = serviceRepresentables.firstIndex(where: { $0.id == service.id }) else { return nil }
 
                 if newIndex == serviceRepresentables.count - 1 && !synchronizationManager.paginationHandler.isFullyPaginated {
                     // the newIndex is the last row
@@ -203,7 +203,7 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
             }
 
             return (serviceRepresentables, changes)
-        } else if let localService = localServices.first(where: { $0.uuid == service.uuid }) {
+        } else if let localService = localServices.first(where: { $0.id == service.id }) {
             // updated service is in local services but hasn't been presented yet
             synchronizationManager.update(localService: localService, from: service)
 
@@ -213,7 +213,7 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
                 representableWithUpdatedLocal.append(localService)
 
                 representableWithUpdatedLocal.sort(by: { $0.name < $1.name })
-                if let localServiceIndex = representableWithUpdatedLocal.firstIndex(where: { $0.id == localService.uuid }), localServiceIndex < representableWithUpdatedLocal.count - 1 {
+                if let localServiceIndex = representableWithUpdatedLocal.firstIndex(where: { $0.id == localService.id }), localServiceIndex < representableWithUpdatedLocal.count - 1 {
                     // insert the service into representables
                     let changes = ServiceRepresentableChangesData(deletions: [], insertions: [localServiceIndex.asIndexPath], modifications: [], moves: [])
 
@@ -235,8 +235,8 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
         }
 
         let serviceExists =
-            serviceRepresentables.first(where: { $0.id == service.uuid }) != nil ||
-            localServices.first(where: { $0.uuid == service.uuid }) != nil
+            serviceRepresentables.first(where: { $0.id == service.id }) != nil ||
+            localServices.first(where: { $0.id == service.id }) != nil
 
         if serviceExists {
             // update it
@@ -255,7 +255,7 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
 
         synchronizationManager.deleteLocalServiceIfNeeded(from: service)
 
-        if let representableIndexToDelete = serviceRepresentables.firstIndex(where: { $0.id == service.uuid }) {
+        if let representableIndexToDelete = serviceRepresentables.firstIndex(where: { $0.id == service.id }) {
             // service already presented in the UI
             // remove the service from the representables array
             serviceRepresentables.remove(at: representableIndexToDelete)

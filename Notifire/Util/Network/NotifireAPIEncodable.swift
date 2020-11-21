@@ -52,7 +52,7 @@ struct PasswordValidationRequestBody: Encodable {
 
 struct ServiceRequestBody: Encodable {
     let name: String
-    let uuid: String
+    let id: Int
     let levels: Service.Levels
 }
 
@@ -63,7 +63,7 @@ struct ChangeServiceKeyBody: Encodable {
 
 struct PaginationData {
     let mode: Mode
-    let id: String
+    let id: Int
 
     /// Pagination mode
     enum Mode: String {
@@ -73,7 +73,7 @@ struct PaginationData {
     }
 
     var asURLQueryItem: URLQueryItem {
-        return URLQueryItem(name: mode.rawValue, value: id)
+        return URLQueryItem(name: mode.rawValue, value: String(id))
     }
 }
 

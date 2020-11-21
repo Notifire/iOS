@@ -47,7 +47,7 @@ enum NotifireProtectedAPIEndpoint: String, CustomStringConvertible {
     }
 
     /// Return the endpoint string for a GET /service request
-    static func service(id: String) -> String {
-        return Self.service.description + "/" + id
+    static func service(id: Int) -> String {
+        return Self.service.description + "/" + "\(id)"
     }
 }

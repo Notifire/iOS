@@ -619,6 +619,10 @@
 		89F19D732567196E0030AFE0 /* DeeplinkedSimpleVMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D712567196E0030AFE0 /* DeeplinkedSimpleVMViewController.swift */; };
 		89F19D7525671A9E0030AFE0 /* DLRevertEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D7425671A9E0030AFE0 /* DLRevertEmailViewController.swift */; };
 		89F19D7625671A9E0030AFE0 /* DLRevertEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D7425671A9E0030AFE0 /* DLRevertEmailViewController.swift */; };
+		89F19D782568C0D90030AFE0 /* UserAttentionPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D772568C0D90030AFE0 /* UserAttentionPrompt.swift */; };
+		89F19D792568C0D90030AFE0 /* UserAttentionPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D772568C0D90030AFE0 /* UserAttentionPrompt.swift */; };
+		89F19D7B2568C1050030AFE0 /* UserAttentionPromptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D7A2568C1050030AFE0 /* UserAttentionPromptManager.swift */; };
+		89F19D7C2568C1050030AFE0 /* UserAttentionPromptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D7A2568C1050030AFE0 /* UserAttentionPromptManager.swift */; };
 		89FAFD332566008900D1A64C /* EmailTokenError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD322566008900D1A64C /* EmailTokenError.swift */; };
 		89FAFD342566008900D1A64C /* EmailTokenError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD322566008900D1A64C /* EmailTokenError.swift */; };
 		89FAFD362566009D00D1A64C /* DLResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD352566009D00D1A64C /* DLResetPasswordViewModel.swift */; };
@@ -1046,6 +1050,8 @@
 		89F19D6E2567190D0030AFE0 /* DeeplinkViewModelRepresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkViewModelRepresenting.swift; sourceTree = "<group>"; };
 		89F19D712567196E0030AFE0 /* DeeplinkedSimpleVMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkedSimpleVMViewController.swift; sourceTree = "<group>"; };
 		89F19D7425671A9E0030AFE0 /* DLRevertEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLRevertEmailViewController.swift; sourceTree = "<group>"; };
+		89F19D772568C0D90030AFE0 /* UserAttentionPrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAttentionPrompt.swift; sourceTree = "<group>"; };
+		89F19D7A2568C1050030AFE0 /* UserAttentionPromptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAttentionPromptManager.swift; sourceTree = "<group>"; };
 		89FAFD322566008900D1A64C /* EmailTokenError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTokenError.swift; sourceTree = "<group>"; };
 		89FAFD352566009D00D1A64C /* DLResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		89FAFD3A256600C100D1A64C /* UserSessionCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionCreating.swift; sourceTree = "<group>"; };
@@ -1908,6 +1914,8 @@
 			isa = PBXGroup;
 			children = (
 				895637C025575989005E4A4E /* AppVersionManager.swift */,
+				89F19D772568C0D90030AFE0 /* UserAttentionPrompt.swift */,
+				89F19D7A2568C1050030AFE0 /* UserAttentionPromptManager.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -3173,6 +3181,7 @@
 				89FAFD452566012B00D1A64C /* DeeplinkedVMViewController.swift in Sources */,
 				89576ADB24FD412A0097BF87 /* NotificationObserving.swift in Sources */,
 				89576ADC24FD412A0097BF87 /* RegisterViewController.swift in Sources */,
+				89F19D792568C0D90030AFE0 /* UserAttentionPrompt.swift in Sources */,
 				895A3B9425008C51000A7B50 /* SSOManager.swift in Sources */,
 				89576ADD24FD412A0097BF87 /* NotificationLevel.swift in Sources */,
 				89576ADE24FD412A0097BF87 /* ServicesCoordinator.swift in Sources */,
@@ -3332,6 +3341,7 @@
 				89576B2924FD412A0097BF87 /* NotifireUserSessionManagerMock.swift in Sources */,
 				89FAFD3F256600EA00D1A64C /* DeeplinkResponding.swift in Sources */,
 				899C07182551E2E00005228E /* NavigationCoordinatorDelegate.swift in Sources */,
+				89F19D7C2568C1050030AFE0 /* UserAttentionPromptManager.swift in Sources */,
 				895418DC251945AE0046464D /* ServiceRepresentable.swift in Sources */,
 				89576B2B24FD412A0097BF87 /* TabbedCoordinator.swift in Sources */,
 				89576B2C24FD412A0097BF87 /* TabBarViewModel.swift in Sources */,
@@ -3431,6 +3441,7 @@
 				8949EBDE251189F00045D1A7 /* RegisterSuccessViewModel.swift in Sources */,
 				895418E2251965930046464D /* ServiceSnippet.swift in Sources */,
 				896167CF25011709007BF3F1 /* NotifireButton.swift in Sources */,
+				89F19D7B2568C1050030AFE0 /* UserAttentionPromptManager.swift in Sources */,
 				897B77C8252505B4008602BB /* WebSocketConnectionStatus.swift in Sources */,
 				897B77AD2523E873008602BB /* PaginationLoadingTableViewCell.swift in Sources */,
 				8933F0F0214338B500645B3A /* NotifireAPIError.swift in Sources */,
@@ -3581,6 +3592,7 @@
 				8933F0E52143380C00645B3A /* URLRequestExtension.swift in Sources */,
 				894AB6812512607B00F2CBF5 /* ServicesViewControllerDelegate.swift in Sources */,
 				894AB68B2512617300F2CBF5 /* ServicesViewController+TableView.swift in Sources */,
+				89F19D782568C0D90030AFE0 /* UserAttentionPrompt.swift in Sources */,
 				897069CC213359A100D798AA /* BaseViewController.swift in Sources */,
 				89399585216FEFD500687A79 /* UIViewExtension.swift in Sources */,
 				896168002501B3A3007BF3F1 /* UIView+Embed.swift in Sources */,

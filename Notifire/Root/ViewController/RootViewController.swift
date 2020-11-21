@@ -52,9 +52,15 @@ class RootViewController: VMViewController<RootViewModel>, NotifireAlertPresenti
         let forceUpdate = data.appVersionResponse.forceUpdate
 
         let alertVC = NotifireAlertViewController(alertTitle: nil, alertText: nil)
-        alertVC.add(action: NotifireAlertAction(title: "Update now", style: .positive, handler: { [unowned alertVC] _ in
+        // Create a custom dismissal to take the UserAttentionPrompt into account
+        let dimissAlert: ((Bool) -> Void) = { [weak self] animated in
+            alertVC.dismiss(animated: animated) { [weak self] in
+                self?.viewModel.activePrompt?.finish()
+            }
+        }
+        alertVC.add(action: NotifireAlertAction(title: "Update now", style: .positive, handler: { _ in
             // Dismiss the alert if the update is not forced
-            defer { if !forceUpdate { alertVC.dismiss(animated: false, completion: nil) } }
+            defer { if !forceUpdate { dimissAlert(false) } }
             // Redirect to the App Store page
             // FIXME: App Store url
             guard let url = URL(string: "https://google.com") else { return }
@@ -68,13 +74,13 @@ class RootViewController: VMViewController<RootViewModel>, NotifireAlertPresenti
             alertVC.alertText = "You can download a new version (\(latestVersion)) of Notifire on the App Store."
             // Only add this option if a user is logged in == session is not nil
             if let session = viewModel.currentSessionHandler?.userSession {
-                alertVC.add(action: NotifireAlertAction(title: "Turn off these alerts", style: .neutral, handler: { [unowned alertVC] _ in
+                alertVC.add(action: NotifireAlertAction(title: "Turn off these alerts", style: .neutral, handler: { _ in
                     session.settings.appUpdateReminderEnabled = false
-                    alertVC.dismiss(animated: true, completion: nil)
+                    dimissAlert(true)
                 }))
             }
-            alertVC.add(action: NotifireAlertAction(title: "Maybe later", style: .neutral, handler: { [unowned alertVC] _ in
-                alertVC.dismiss(animated: true, completion: nil)
+            alertVC.add(action: NotifireAlertAction(title: "Maybe later", style: .neutral, handler: { _ in
+                dimissAlert(true)
             }))
         }
         present(alert: alertVC, animated: true, completion: nil)

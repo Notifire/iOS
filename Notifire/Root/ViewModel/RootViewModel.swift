@@ -24,6 +24,9 @@ class RootViewModel: ViewModelRepresenting {
     let notificationsHandler = NotifireNotificationsHandler()
     var versionNotificationObserver: NotificationObserver?
 
+    var userAttentionPromptManager = UserAttentionPromptManager()
+    weak var activePrompt: UserAttentionPrompt?
+
     // MARK: State
     var appState: AppState? {
         didSet {
@@ -79,8 +82,12 @@ class RootViewModel: ViewModelRepresenting {
 
                 guard updateAction.shouldPromptUpdate else { return }
 
-                // notify the delegate
-                self.onNewVersionAvailable?(appVersionData)
+                // let the prompt manager notify the delegate
+                let prompt = UserAttentionPrompt(name: "AppVersionAlert") { [weak self] in
+                    self?.onNewVersionAvailable?(appVersionData)
+                }
+                self.activePrompt = prompt
+                self.userAttentionPromptManager.add(userAttentionPrompt: prompt)
             })
         }
 

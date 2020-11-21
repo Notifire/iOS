@@ -18,9 +18,9 @@ extension RealmManager {
         do {
             var localService: LocalService?
             try realm.write {
-                let existingObject = realm.object(ofType: LocalService.self, forPrimaryKey: service.uuid)
+                let existingObject = realm.object(ofType: LocalService.self, forPrimaryKey: service.id)
                 guard existingObject == nil else {
-                    Logger.log(.fault, "\(self) error while creating a LocalService realm object. Another one with the same UUID \(service.uuid) is already present")
+                    Logger.log(.fault, "\(self) error while creating a LocalService realm object. Another one with the same UUID \(service.id) is already present")
                     return
                 }
                 // Create the service
@@ -28,7 +28,7 @@ extension RealmManager {
                 local.updateData(from: service)
 
                 // Add existing notifications to this service
-                let notificationPredicate = NSPredicate(format: "serviceID = %@", service.uuid)
+                let notificationPredicate = NSPredicate(format: "serviceID = %@", service.id)
                 let serviceNotifications = realm.objects(LocalNotifireNotification.self).filter(notificationPredicate)
 
                 for serviceNotification in serviceNotifications {

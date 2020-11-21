@@ -10,7 +10,7 @@ import Foundation
 
 struct ServiceSnippet: Codable {
     var name: String
-    var id: String
+    var id: Int
     var snippetImageURLString: String?
 
     private enum CodingKeys: String, CodingKey {

@@ -20,7 +20,7 @@ class LocalService: Object {
     /// Service name
     @objc dynamic var name: String = ""
     /// Service ID, primary key.
-    @objc dynamic var uuid: String = ""
+    @objc dynamic var id: Int = -1
     /// Service API key used to send notifications.
     @objc dynamic var serviceAPIKey: String = ""
 
@@ -56,6 +56,10 @@ class LocalService: Object {
     }
 
     override static func primaryKey() -> String? {
-        return "uuid"
+        return "id"
+    }
+
+    static var nonOptionalPrimaryKey: String {
+        return primaryKey() ?? #keyPath(LocalService.id)
     }
 }

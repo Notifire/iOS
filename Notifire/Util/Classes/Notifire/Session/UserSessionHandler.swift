@@ -60,16 +60,25 @@ class UserSessionHandler: RealmProviding {
     }
 
     // MARK: - Public
+    public func createDeviceToken(from deviceTokenData: Data) -> String {
+        let tokenParts = deviceTokenData.map { data -> String in
+            return String(format: "%02.2hhx", data)
+        }
+        return tokenParts.joined()
+    }
+
     /// registers the device token with the Notifire API
     // TODO: Move this func to DeviceTokenManager
     public func registerDevice(with deviceToken: String) {
         notifireProtectedApiManager.register(deviceToken: deviceToken) { [weak self] result in
             switch result {
             case .error:
+                Logger.log(.debug, "\(self) failed to register deviceToken=\(deviceToken)")
                 DispatchQueue.main.asyncAfter(deadline: .now() + UserSessionHandler.registerDeviceFailureRetryTime) { [weak self] in
                     self?.registerDevice(with: deviceToken)
                 }
             case .success:
+                Logger.log(.debug, "\(self) registered deviceToken=\(deviceToken)")
                 self?.userSession.deviceToken = deviceToken
                 self?.deviceTokenManager.isAlreadyRegistered = true
             }

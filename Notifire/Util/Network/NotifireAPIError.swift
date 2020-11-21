@@ -25,6 +25,12 @@ enum NotifireAPIError: Error, CustomStringConvertible {
     struct ClientError: Decodable, Equatable {
         let code: Int
         let message: String
+
+        // swiftlint:disable nesting
+        private enum CodingKeys: String, CodingKey {
+            case code = "errorCode", message = "errorMessage"
+        }
+        // swiftlint:disable nesting
     }
 
     public var description: String {

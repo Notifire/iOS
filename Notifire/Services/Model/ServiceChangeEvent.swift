@@ -24,6 +24,6 @@ struct ServiceChangeEvent: Codable, CustomStringConvertible {
     let service: Service
 
     var description: String {
-        return "\(type.rawValue) service \(service.uuid)"
+        return "\(type.rawValue) service \(service.id)"
     }
 }

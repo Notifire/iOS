@@ -10,11 +10,11 @@ import Foundation
 
 extension LocalService {
     func updateData(from service: Service) {
-        uuid = service.uuid
-        updateDataExceptUUID(from: service)
+        id = service.id
+        updateDataExceptID(from: service)
     }
 
-    func updateDataExceptUUID(from service: Service) {
+    func updateDataExceptID(from service: Service) {
         name = service.name
         serviceAPIKey = service.apiKey
         updatedAt = service.updatedAt
@@ -24,21 +24,21 @@ extension LocalService {
     }
 
     func updateData(from serviceSnippet: ServiceSnippet) {
-        uuid = serviceSnippet.id
-        updateDataExceptUUID(from: serviceSnippet)
+        id = serviceSnippet.id
+        updateDataExceptID(from: serviceSnippet)
     }
 
-    func updateDataExceptUUID(from serviceSnippet: ServiceSnippet) {
+    func updateDataExceptID(from serviceSnippet: ServiceSnippet) {
         name = serviceSnippet.name
         snippetImageURLString = serviceSnippet.snippetImageURLString
     }
 
     var asService: Service {
         //et validUpdatedAt = updatedAt ?? Date(timeIntervalSince1970: 0)
-        return Service(name: name, imageURLString: imageURLString, uuid: uuid, levels: Service.Levels(info: info, warning: warning, error: error), apiKey: serviceAPIKey, updatedAt: nil)
+        return Service(name: name, imageURLString: imageURLString, id: id, levels: Service.Levels(info: info, warning: warning, error: error), apiKey: serviceAPIKey, updatedAt: nil)
     }
 
     var asServiceRequestBody: ServiceRequestBody {
-        return ServiceRequestBody(name: name, uuid: uuid, levels: Service.Levels(info: info, warning: warning, error: error))
+        return ServiceRequestBody(name: name, id: id, levels: Service.Levels(info: info, warning: warning, error: error))
     }
 }

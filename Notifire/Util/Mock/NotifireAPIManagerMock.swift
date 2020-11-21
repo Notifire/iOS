@@ -70,7 +70,7 @@ class NotifireProtectedAPIManagerMock: NotifireProtectedAPIManager, NotifireAPIM
         for i in 0..<count {
             let service = ServiceSnippet(
                 name: "Service #\(i)",
-                id: String(i),
+                id: i,
                 snippetImageURLString: "http://google.com"
             )
             services.append(service)
@@ -108,7 +108,7 @@ class NotifireProtectedAPIManagerMock: NotifireProtectedAPIManager, NotifireAPIM
     }
 
     override func get(service: ServiceSnippet, completion: @escaping NotifireAPIBaseManager.Callback<ServiceGetResponse>) {
-        returnSuccessAfter(completion: completion, response: Service(name: service.name, imageURLString: nil, uuid: service.id, levels: Service.Levels(info: true, warning: true, error: false), apiKey: "test", updatedAt: Date()))
+        returnSuccessAfter(completion: completion, response: Service(name: service.name, imageURLString: nil, id: service.id, levels: Service.Levels(info: true, warning: true, error: false), apiKey: "test", updatedAt: Date()))
     }
 
     override func getServices(limit: Int, paginationData: PaginationData?, completion: @escaping NotifireAPIBaseManager.Callback<ServicesResponse>) {
@@ -135,11 +135,11 @@ class NotifireProtectedAPIManagerMock: NotifireProtectedAPIManager, NotifireAPIM
     }
 
     override func createService(name: String, image: String, completion: @escaping Callback<ServiceCreationResponse>) {
-        returnSuccessAfter(completion: completion, response: Service(name: "New Service", imageURLString: "test", uuid: "3", levels: Service.Levels(info: true, warning: true, error: true), apiKey: "key 3", updatedAt: Date()))
+        returnSuccessAfter(completion: completion, response: Service(name: "New Service", imageURLString: "test", id: 3, levels: Service.Levels(info: true, warning: true, error: true), apiKey: "key 3", updatedAt: Date()))
     }
 
     override func changeApiKey(for service: LocalService, password: String, completion: @escaping Callback<APIKeyChangeResponse>) {
-        returnSuccessAfter(duration: 0.5, completion: completion, response: Service(name: service.name, imageURLString: "test", uuid: service.uuid, levels: Service.Levels(info: true, warning: true, error: true), apiKey: "\(Date())", updatedAt: Date()))
+        returnSuccessAfter(duration: 0.5, completion: completion, response: Service(name: service.name, imageURLString: "test", id: service.id, levels: Service.Levels(info: true, warning: true, error: true), apiKey: "\(Date())", updatedAt: Date()))
     }
 
     override func delete(service: LocalService, completion: @escaping Callback<EmptyRequestBody>) {
