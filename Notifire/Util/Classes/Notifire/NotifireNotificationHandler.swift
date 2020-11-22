@@ -53,7 +53,7 @@ class NotifireNotificationsHandler: NSObject {
                 notifireNotification.service = service
                 service.notifications.append(notifireNotification)
                 // we don't need this value anymore (accessible via notification.service variable)
-                notifireNotification.serviceID = nil
+                notifireNotification.serviceID.value = nil
             }
         } else {
             // LocalService doesn't exist yet

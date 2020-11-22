@@ -12,7 +12,7 @@ import RealmSwift
 /// Manager class for Realm operations.
 struct RealmManager {
 
-    private static let schemaVersion: UInt64 = 3
+    private static let schemaVersion: UInt64 = 4
     private static let realmFileExtension = "realm"
     private static let appGroupIdentifier = "group.com.dvdblk.Notifire"
 
@@ -65,7 +65,14 @@ struct RealmManager {
                 //  LocalService.uuid -> LocalService.id
                 // -    Update
                 //  LocalService.uuid: String -> Int
+
                 migration.deleteData(forType: LocalService.className())
+
+            }
+            if oldSchemaVersion < 4 {
+                // -    Update/Fix
+                //  LocalNotifireNotification.serviceID: String -> Int
+                migration.deleteData(forType: LocalNotifireNotification.className())
             }
         }
         configuration.fileURL = url

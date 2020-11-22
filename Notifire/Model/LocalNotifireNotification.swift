@@ -20,7 +20,7 @@ class LocalNotifireNotification: Object, Decodable {
     ///     -   Used when the notification service is NOT downloaded previously on the device.
     ///        e.g. when the user creates a service X on device A and a notification for X is received on device B (which doesn't previously know about X)
     ///     -   This variable is set to nil whenever the respective service is associated with this notification.
-    @objc dynamic var serviceID: String?
+    let serviceID = RealmOptional<Int>()
     /// This variable is not nil when a `LocalService` has been identified for this notification.
     @objc dynamic var service: LocalService?
 
@@ -68,7 +68,7 @@ class LocalNotifireNotification: Object, Decodable {
         let datetimeString = try notificationContainer.decode(String.self, forKey: .date)
         date = DateFormatter.yyyyMMdd.date(from: datetimeString) ?? Date()
         rawLevel = try notificationContainer.decode(String.self, forKey: .level)
-        serviceID = try notificationContainer.decode(String.self, forKey: .serviceID)
+        serviceID.value = try notificationContainer.decode(Int.self, forKey: .serviceID)
     }
 
     required init() {

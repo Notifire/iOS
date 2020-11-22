@@ -28,13 +28,13 @@ extension RealmManager {
                 local.updateData(from: service)
 
                 // Add existing notifications to this service
-                let notificationPredicate = NSPredicate(format: "serviceID = %@", service.id)
+                let notificationPredicate = NSPredicate(format: "serviceID = %d", service.id)
                 let serviceNotifications = realm.objects(LocalNotifireNotification.self).filter(notificationPredicate)
 
                 for serviceNotification in serviceNotifications {
                     // Set the notification's parent to the new local service
                     serviceNotification.service = local
-                    serviceNotification.serviceID = nil
+                    serviceNotification.serviceID.value = nil
                 }
 
                 // add it to the user's realm
