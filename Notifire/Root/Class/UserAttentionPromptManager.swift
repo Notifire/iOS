@@ -17,17 +17,38 @@ class UserAttentionPromptManager {
     /// FIXME: Maybe this needs a weak wrapper for the user attention prompts?
     var userAttentionPromptsQueue = [UserAttentionPrompt]() {
         didSet {
-            print(userAttentionPromptsQueue.count)
             updateTimer()
         }
     }
 
     private var timer: RepeatingTimer?
 
+    // MARK: Static
+    static let inBetweenPromptTimeout: TimeInterval = 10
+
     // MARK: - Methods
     /// Add a new `UserAttentionPrompt` to the top of the queue.
-    func add(userAttentionPrompt: UserAttentionPrompt) {
-        userAttentionPromptsQueue.append(userAttentionPrompt)
+    func add(userAttentionPrompt: UserAttentionPrompt, prioritizedPrompt: Bool = false) {
+        if prioritizedPrompt {
+            if !userAttentionPromptsQueue.isEmpty,
+                let first = userAttentionPromptsQueue.first,
+                (first.stateModel.state == .presenting || first.stateModel.state == .finished) {
+                // Insert the prompt to the second to last position if the current prompt is already presenting
+                if userAttentionPromptsQueue.count > 1 {
+                    // Safe to use index:1, [prompt1, prompt2]
+                    userAttentionPromptsQueue.insert(userAttentionPrompt, at: 1)
+                } else {
+                    // [prompt1]
+                    userAttentionPromptsQueue.append(userAttentionPrompt)
+                }
+            } else {
+                // Append the prompt and updateQueue immediately
+                userAttentionPromptsQueue.append(userAttentionPrompt)
+                checkAndUpdatePromptQueue()
+            }
+        } else {
+            userAttentionPromptsQueue.append(userAttentionPrompt)
+        }
     }
 
     /// Start or stop the timer depending on the queue emptiness.
@@ -39,7 +60,7 @@ class UserAttentionPromptManager {
         } else {
             // Queue is not empty, initialize it
             guard timer == nil else { return }
-            let newTimer = RepeatingTimer(timeInterval: 5, queue: nil)
+            let newTimer = RepeatingTimer(timeInterval: Self.inBetweenPromptTimeout, queue: nil)
             newTimer.eventHandler = { [weak self] in
                 DispatchQueue.main.async {
                     self?.checkAndUpdatePromptQueue()

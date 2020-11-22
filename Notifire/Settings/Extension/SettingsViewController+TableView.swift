@@ -33,7 +33,7 @@ extension SettingsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel.section(at: section).sectionHeaderText
+        return viewModel.sectionHeaderText(at: section)
     }
 }
 
@@ -54,6 +54,8 @@ extension SettingsViewController: UITableViewDelegate {
             delegate?.didSelectContactButton()
         case .logout:
             promptLogout()
+        case .goToSettingsButton:
+            URLOpener.goToNotificationSettings()
         default:
             break
         }
@@ -62,8 +64,8 @@ extension SettingsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch viewModel.section(at: section) {
-        case .generalLast, .notifications, .userLogout: return UITableView.automaticDimension
-        case .user, .general: return CGFloat.leastNonzeroMagnitude
+        case .generalLast, .userLogout, .notifications: return UITableView.automaticDimension
+        case .user, .general, .notificationStatus: return CGFloat.leastNonzeroMagnitude
         }
     }
 

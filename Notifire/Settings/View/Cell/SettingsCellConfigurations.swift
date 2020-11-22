@@ -129,3 +129,42 @@ class SettingsSwitchTableViewCell: ReusableBaseTableViewCell, CellConfigurable {
 }
 
 typealias SettingsSwitchCellConfiguration = CellConfiguration<SettingsSwitchTableViewCell, DefaultAutomaticHeightCellAppearance>
+
+// MARK: - SettingsActionCellConfiguration
+typealias SettingsActionCellConfiguration = CellConfiguration<UITableViewActionCell, DisclosureCellAppearance>
+
+// MARK: - SettingsWarningViewCellConfiguration
+class UITableViewWarningCell: ReusableBaseTableViewCell, CellConfigurable {
+
+    // MARK: - Properties
+    // MARK: UI
+    lazy var warningView: WarningView = {
+        let view = WarningView()
+        view.warningTitleText = "Enable notifications"
+        view.warningText = "Notifications must be enabled for Notifire or the notifications your Services send won't be received on this device. Make sure to enable them in Settings."
+        view.warningStyle = .important
+        return view
+    }()
+
+    // MARK: - Inherited
+    override func setup() {
+        contentView.preservesSuperviewLayoutMargins = false
+        contentView.layoutMargins = UIEdgeInsets(everySide: Size.standardMargin)
+
+        layout()
+    }
+
+    // MARK: - Private
+    private func layout() {
+        contentView.add(subview: warningView)
+        warningView.embedSidesInMargins(in: contentView)
+        warningView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
+        warningView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
+    }
+
+    // MARK: CellConfigurable
+    typealias DataType = Any
+    func configure(data: Any) {}
+}
+
+typealias SettingsWarningViewCellConfiguration = CellConfiguration<UITableViewWarningCell, DefaultCellAppearance>

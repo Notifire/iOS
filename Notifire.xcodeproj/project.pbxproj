@@ -99,8 +99,6 @@
 		892DC0B825607B3D0067EB12 /* CaseIterable+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0B625607B3D0067EB12 /* CaseIterable+Init.swift */; };
 		892DC0BC256082E50067EB12 /* SettingsCellConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0BB256082E50067EB12 /* SettingsCellConfigurations.swift */; };
 		892DC0BD256082E50067EB12 /* SettingsCellConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0BB256082E50067EB12 /* SettingsCellConfigurations.swift */; };
-		892DC0C025609B6E0067EB12 /* TableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0BF25609B6E0067EB12 /* TableViewSection.swift */; };
-		892DC0C125609B6E0067EB12 /* TableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0BF25609B6E0067EB12 /* TableViewSection.swift */; };
 		892DC0C425609B840067EB12 /* SettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0C325609B840067EB12 /* SettingsSection.swift */; };
 		892DC0C525609B840067EB12 /* SettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0C325609B840067EB12 /* SettingsSection.swift */; };
 		892DC0C725609BA40067EB12 /* SettingsRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DC0C625609BA40067EB12 /* SettingsRows.swift */; };
@@ -623,6 +621,16 @@
 		89F19D792568C0D90030AFE0 /* UserAttentionPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D772568C0D90030AFE0 /* UserAttentionPrompt.swift */; };
 		89F19D7B2568C1050030AFE0 /* UserAttentionPromptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D7A2568C1050030AFE0 /* UserAttentionPromptManager.swift */; };
 		89F19D7C2568C1050030AFE0 /* UserAttentionPromptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D7A2568C1050030AFE0 /* UserAttentionPromptManager.swift */; };
+		89F19D7E2568DD950030AFE0 /* NotificationsRequirementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D7D2568DD950030AFE0 /* NotificationsRequirementViewController.swift */; };
+		89F19D7F2568DD950030AFE0 /* NotificationsRequirementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D7D2568DD950030AFE0 /* NotificationsRequirementViewController.swift */; };
+		89F19D812569FCCC0030AFE0 /* NotificationsRequirementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D802569FCCC0030AFE0 /* NotificationsRequirementViewModel.swift */; };
+		89F19D822569FCCC0030AFE0 /* NotificationsRequirementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D802569FCCC0030AFE0 /* NotificationsRequirementViewModel.swift */; };
+		89F19D842569FCE10030AFE0 /* WarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D832569FCE10030AFE0 /* WarningView.swift */; };
+		89F19D852569FCE10030AFE0 /* WarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D832569FCE10030AFE0 /* WarningView.swift */; };
+		89F19D872569FCFA0030AFE0 /* PermissionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D862569FCFA0030AFE0 /* PermissionStatusView.swift */; };
+		89F19D882569FCFA0030AFE0 /* PermissionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D862569FCFA0030AFE0 /* PermissionStatusView.swift */; };
+		89F19D8A2569FD0E0030AFE0 /* URLOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D892569FD0E0030AFE0 /* URLOpener.swift */; };
+		89F19D8B2569FD0E0030AFE0 /* URLOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D892569FD0E0030AFE0 /* URLOpener.swift */; };
 		89FAFD332566008900D1A64C /* EmailTokenError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD322566008900D1A64C /* EmailTokenError.swift */; };
 		89FAFD342566008900D1A64C /* EmailTokenError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD322566008900D1A64C /* EmailTokenError.swift */; };
 		89FAFD362566009D00D1A64C /* DLResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD352566009D00D1A64C /* DLResetPasswordViewModel.swift */; };
@@ -796,7 +804,6 @@
 		892DC0B3256075400067EB12 /* SettingsViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewController+TableView.swift"; sourceTree = "<group>"; };
 		892DC0B625607B3D0067EB12 /* CaseIterable+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaseIterable+Init.swift"; sourceTree = "<group>"; };
 		892DC0BB256082E50067EB12 /* SettingsCellConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellConfigurations.swift; sourceTree = "<group>"; };
-		892DC0BF25609B6E0067EB12 /* TableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSection.swift; sourceTree = "<group>"; };
 		892DC0C325609B840067EB12 /* SettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSection.swift; sourceTree = "<group>"; };
 		892DC0C625609BA40067EB12 /* SettingsRows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRows.swift; sourceTree = "<group>"; };
 		892DC0CE2560E4090067EB12 /* GenericUITableViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericUITableViewCells.swift; sourceTree = "<group>"; };
@@ -1052,6 +1059,11 @@
 		89F19D7425671A9E0030AFE0 /* DLRevertEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLRevertEmailViewController.swift; sourceTree = "<group>"; };
 		89F19D772568C0D90030AFE0 /* UserAttentionPrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAttentionPrompt.swift; sourceTree = "<group>"; };
 		89F19D7A2568C1050030AFE0 /* UserAttentionPromptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAttentionPromptManager.swift; sourceTree = "<group>"; };
+		89F19D7D2568DD950030AFE0 /* NotificationsRequirementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsRequirementViewController.swift; sourceTree = "<group>"; };
+		89F19D802569FCCC0030AFE0 /* NotificationsRequirementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsRequirementViewModel.swift; sourceTree = "<group>"; };
+		89F19D832569FCE10030AFE0 /* WarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningView.swift; sourceTree = "<group>"; };
+		89F19D862569FCFA0030AFE0 /* PermissionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionStatusView.swift; sourceTree = "<group>"; };
+		89F19D892569FD0E0030AFE0 /* URLOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLOpener.swift; sourceTree = "<group>"; };
 		89FAFD322566008900D1A64C /* EmailTokenError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTokenError.swift; sourceTree = "<group>"; };
 		89FAFD352566009D00D1A64C /* DLResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		89FAFD3A256600C100D1A64C /* UserSessionCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionCreating.swift; sourceTree = "<group>"; };
@@ -1496,7 +1508,6 @@
 			isa = PBXGroup;
 			children = (
 				893B901E2512B9700056DBF9 /* Reusable.swift */,
-				892DC0BF25609B6E0067EB12 /* TableViewSection.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -1662,6 +1673,7 @@
 			isa = PBXGroup;
 			children = (
 				893995A02170ED9700687A79 /* TabBarViewModel.swift */,
+				89F19D802569FCCC0030AFE0 /* NotificationsRequirementViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1817,6 +1829,7 @@
 			isa = PBXGroup;
 			children = (
 				893995922170C58400687A79 /* TabBarViewController.swift */,
+				89F19D7D2568DD950030AFE0 /* NotificationsRequirementViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1853,6 +1866,8 @@
 			isa = PBXGroup;
 			children = (
 				894B1F9F2505DECA00D0D671 /* TabBarStackView.swift */,
+				89F19D832569FCE10030AFE0 /* WarningView.swift */,
+				89F19D862569FCFA0030AFE0 /* PermissionStatusView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2205,6 +2220,7 @@
 				8936E3AF2562E5AF007424A7 /* Input Validation */,
 				89D616972502FE1600287331 /* KeyboardObserverHandler.swift */,
 				8936E3BA2563177C007424A7 /* TextFieldReturnChainer.swift */,
+				89F19D892569FD0E0030AFE0 /* URLOpener.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -3068,6 +3084,7 @@
 				892DC0B825607B3D0067EB12 /* CaseIterable+Init.swift in Sources */,
 				89541918251CD1670046464D /* UpdateServiceRepresentablesOperation.swift in Sources */,
 				893A4A352528D2B500DD02D0 /* CATransaction+Animation.swift in Sources */,
+				89F19D852569FCE10030AFE0 /* WarningView.swift in Sources */,
 				89576AA324FD412A0097BF87 /* UserSessionHandler.swift in Sources */,
 				89576AA424FD412A0097BF87 /* Revealing.swift in Sources */,
 				895637BD2555231E005E4A4E /* SyncAllServicesOperation.swift in Sources */,
@@ -3079,6 +3096,7 @@
 				890391F82537C942005C5C99 /* RealmManager+Service.swift in Sources */,
 				89576AA824FD412A0097BF87 /* ChoiceSeparatorView.swift in Sources */,
 				89576AA924FD412A0097BF87 /* NoSessionContainerViewController.swift in Sources */,
+				89F19D822569FCCC0030AFE0 /* NotificationsRequirementViewModel.swift in Sources */,
 				89576AAA24FD412A0097BF87 /* ServiceAPIKeyTableViewCell.swift in Sources */,
 				8936E3D0256359C7007424A7 /* SuccessAlertDataProviding.swift in Sources */,
 				89576AAB24FD412A0097BF87 /* Coordinator.swift in Sources */,
@@ -3233,6 +3251,7 @@
 				89576AF524FD412A0097BF87 /* AppDelegate.swift in Sources */,
 				8936E3AB2562DD4B007424A7 /* BottomBarTextField.swift in Sources */,
 				895A3B7C25006D58000A7B50 /* LoginRegisterSplitterViewControllerDelegate.swift in Sources */,
+				89F19D8B2569FD0E0030AFE0 /* URLOpener.swift in Sources */,
 				89576AF624FD412A0097BF87 /* NoSessionCoordinator.swift in Sources */,
 				89576AF824FD412A0097BF87 /* ServiceViewModel.swift in Sources */,
 				895A3B8A25006DC5000A7B50 /* LoginRegisterSplitterViewModel.swift in Sources */,
@@ -3286,7 +3305,6 @@
 				89576B1124FD412A0097BF87 /* UIViewControllerExtension.swift in Sources */,
 				89576B1224FD412A0097BF87 /* RegisterViewModel.swift in Sources */,
 				89576B1324FD412A0097BF87 /* NotifireAPIManager.swift in Sources */,
-				892DC0C125609B6E0067EB12 /* TableViewSection.swift in Sources */,
 				89576B1424FD412A0097BF87 /* LoginViewModel.swift in Sources */,
 				89576B1524FD412A0097BF87 /* DLConfirmAccountViewModel.swift in Sources */,
 				894B1F892505D66600D0D671 /* SectionedCoordinator.swift in Sources */,
@@ -3324,6 +3342,7 @@
 				89576B2124FD412A0097BF87 /* Theme.swift in Sources */,
 				8936E3CD2563599A007424A7 /* LoadingModel.swift in Sources */,
 				89576B2224FD412A0097BF87 /* NotificationTableViewCell.swift in Sources */,
+				89F19D7F2568DD950030AFE0 /* NotificationsRequirementViewController.swift in Sources */,
 				89576B2324FD412A0097BF87 /* NotificationsCoordinator.swift in Sources */,
 				893B90232512B99A0056DBF9 /* UITableView+Reusable.swift in Sources */,
 				896167F525017889007BF3F1 /* LoginNavigationController.swift in Sources */,
@@ -3344,6 +3363,7 @@
 				89F19D7C2568C1050030AFE0 /* UserAttentionPromptManager.swift in Sources */,
 				895418DC251945AE0046464D /* ServiceRepresentable.swift in Sources */,
 				89576B2B24FD412A0097BF87 /* TabbedCoordinator.swift in Sources */,
+				89F19D882569FCFA0030AFE0 /* PermissionStatusView.swift in Sources */,
 				89576B2C24FD412A0097BF87 /* TabBarViewModel.swift in Sources */,
 				89F19D6A2566C1780030AFE0 /* UIViewKeyframeAnimationOptions+Init.swift in Sources */,
 				895637B32554B52B005E4A4E /* ThreadSafeServiceRepresentableOperation.swift in Sources */,
@@ -3402,6 +3422,7 @@
 				89399590217002AD00687A79 /* Revealing.swift in Sources */,
 				897069D22133725E00D798AA /* CustomTextField.swift in Sources */,
 				89BDADE1217A5230000E38FC /* DeviceTokenManager.swift in Sources */,
+				89F19D872569FCFA0030AFE0 /* PermissionStatusView.swift in Sources */,
 				8936E3B92562E787007424A7 /* InputValidatingViewModel.swift in Sources */,
 				892B413C21C1E1E600D28ABE /* ServicesEmptyStateView.swift in Sources */,
 				893FE01F21960BCC002CD846 /* ChoiceSeparatorView.swift in Sources */,
@@ -3428,6 +3449,7 @@
 				8933F0FC214339D700645B3A /* NotifireAPIDecodable.swift in Sources */,
 				89D616A92505A81300287331 /* SSOAuthenticationProvider+Image.swift in Sources */,
 				8939959F2170ED7900687A79 /* SessionCoordinator.swift in Sources */,
+				89F19D8A2569FD0E0030AFE0 /* URLOpener.swift in Sources */,
 				895A3B9625008C73000A7B50 /* SSOAuthenticationAttempt.swift in Sources */,
 				895A3B8625006DB4000A7B50 /* AuthenticationProvider.swift in Sources */,
 				8933F0DD2143360300645B3A /* NotifireAPITypealias.swift in Sources */,
@@ -3528,6 +3550,7 @@
 				89FAFD41256600FE00D1A64C /* DeeplinkedVMViewControllerDelegate.swift in Sources */,
 				895A3B9325008C51000A7B50 /* SSOManager.swift in Sources */,
 				892B415921C4150B00D28ABE /* NotificationLevel.swift in Sources */,
+				89F19D842569FCE10030AFE0 /* WarningView.swift in Sources */,
 				893995AA2170EDE800687A79 /* ServicesCoordinator.swift in Sources */,
 				893995A32170EDA900687A79 /* Tab.swift in Sources */,
 				8954190B251CB8B40046464D /* ServicesSynchronizationManager.swift in Sources */,
@@ -3574,6 +3597,7 @@
 				89BDADDD217A5034000E38FC /* Deeplink.swift in Sources */,
 				897069F22134BD1200D798AA /* UIStackViewExtension.swift in Sources */,
 				89B3EC492020E4900068BA64 /* AppDelegate.swift in Sources */,
+				89F19D812569FCCC0030AFE0 /* NotificationsRequirementViewModel.swift in Sources */,
 				895A3B7B25006D58000A7B50 /* LoginRegisterSplitterViewControllerDelegate.swift in Sources */,
 				8939959D2170ED4900687A79 /* NoSessionCoordinator.swift in Sources */,
 				89F19D692566C1780030AFE0 /* UIViewKeyframeAnimationOptions+Init.swift in Sources */,
@@ -3628,7 +3652,6 @@
 				897069CE21335C3400D798AA /* UIViewControllerExtension.swift in Sources */,
 				8933F0CC2141D94700645B3A /* RegisterViewModel.swift in Sources */,
 				8933F0F5214338FF00645B3A /* NotifireAPIManager.swift in Sources */,
-				892DC0C025609B6E0067EB12 /* TableViewSection.swift in Sources */,
 				897069EE2134B68300D798AA /* LoginViewModel.swift in Sources */,
 				89BDADD4217922FE000E38FC /* DLConfirmAccountViewModel.swift in Sources */,
 				8966C89725531FE300F037C3 /* WebSocketHeartbeatManager.swift in Sources */,
@@ -3662,6 +3685,7 @@
 				899C071A2551E4FE0005228E /* ForgotPasswordViewModel.swift in Sources */,
 				897069D62133733100D798AA /* Theme.swift in Sources */,
 				89A9048521B858B200D262E1 /* NotificationTableViewCell.swift in Sources */,
+				89F19D7E2568DD950030AFE0 /* NotificationsRequirementViewController.swift in Sources */,
 				893995A82170EDDA00687A79 /* NotificationsCoordinator.swift in Sources */,
 				89F19D6F2567190D0030AFE0 /* DeeplinkViewModelRepresenting.swift in Sources */,
 				896167F425017889007BF3F1 /* LoginNavigationController.swift in Sources */,

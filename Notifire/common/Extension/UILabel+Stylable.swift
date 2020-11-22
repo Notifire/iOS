@@ -32,6 +32,7 @@ enum LabelStyle {
     case emoji
     case negativeMedium
     case notifirePositive
+    case warningTitle
 }
 
 extension UILabel: Stylable {
@@ -135,6 +136,10 @@ extension UILabel: Stylable {
             textColor = .primary
             font = UIFont.systemFont(ofSize: 16)
             textAlignment = .left
+        case .warningTitle:
+            textColor = .compatibleSecondaryLabel
+            font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+
         }
     }
     // swiftlint:enable function_body_length

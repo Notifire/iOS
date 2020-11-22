@@ -32,25 +32,23 @@ class SessionCoordinator: SectioningCoordinator {
 
     func createChildCoordinatorFrom(section: Tab) -> SectionedCoordinator {
         let childCoordinator: ChildCoordinator
+        let navigationController = NotifireNavigationController()
         switch section {
         case .notifications:
-            let notificationsNavigationController = NotifireNavigationController()
             let notificationsViewModel = NotificationsViewModel(realmProvider: userSessionHandler)
             let notificationsCoordinator = NotificationsCoordinator(notificationsViewModel: notificationsViewModel)
-            childCoordinator = NavigationCoordinator(rootChildCoordinator: notificationsCoordinator, navigationController: notificationsNavigationController)
+            childCoordinator = NavigationCoordinator(rootChildCoordinator: notificationsCoordinator, navigationController: navigationController)
         case .services:
-            let servicesNavigationController = NotifireNavigationController()
-            servicesNavigationController.navigationBar.isTranslucent = false
+            navigationController.navigationBar.isTranslucent = false
             let servicesCoordinator = ServicesCoordinator(sessionHandler: userSessionHandler)
-            let navigationCoordinator = NavigationCoordinator(rootChildCoordinator: servicesCoordinator, navigationController: servicesNavigationController)
+            let navigationCoordinator = NavigationCoordinator(rootChildCoordinator: servicesCoordinator, navigationController: navigationController)
             navigationCoordinator.delegate = servicesCoordinator
             childCoordinator = navigationCoordinator
         case .settings:
-            let settingsNavigationController = NotifireNavigationController()
             let settingsViewModel = SettingsViewModel(sessionHandler: userSessionHandler)
             let settingsViewController = SettingsViewController(viewModel: settingsViewModel)
             let settingsCoordinator = SettingsCoordinator(settingsViewController: settingsViewController)
-            childCoordinator = NavigationCoordinator(rootChildCoordinator: settingsCoordinator, navigationController: settingsNavigationController)
+            childCoordinator = NavigationCoordinator(rootChildCoordinator: settingsCoordinator, navigationController: navigationController)
         }
         return childCoordinator
     }
@@ -64,6 +62,24 @@ class SessionCoordinator: SectioningCoordinator {
         tabBarViewController.delegate = self
         // the initial tab
         tabBarViewController.viewModel.updateTab(to: .services)
+
+        tabBarViewController.viewModel.onShouldPresentNotificationRequirement = { [weak self] in
+            self?.presentNotificationRequirementsVC()
+        }
+    }
+
+    func presentNotificationRequirementsVC() {
+        let viewModel = NotificationsRequirementViewModel(deviceTokenManager: userSessionHandler.deviceTokenManager)
+        viewModel.onSuccess = { [weak self] in
+            self?.tabBarViewController.dismiss(animated: true) { [weak self] in
+                self?.tabBarViewController.viewModel.notificationPermissionPrompt?.finish()
+            }
+        }
+        let viewController = NotificationsRequirementViewController(viewModel: viewModel)
+        if #available(iOS 13.0, *) {
+            viewController.isModalInPresentation = true
+        }
+        tabBarViewController.present(viewController, animated: true, completion: nil)
     }
 }
 

@@ -23,7 +23,13 @@ class SettingsViewController: VMViewController<SettingsViewModel>, NavigationBar
         var contentInsets = UIEdgeInsets.init(everySide: 0)
         contentInsets.bottom = Size.Cell.height
         tableView.contentInset = contentInsets
-        tableView.register(cells: [UITableViewCenteredNegativeCell.self, UITableViewValue1Cell.self, SettingsSwitchTableViewCell.self])
+        tableView.register(cells: [
+            UITableViewCenteredNegativeCell.self,
+            UITableViewValue1Cell.self,
+            SettingsSwitchTableViewCell.self,
+            UITableViewActionCell.self,
+            UITableViewWarningCell.self
+        ])
         return tableView
     }()
 
@@ -33,6 +39,11 @@ class SettingsViewController: VMViewController<SettingsViewModel>, NavigationBar
         // View
         title = viewModel.title
         view.backgroundColor = .compatibleSystemBackground
+
+        // ViewModel
+        viewModel.shouldReloadData = { [weak self] in
+            self?.tableView.reloadData()
+        }
 
         // Navigation
         hideNavigationBarBackButtonText()

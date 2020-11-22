@@ -68,7 +68,7 @@ class NotifireButton: BaseButton {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIView.noIntrinsicMetric, height: Size.componentHeight)
+        return CGSize(width: super.intrinsicContentSize.width, height: Size.componentHeight)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -89,9 +89,9 @@ class NotifireButton: BaseButton {
 
     override open func addTargets() {
         super.addTargets()
-        addTarget(self, action: #selector(touchUpOutside), for: .touchUpOutside)
+        addTarget(self, action: #selector(touchUpOutside), for: [.touchDragOutside, .touchUpOutside, .touchDragExit, .touchCancel])
         addTarget(self, action: #selector(touchDown), for: .touchDown)
-        addTarget(self, action: #selector(touchDragExit), for: .touchDragExit)
+
     }
 
     override open func setup() {
@@ -151,9 +151,5 @@ class NotifireButton: BaseButton {
 
     @objc func touchDown() {
         animateTouchDown()
-    }
-
-    @objc private func touchDragExit() {
-        animateTouchUp()
     }
 }

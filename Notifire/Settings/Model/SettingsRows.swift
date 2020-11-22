@@ -23,7 +23,8 @@ enum SettingsSectionRow: Int {
     case logout
 
     // MARK: Notifications
-    case deviceTokenStatus
+    case notificationPermissionStatus
+    case goToSettingsButton
     case notificationPrefixSetting
     case applicationUpdateAlert
 

@@ -59,12 +59,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Notifications
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         guard let state = appCoordinator?.appState, case .sessionAvailable(let sessionCoordinator) = state else { return }
-        let deviceTokenString = sessionCoordinator.userSessionHandler.createDeviceToken(from: deviceToken)
-        sessionCoordinator.userSessionHandler.registerDevice(with: deviceTokenString)
+        let deviceTokenManager = sessionCoordinator.userSessionHandler.deviceTokenManager
+        deviceTokenManager.onDidRegisterForRemoteNotificationsWithDeviceToken(deviceTokenData: deviceToken)
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-
+        guard let state = appCoordinator?.appState, case .sessionAvailable(let sessionCoordinator) = state else { return }
+        let deviceTokenManager = sessionCoordinator.userSessionHandler.deviceTokenManager
+        deviceTokenManager.onDidFailToRegisterForRemoteNotificationsWithError(error: error)
     }
 
     // Handles notification tap

@@ -50,12 +50,7 @@ class ForgotPasswordViewController: VMViewController<ForgotPasswordViewModel>, N
     lazy var textFieldReturnChainer = TextFieldReturnChainer(textField: emailTextInput.textField)
 
     // MARK: UI
-    let headerLabel: UILabel = {
-        let label = UILabel(style: .title)
-        label.text = "Issues with logging in?"
-        label.textAlignment = .left
-        return label
-    }()
+    lazy var headerLabel = UILabel(style: .title, text: "Issues with logging in?", alignment: .left)
 
     lazy var emailTextInput: ValidatableTextInput = {
         let emailTextField = BorderedTextField()

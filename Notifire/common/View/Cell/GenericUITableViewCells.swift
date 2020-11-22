@@ -25,6 +25,12 @@ class UITableViewCenteredNegativeCell: UITableViewReusableCell {
     }
 }
 
+class UITableViewActionCell: UITableViewReusableCell {
+    override func setup() {
+        textLabel?.set(style: .notifirePositive)
+    }
+}
+
 /// A `UITableViewCell` with style `.value1` that conforms to the `Reusable & CellConfigurable` protocol.
 class UITableViewValue1Cell: ReusableBaseTableViewCell, CellConfigurable {
 

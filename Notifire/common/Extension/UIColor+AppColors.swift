@@ -53,8 +53,21 @@ extension UIColor {
         return .systemGray
     }()
 
+    public static let compatibleYellow: UIColor = {
+        guard #available(iOS 13, *) else { return .yellow }
+        return .systemYellow
+    }()
+
     // MARK: Misc
     public static let compatibleGithubColor: UIColor = UIColor(named: "github_color") ?? .yellow
+    public static let warningColor = from(
+        light: UIColor(r: 255, g: 196, b: 0),
+        dark: .systemYellow
+    )
+    public static let warningBackgroundColor: UIColor = from(
+        light: UIColor(r: 255, g: 250, b: 208),
+        dark: UIColor(r: 64, g: 63, b: 47)
+    )
 
     // MARK: Backgrounds
     // Sub iOS 13.0 backwards compatible colors

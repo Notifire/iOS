@@ -67,7 +67,8 @@ class AppCoordinator: Coordinator {
 
     private func createSessionVC(sessionHandler: UserSessionHandler) -> TabBarViewController {
         sessionHandler.sessionDelegate = self
-        let tabBarViewModel = TabBarViewModel(sessionHandler: sessionHandler)
+        let promptManager = rootViewController.viewModel.userAttentionPromptManager
+        let tabBarViewModel = TabBarViewModel(sessionHandler: sessionHandler, promptManager: promptManager)
         let tabBarViewController = TabBarViewController(viewModel: tabBarViewModel)
         let sessionCoordinator = SessionCoordinator(tabBarViewController: tabBarViewController, sessionHandler: sessionHandler)
         sessionCoordinator.start()

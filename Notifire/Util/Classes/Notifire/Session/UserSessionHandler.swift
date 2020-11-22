@@ -32,8 +32,7 @@ enum UserSessionRemovalReason {
 class UserSessionHandler: RealmProviding {
 
     // MARK: - Properties
-    private static let registerDeviceFailureRetryTime: TimeInterval = 15
-    let deviceTokenManager = DeviceTokenManager()
+    let deviceTokenManager: DeviceTokenManager
     let userSession: UserSession
     let notifireProtectedApiManager: NotifireProtectedAPIManager
     private let realmProvider: RealmProvider
@@ -50,6 +49,7 @@ class UserSessionHandler: RealmProviding {
     init?(session: UserSession) {
         userSession = session
         notifireProtectedApiManager = NotifireAPIFactory.createProtectedAPIManager(session: session)
+        self.deviceTokenManager = DeviceTokenManager(userSession: session, apiManager: notifireProtectedApiManager)
         guard let realmProvider = RealmProvider(userSession: session) else { return nil }
         self.realmProvider = realmProvider
         startObservingNotifications()
@@ -60,42 +60,13 @@ class UserSessionHandler: RealmProviding {
     }
 
     // MARK: - Public
-    public func createDeviceToken(from deviceTokenData: Data) -> String {
-        let tokenParts = deviceTokenData.map { data -> String in
-            return String(format: "%02.2hhx", data)
-        }
-        return tokenParts.joined()
-    }
-
-    /// registers the device token with the Notifire API
-    // TODO: Move this func to DeviceTokenManager
-    public func registerDevice(with deviceToken: String) {
-        notifireProtectedApiManager.register(deviceToken: deviceToken) { [weak self] result in
-            switch result {
-            case .error:
-                Logger.log(.debug, "\(self) failed to register deviceToken=\(deviceToken)")
-                DispatchQueue.main.asyncAfter(deadline: .now() + UserSessionHandler.registerDeviceFailureRetryTime) { [weak self] in
-                    self?.registerDevice(with: deviceToken)
-                }
-            case .success:
-                Logger.log(.debug, "\(self) registered deviceToken=\(deviceToken)")
-                self?.userSession.deviceToken = deviceToken
-                self?.deviceTokenManager.isAlreadyRegistered = true
-            }
-        }
-    }
-
     /// Informs the notifire API that the user has logged out and starts the chain of callbacks to logout the user properly.
     /// - Parameters:
     ///     - reason: the event that triggered this logout
     public func exitUserSession(reason: UserSessionRemovalReason) {
         // Logout via the Notifire API = stops sending notifications to this deviceToken
-        if let currentDeviceToken = userSession.deviceToken {
-            notifireProtectedApiManager.logout(deviceToken: currentDeviceToken, completion: { _ in })
-        }
+        deviceTokenManager.unregisterDeviceFromNotifireApi()
         deviceTokenManager.unregisterFromPushNotifications()
-        // Make sure we will register again if needed on next user login
-        deviceTokenManager.isAlreadyRegistered = false
         // Inform the delegate about the removal
         sessionDelegate?.shouldRemoveUser(session: userSession, reason: reason)
     }

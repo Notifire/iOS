@@ -17,6 +17,9 @@ class SettingsViewModel: ViewModelRepresenting {
         return userSessionHandler.userSession
     }
 
+    var notificationPermissionsObserver: NotificationObserver?
+    lazy var shouldShowNotificationPermissionStatus: Bool = userSessionHandler.deviceTokenManager.isDeniedPermissionForPushNotifications
+
     // MARK: Public
     public var title: String {
         return "Preferences"
@@ -32,30 +35,58 @@ class SettingsViewModel: ViewModelRepresenting {
 
     public var cellConfigurations: [SettingsSectionRow: CellConfiguring] = [:]
 
+    // MARK: Callback
+    /// Called when the tableView should be reloaded.
+    public var shouldReloadData: (() -> Void)?
+
     // MARK: - Initialization
     init(sessionHandler: UserSessionHandler) {
         self.userSessionHandler = sessionHandler
         updateSections()
+        notificationPermissionsObserver = NotificationObserver(notificationName: .didChangeNotificationPermissionsState, notificationHandler: { [weak self] _ in
+            guard let `self` = self else { return }
+            let newValue = self.userSessionHandler.deviceTokenManager.isDeniedPermissionForPushNotifications
+            let permissionState = self.userSessionHandler.deviceTokenManager.stateModel.state
+            guard
+                newValue != self.shouldShowNotificationPermissionStatus,
+                permissionState == .obtainedUserNotificationAuthorization(status: .authorized) || permissionState == .obtainedUserNotificationAuthorization(status: .denied)
+            else { return }
+            self.shouldShowNotificationPermissionStatus = newValue
+            self.updateSections()
+            self.shouldReloadData?()
+        })
     }
 
     // MARK: - Methods
     /// Update the sections property of this ViewModel.
     func updateSections() {
-        self.sections = SettingsSection.allCases
+        rowsAtSection = [:]
+        var newRowsAtSection: [(SettingsSection, [SettingsSectionRow])] = []
         // User rows
         if userSession.isLoggedWithExternalProvider {
-            rowsAtSection[.user] = [.accountProvider, .accountProviderEmail]
+            newRowsAtSection.append((.user, [.accountProvider, .accountProviderEmail]))
         } else {
-            rowsAtSection[.user] = [.accountProvider, .accountProviderEmail, .changePassword, .changeEmail]
+            newRowsAtSection.append((.user, [.accountProvider, .accountProviderEmail, .changePassword, .changeEmail]))
         }
         // User logout
-        rowsAtSection[.userLogout] = [.logout]
+        newRowsAtSection.append((.userLogout, [.logout]))
+        // Notification Permissions
+        if shouldShowNotificationPermissionStatus {
+            newRowsAtSection.append((.notificationStatus, [.notificationPermissionStatus, .goToSettingsButton]))
+        }
         // Notifications
-        rowsAtSection[.notifications] = [.deviceTokenStatus, .notificationPrefixSetting]
+        newRowsAtSection.append((.notifications, [.notificationPrefixSetting]))
         // General
-        rowsAtSection[.general] = [.applicationVersion, .applicationUpdateAlert]
+        newRowsAtSection.append((.general, [.applicationVersion, .applicationUpdateAlert]))
         // General Last
-        rowsAtSection[.generalLast] = [.frequentlyAskedQuestions, .privacyPolicy, .contact]
+        newRowsAtSection.append((.generalLast, [.frequentlyAskedQuestions, .privacyPolicy, .contact]))
+
+        // Update rows
+        rowsAtSection = newRowsAtSection.reduce(into: [SettingsSection: [SettingsSectionRow]](), {
+            $0[$1.0] = $1.1
+        })
+        // Update sections
+        sections = newRowsAtSection.map({ $0.0 })
     }
 
     // MARK: - Public Methods
@@ -68,6 +99,18 @@ class SettingsViewModel: ViewModelRepresenting {
     /// Return the `SettingsSection` for a given section index
     public func section(at index: Int) -> SettingsSection {
         return sections[index]
+    }
+
+    public func sectionHeaderText(at index: Int) -> String? {
+        switch section(at: index) {
+        case .user: return "User"
+        case .general: return "General"
+        case .notifications:
+            return sections.contains(.notificationStatus) ? nil : "Notifications"
+        case .notificationStatus:
+            return "Notifications"
+        default: return nil
+        }
     }
 
     // MARK: Rows
@@ -84,6 +127,7 @@ class SettingsViewModel: ViewModelRepresenting {
 
     /// Return a CellConfiguring instance for a specific row.
     /// - Note: This function caches the results for reuse.
+    // swiftlint:disable function_body_length
     public func cellConfiguration(at indexPath: IndexPath) -> CellConfiguring {
         let settingsRow = row(at: indexPath)
         if let existingConfiguration = cellConfigurations[settingsRow] {
@@ -105,8 +149,10 @@ class SettingsViewModel: ViewModelRepresenting {
         case .logout:
             newConfiguration = SettingsCenteredCellConfiguration(item: "Log out")
         // Notifications
-        case .deviceTokenStatus:
-            newConfiguration = SettingsDefaultCellConfiguration(item: ("Notifications enabled", "OK"))
+        case .notificationPermissionStatus:
+            newConfiguration = SettingsWarningViewCellConfiguration(item: "")
+        case .goToSettingsButton:
+            newConfiguration = SettingsActionCellConfiguration(item: "Go to Settings")
         case .applicationUpdateAlert:
             let data = SettingsSwitchData(
                 sessionFlagKeypath: \.appUpdateReminderEnabled,
@@ -139,4 +185,5 @@ class SettingsViewModel: ViewModelRepresenting {
         cellConfigurations[settingsRow] = newConfiguration
         return newConfiguration
     }
+    // swiftlint:enable function_body_length
 }
