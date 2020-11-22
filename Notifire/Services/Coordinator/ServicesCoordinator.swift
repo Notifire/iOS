@@ -70,7 +70,7 @@ class ServicesCoordinator: NavigatingChildCoordinator {
     func showNotifications(service: LocalService) {
         let serviceNotificationsViewModel = ServiceNotificationsViewModel(realmProvider: userSessionHandler, service: service)
         let notificationsCoordinator = NotificationsCoordinator(notificationsViewModel: serviceNotificationsViewModel)
-        parentNavigatingCoordinator?.add(childCoordinator: notificationsCoordinator)
+        parentNavigatingCoordinator?.push(childCoordinator: notificationsCoordinator)
     }
 }
 
