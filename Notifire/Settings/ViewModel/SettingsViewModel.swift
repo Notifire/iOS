@@ -79,7 +79,7 @@ class SettingsViewModel: ViewModelRepresenting {
         // General
         newRowsAtSection.append((.general, [.applicationVersion, .applicationUpdateAlert]))
         // General Last
-        newRowsAtSection.append((.generalLast, [.frequentlyAskedQuestions, .privacyPolicy, .contact]))
+        newRowsAtSection.append((.generalLast, [.privacyPolicy, .contact]))
 
         // Update rows
         rowsAtSection = newRowsAtSection.reduce(into: [SettingsSection: [SettingsSectionRow]](), {
@@ -172,8 +172,6 @@ class SettingsViewModel: ViewModelRepresenting {
             )
             newConfiguration = SettingsSwitchCellConfiguration(item: data)
         // General
-        case .frequentlyAskedQuestions:
-            newConfiguration = SettingsDisclosureCellConfiguration(item: ("FAQ", nil))
         case .applicationVersion:
             newConfiguration = SettingsDefaultCellConfiguration(item: ("Version", "\(Config.appVersion)"))
         case .privacyPolicy:

@@ -38,12 +38,14 @@ class LoginRegisterSplitterViewController: VMViewController<LoginRegisterSplitte
         return label
     }()
 
-    let headerSecondaryLabel: UILabel = {
-        let label = UILabel(style: .secondary)
-        // TODO: Add ToS
-        label.text = "But first, you need to register an account. By registering you also agree to our Terms of Service."
-        label.textAlignment = .center
-        return label
+    lazy var headerSecondaryTextView: UIHyperTextView = {
+        let view = UIHyperTextView()
+        // Set self as delegate to handle opening URLs in SFSafariVC
+        view.delegate = self
+        let hyperText = "Privacy Policy"
+        let text = "But first, you need to login with your account. By logging in you also automatically agree to our \(hyperText)."
+        view.addHyperLinksToText(originalText: text, hyperLinks: [hyperText: Config.privacyPolicyURL.absoluteString])
+        return view
     }()
 
     // MARK: BottomNavigatorLabelContaining
@@ -104,10 +106,10 @@ class LoginRegisterSplitterViewController: VMViewController<LoginRegisterSplitte
         headerLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: Size.componentWidthRelativeToScreenWidth).isActive = true
         headerLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Size.Navigator.height * 2).isActive = true
 
-        view.add(subview: headerSecondaryLabel)
-        headerSecondaryLabel.centerXAnchor.constraint(equalTo: headerLabel.centerXAnchor).isActive = true
-        headerSecondaryLabel.widthAnchor.constraint(equalTo: headerLabel.widthAnchor).isActive = true
-        headerSecondaryLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: Size.componentSpacing).isActive = true
+        view.add(subview: headerSecondaryTextView)
+        headerSecondaryTextView.centerXAnchor.constraint(equalTo: headerLabel.centerXAnchor).isActive = true
+        headerSecondaryTextView.widthAnchor.constraint(equalTo: headerLabel.widthAnchor).isActive = true
+        headerSecondaryTextView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: Size.componentSpacing).isActive = true
     }
 
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {

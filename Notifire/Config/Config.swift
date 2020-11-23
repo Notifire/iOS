@@ -55,6 +55,8 @@ class Config {
     static let apiUrlString: String = try! value(for: .apiUrl)
     // The WS URL
     static let wsUrlString: String = try! value(for: .wsURL)
+    // Privacy Policy URL
+    static let privacyPolicyURL = URL(string: "https://notifire.dvdblk.com/privacypolicy")!
     // swiftlint:enable force_try
     static let bundleID: String = Bundle.main.bundleIdentifier!
 }

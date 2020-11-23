@@ -631,6 +631,12 @@
 		89F19D882569FCFA0030AFE0 /* PermissionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D862569FCFA0030AFE0 /* PermissionStatusView.swift */; };
 		89F19D8A2569FD0E0030AFE0 /* URLOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D892569FD0E0030AFE0 /* URLOpener.swift */; };
 		89F19D8B2569FD0E0030AFE0 /* URLOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D892569FD0E0030AFE0 /* URLOpener.swift */; };
+		89F19D8D256B5FC40030AFE0 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D8C256B5FC30030AFE0 /* PrivacyPolicyViewController.swift */; };
+		89F19D8E256B5FC40030AFE0 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D8C256B5FC30030AFE0 /* PrivacyPolicyViewController.swift */; };
+		89F19D90256B802B0030AFE0 /* UIHyperTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D8F256B802B0030AFE0 /* UIHyperTextView.swift */; };
+		89F19D91256B802B0030AFE0 /* UIHyperTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D8F256B802B0030AFE0 /* UIHyperTextView.swift */; };
+		89F19D93256B804D0030AFE0 /* LoginRegisterSplitterViewController+UITextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D92256B804D0030AFE0 /* LoginRegisterSplitterViewController+UITextViewDelegate.swift */; };
+		89F19D94256B804D0030AFE0 /* LoginRegisterSplitterViewController+UITextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D92256B804D0030AFE0 /* LoginRegisterSplitterViewController+UITextViewDelegate.swift */; };
 		89FAFD332566008900D1A64C /* EmailTokenError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD322566008900D1A64C /* EmailTokenError.swift */; };
 		89FAFD342566008900D1A64C /* EmailTokenError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD322566008900D1A64C /* EmailTokenError.swift */; };
 		89FAFD362566009D00D1A64C /* DLResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FAFD352566009D00D1A64C /* DLResetPasswordViewModel.swift */; };
@@ -1064,6 +1070,9 @@
 		89F19D832569FCE10030AFE0 /* WarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningView.swift; sourceTree = "<group>"; };
 		89F19D862569FCFA0030AFE0 /* PermissionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionStatusView.swift; sourceTree = "<group>"; };
 		89F19D892569FD0E0030AFE0 /* URLOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLOpener.swift; sourceTree = "<group>"; };
+		89F19D8C256B5FC30030AFE0 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
+		89F19D8F256B802B0030AFE0 /* UIHyperTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHyperTextView.swift; sourceTree = "<group>"; };
+		89F19D92256B804D0030AFE0 /* LoginRegisterSplitterViewController+UITextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginRegisterSplitterViewController+UITextViewDelegate.swift"; sourceTree = "<group>"; };
 		89FAFD322566008900D1A64C /* EmailTokenError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTokenError.swift; sourceTree = "<group>"; };
 		89FAFD352566009D00D1A64C /* DLResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		89FAFD3A256600C100D1A64C /* UserSessionCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionCreating.swift; sourceTree = "<group>"; };
@@ -1449,6 +1458,7 @@
 				893995AF2170EEE500687A79 /* SettingsViewController.swift */,
 				89BF1AE02562302400A9FD61 /* ChangePasswordViewController.swift */,
 				8936E3DA25639293007424A7 /* ChangeEmailViewController.swift */,
+				89F19D8C256B5FC30030AFE0 /* PrivacyPolicyViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1963,6 +1973,7 @@
 			children = (
 				895A3B7E25006D6F000A7B50 /* AuthenticationProvidersView.swift */,
 				896167D12501182D007BF3F1 /* SignInButton.swift */,
+				89F19D8F256B802B0030AFE0 /* UIHyperTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2256,6 +2267,7 @@
 			children = (
 				89D616A82505A81300287331 /* SSOAuthenticationProvider+Image.swift */,
 				89D616B02505A86600287331 /* AuthenticationProvider+Image.swift */,
+				89F19D92256B804D0030AFE0 /* LoginRegisterSplitterViewController+UITextViewDelegate.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -3114,6 +3126,7 @@
 				895418EF251B986A0046464D /* WebsocketMockEngine.swift in Sources */,
 				89576AB224FD412A0097BF87 /* ValidatableTextInput.swift in Sources */,
 				89576AB324FD412A0097BF87 /* NotificationDetailViewController.swift in Sources */,
+				89F19D8E256B5FC40030AFE0 /* PrivacyPolicyViewController.swift in Sources */,
 				89FAFD3C256600C100D1A64C /* UserSessionCreating.swift in Sources */,
 				89576AB424FD412A0097BF87 /* TabBarViewController.swift in Sources */,
 				89E6B6D8250049F700F7A79C /* VMView.swift in Sources */,
@@ -3156,6 +3169,7 @@
 				89E6B6D52500434F00F7A79C /* LoginCoordinator.swift in Sources */,
 				89250A1525004F2A00F00630 /* BottomNavigatorContaining.swift in Sources */,
 				89576AC824FD412A0097BF87 /* SettingsViewController.swift in Sources */,
+				89F19D91256B802B0030AFE0 /* UIHyperTextView.swift in Sources */,
 				8936E3B22562E5C3007424A7 /* ValidatingViewModelBinder.swift in Sources */,
 				89FAFD482566014000D1A64C /* DLResetPasswordViewController.swift in Sources */,
 				895637CC255759C3005E4A4E /* AppVersionData.swift in Sources */,
@@ -3199,6 +3213,7 @@
 				89FAFD452566012B00D1A64C /* DeeplinkedVMViewController.swift in Sources */,
 				89576ADB24FD412A0097BF87 /* NotificationObserving.swift in Sources */,
 				89576ADC24FD412A0097BF87 /* RegisterViewController.swift in Sources */,
+				89F19D94256B804D0030AFE0 /* LoginRegisterSplitterViewController+UITextViewDelegate.swift in Sources */,
 				89F19D792568C0D90030AFE0 /* UserAttentionPrompt.swift in Sources */,
 				895A3B9425008C51000A7B50 /* SSOManager.swift in Sources */,
 				89576ADD24FD412A0097BF87 /* NotificationLevel.swift in Sources */,
@@ -3438,6 +3453,7 @@
 				89017C9F2526BED400EC9DC8 /* ServicesTableViewFooterView.swift in Sources */,
 				8909A3BC218F24EE00EADD09 /* LocalNotifireNotification.swift in Sources */,
 				8920CA812172188000A72BD0 /* NotifireAPIFactory.swift in Sources */,
+				89F19D93256B804D0030AFE0 /* LoginRegisterSplitterViewController+UITextViewDelegate.swift in Sources */,
 				89BDADD8217A2596000E38FC /* HairlineView.swift in Sources */,
 				895418FC251CAA660046464D /* GetServicesBatchOperation.swift in Sources */,
 				89BD25BC251E349400280929 /* RealmCollectionObserver.swift in Sources */,
@@ -3537,6 +3553,7 @@
 				895418F4251BF5BD0046464D /* ConcurrentOperation.swift in Sources */,
 				892DC0C725609BA40067EB12 /* SettingsRows.swift in Sources */,
 				8933F0DF2143379700645B3A /* HTTPHeader.swift in Sources */,
+				89F19D90256B802B0030AFE0 /* UIHyperTextView.swift in Sources */,
 				892DC0B725607B3D0067EB12 /* CaseIterable+Init.swift in Sources */,
 				8933F0D3214334C000645B3A /* URLExtension.swift in Sources */,
 				8949EBE72511903B0045D1A7 /* ConfirmEmailViewControllerDelegate.swift in Sources */,
@@ -3588,6 +3605,7 @@
 				898533C821A03ED000E0A656 /* RealmManager.swift in Sources */,
 				8933F0F72143391000645B3A /* NotifireProtectedAPIManager.swift in Sources */,
 				893A4A832530D42800DD02D0 /* RealmObjectObserver.swift in Sources */,
+				89F19D8D256B5FC40030AFE0 /* PrivacyPolicyViewController.swift in Sources */,
 				89D616B12505A86600287331 /* AuthenticationProvider+Image.swift in Sources */,
 				894B1FA42505DF0600D0D671 /* TabBarPressGestureRecognizer.swift in Sources */,
 				89250B2524FEF66A00BC7C2C /* VMViewController.swift in Sources */,

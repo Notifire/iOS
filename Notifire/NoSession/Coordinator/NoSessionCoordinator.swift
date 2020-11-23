@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SafariServices
 
 class NoSessionCoordinator: Coordinator {
 
@@ -58,6 +59,15 @@ class NoSessionCoordinator: Coordinator {
         presentedCoordinator = nil
         noSessionContainerViewController.dismissVertical(viewController: presentedVC)
     }
+
+    // MARK: Privacy Policy
+    func presentPrivacyPolicy() {
+        let safariViewController = SFSafariViewController(url: Config.privacyPolicyURL)
+        safariViewController.modalPresentationStyle = .formSheet
+        safariViewController.dismissButtonStyle = .close
+        safariViewController.preferredControlTintColor = .primary
+        loginRegisterSplitterVC.present(safariViewController, animated: true, completion: nil)
+    }
 }
 
 extension NoSessionCoordinator: LoginRegisterSplitterViewControllerDelegate, LoginViewControllerDelegate {
@@ -68,6 +78,10 @@ extension NoSessionCoordinator: LoginRegisterSplitterViewControllerDelegate, Log
 
     func shouldStartManualRegisterFlow() {
         startRegisterFlow()
+    }
+
+    func shouldPresentPrivacyPolicy() {
+        presentPrivacyPolicy()
     }
 
     func shouldDismissLogin() {

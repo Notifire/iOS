@@ -97,3 +97,8 @@ extension Loadable where Self: UIControl {
         isEnabled = true
     }
 }
+
+extension Loadable where Self: UIViewController {
+    var spinnerSuperview: UIView { return view }
+    var spinnerPosition: LoadableSpinnerPosition { return .center }
+}

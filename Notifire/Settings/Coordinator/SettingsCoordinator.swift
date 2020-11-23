@@ -50,14 +50,9 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
         settingsViewController.viewModel.userSessionHandler.exitUserSession(reason: .userLoggedOut)
     }
 
-    func didSelectFAQButton() {
-        let changeEmailVC = UIViewController()
-        parentNavigatingCoordinator?.push(childCoordinator: GenericCoordinator(viewController: changeEmailVC))
-    }
-
     func didSelectPrivacyPolicyButton() {
-        let changeEmailVC = UIViewController()
-        parentNavigatingCoordinator?.push(childCoordinator: GenericCoordinator(viewController: changeEmailVC))
+        let privacyPolicyVC = PrivacyPolicyViewController()
+        parentNavigatingCoordinator?.push(childCoordinator: GenericCoordinator(viewController: privacyPolicyVC))
     }
 
     func didSelectContactButton() {

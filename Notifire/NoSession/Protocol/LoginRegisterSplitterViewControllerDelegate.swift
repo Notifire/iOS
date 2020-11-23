@@ -11,4 +11,5 @@ import Foundation
 protocol LoginRegisterSplitterViewControllerDelegate: UserSessionCreationDelegate {
     func shouldStartLoginFlow()
     func shouldStartManualRegisterFlow()
+    func shouldPresentPrivacyPolicy()
 }

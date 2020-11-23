@@ -29,7 +29,6 @@ enum SettingsSectionRow: Int {
     case applicationUpdateAlert
 
     // MARK: General
-    case frequentlyAskedQuestions
     case applicationVersion
     case privacyPolicy
     case contact
