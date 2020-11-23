@@ -23,7 +23,6 @@ class PrivacyPolicyViewController: UIViewController, Loadable, APIErrorPresentin
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Privacy policy"
         view.backgroundColor = .compatibleSystemBackground
 
         layout()
