@@ -80,6 +80,7 @@ class UIHyperTextView: UITextView {
             let fullRange = NSRange(location: 0, length: attributedOriginalText.length)
             attributedOriginalText.addAttribute(.link, value: urlString, range: linkRange)
             attributedOriginalText.addAttribute(.paragraphStyle, value: style, range: fullRange)
+            attributedOriginalText.addAttribute(.foregroundColor, value: UIColor.compatibleLabel, range: fullRange)
             attributedOriginalText.addAttribute(.font, value: font ?? UIFont.systemFont(ofSize: Size.Font.default), range: fullRange)
             attributedOriginalText.addAttribute(.font, value: hyperTextFont, range: linkRange)
         }
