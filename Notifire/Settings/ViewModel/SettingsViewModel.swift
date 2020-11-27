@@ -153,6 +153,18 @@ class SettingsViewModel: ViewModelRepresenting {
             newConfiguration = SettingsWarningViewCellConfiguration(item: "")
         case .goToSettingsButton:
             newConfiguration = SettingsActionCellConfiguration(item: "Go to Settings")
+        case .notificationPrefixSetting:
+            let data = SettingsSwitchData(
+                sessionFlagKeypath: \.prefixNotificationTitleEnabled,
+                text: "Add notification level to title",
+                switchedOnDescriptionText: "All notifications will have their titles prefixed with their notification level.",
+                switchedOffDescriptionText: "Notification titles will only contain their service name.",
+                session: userSession
+            )
+            newConfiguration = SettingsSwitchCellConfiguration(item: data)
+        // General
+        case .applicationVersion:
+            newConfiguration = SettingsDefaultCellConfiguration(item: ("Version", "\(Config.appVersion)"))
         case .applicationUpdateAlert:
             let data = SettingsSwitchData(
                 sessionFlagKeypath: \.appUpdateReminderEnabled,
@@ -162,18 +174,6 @@ class SettingsViewModel: ViewModelRepresenting {
                 session: userSession
             )
             newConfiguration = SettingsSwitchCellConfiguration(item: data)
-        case .notificationPrefixSetting:
-            let data = SettingsSwitchData(
-                sessionFlagKeypath: \.prefixNotificationTitleEnabled,
-                text: "Add service name to notification titles",
-                switchedOnDescriptionText: "All notifications you receive will be prefixed with the service name they belong to.",
-                switchedOffDescriptionText: "Notification titles won't be changed.",
-                session: userSession
-            )
-            newConfiguration = SettingsSwitchCellConfiguration(item: data)
-        // General
-        case .applicationVersion:
-            newConfiguration = SettingsDefaultCellConfiguration(item: ("Version", "\(Config.appVersion)"))
         case .privacyPolicy:
             newConfiguration = SettingsDisclosureCellConfiguration(item: ("Privacy policy", nil))
         case .contact:
