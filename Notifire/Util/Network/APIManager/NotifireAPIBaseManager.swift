@@ -25,8 +25,12 @@ class NotifireAPIBaseManager {
     let apiHandler: APIHandler
 
     // MARK: - Initialization
-    init(apiHandler: APIHandler = URLSession.shared) {
-        self.apiHandler = apiHandler
+    init(apiHandler: APIHandler? = nil) {
+        if let handler = apiHandler {
+            self.apiHandler = handler
+        } else {
+            self.apiHandler = URLSession(configuration: .default, delegate: PublicKeyPinnedURLSessionTaskResolver(), delegateQueue: nil)
+        }
     }
 
     // MARK: - Open

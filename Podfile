@@ -15,12 +15,14 @@ abstract_target 'Abst' do
     pod 'Starscream', '~> 4.0.0'
     pod 'SkeletonView', '~> 1.9'
     pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '6.0.9'
+    pod 'TrustKit'
   end
 
   target 'Notifire Mock' do
     pod 'Starscream', '~> 4.0.0'
     pod 'SkeletonView', '~> 1.9'
     pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '6.0.9'
+    pod 'TrustKit'
   end
 
   target 'NotifireUITests' do

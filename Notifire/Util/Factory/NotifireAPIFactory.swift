@@ -11,11 +11,11 @@ import Starscream
 
 struct NotifireAPIFactory {
 
-    static func createAPIManager() -> NotifireAPIManager {
+    static func createAPIManager(apiHandler: APIHandler? = nil) -> NotifireAPIManager {
         #if API_MOCK
             return NotifireAPIManagerMock()
         #else
-            return NotifireAPIManager()
+            return NotifireAPIManager(apiHandler: apiHandler)
         #endif
     }
 

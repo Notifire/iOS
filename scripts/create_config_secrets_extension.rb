@@ -12,6 +12,7 @@ file_content = <<-SECRETS_FILE_STRING
 // MARK: - Secrets
 extension Config {
     static let sentryDsn = "#{ENV['SENTRY_DSN']}"
+    static let apiPublicKey2020Hash = "#{ENV['API_CERT_PUB_KEY_2020']}"
 }
 SECRETS_FILE_STRING
 

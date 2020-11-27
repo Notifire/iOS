@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Sentry
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -23,11 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LaunchArgumentsHandler().handleLaunchArgumentsIfNeeded()
 
         // Sentry
-        SentrySDK.start { options in
-            options.dsn = Config.sentryDsn
-            options.debug = true
-            options.environment = Config.bundleID
-        }
+        Config.initSentry()
 
         // Window
         let applicationWindow = UIWindow(frame: UIScreen.main.bounds)

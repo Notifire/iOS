@@ -51,8 +51,10 @@ class AppVersionManager {
     private let currentVersionString: String
 
     // MARK: - Initialization
-    init(apiManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager(), currentVersion: String = Config.appVersion) {
-        self.apiManager = apiManager
+    init(currentVersion: String = Config.appVersion) {
+        // - Important:
+        // Keep the URLSession.shared API handler to avoid pinning `/version` endpoint
+        self.apiManager = NotifireAPIFactory.createAPIManager(apiHandler: URLSession.shared)
         self.currentVersionString = currentVersion
     }
 

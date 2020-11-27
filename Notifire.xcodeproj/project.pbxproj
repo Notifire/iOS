@@ -192,6 +192,12 @@
 		893A4A842530D42800DD02D0 /* RealmObjectObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893A4A822530D42800DD02D0 /* RealmObjectObserver.swift */; };
 		893AD79B25715E91000ADFEC /* DarkModeAuthorizationAppleIDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD79A25715E91000ADFEC /* DarkModeAuthorizationAppleIDButton.swift */; };
 		893AD79C25715E91000ADFEC /* DarkModeAuthorizationAppleIDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD79A25715E91000ADFEC /* DarkModeAuthorizationAppleIDButton.swift */; };
+		893AD7B225717532000ADFEC /* Config+Sentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD7B125717532000ADFEC /* Config+Sentry.swift */; };
+		893AD7B325717532000ADFEC /* Config+Sentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD7B125717532000ADFEC /* Config+Sentry.swift */; };
+		893AD7B825717542000ADFEC /* Config+TrustKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD7B725717542000ADFEC /* Config+TrustKit.swift */; };
+		893AD7B925717542000ADFEC /* Config+TrustKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD7B725717542000ADFEC /* Config+TrustKit.swift */; };
+		893AD7C1257188AE000ADFEC /* PublicKeyPinnedURLSessionTaskResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD7C0257188AE000ADFEC /* PublicKeyPinnedURLSessionTaskResolver.swift */; };
+		893AD7C2257188AE000ADFEC /* PublicKeyPinnedURLSessionTaskResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD7C0257188AE000ADFEC /* PublicKeyPinnedURLSessionTaskResolver.swift */; };
 		893B901F2512B9700056DBF9 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893B901E2512B9700056DBF9 /* Reusable.swift */; };
 		893B90202512B9700056DBF9 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893B901E2512B9700056DBF9 /* Reusable.swift */; };
 		893B90222512B99A0056DBF9 /* UITableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893B90212512B9990056DBF9 /* UITableView+Reusable.swift */; };
@@ -881,6 +887,9 @@
 		893A4A5E2530BA8700DD02D0 /* WebSocketOperationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketOperationType.swift; sourceTree = "<group>"; };
 		893A4A822530D42800DD02D0 /* RealmObjectObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmObjectObserver.swift; sourceTree = "<group>"; };
 		893AD79A25715E91000ADFEC /* DarkModeAuthorizationAppleIDButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeAuthorizationAppleIDButton.swift; sourceTree = "<group>"; };
+		893AD7B125717532000ADFEC /* Config+Sentry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Config+Sentry.swift"; sourceTree = "<group>"; };
+		893AD7B725717542000ADFEC /* Config+TrustKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Config+TrustKit.swift"; sourceTree = "<group>"; };
+		893AD7C0257188AE000ADFEC /* PublicKeyPinnedURLSessionTaskResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKeyPinnedURLSessionTaskResolver.swift; sourceTree = "<group>"; };
 		893B901E2512B9700056DBF9 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		893B90212512B9990056DBF9 /* UITableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Reusable.swift"; sourceTree = "<group>"; };
 		893B90242512C1EB0056DBF9 /* UITableViewCell+Margins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Margins.swift"; sourceTree = "<group>"; };
@@ -1602,6 +1611,7 @@
 				8933F0E2214337D900645B3A /* NotifireAPIEndpoint.swift */,
 				8933F0CE2141E40900645B3A /* APIHandler.swift */,
 				895418ED251B986A0046464D /* WebsocketMockEngine.swift */,
+				893AD7C0257188AE000ADFEC /* PublicKeyPinnedURLSessionTaskResolver.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -2156,6 +2166,8 @@
 		89B3EC6F2020E5E20068BA64 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				893AD7B125717532000ADFEC /* Config+Sentry.swift */,
+				893AD7B725717542000ADFEC /* Config+TrustKit.swift */,
 				8937494F256C40860013DB5B /* Config+Secrets.swift */,
 				895E4018204046EA0062D5FC /* Config.swift */,
 				89B3EC702020E60F0068BA64 /* Debug.xcconfig */,
@@ -2683,6 +2695,7 @@
 				"${BUILT_PRODUCTS_DIR}/Sentry/Sentry.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${BUILT_PRODUCTS_DIR}/TrustKit/TrustKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2693,6 +2706,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sentry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrustKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2777,6 +2791,7 @@
 				"${BUILT_PRODUCTS_DIR}/Sentry/Sentry.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${BUILT_PRODUCTS_DIR}/TrustKit/TrustKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2787,6 +2802,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sentry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrustKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3161,6 +3177,7 @@
 				89250B2124FEEB4800BC7C2C /* RootViewModel.swift in Sources */,
 				893A4A602530BA8700DD02D0 /* WebSocketOperationType.swift in Sources */,
 				892DC0B12560750B0067EB12 /* SettingsViewControllerDelegate.swift in Sources */,
+				893AD7C2257188AE000ADFEC /* PublicKeyPinnedURLSessionTaskResolver.swift in Sources */,
 				89576AC924FD412A0097BF87 /* NotificationLevelModel.swift in Sources */,
 				895637B025547D50005E4A4E /* LocalRemoteServicesAction.swift in Sources */,
 				89576ACA24FD412A0097BF87 /* NotificationsViewController.swift in Sources */,
@@ -3195,6 +3212,7 @@
 				89576ADA24FD412A0097BF87 /* ScrollViewReselectable.swift in Sources */,
 				892DC0C525609B840067EB12 /* SettingsSection.swift in Sources */,
 				892DC0C825609BA40067EB12 /* SettingsRows.swift in Sources */,
+				893AD7B325717532000ADFEC /* Config+Sentry.swift in Sources */,
 				89FAFD452566012B00D1A64C /* DeeplinkedVMViewController.swift in Sources */,
 				89576ADB24FD412A0097BF87 /* NotificationObserving.swift in Sources */,
 				89576ADC24FD412A0097BF87 /* RegisterViewController.swift in Sources */,
@@ -3350,6 +3368,7 @@
 				89576B2424FD412A0097BF87 /* CALayerExtension.swift in Sources */,
 				895A3B9A25008C8C000A7B50 /* SSOManagerDelegate.swift in Sources */,
 				895637C8255759AD005E4A4E /* Decodable+Dictionary.swift in Sources */,
+				893AD7B925717542000ADFEC /* Config+TrustKit.swift in Sources */,
 				893A4A4A2529207200DD02D0 /* ServicesWebSocketConnectionStatusView.swift in Sources */,
 				89576B2524FD412A0097BF87 /* NotifireAPIResponseContext.swift in Sources */,
 				896167F825018561007BF3F1 /* LoginViewControllerDelegate.swift in Sources */,
@@ -3517,6 +3536,7 @@
 				89BD25C8251E34A900280929 /* RealmSortingOptions.swift in Sources */,
 				897B77B92523EE81008602BB /* ServiceRepresentableChanges.swift in Sources */,
 				8998D8842520D435002A597B /* IndexPath+RowInit.swift in Sources */,
+				893AD7B825717542000ADFEC /* Config+TrustKit.swift in Sources */,
 				898533BA219FAA1700E0A656 /* LocalService.swift in Sources */,
 				8920CA892172345B00A72BD0 /* Stylable.swift in Sources */,
 				893FE02D21977FB2002CD846 /* NotificationLevelTableViewCell.swift in Sources */,
@@ -3599,6 +3619,7 @@
 				89E8B865250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */,
 				89FAFD3B256600C100D1A64C /* UserSessionCreating.swift in Sources */,
 				894B1F852505D60C00D0D671 /* SectioningCoordinator.swift in Sources */,
+				893AD7B225717532000ADFEC /* Config+Sentry.swift in Sources */,
 				89BDADDD217A5034000E38FC /* Deeplink.swift in Sources */,
 				897069F22134BD1200D798AA /* UIStackViewExtension.swift in Sources */,
 				89B3EC492020E4900068BA64 /* AppDelegate.swift in Sources */,
@@ -3697,6 +3718,7 @@
 				896167F425017889007BF3F1 /* LoginNavigationController.swift in Sources */,
 				8936E3AA2562DD4B007424A7 /* BottomBarTextField.swift in Sources */,
 				895637B925551A20005E4A4E /* Array+Chunks.swift in Sources */,
+				893AD7C1257188AE000ADFEC /* PublicKeyPinnedURLSessionTaskResolver.swift in Sources */,
 				89D4E1F12139ED0F00630790 /* CALayerExtension.swift in Sources */,
 				895A3B9925008C8C000A7B50 /* SSOManagerDelegate.swift in Sources */,
 				8933F0EE2143389F00645B3A /* NotifireAPIResponseContext.swift in Sources */,
