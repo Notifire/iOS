@@ -25,25 +25,45 @@ class LocalService: Object {
     @objc dynamic var serviceAPIKey: String = ""
 
     // Images
-    @objc dynamic var imageURLString: String?
-    @objc dynamic var snippetImageURLString: String?
-    /// image data stored as b64 string
-    @objc dynamic var imageDataString: String?
-    /// snippet image data stored as b64 string
-    @objc dynamic var snippetImageDataString: String?
+    @objc dynamic var smallImageURLString: String?
+    @objc dynamic var mediumImageURLString: String?
+    @objc dynamic var largeImageURLString: String?
+    /// small image data stored as b64 string
+    @objc dynamic var smallImageDataString: String?
+    /// medum image data stored as b64 string
+    @objc dynamic var mediumImageDataString: String?
+    /// large image data stored as b64 string
+    @objc dynamic var largeImageDataString: String?
 
-    @objc dynamic var updatedAt: Date?
+    @objc dynamic var updatedAt: Date = Date()
     @objc dynamic var info: Bool = true
     @objc dynamic var warning: Bool = true
     @objc dynamic var error: Bool = true
     let notifications = List<LocalNotifireNotification>()
 
-    var image: UIImage {
-        return LocalService.createImage(from: imageDataString)
+    override static func primaryKey() -> String? {
+        return "id"
     }
 
-    var snippetImage: UIImage {
-        return LocalService.createImage(from: snippetImageDataString)
+    static var nonOptionalPrimaryKey: String {
+        return primaryKey() ?? #keyPath(LocalService.id)
+    }
+
+    // MARK: Images
+    func image(from keyPath: KeyPath<LocalService, String?>) -> UIImage {
+        return LocalService.createImage(from: self[keyPath: keyPath])
+    }
+
+    var smallImage: UIImage {
+        return image(from: \.smallImageDataString)
+    }
+
+    var mediumImage: UIImage {
+        return image(from: \.mediumImageDataString)
+    }
+
+    var largeImage: UIImage {
+        return image(from: \.largeImageDataString)
     }
 
     static func createImage(from stringData: String?) -> UIImage {
@@ -53,13 +73,5 @@ class LocalService: Object {
             let result = UIImage(data: imageData)
         else { return LocalService.defaultImage }
         return result
-    }
-
-    override static func primaryKey() -> String? {
-        return "id"
-    }
-
-    static var nonOptionalPrimaryKey: String {
-        return primaryKey() ?? #keyPath(LocalService.id)
     }
 }

@@ -33,8 +33,6 @@
 		890392112538F8C3005C5C99 /* ServiceViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8903920F2538F8C2005C5C99 /* ServiceViewController+TableView.swift */; };
 		8906E9742170FB2100D45BCA /* DLConfirmAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906E9732170FB2100D45BCA /* DLConfirmAccountViewController.swift */; };
 		8909A3BC218F24EE00EADD09 /* LocalNotifireNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */; };
-		890F7FCE25647ED00037BB5B /* Config+Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890F7FCD25647ED00037BB5B /* Config+Secrets.swift */; };
-		890F7FCF25647ED00037BB5B /* Config+Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890F7FCD25647ED00037BB5B /* Config+Secrets.swift */; };
 		8915FB2425260AB400BD36B2 /* WebSocketOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915FB2325260AB400BD36B2 /* WebSocketOperation.swift */; };
 		8915FB2525260AB400BD36B2 /* WebSocketOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915FB2325260AB400BD36B2 /* WebSocketOperation.swift */; };
 		8915FB312526106400BD36B2 /* WebSocketErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915FB302526106400BD36B2 /* WebSocketErrorCode.swift */; };
@@ -161,6 +159,8 @@
 		8936E3D92563927C007424A7 /* ChangeEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3D725639278007424A7 /* ChangeEmailViewModel.swift */; };
 		8936E3DB25639293007424A7 /* ChangeEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3DA25639293007424A7 /* ChangeEmailViewController.swift */; };
 		8936E3DC25639293007424A7 /* ChangeEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8936E3DA25639293007424A7 /* ChangeEmailViewController.swift */; };
+		89374950256C40860013DB5B /* Config+Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8937494F256C40860013DB5B /* Config+Secrets.swift */; };
+		89374951256C40860013DB5B /* Config+Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8937494F256C40860013DB5B /* Config+Secrets.swift */; };
 		8939957F216FE4D800687A79 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939957E216FE4D800687A79 /* Coordinator.swift */; };
 		89399581216FE4E900687A79 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399580216FE4E900687A79 /* AppCoordinator.swift */; };
 		89399585216FEFD500687A79 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399584216FEFD500687A79 /* UIViewExtension.swift */; };
@@ -762,7 +762,6 @@
 		8903920F2538F8C2005C5C99 /* ServiceViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServiceViewController+TableView.swift"; sourceTree = "<group>"; };
 		8906E9732170FB2100D45BCA /* DLConfirmAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLConfirmAccountViewController.swift; sourceTree = "<group>"; };
 		8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifireNotification.swift; sourceTree = "<group>"; };
-		890F7FCD25647ED00037BB5B /* Config+Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Config+Secrets.swift"; sourceTree = "<group>"; };
 		8915FB2325260AB400BD36B2 /* WebSocketOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketOperation.swift; sourceTree = "<group>"; };
 		8915FB302526106400BD36B2 /* WebSocketErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketErrorCode.swift; sourceTree = "<group>"; };
 		8915FB362526107700BD36B2 /* WebSocketDisconnectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketDisconnectContext.swift; sourceTree = "<group>"; };
@@ -854,6 +853,7 @@
 		8936E3D4256359F4007424A7 /* ChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModel.swift; sourceTree = "<group>"; };
 		8936E3D725639278007424A7 /* ChangeEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailViewModel.swift; sourceTree = "<group>"; };
 		8936E3DA25639293007424A7 /* ChangeEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailViewController.swift; sourceTree = "<group>"; };
+		8937494F256C40860013DB5B /* Config+Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Config+Secrets.swift"; sourceTree = "<group>"; };
 		8939957E216FE4D800687A79 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		89399580216FE4E900687A79 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		89399584216FEFD500687A79 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
@@ -2152,7 +2152,7 @@
 		89B3EC6F2020E5E20068BA64 /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				890F7FCD25647ED00037BB5B /* Config+Secrets.swift */,
+				8937494F256C40860013DB5B /* Config+Secrets.swift */,
 				895E4018204046EA0062D5FC /* Config.swift */,
 				89B3EC702020E60F0068BA64 /* Debug.xcconfig */,
 				89576B3D24FD42FD0097BF87 /* TestFlight.xcconfig */,
@@ -3069,7 +3069,6 @@
 				892DC080255DDAD30067EB12 /* UserDefault.swift in Sources */,
 				89576AA024FD412A0097BF87 /* AppCoordinator.swift in Sources */,
 				89576AA124FD412A0097BF87 /* Service.swift in Sources */,
-				890F7FCF25647ED00037BB5B /* Config+Secrets.swift in Sources */,
 				894B1FA12505DECA00D0D671 /* TabBarStackView.swift in Sources */,
 				89576AA224FD412A0097BF87 /* FireLayerProperties.swift in Sources */,
 				899C071B2551E4FE0005228E /* ForgotPasswordViewModel.swift in Sources */,
@@ -3188,6 +3187,7 @@
 				89576AD924FD412A0097BF87 /* URLExtension.swift in Sources */,
 				89E6B6BB24FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift in Sources */,
 				89BF1ADF256229E300A9FD61 /* RegisterSuccessViewController.swift in Sources */,
+				89374951256C40860013DB5B /* Config+Secrets.swift in Sources */,
 				89576ADA24FD412A0097BF87 /* ScrollViewReselectable.swift in Sources */,
 				892DC0C525609B840067EB12 /* SettingsSection.swift in Sources */,
 				892DC0C825609BA40067EB12 /* SettingsRows.swift in Sources */,
@@ -3423,6 +3423,7 @@
 				892B413C21C1E1E600D28ABE /* ServicesEmptyStateView.swift in Sources */,
 				893FE01F21960BCC002CD846 /* ChoiceSeparatorView.swift in Sources */,
 				89E777ED2173E9F3009CF3DE /* NoSessionContainerViewController.swift in Sources */,
+				89374950256C40860013DB5B /* Config+Secrets.swift in Sources */,
 				893FE03321979A34002CD846 /* ServiceAPIKeyTableViewCell.swift in Sources */,
 				8939957F216FE4D800687A79 /* Coordinator.swift in Sources */,
 				89A9049D21BF19EA00D262E1 /* NotifireNavigationController.swift in Sources */,
@@ -3696,7 +3697,6 @@
 				896167F725018561007BF3F1 /* LoginViewControllerDelegate.swift in Sources */,
 				89FAFD332566008900D1A64C /* EmailTokenError.swift in Sources */,
 				89A9048021B753F100D262E1 /* DateFormatterExtension.swift in Sources */,
-				890F7FCE25647ED00037BB5B /* Config+Secrets.swift in Sources */,
 				895637B22554B52B005E4A4E /* ThreadSafeServiceRepresentableOperation.swift in Sources */,
 				897069F42134BF4C00D798AA /* KeyboardDismissing.swift in Sources */,
 				8936E3C1256333E7007424A7 /* ViewModelled.swift in Sources */,

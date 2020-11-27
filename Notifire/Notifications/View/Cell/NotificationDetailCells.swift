@@ -212,7 +212,7 @@ class NotificationDetailViewModel {
         guard let service = notification.service else { return [] }
         var result = [CellConfiguring]()
 
-        let notificationDetailHeader = NotificationDetailHeader(serviceName: service.name, serviceImage: service.image, notificationDate: notification.date, notificationLevel: notification.level)
+        let notificationDetailHeader = NotificationDetailHeader(serviceName: service.name, serviceImage: service.smallImage, notificationDate: notification.date, notificationLevel: notification.level)
         result.append(NotificationDetailHeaderConfiguration(item: notificationDetailHeader))
 
         let notificationTitleBody = NotificationDetailTitleBody(body: notification.body)

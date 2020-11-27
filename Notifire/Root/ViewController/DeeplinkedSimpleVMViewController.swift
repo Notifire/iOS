@@ -118,7 +118,7 @@ class DeeplinkedSimpleVMViewController<VM: DeeplinkViewModelRepresenting>: Deepl
     }
 
     // MARK: - UserErrorPresenting
-    func dismissCompletion(error: EmailTokenError) {
+    func dismissCompletion(error: VM.UserError) {
         // Close the deeplink when we dismiss an EmailTokenError
         delegate?.shouldCloseDeeplink()
     }

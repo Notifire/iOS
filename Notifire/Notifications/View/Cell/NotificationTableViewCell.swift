@@ -137,7 +137,7 @@ class NotificationTableViewCell: NotificationBaseTableViewCell, CellConfigurable
 
     func configure(data notification: LocalNotifireNotification) {
         guard let service = notification.service else { return }
-        serviceImageView.image = service.image
+        serviceImageView.image = service.smallImage
         serviceInformationLabel.text = "\(service.name)"
         bodyLabel.text = notification.body
         let dateString = notification.date.formatRelativeString()

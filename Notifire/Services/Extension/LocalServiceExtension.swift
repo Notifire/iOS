@@ -30,15 +30,14 @@ extension LocalService {
 
     func updateDataExceptID(from serviceSnippet: ServiceSnippet) {
         name = serviceSnippet.name
-        snippetImageURLString = serviceSnippet.snippetImageURLString
+        smallImageURLString = serviceSnippet.image
     }
 
-    var asService: Service {
-        //et validUpdatedAt = updatedAt ?? Date(timeIntervalSince1970: 0)
-        return Service(name: name, imageURLString: imageURLString, id: id, levels: Service.Levels(info: info, warning: warning, error: error), apiKey: serviceAPIKey, updatedAt: nil)
+    var asServiceUpdateRequestBody: ServiceUpdateRequestBody {
+        return ServiceUpdateRequestBody(name: name, id: id, levels: Service.Levels(info: info, warning: warning, error: error), image: smallImageDataString)
     }
 
-    var asServiceRequestBody: ServiceRequestBody {
-        return ServiceRequestBody(name: name, id: id, levels: Service.Levels(info: info, warning: warning, error: error))
+    var asServiceSyncData: SyncServicesRequestBody.ServiceSyncData {
+        return SyncServicesRequestBody.ServiceSyncData(id: id, updatedAt: updatedAt)
     }
 }

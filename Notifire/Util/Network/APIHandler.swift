@@ -63,7 +63,16 @@ extension URLSession: APIHandler {
             let decoder = JSONDecoder()
             switch statusCode {
             case .success:
-                decoder.dateDecodingStrategy = .formatted(.yyyyMMdd)
+                decoder.dateDecodingStrategy = .custom({ decoder -> Date in
+                    let dateDouble = try decoder.singleValueContainer().decode(Double.self)
+                    return Date(timeIntervalSince1970: dateDouble)
+                })
+                do {
+                    try decoder.decode(requestContext.responseBodyType, from: data)
+                } catch let error {
+                    print(error)
+                }
+
                 guard let response = try? decoder.decode(requestContext.responseBodyType, from: data) else {
                     URLSession.finish(
                         nil,

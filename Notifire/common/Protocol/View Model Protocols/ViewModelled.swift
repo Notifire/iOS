@@ -12,4 +12,6 @@ import Foundation
 protocol ViewModelled: class {
     associatedtype ViewModel: ViewModelRepresenting
     var viewModel: ViewModel { get set }
+
+    init(viewModel: ViewModel)
 }

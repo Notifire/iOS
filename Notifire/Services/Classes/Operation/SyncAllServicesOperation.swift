@@ -26,7 +26,7 @@ class SyncAllServicesOperation: ProtectedNetworkOperation<SyncServicesResponse> 
 
         // Grab all LocalService objects and chunk them into [Service] chunks
         let localServices = synchronizationManager.servicesHandler.collection
-        let services = Array(localServices).map({ $0.asService })
+        let services = Array(localServices).map({ $0.asServiceSyncData })
         let servicesChunked = Array(services).chunked(by: PaginationHandler.servicesPaginationLimit)
 
         guard let currentQueue = OperationQueue.current?.underlyingQueue else {

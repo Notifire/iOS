@@ -57,6 +57,6 @@ class ServiceHeaderView: ConstrainableView {
     private func updateUI() {
         guard let service = service else { return }
         serviceNameLabel.text = service.name
-        serviceImageView.image = service.image
+        serviceImageView.image = service.largeImage
     }
 }

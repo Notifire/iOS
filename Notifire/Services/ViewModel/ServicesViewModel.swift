@@ -226,7 +226,7 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
         //
         // Sync all services operation
         syncAllServicesOperation.completionHandler = { [unowned serviceDataAdapterOperation, unowned updateServicesOperation, weak self] response in
-            guard case .success(_) = response else {
+            guard case .success = response else {
                 // Cancel the other operations if this one fails
                 serviceDataAdapterOperation.cancel()
                 updateServicesOperation.cancel()

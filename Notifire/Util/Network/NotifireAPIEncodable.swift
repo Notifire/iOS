@@ -50,14 +50,16 @@ struct PasswordValidationRequestBody: Encodable {
     let password: String
 }
 
-struct ServiceRequestBody: Encodable {
+struct ServiceUpdateRequestBody: Encodable {
     let name: String
     let id: Int
     let levels: Service.Levels
+    // FIXME: Possible change because of multipart
+    let image: String?
 }
 
 struct ChangeServiceKeyBody: Encodable {
-    let service: Service
+    let apiKey: String
     let password: String
 }
 
@@ -88,3 +90,13 @@ struct ResetPasswordRequestBody: Encodable {
 }
 
 typealias ChangeEmailRequestBody = ConfirmAccountRequestBody
+
+// MARK: - /services/sync
+struct SyncServicesRequestBody: Encodable {
+    struct ServiceSyncData: Encodable {
+        let id: Int
+        let updatedAt: Date
+    }
+
+    let services: [ServiceSyncData]
+}

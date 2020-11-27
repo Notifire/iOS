@@ -143,8 +143,9 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
     }
 
     // MARK: Sync
-    func sync(services: [Service], completion: @escaping Callback<SyncServicesResponse>) {
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.servicesSync, method: .post, body: services, queryItems: nil)
+    func sync(services: [SyncServicesRequestBody.ServiceSyncData], completion: @escaping Callback<SyncServicesResponse>) {
+        let body = SyncServicesRequestBody(services: services)
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.servicesSync, method: .post, body: body, queryItems: nil)
         performProtected(request: request, responseType: SyncServicesResponse.self, completion: completion)
     }
 
@@ -165,20 +166,20 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
 
     // MARK: Update
     func update(service: LocalService, completion: @escaping Callback<ServiceUpdateResponse>) {
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .put, body: service.asServiceRequestBody, queryItems: nil)
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .put, body: service.asServiceUpdateRequestBody, queryItems: nil)
         performProtected(request: request, responseType: ServiceUpdateResponse.self, completion: completion)
     }
 
     // MARK: Delete
     func delete(service: LocalService, completion: @escaping Callback<EmptyRequestBody>) {
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .delete, body: service.asServiceRequestBody, queryItems: nil)
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service(id: service.id), method: .delete, body: nil as EmptyRequestBody?, queryItems: nil)
         performProtected(request: request, responseType: EmptyRequestBody.self, completion: completion)
     }
 
     // MARK: Change API Key
     func changeApiKey(for service: LocalService, password: String, completion: @escaping Callback<APIKeyChangeResponse>) {
-        let body = ChangeServiceKeyBody(service: service.asService, password: password)
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.serviceKey, method: .post, body: body, queryItems: nil)
+        let body = ChangeServiceKeyBody(apiKey: service.serviceAPIKey, password: password)
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.serviceKey, method: .put, body: body, queryItems: nil)
         performProtected(request: request, responseType: APIKeyChangeResponse.self, completion: completion)
     }
 }

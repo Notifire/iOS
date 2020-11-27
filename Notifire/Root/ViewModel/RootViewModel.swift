@@ -91,6 +91,6 @@ class RootViewModel: ViewModelRepresenting {
             })
         }
 
-        try? appVersionManager.fetchAppVersionData()
+        //try? appVersionManager.fetchAppVersionData()
     }
 }

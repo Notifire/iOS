@@ -15,18 +15,20 @@ struct Service: Codable, Equatable {
         let error: Bool
     }
 
+    struct Image: Codable, Equatable {
+        let small: String
+        let medium: String
+        let large: String
+    }
+
     let name: String
-    let imageURLString: String?
+    let image: Image
     let id: Int
     let levels: Levels
     let apiKey: String
-    let updatedAt: Date?
+    let updatedAt: Date
 
     var asServiceSnippet: ServiceSnippet {
-        return ServiceSnippet(
-            name: name,
-            id: id,
-            snippetImageURLString: imageURLString
-        )
+        return ServiceSnippet(name: name, id: id, image: image.small)
     }
 }
