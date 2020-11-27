@@ -41,10 +41,10 @@ class AuthenticationProvidersView: VMView<AuthenticationProvidersViewModel>, Cen
         stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 
-        // Set the `ASAuthorizationAppleIDButton` height to match the other buttons
+        // Set the `DarkModeAuthorizationAppleIDButton` height to match the other buttons
         guard #available(iOS 13.0, *) else { return }
         for control in buttons {
-            if let appleControlButton = control as? ASAuthorizationAppleIDButton {
+            if let appleControlButton = control as? DarkModeAuthorizationAppleIDButton {
                 appleControlButton.heightAnchor.constraint(equalToConstant: Size.componentHeight).isActive = true
             }
         }
@@ -72,7 +72,7 @@ class AuthenticationProvidersView: VMView<AuthenticationProvidersViewModel>, Cen
 
     private func createAppleSignInButton() -> UIControl {
         if #available(iOS 13.0, *) {
-            let button = ASAuthorizationAppleIDButton(authorizationButtonType: .default, authorizationButtonStyle: .white)
+            let button = DarkModeAuthorizationAppleIDButton()
             button.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchUpInside)
             button.layer.cornerRadius = Theme.defaultCornerRadius
             button.layer.borderWidth = Theme.defaultBorderWidth

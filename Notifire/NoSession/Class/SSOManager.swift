@@ -55,11 +55,7 @@ class SSOManager: NSObject {
         case .apple:
             // Don't do anything, handled by `AuthorizationProvidersView`
             break
-        case .github, .twitter:
-            // FIXME: implement the above providers sign in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                self?.finishAuthenticationAttempt()
-            }
+//        case .github, .twitter:
         }
         delegate?.didStart(authenticationAttempt: newAuthAttempt)
     }

@@ -15,9 +15,9 @@ extension SSOAuthenticationProvider {
     var image: UIImage {
         switch self {
         case .apple: return #imageLiteral(resourceName: "default_service_image").resized(to: CGSize(equal: 18))
-        case .github: return #imageLiteral(resourceName: "github_icon").resized(to: CGSize(equal: 18)).withRenderingMode(.alwaysTemplate)
         case .google: return #imageLiteral(resourceName: "google_icon").resized(to: CGSize(equal: 17))
-        case .twitter: return #imageLiteral(resourceName: "twitter_icon").resized(to: CGSize(equal: 26))
+        // case .github: return #imageLiteral(resourceName: "github_icon").resized(to: CGSize(equal: 18)).withRenderingMode(.alwaysTemplate)
+        // case .twitter: return #imageLiteral(resourceName: "twitter_icon").resized(to: CGSize(equal: 26))
         }
     }
 }

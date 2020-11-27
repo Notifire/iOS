@@ -9,12 +9,14 @@
 import Foundation
 
 enum SSOAuthenticationProvider: String, CaseIterable, Equatable, CustomStringConvertible {
-    case apple, google, github, twitter
+    case apple, google
+    // case github, twitter
 
     var description: String {
         switch self {
-        case .apple, .google, .twitter: return rawValue.capitalized
-        case .github: return "GitHub"
+        case .apple, .google: return rawValue.capitalized
+        // case .twitter: return rawValue.capitalized
+        // case .github: return "GitHub"
         }
     }
 

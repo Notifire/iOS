@@ -190,6 +190,8 @@
 		893A4A602530BA8700DD02D0 /* WebSocketOperationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893A4A5E2530BA8700DD02D0 /* WebSocketOperationType.swift */; };
 		893A4A832530D42800DD02D0 /* RealmObjectObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893A4A822530D42800DD02D0 /* RealmObjectObserver.swift */; };
 		893A4A842530D42800DD02D0 /* RealmObjectObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893A4A822530D42800DD02D0 /* RealmObjectObserver.swift */; };
+		893AD79B25715E91000ADFEC /* DarkModeAuthorizationAppleIDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD79A25715E91000ADFEC /* DarkModeAuthorizationAppleIDButton.swift */; };
+		893AD79C25715E91000ADFEC /* DarkModeAuthorizationAppleIDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD79A25715E91000ADFEC /* DarkModeAuthorizationAppleIDButton.swift */; };
 		893B901F2512B9700056DBF9 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893B901E2512B9700056DBF9 /* Reusable.swift */; };
 		893B90202512B9700056DBF9 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893B901E2512B9700056DBF9 /* Reusable.swift */; };
 		893B90222512B99A0056DBF9 /* UITableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893B90212512B9990056DBF9 /* UITableView+Reusable.swift */; };
@@ -878,6 +880,7 @@
 		893A4A482529207200DD02D0 /* ServicesWebSocketConnectionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesWebSocketConnectionStatusView.swift; sourceTree = "<group>"; };
 		893A4A5E2530BA8700DD02D0 /* WebSocketOperationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketOperationType.swift; sourceTree = "<group>"; };
 		893A4A822530D42800DD02D0 /* RealmObjectObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmObjectObserver.swift; sourceTree = "<group>"; };
+		893AD79A25715E91000ADFEC /* DarkModeAuthorizationAppleIDButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeAuthorizationAppleIDButton.swift; sourceTree = "<group>"; };
 		893B901E2512B9700056DBF9 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		893B90212512B9990056DBF9 /* UITableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Reusable.swift"; sourceTree = "<group>"; };
 		893B90242512C1EB0056DBF9 /* UITableViewCell+Margins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Margins.swift"; sourceTree = "<group>"; };
@@ -1974,6 +1977,7 @@
 				895A3B7E25006D6F000A7B50 /* AuthenticationProvidersView.swift */,
 				896167D12501182D007BF3F1 /* SignInButton.swift */,
 				89F19D8F256B802B0030AFE0 /* UIHyperTextView.swift */,
+				893AD79A25715E91000ADFEC /* DarkModeAuthorizationAppleIDButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3324,6 +3328,7 @@
 				89576B1A24FD412A0097BF87 /* ValidatableComponentState.swift in Sources */,
 				892DC08F255E00A00067EB12 /* NotifireAPIManagerMocking.swift in Sources */,
 				89576B1B24FD412A0097BF87 /* ServicesViewModel.swift in Sources */,
+				893AD79C25715E91000ADFEC /* DarkModeAuthorizationAppleIDButton.swift in Sources */,
 				89576B1C24FD412A0097BF87 /* UserSessionManager.swift in Sources */,
 				895637BA25551A20005E4A4E /* Array+Chunks.swift in Sources */,
 				89576B1D24FD412A0097BF87 /* ValidatableComponent.swift in Sources */,
@@ -3609,6 +3614,7 @@
 				893A4A492529207200DD02D0 /* ServicesWebSocketConnectionStatusView.swift in Sources */,
 				89541905251CB8980046464D /* ServiceWebSocketManager.swift in Sources */,
 				897069DF2133885A00D798AA /* BaseButton.swift in Sources */,
+				893AD79B25715E91000ADFEC /* DarkModeAuthorizationAppleIDButton.swift in Sources */,
 				895637C42557599A005E4A4E /* Encodable+Dictionary.swift in Sources */,
 				89F19D722567196E0030AFE0 /* DeeplinkedSimpleVMViewController.swift in Sources */,
 				898533C0219FAAEC00E0A656 /* RealmProviding.swift in Sources */,
