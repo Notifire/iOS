@@ -99,7 +99,7 @@ class NotifireAPIManager: NotifireAPIBaseManager {
     // MARK: - /account/revert/email
     func revertEmail(token: String, completion: @escaping Callback<ChangeEmailResponse>) {
         let body = ChangeEmailRequestBody(token: token)
-        let request = createAPIRequest(endpoint: NotifireAPIEndpoint.revertEmail, method: .post, body: body)
+        let request = createAPIRequest(endpoint: NotifireAPIEndpoint.revertEmail, method: .put, body: body)
         let requestContext = URLRequestContext(responseBodyType: ChangeEmailResponse.self, apiRequest: request)
         perform(requestContext: requestContext, managerCompletion: completion)
     }
