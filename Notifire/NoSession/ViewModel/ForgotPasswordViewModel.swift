@@ -21,7 +21,8 @@ final class ForgotPasswordViewModel: InputValidatingViewModel, APIErrorProducing
     }
 
     var onLoadingChange: ((Bool) -> Void)?
-    var onSendEmailSuccess: (() -> Void)?
+    /// Callback when the email send is done. `Bool` = success
+    var onSendEmailCompletion: ((Bool) -> Void)?
 
     // MARK: APIErrorProducing
     var onError: ((NotifireAPIError) -> Void)?
@@ -50,9 +51,7 @@ final class ForgotPasswordViewModel: InputValidatingViewModel, APIErrorProducing
             case .error(let error):
                 self.onError?(error)
             case .success(let response):
-                if response.success {
-                    self.onSendEmailSuccess?()
-                }
+                self.onSendEmailCompletion?(response.success)
             }
         }
     }
@@ -60,4 +59,7 @@ final class ForgotPasswordViewModel: InputValidatingViewModel, APIErrorProducing
     // MARK: - Public
     let onSendEmailSuccessTitle: String = "Check your inbox!"
     let onSendEmailSuccessText: String = "If there is an account associated with this email address, you will receive a link that will let you reset your password."
+
+    let onSendEmailFailTitle: String = "Error"
+    let onSendEmailFailText: String = "No users exist for the specified e-mail address."
 }

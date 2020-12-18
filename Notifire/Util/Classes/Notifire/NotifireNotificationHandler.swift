@@ -26,7 +26,7 @@ class NotifireNotificationsHandler: NSObject {
     // MARK: - Initialization
     override init() {
         super.init()
-        UNUserNotificationCenter.current().delegate = self
+        //UNUserNotificationCenter.current().delegate = self
     }
 
     func getNotification(from userInfo: [AnyHashable: Any]) -> LocalNotifireNotification? {
@@ -77,6 +77,6 @@ class NotifireNotificationsHandler: NSObject {
 // MARK: - UNUserNotificationCenterDelegate
 extension NotifireNotificationsHandler: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([])
+        //completionHandler([])
     }
 }

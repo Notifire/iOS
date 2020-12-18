@@ -24,18 +24,31 @@ class ForgotPasswordCoordinator: ChildCoordinator {
 
     // MARK: - Coordinator
     func start() {
-        forgotPasswordViewController.viewModel.onSendEmailSuccess = { [weak self] in
-            self?.presentEmailSendSuccessAlert()
+        forgotPasswordViewController.viewModel.onSendEmailCompletion = { [weak self] success in
+            self?.presentEmailSendCompletionAlert(success: success)
         }
     }
 
-    func presentEmailSendSuccessAlert() {
-        let alertVC = NotifireAlertViewController(alertTitle: nil, alertText: nil, alertStyle: .success)
+    /// Present the NotifireAlertVC with a proper style and text depending on `success`
+    func presentEmailSendCompletionAlert(success: Bool) {
+        let alertStyle: NotifireAlertViewController.AlertStyle?
+        let alertTitle: String
+        let alertText: String
+
+        if success {
+            alertStyle = .success
+            alertText = forgotPasswordViewController.viewModel.onSendEmailSuccessText
+            alertTitle = forgotPasswordViewController.viewModel.onSendEmailSuccessTitle
+        } else {
+            alertStyle = nil
+            alertText = forgotPasswordViewController.viewModel.onSendEmailFailText
+            alertTitle = forgotPasswordViewController.viewModel.onSendEmailFailTitle
+        }
+
+        let alertVC = NotifireAlertViewController(alertTitle: alertTitle, alertText: alertText, alertStyle: alertStyle)
         alertVC.add(action: NotifireAlertAction(title: "OK", style: .positive, handler: { _ in
             alertVC.dismiss(animated: true, completion: nil)
         }))
-        alertVC.alertTitle = forgotPasswordViewController.viewModel.onSendEmailSuccessTitle
-        alertVC.alertText = forgotPasswordViewController.viewModel.onSendEmailSuccessText
         forgotPasswordViewController.present(alert: alertVC, animated: true, completion: nil)
     }
 }

@@ -97,6 +97,7 @@ class DeviceTokenManager {
         UIApplication.shared.registerForRemoteNotifications()
     }
 
+    /// Called on UIAppDelegate.didRegisterForRemoteNotificationsWithDeviceToken
     func onDidRegisterForRemoteNotificationsWithDeviceToken(deviceTokenData: Data) {
         let tokenParts = deviceTokenData.map { data -> String in
             return String(format: "%02.2hhx", data)
@@ -106,6 +107,7 @@ class DeviceTokenManager {
         registerDeviceWithNotifireApi()
     }
 
+    /// Called on UIAppDelegate.didFailToRegisterForRemoteNotificationsWithError
     func onDidFailToRegisterForRemoteNotificationsWithError(error: Error) {
         Logger.log(.fault, "\(self) didFailToRegisterForRemoteNotifications error=<\(error.localizedDescription)>")
 
