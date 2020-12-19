@@ -11,5 +11,5 @@ import Foundation
 struct ServiceSnippet: Codable, ServiceRepresentable {
     var name: String
     var id: Int
-    var image: String
+    var image: Service.Image?
 }

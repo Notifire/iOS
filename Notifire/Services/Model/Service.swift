@@ -22,13 +22,13 @@ struct Service: Codable, Equatable {
     }
 
     let name: String
-    let image: Image
+    let image: Image?
     let id: Int
     let levels: Levels
     let apiKey: String
     let updatedAt: Date
 
     var asServiceSnippet: ServiceSnippet {
-        return ServiceSnippet(name: name, id: id, image: image.small)
+        return ServiceSnippet(name: name, id: id, image: image)
     }
 }

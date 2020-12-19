@@ -173,7 +173,7 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
 
             if representable.element is ServiceSnippet {
                 // already displayed ServiceSnippet
-                let newRepresentable = ServiceSnippet(name: service.name, id: service.id, image: service.image.small)
+                let newRepresentable = ServiceSnippet(name: service.name, id: service.id, image: service.image)
                 serviceRepresentables[representable.offset] = newRepresentable
             } else if let local = representable.element as? LocalService {
                 // already displayed LocalService

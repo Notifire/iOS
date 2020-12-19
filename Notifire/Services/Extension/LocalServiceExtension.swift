@@ -30,7 +30,11 @@ extension LocalService {
 
     func updateDataExceptID(from serviceSnippet: ServiceSnippet) {
         name = serviceSnippet.name
-        smallImageURLString = serviceSnippet.image
+        if let imageData = serviceSnippet.image {
+            smallImageURLString = imageData.small
+            mediumImageURLString = imageData.medium
+            largeImageURLString = imageData.large
+        }
     }
 
     var asServiceUpdateRequestBody: ServiceUpdateRequestBody {
