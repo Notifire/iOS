@@ -68,7 +68,7 @@ class NotifireProtectedAPIManagerMock: NotifireProtectedAPIManager, NotifireAPIM
     private func randomServicesSnippets(count: Int = Int.random(in: 0...15)) -> [ServiceSnippet] {
         var services = [ServiceSnippet]()
         for i in 0..<count {
-            let service = ServiceSnippet(name: "Service #\(i)", id: i, image: "http://google.com")
+            let service = ServiceSnippet(name: "Service #\(i)", id: i, image: Service.Image(small: "https://google.com", medium: "https://google.com", large: "https://google.com"))
             services.append(service)
         }
         return services

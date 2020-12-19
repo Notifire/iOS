@@ -18,9 +18,9 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
     var onRefreshTokenInvalidation: (() -> Void)?
 
     // MARK: - Initialization
-    init(session: UserSession) {
+    init(session: UserSession, apiHandler: APIHandler? = nil) {
         userSession = session
-        super.init()
+        super.init(apiHandler: apiHandler)
     }
 
     // MARK: - Private

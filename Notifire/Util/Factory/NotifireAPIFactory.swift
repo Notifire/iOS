@@ -13,7 +13,7 @@ struct NotifireAPIFactory {
 
     static func createAPIManager(apiHandler: APIHandler? = nil) -> NotifireAPIManager {
         #if API_MOCK
-            return NotifireAPIManagerMock()
+            return NotifireAPIManagerMock(apiHandler: URLSession.shared)
         #else
             return NotifireAPIManager(apiHandler: apiHandler)
         #endif
@@ -21,7 +21,7 @@ struct NotifireAPIFactory {
 
     static func createProtectedAPIManager(session: UserSession) -> NotifireProtectedAPIManager {
         #if API_MOCK
-            return NotifireProtectedAPIManagerMock(session: session)
+            return NotifireProtectedAPIManagerMock(session: session, apiHandler: URLSession.shared)
         #else
             return NotifireProtectedAPIManager(session: session)
         #endif
