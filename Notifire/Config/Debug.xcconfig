@@ -8,8 +8,8 @@
 
 #include "Pods/Target Support Files/Pods-Abst-Notifire/Pods-Abst-Notifire.debug.xcconfig"
 SLASH=/
-API_URL = notifire.memonil.com
-WS_URL = wss:$(SLASH)/notifire.memonil.com/ws/services
+API_URL = dev-notifire.memonil.com
+WS_URL = wss:$(SLASH)/dev-notifire.memonil.com/ws/services
 
 // App name + bundle ID
 APP_DISPLAY_NAME=Notifire Dev
