@@ -171,6 +171,12 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
         performProtected(request: request, responseType: ServiceUpdateResponse.self, completion: completion)
     }
 
+    // MARK: Update With Image
+    func update(serviceWithImage service: LocalService, imageData: Data?, completion: @escaping Callback<ServiceUpdateResponse>) {
+        // TODO:
+
+    }
+
     // MARK: Delete
     func delete(service: LocalService, completion: @escaping Callback<EmptyRequestBody>) {
         let body = ServiceDeletionBody(id: service.id)

@@ -30,11 +30,12 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
         return userSessionHandler.notifireProtectedApiManager
     }
 
-    private var serviceToken: NotificationToken?
-
     /// The currently displayed local service if available.
     var currentLocalService: LocalService? {
-        guard case .displaying(let localService) = viewState else { return nil }
+        guard
+            case .displaying(let localService) = viewState,
+            !localService.isInvalidated
+        else { return nil }
         return localService
     }
 
@@ -64,10 +65,6 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
     init(service: ServiceRepresentable, sessionHandler: UserSessionHandler) {
         self.serviceRepresentable = service
         self.userSessionHandler = sessionHandler
-    }
-
-    deinit {
-        serviceToken?.invalidate()
     }
 
     // MARK: - Methods
@@ -101,7 +98,7 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
                 break
             }
         }
-        localServiceObserver = RealmObjectObserver(realmProvider: userSessionHandler, object: localService)
+        localServiceObserver = observer
 
         // Change the viewState
         viewState = .displaying(localService: localService)
@@ -146,7 +143,7 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
         realm.beginWrite()
         block()
         var tokens: [NotificationToken] = []
-        if let activeToken = serviceToken {
+        if let activeToken = localServiceObserver?.objectNotificationToken {
             tokens.append(activeToken)
         }
         try? realm.commitWrite(withoutNotifying: tokens)
@@ -196,7 +193,8 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
             case .error(let error):
                 self.onError?(error)
             case .success:
-                try? RealmManager.delete(localService: localService, realm: self.userSessionHandler.realm)
+                break
+                // try? RealmManager.delete(localService: localService, realm: self.userSessionHandler.realm)
             }
         }
     }

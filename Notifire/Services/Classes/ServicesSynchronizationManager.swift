@@ -138,41 +138,28 @@ class ServicesSynchronizationManager {
     }
 
     // MARK: - Thread Safety
-    /// Creates an array containing `ThreadSafeReference<LocalService>` and `ServiceSnippet` from an array of `ServiceRepresentable`
-    /// - Note: Used to return Realm instances from background threads.
-    func threadSafeRepresentables(from representables: [ServiceRepresentable]) -> ThreadSafeServiceRepresentables {
-        var result = ThreadSafeServiceRepresentables()
-
-        for representable in representables {
-            if let localServiceRepresentable = representable as? LocalService {
-                // LocalService case
-                result.append(ThreadSafeReference(to: localServiceRepresentable))
-            } else {
-                // ServiceSnippet case
-                result.append(representable)
+    func createServiceRepresentables(from threadSafeRepresentables: ThreadSafeServiceRepresentables) -> [ServiceRepresentable] {
+        var representables = [ServiceRepresentable]()
+        for representable in threadSafeRepresentables {
+            if case .service(let id) = representable {
+                guard let localService = realmProvider.realm.object(ofType: LocalService.self, forPrimaryKey: id) else { continue }
+                representables.append(localService)
+            } else if case .snippet(let snippet) = representable {
+                representables.append(snippet)
             }
         }
-
-        return result
+        return representables
     }
 
-    /// The inverse operation to `threadSafeRepresentables(from:)`
-    func resolve(threadSafeRepresentables: ThreadSafeServiceRepresentables) -> [ServiceRepresentable]? {
-        var result = [ServiceRepresentable]()
-
-        for threadSafeRepresentable in threadSafeRepresentables {
-            if let threadSafeReference = threadSafeRepresentable as? ThreadSafeReference<LocalService> {
-                guard let localService = realmProvider.realm.resolve(threadSafeReference) else { continue }
-                result.append(localService)
-            } else if let serviceSnippet = threadSafeRepresentable as? ServiceSnippet {
-                result.append(serviceSnippet)
+    func createThreadSafeRepresentables(from serviceRepresentables: [ServiceRepresentable]) -> ThreadSafeServiceRepresentables {
+        var threadSafeRepresentables = [ThreadSafeServiceRepresentable]()
+        for representable in serviceRepresentables {
+            if let local = representable as? LocalService, !local.isInvalidated {
+                threadSafeRepresentables.append(.service(id: local.id))
+            } else if let snippet = representable as? ServiceSnippet {
+                threadSafeRepresentables.append(.snippet(snippet))
             }
         }
-
-        guard result.count == threadSafeRepresentables.count else {
-            Logger.log(.fault, "\(self) couldn't resolve threadSafeRepresentables")
-            return nil
-        }
-        return result
+        return threadSafeRepresentables
     }
 }

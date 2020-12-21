@@ -135,6 +135,6 @@ enum ServiceUpdateError: Int {
     case serviceDoesntExist
 }
 
-typealias ServiceUpdateResponse = Service
+typealias ServiceUpdateResponse = NotifireAPIPlainSuccessResponse
 
 typealias APIKeyChangeResponse = Service

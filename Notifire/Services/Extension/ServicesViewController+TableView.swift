@@ -32,12 +32,14 @@ extension ServicesViewController: SkeletonTableViewDataSource {
             }
             let service = viewModel.services[indexPath.row]
             cell.configure(from: service)
+            cell.hideSkeleton()
             return cell
         } else {
             guard let cell = tableView.dequeue(reusableCell: PaginationLoadingTableViewCell.self, for: indexPath) else {
                 return UITableViewCell()
             }
             cell.loadingIndicator.alpha = viewModel.isFetching ? 1 : 0
+            cell.hideSkeleton()
             return cell
         }
     }

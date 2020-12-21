@@ -35,7 +35,11 @@ class RealmCollectionObserver<RealmObject: RealmSwift.Object> {
 
     // MARK: Callback
     /// Invoked when a notification is received on the `collectionNotificationToken`
-    var onCollectionChange: ((RealmCollectionChange<Results<RealmObject>>) -> Void)?
+    var onCollectionChange: ((RealmCollectionChange<Results<RealmObject>>) -> Void)? {
+        didSet {
+            setupNotificationTokenIfNeeded()
+        }
+    }
 
     // MARK: - Initialization
     init(realmProvider: RealmProviding, sortOptions: RealmSortingOptions? = nil, filterPredicate: NSPredicate? = nil) {

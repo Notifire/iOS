@@ -11,25 +11,18 @@ import TrustKit
 
 class PublicKeyPinnedURLSessionTaskResolver: NSObject, URLSessionTaskDelegate {
 
-    let trustKit: TrustKit
-
-    override init() {
-        self.trustKit = TrustKit.init(configuration: Config.trustKitConfig)
-        super.init()
+    static let trustKit: TrustKit = {
+        let trustKit = TrustKit.init(configuration: Config.trustKitConfig)
         TrustKit.setLoggerBlock { str in
             Logger.logNetwork(.info, "TrustKit \(str)")
         }
-    }
-
-    deinit {
-
-    }
+        return trustKit
+    }()
 
     // MARK: - URLSessionTaskDelegate
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-//        if !trustKit.pinningValidator.handle(challenge, completionHandler: completionHandler) {
-//            completionHandler(.performDefaultHandling, nil)
-//        }
-        completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
+        if !Self.trustKit.pinningValidator.handle(challenge, completionHandler: completionHandler) {
+            completionHandler(.performDefaultHandling, nil)
+        }
     }
 }

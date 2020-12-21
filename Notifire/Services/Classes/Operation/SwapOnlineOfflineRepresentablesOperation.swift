@@ -27,14 +27,13 @@ class SwapOnlineOfflineRepresentablesOperation: Operation, ThreadSafeServiceRepr
     let synchronizationManager: ServicesSynchronizationManager
 
     // MARK: Completion
-    var completionHandler: (([ServiceRepresentable]) -> Void)?
+    var completionHandler: ((ThreadSafeServiceRepresentables) -> Void)?
 
     // MARK: - Initialization
-    init(synchronizationManager: ServicesSynchronizationManager, mode: Mode, representables: [ServiceRepresentable]) {
+    init(synchronizationManager: ServicesSynchronizationManager, mode: Mode) {
         self.synchronizationManager = synchronizationManager
         self.mode = mode
         super.init()
-        setThreadSafe(serviceRepresentables: representables)
     }
 
     // MARK: - Inherited
@@ -50,16 +49,16 @@ class SwapOnlineOfflineRepresentablesOperation: Operation, ThreadSafeServiceRepr
         switch mode {
         case .toOnline:
             guard
-                let threadSafeServicesBeforeOfflineMode = synchronizationManager.lastThreadSafeServiceRepresentables,
-                let servicesBeforeOfflineMode = synchronizationManager.resolve(threadSafeRepresentables: threadSafeServicesBeforeOfflineMode)
+                let threadSafeServicesBeforeOfflineMode = synchronizationManager.lastThreadSafeServiceRepresentables
             else {
                 Logger.log(.fault, "\(self) SynchronizationManager.serviceRepresentablesBeforeOfflineMode=nil")
                 return
             }
+            let servicesBeforeOfflineMode = synchronizationManager.createServiceRepresentables(from: threadSafeServicesBeforeOfflineMode)
             synchronizationManager.lastThreadSafeServiceRepresentables = nil
             resultRepresentables = servicesBeforeOfflineMode
         case .toOffline:
-            synchronizationManager.lastThreadSafeServiceRepresentables = synchronizationManager.threadSafeRepresentables(from: serviceRepresentables)
+            synchronizationManager.lastThreadSafeServiceRepresentables = synchronizationManager.createThreadSafeRepresentables(from: serviceRepresentables)
             resultRepresentables = synchronizationManager.mergeRepresentablesAndLocal(representables: serviceRepresentables)
         }
 

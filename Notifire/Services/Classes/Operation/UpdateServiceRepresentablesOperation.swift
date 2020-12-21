@@ -31,7 +31,7 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
     let synchronizationManager: ServicesSynchronizationManager
 
     // MARK: Completion
-    var completionHandler: (([ServiceRepresentable], ServiceRepresentableChanges?) -> Void)?
+    var completionHandler: ((ThreadSafeServiceRepresentables, ServiceRepresentableChanges?) -> Void)?
 
     // MARK: - Initialization
     init(synchronizationManager: ServicesSynchronizationManager) {
@@ -89,8 +89,8 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
             return
         }
 
-        finishOperation(representables: result.representables) { resolvedRepresentables in
-            completion(resolvedRepresentables, result.changes)
+        finishOperation(representables: result.representables) { threadSafeRepresentables in
+            completion(threadSafeRepresentables, result.changes)
         }
     }
 
@@ -253,8 +253,6 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
             return nil
         }
 
-        synchronizationManager.deleteLocalServiceIfNeeded(from: service)
-
         if let representableIndexToDelete = serviceRepresentables.firstIndex(where: { $0.id == service.id }) {
             // service already presented in the UI
             // remove the service from the representables array
@@ -267,8 +265,11 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
                 moves: []
             )
 
+            synchronizationManager.deleteLocalServiceIfNeeded(from: service)
+
             return (serviceRepresentables, .partial(changesData: changes))
         } else {
+            synchronizationManager.deleteLocalServiceIfNeeded(from: service)
             // service was not in the serviceRepresentables array
             return (serviceRepresentables, nil)
         }

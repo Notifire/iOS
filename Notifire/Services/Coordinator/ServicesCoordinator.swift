@@ -57,10 +57,9 @@ class ServicesCoordinator: NavigatingChildCoordinator, PresentingCoordinator {
         parentNavigatingCoordinator?.push(childCoordinator: serviceCoordinator)
     }
 
-    func dismiss(serviceRepresentable: ServiceRepresentable) {
+    func popServiceController() {
         guard
-            let serviceViewController = presentedServiceController,
-            serviceViewController.viewModel.serviceRepresentable.isEqualTo(other: serviceRepresentable)
+            parentNavigatingCoordinator?.childCoordinators.last?.viewController == presentedServiceController
         else { return }
         parentNavigatingCoordinator?.popChildCoordinator(animated: true)
     }
@@ -84,9 +83,8 @@ extension ServicesCoordinator: ServicesViewControllerDelegate {
 }
 
 extension ServicesCoordinator: ServiceViewControllerDelegate {
-    func didDelete(service: LocalService) {
-        // FIXME: Add ServiceRepresentable instead of LocalService here
-        //dismiss(service: service)
+    func didDeleteService() {
+        popServiceController()
     }
 
     func shouldShowNotifications(for service: LocalService) {
@@ -107,14 +105,9 @@ extension ServicesCoordinator: ServiceCreationCoordinatorDelegate {
 
 extension ServicesCoordinator: NavigationCoordinatorDelegate {
     func didRemoveChild(coordinator: ChildCoordinator) {
-        guard
-            coordinator.viewController === presentedServiceController,
-            let dismissedLocalService = presentedServiceController?.viewModel.currentLocalService else
-        {
-            presentedServiceController = nil
-            return
-        }
-        presentedServiceController = nil
+        guard coordinator.viewController === presentedServiceController else { return }
+        defer { presentedServiceController = nil }
+        guard let dismissedLocalService = presentedServiceController?.viewModel.currentLocalService else { return }
         servicesViewController.viewModel.updateSnippet(to: dismissedLocalService)
     }
 }

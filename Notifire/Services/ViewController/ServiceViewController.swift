@@ -23,7 +23,7 @@ enum ServiceSection {
 }
 
 protocol ServiceViewControllerDelegate: class {
-    func didDelete(service: LocalService)
+    func didDeleteService()
     func shouldShowNotifications(for service: LocalService)
 }
 
@@ -172,8 +172,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
             self?.updateServiceUI(service: localService)
         }
         viewModel.onServiceDeletion = { [weak self] in
-            guard let `self` = self, let localService = self.viewModel.currentLocalService else { return }
-            self.delegate?.didDelete(service: localService)
+            self?.delegate?.didDeleteService()
         }
     }
 

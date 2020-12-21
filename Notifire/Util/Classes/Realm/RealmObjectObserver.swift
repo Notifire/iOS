@@ -16,7 +16,7 @@ class RealmObjectObserver<RealmObject: RealmSwift.Object> {
     private let underlyingObject: RealmObject
 
     /// The notification token associated with the observing RealmObject
-    private var objectNotificationToken: RealmSwift.NotificationToken?
+    var objectNotificationToken: RealmSwift.NotificationToken?
 
     private var objectRef: ThreadSafeReference<RealmObject> {
         return ThreadSafeReference(to: underlyingObject)
@@ -28,7 +28,11 @@ class RealmObjectObserver<RealmObject: RealmSwift.Object> {
 
     // MARK: Callback
     /// Invoked when a notification is received on `objectNotificationToken`
-    var onObjectChange: ((RealmSwift.ObjectChange<RealmObject>) -> Void)?
+    var onObjectChange: ((RealmSwift.ObjectChange<RealmObject>) -> Void)? {
+        didSet {
+            setupNotificationTokenIfNeeded()
+        }
+    }
 
     // MARK: - Initialization
     init(realmProvider: RealmProviding, object: RealmObject) {

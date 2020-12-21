@@ -82,7 +82,12 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
         }
     }
 
-    var services: [ServiceRepresentable] = []
+    var services: [ServiceRepresentable] = [] {
+        didSet {
+            self.threadSafeServices = synchronizationManager.createThreadSafeRepresentables(from: services)
+        }
+    }
+    var threadSafeServices = ThreadSafeServiceRepresentables()
 
     // `true` after the SyncAllServicesOperation finished
     var areLocalServicesSynchronized: Bool = false
@@ -117,6 +122,20 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
     ///     - Fetches first page of services
     ///     - Attempts to /sync local services
     func start() {
+        // Observer for new LocalServices created in ServiceVCs
+        synchronizationManager.servicesHandler.onCollectionChange = { [weak self] changes in
+            switch changes {
+            case .update(let results, _, let insertions, _):
+                // Check if some services were created
+                guard !insertions.isEmpty else { return }
+                results
+            case .initial, .error:
+                // Don't care about these
+                break
+            }
+        }
+
+        // WebSocket
         // Connection status
         websocketManager.onWebSocketConnectionStatusChange = { [weak self] old, new in
             self?.handleWebSocketConnectionStatusChange(old, new)
@@ -183,8 +202,10 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
 
         //
         // Update services operation
-        updateServicesOperation.completionHandler = { [weak self] newRepresentables, maybeChanges in
-            self?.updateViewStateAndServiceRepresentableChanges(representables: newRepresentables, changes: maybeChanges)
+        updateServicesOperation.completionHandler = { [weak self] threadSafeRepresentables, maybeChanges in
+            guard let `self` = self else { return }
+            let newServiceRepresentables = self.synchronizationManager.createServiceRepresentables(from: threadSafeRepresentables)
+            self.updateViewStateAndServiceRepresentableChanges(representables: newServiceRepresentables, changes: maybeChanges)
 
             DispatchQueue.main.async { [weak self] in
                 self?.isFetching = false
@@ -200,7 +221,7 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
                 updateServicesOperation.action = action
             }
 
-            updateServicesOperation.setThreadSafe(serviceRepresentables: self.services)
+            updateServicesOperation.threadSafeServiceRepresentables = self.threadSafeServices
         }
 
         // Enqueue
@@ -246,7 +267,6 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
                 // Fetch first page after the update operation is completed
                 self?.fetchNextPageOfUserServices()
             }
-
         }
 
         //
@@ -270,11 +290,13 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
     func swapOnlineOfflineMode(to newMode: SwapOnlineOfflineRepresentablesOperation.Mode, completionBlock: (() -> Void)? = nil) {
         let swapToOnlineOperation = SwapOnlineOfflineRepresentablesOperation(
             synchronizationManager: synchronizationManager,
-            mode: newMode,
-            representables: services
+            mode: newMode
         )
-        swapToOnlineOperation.completionHandler = { [weak self] newRepresentables in
-            self?.updateViewStateAndServiceRepresentableChanges(representables: newRepresentables, changes: .full)
+        swapToOnlineOperation.threadSafeServiceRepresentables = threadSafeServices
+        swapToOnlineOperation.completionHandler = { [weak self] threadSafeRepresentables in
+            guard let `self` = self else { return }
+            let newServiceRepresentables = self.synchronizationManager.createServiceRepresentables(from: threadSafeRepresentables)
+            self.updateViewStateAndServiceRepresentableChanges(representables: newServiceRepresentables, changes: .full)
         }
         swapToOnlineOperation.completionBlock = completionBlock
         synchronizedQueue.addOperation(swapToOnlineOperation)
@@ -282,10 +304,13 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
 
     /// Updates the `ServiceSnippet` from services to the created `LocalServic `
     func updateSnippet(to local: LocalService) {
-        for (index, snippet) in services.enumerated() where snippet is ServiceSnippet {
-            guard snippet.id == local.id else { continue }
+        for (index, threadSafeRepresentable) in threadSafeServices.enumerated() {
+            guard
+                !local.isInvalidated,
+                case .snippet(let snippet) = threadSafeRepresentable,
+                snippet.id == local.id
+            else { continue }
             services[index] = local
-            break
         }
     }
 
@@ -364,6 +389,9 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
                 } else {
                     // Display new services and propagate tableview updates
                     updateServiceRepresentables(with: newRepresentables, changes: changes)
+                    if newRepresentables.isEmpty {
+                        updateViewState(to: .emptyState)
+                    }
                 }
             }
         }
@@ -372,7 +400,13 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
     private func updateServiceRepresentables(with representables: [ServiceRepresentable], changes: ServiceRepresentableChanges = .full) {
         // make sure the new representables are different
         // or that there wasn't a successful attempt to fetch initial page
-        guard !services.elementsEqual(representables, by: { $0.id == $1.id }) || isInitialPageFetch else { return }
+        let newRepresentablesAreDifferent = !threadSafeServices.elementsEqual(representables, by: { (threadSafeRepresentable, newRepresentable) -> Bool in
+            switch threadSafeRepresentable {
+            case .service(let id): return id == newRepresentable.id
+            case .snippet(let snippet): return snippet.id == newRepresentable.id
+            }
+        })
+        guard newRepresentablesAreDifferent || isInitialPageFetch else { return }
         // update services
         services = representables
 
@@ -383,9 +417,11 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
     private func handleServiceEvent(data: NotifireWebSocketServiceEventData) {
         let updateServicesOperation = UpdateServiceRepresentablesOperation(synchronizationManager: synchronizationManager)
         updateServicesOperation.action = .changeSingleService(data)
-        updateServicesOperation.setThreadSafe(serviceRepresentables: self.services, fromMainQueue: false)
-        updateServicesOperation.completionHandler = { [weak self] newRepresentables, maybeChanges in
-            self?.updateViewStateAndServiceRepresentableChanges(representables: newRepresentables, changes: maybeChanges)
+        updateServicesOperation.threadSafeServiceRepresentables = threadSafeServices
+        updateServicesOperation.completionHandler = { [weak self] threadSafeRepresentables, maybeChanges in
+            guard let `self` = self else { return }
+            let newServiceRepresentables = self.synchronizationManager.createServiceRepresentables(from: threadSafeRepresentables)
+            self.updateViewStateAndServiceRepresentableChanges(representables: newServiceRepresentables, changes: maybeChanges)
         }
 
         synchronizedQueue.addOperation(updateServicesOperation)
