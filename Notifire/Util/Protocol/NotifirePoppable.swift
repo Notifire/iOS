@@ -14,25 +14,29 @@ protocol NotifirePoppable {
 
 typealias NotifirePoppableViewController = UIViewController & NotifirePoppable
 
-protocol NotifireAlertPresenting: UIViewControllerTransitioningDelegate {
+protocol NotifireAlertPresenting {
 
     var poppablePresentingViewController: UIViewController { get }
 
-    func animationController(forPresented presented: UIViewController) -> UIViewControllerAnimatedTransitioning?
     func present(alert: NotifireAlertViewController, animated: Bool, completion: (() -> Void)?)
 }
 
+// swiftlint:disable type_name
+class NotifireAlertAnimatedTransitioningHandler: NSObject, UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard presented is NotifirePoppable else { return nil }
+        return NotifirePopAnimationController()
+    }
+}
+// swiftlint:enable type_name
+
 extension NotifireAlertPresenting {
     func present(alert: NotifireAlertViewController, animated: Bool, completion: (() -> Void)?) {
-        alert.transitioningDelegate = self
+        let transitionHandler = NotifireAlertAnimatedTransitioningHandler()
+        alert.transitioningDelegate = transitionHandler
         alert.modalPresentationStyle = .overFullScreen
         poppablePresentingViewController.view.endEditing(true)
         poppablePresentingViewController.present(alert, animated: animated, completion: completion)
-    }
-
-    func animationController(forPresented presented: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard presented is NotifirePoppable else { return nil }
-        return NotifirePopAnimationController()
     }
 }
 

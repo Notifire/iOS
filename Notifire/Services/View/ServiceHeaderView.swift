@@ -45,7 +45,7 @@ class ServiceHeaderView: ConstrainableView {
         floatingContentView.add(subview: serviceImageView)
         serviceImageView.topAnchor.constraint(equalTo: floatingContentView.topAnchor, constant: floatingDistanceFromTop).isActive = true
         serviceImageView.heightAnchor.constraint(equalTo: serviceImageView.widthAnchor).isActive = true
-        serviceImageView.widthAnchor.constraint(equalTo: floatingContentView.widthAnchor, multiplier: 0.35).isActive = true
+        serviceImageView.widthAnchor.constraint(equalToConstant: Size.Image.largeService).isActive = true
         serviceImageView.centerXAnchor.constraint(equalTo: floatingContentView.centerXAnchor).isActive = true
 
         floatingContentView.add(subview: serviceNameLabel)

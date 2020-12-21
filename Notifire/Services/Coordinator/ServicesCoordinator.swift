@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ServicesCoordinator: NavigatingChildCoordinator {
+class ServicesCoordinator: NavigatingChildCoordinator, PresentingCoordinator {
 
     // MARK: - Properties
     let servicesViewController: ServicesViewController
@@ -28,6 +28,9 @@ class ServicesCoordinator: NavigatingChildCoordinator {
     // MARK: NavigatingChildCoordinator
     weak var parentNavigatingCoordinator: NavigatingCoordinator?
 
+    // MARK: PresentingCoordinator
+    var presentedCoordinator: ChildCoordinator?
+
     // MARK: - Initialization
     init(sessionHandler: UserSessionHandler) {
         self.userSessionHandler = sessionHandler
@@ -40,10 +43,9 @@ class ServicesCoordinator: NavigatingChildCoordinator {
     }
 
     func showServiceCreation() {
-        let serviceCreationVC = ServiceCreationViewController(viewModel: ServiceCreationViewModel(protectedApiManager: protectedApiManager))
-        let serviceNavigation = NotifireActionNavigationController(rootViewController: serviceCreationVC)
-        serviceCreationVC.delegate = self
-        servicesViewController.present(serviceNavigation, animated: true, completion: nil)
+        let serviceCreationCoordinator = ServiceCreationCoordinator(protectedApiManager: protectedApiManager)
+        serviceCreationCoordinator.serviceCreationDelegate = self
+        present(childCoordinator: serviceCreationCoordinator, animated: true, modalPresentationStyle: .fullScreen)
     }
 
     func show(service: ServiceRepresentable) {
@@ -61,10 +63,6 @@ class ServicesCoordinator: NavigatingChildCoordinator {
             serviceViewController.viewModel.serviceRepresentable.isEqualTo(other: serviceRepresentable)
         else { return }
         parentNavigatingCoordinator?.popChildCoordinator(animated: true)
-    }
-
-    func dismissServiceCreation(service: Service? = nil) {
-        servicesViewController.dismiss(animated: true, completion: nil)
     }
 
     func showNotifications(service: LocalService) {
@@ -97,13 +95,13 @@ extension ServicesCoordinator: ServiceViewControllerDelegate {
 }
 
 // MARK: - ServiceCreationDelegate
-extension ServicesCoordinator: ServiceCreationDelegate {
-    func didCreate(service: Service) {
-       dismissServiceCreation(service: service)
+extension ServicesCoordinator: ServiceCreationCoordinatorDelegate {
+    func didCancelServiceCreation() {
+        dismissPresentedCoordinator(animated: true)
     }
 
-    func didCancelCreation() {
-        dismissServiceCreation()
+    func didFinishServiceCreation() {
+        dismissPresentedCoordinator(animated: true)
     }
 }
 

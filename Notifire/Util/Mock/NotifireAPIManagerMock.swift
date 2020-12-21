@@ -130,8 +130,8 @@ class NotifireProtectedAPIManagerMock: NotifireProtectedAPIManager, NotifireAPIM
         returnSuccessAfter(completion: completion, response: [])
     }
 
-    override func createService(name: String, image: String, completion: @escaping Callback<ServiceCreationResponse>) {
-        returnSuccessAfter(completion: completion, response: ServiceCreationResponse(name: "New service", image: ServiceCreationResponse.Image.init(small: "", medium: "", large: ""), id: 1337, levels: .init(info: true, warning: true, error: true), apiKey: "asdasdasd", updatedAt: Date()))
+    override func createService(name: String, imageData: Data?, completion: @escaping NotifireAPIBaseManager.Callback<NotifireAPIPlainSuccessResponse>) {
+        returnSuccessAfter(completion: completion, response: NotifireAPIPlainSuccessResponse(success: false))
     }
 
     override func changeApiKey(for service: LocalService, password: String, completion: @escaping Callback<APIKeyChangeResponse>) {

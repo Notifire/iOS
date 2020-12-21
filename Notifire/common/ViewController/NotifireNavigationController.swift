@@ -10,6 +10,8 @@ import UIKit
 
 class NotifireNavigationController: UINavigationController {
 
+    var navigationBarTintColor: UIColor = .compatibleLabel
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.titleTextAttributes = [
@@ -18,7 +20,7 @@ class NotifireNavigationController: UINavigationController {
         ]
         view.backgroundColor = .compatibleSystemBackground
         navigationBar.barTintColor = .compatibleSystemBackground
-        navigationBar.tintColor = .compatibleLabel
+        navigationBar.tintColor = navigationBarTintColor
     }
 }
 

@@ -4,6 +4,7 @@ PODS:
     - AppAuth/ExternalUserAgent (= 1.4.0)
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
+  - CropViewController (2.5.5)
   - GoogleSignIn (5.0.2):
     - AppAuth (~> 1.2)
     - GTMAppAuth (~> 1.0)
@@ -25,6 +26,7 @@ PODS:
   - TrustKit (1.7.0)
 
 DEPENDENCIES:
+  - CropViewController (~> 2.5.5)
   - GoogleSignIn
   - KeychainAccess (= 4.2.0)
   - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `6.0.9`)
@@ -35,6 +37,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AppAuth
+    - CropViewController
     - GoogleSignIn
     - GTMAppAuth
     - GTMSessionFetcher
@@ -55,6 +58,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
+  CropViewController: bd3ff11eeeaadc1e267bb9c3f3e9ee67a52d3285
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
@@ -64,6 +68,6 @@ SPEC CHECKSUMS:
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
 
-PODFILE CHECKSUM: b3e3d2a0cd0518278fb680ea25e9988f4e3e85ef
+PODFILE CHECKSUM: c7417172ece2ad14fc44bb053502c7c7d34701aa
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0

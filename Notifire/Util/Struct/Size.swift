@@ -26,6 +26,8 @@ struct Size {
         static let smallService: CGFloat = 36
         static let mediumService: CGFloat = 50
         static let normalService: CGFloat = 80
+        static let largeService: CGFloat = 128
+        static let extraLargeService: CGFloat = 172
         static let tabBarIcon: CGFloat = 30
         static let symbol: CGFloat = 24
         static let unreadNotificationAlert: CGFloat = 8

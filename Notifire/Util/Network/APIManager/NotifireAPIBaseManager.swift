@@ -52,6 +52,35 @@ class NotifireAPIBaseManager {
         return request
     }
 
+    open func createMultipartAPIRequest<Body: Encodable>(endpoint: CustomStringConvertible, method: HTTPMethod, imageData: Data?, body: Body, queryItems: [URLQueryItem]? = nil) -> (URLRequest, Data) {
+        // Create normal request
+        var request = createAPIRequest(endpoint: endpoint, method: method, body: nil as EmptyRequestBody?)
+        let boundary = UUID().uuidString
+        request.add(header: HTTPHeader(field: "Content-Type", value: "multipart/form-data; boundary=\(boundary)"))
+
+        // FormData
+        let boundaryData = "\r\n--\(boundary)\r\n".data(using: .utf8) ?? Data()
+        var data = Data()
+        // Image
+        if let imageData = imageData {
+            data.append(boundaryData)
+            data.append("Content-Disposition: form-data; name=\"image\"; filename=\"service.png\"\r\n".data(using: .utf8) ?? Data())
+            data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8) ?? Data())
+            data.append(imageData)
+        }
+
+        // Body
+        if let jsonData = try? JSONEncoder().encode(body) {
+            data.append(boundaryData)
+            data.append("Content-Disposition: form-data; name=\"data\"\r\n\r\n".data(using: .utf8) ?? Data())
+            data.append(jsonData)
+        }
+        // Final boundary
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8) ?? Data())
+
+        return (request, data)
+    }
+
     // MARK: - Internal
     func createApiCompletionHandler<ResponseBody: Decodable>(managerCompletion: @escaping Callback<ResponseBody>) -> ((NotifireAPIResponseContext<ResponseBody>) -> Void) {
         return { responseContext in

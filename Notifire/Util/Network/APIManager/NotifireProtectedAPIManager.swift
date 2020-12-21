@@ -24,29 +24,29 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
     }
 
     // MARK: - Private
-    private static func createAuthorizedRequestContext<Response: Decodable>(request: URLRequest, accessToken: String, responseType: Response.Type) -> URLRequestContext<Response> {
+    private static func createAuthorizedRequestContext<Response: Decodable>(request: URLRequest, requestTaskType: URLRequestContext<Response>.RequestTaskType, accessToken: String, responseType: Response.Type) -> URLRequestContext<Response> {
         var mutableRequest = request
         mutableRequest.add(header: HTTPHeader(field: "Authorization", value: accessToken))
-        let requestContext = URLRequestContext(responseBodyType: responseType, apiRequest: mutableRequest)
+        let requestContext = URLRequestContext(responseBodyType: responseType, apiRequest: mutableRequest, requestTaskType: requestTaskType)
         return requestContext
     }
 
     /// Adds a valid access token to a protected request, if no token is available the function generates it beforehand and performs the original request afterwards
-    private func performProtected<Response: Decodable>(request: URLRequest, responseType: Response.Type, completion: @escaping Callback<Response>) {
+    private func performProtected<Response: Decodable>(request: URLRequest, responseType: Response.Type, requestTaskType: URLRequestContext<Response>.RequestTaskType = .dataTask, completion: @escaping Callback<Response>) {
         let fetchAccessTokenCompletion: (Callback<String>) = { [weak self] result in
             guard let `self` = self else { return }
             switch result {
             case .error(let err):
                 completion(.error(err))
             case .success(let accessToken):
-                let requestContext = NotifireProtectedAPIManager.createAuthorizedRequestContext(request: request, accessToken: accessToken, responseType: responseType)
+                let requestContext = NotifireProtectedAPIManager.createAuthorizedRequestContext(request: request, requestTaskType: requestTaskType, accessToken: accessToken, responseType: responseType)
                 self.perform(requestContext: requestContext, managerCompletion: completion)
             }
 
         }
         if let currentAccessToken = userSession.accessToken {
             // We have an access token available in the User's session
-            let requestContext = NotifireProtectedAPIManager.createAuthorizedRequestContext(request: request, accessToken: currentAccessToken, responseType: responseType)
+            let requestContext = NotifireProtectedAPIManager.createAuthorizedRequestContext(request: request, requestTaskType: requestTaskType, accessToken: currentAccessToken, responseType: responseType)
             apiHandler.perform(requestContext: requestContext) { [weak self] responseContext in
                 if case .error(let errorContext) = responseContext, case .invalidStatusCode(let statusCode, _) = errorContext.error, case .unauthorized? = NotifireAPIStatusCode(rawValue: statusCode) {
                     self?.fetchNewAccessToken(completion: fetchAccessTokenCompletion)
@@ -63,7 +63,7 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
     func fetchNewAccessToken(completion: @escaping Callback<String>) {
         let body = GenerateAccessTokenRequestBody(refreshToken: userSession.refreshToken)
         let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.generateAccessToken, method: .post, body: body, queryItems: nil)
-        let requestContext = URLRequestContext(responseBodyType: GenerateAccessTokenResponse.self, apiRequest: request)
+        let requestContext = URLRequestContext(responseBodyType: GenerateAccessTokenResponse.self, apiRequest: request, requestTaskType: .dataTask)
         perform(requestContext: requestContext) { [weak self] result in
             guard let `self` = self else { return }
             switch result {
@@ -158,10 +158,11 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
     }
 
     // MARK: Create
-    func createService(name: String, image: String, completion: @escaping Callback<ServiceCreationResponse>) {
-        let body = ServiceCreationBody(name: name, image: image)
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .post, body: body, queryItems: nil)
-        performProtected(request: request, responseType: ServiceCreationResponse.self, completion: completion)
+    // FIXME: createService
+    func createService(name: String, imageData: Data?, completion: @escaping Callback<NotifireAPIPlainSuccessResponse>) {
+        let body = ServiceCreationBody(name: name)
+        let multipartRequest = createMultipartAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .post, imageData: imageData, body: body)
+        performProtected(request: multipartRequest.0, responseType: NotifireAPIPlainSuccessResponse.self, requestTaskType: .uploadTask(data: multipartRequest.1), completion: completion)
     }
 
     // MARK: Update
@@ -172,7 +173,8 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
 
     // MARK: Delete
     func delete(service: LocalService, completion: @escaping Callback<EmptyRequestBody>) {
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service(id: service.id), method: .delete, body: nil as EmptyRequestBody?, queryItems: nil)
+        let body = ServiceDeletionBody(id: service.id)
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .delete, body: body)
         performProtected(request: request, responseType: EmptyRequestBody.self, completion: completion)
     }
 

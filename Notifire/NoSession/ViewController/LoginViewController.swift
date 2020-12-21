@@ -232,10 +232,6 @@ class LoginViewController: VMViewController<LoginViewModel>, AppRevealing, Keybo
         view.endEditing(true)
         delegate?.shouldDismissLogin()
     }
-
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return animationController(forPresented: presented)
-    }
 }
 
 extension LoginViewController: UserErrorResponding {

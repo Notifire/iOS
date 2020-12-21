@@ -39,14 +39,14 @@ class ServiceCreationViewModel: InputValidatingViewModel, APIErrorProducing {
     func createService() {
         guard !loading else { return }
         loading = true
-        protectedApiManager.createService(name: serviceName, image: image) { [weak self] responseContext in
-            self?.loading = false
-            switch responseContext {
-            case .error(let error):
-                self?.onError?(error)
-            case .success(let newService):
-                self?.onSuccess?(newService)
-            }
-        }
+//        protectedApiManager.createService(name: serviceName, imageData: image) { [weak self] responseContext in
+//            self?.loading = false
+//            switch responseContext {
+//            case .error(let error):
+//                self?.onError?(error)
+//            case .success(let newService):
+//                self?.onSuccess?(newService)
+//            }
+//        }
     }
 }

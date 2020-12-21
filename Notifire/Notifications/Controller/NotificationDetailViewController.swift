@@ -51,10 +51,6 @@ class NotificationDetailViewController: UIViewController, NavigationBarDisplayin
         viewModel.markNotificationAsRead()
     }
 
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return animationController(forPresented: presented)
-    }
-
     // MARK: - Private
     private func setTitle() {
         let date = viewModel.notification.date.string(with: .complete)

@@ -9,7 +9,7 @@
 import Foundation
 
 protocol APIHandler {
-    /// Perform the network request.
+    /// Perform a normal data network request.
     func perform<ResponseBody: Decodable>(requestContext: URLRequestContext<ResponseBody>, completionHandler: @escaping ((NotifireAPIResponseContext<ResponseBody>) -> Void))
 }
 
@@ -39,8 +39,7 @@ extension URLSession: APIHandler {
 
     // swiftlint:disable function_body_length
     func perform<ResponseBody: Decodable>(requestContext: URLRequestContext<ResponseBody>, completionHandler: @escaping ((NotifireAPIResponseContext<ResponseBody>) -> Void)) {
-        // Create a task
-        let task = dataTask(with: requestContext.apiRequest) { data, urlResponse, maybeError in
+        let taskCompletionHandler: ((Data?, URLResponse?, Error?) -> Void) = {data, urlResponse, maybeError in
             // Error
             if let error = maybeError {
                 URLSession.finish(nil, .urlSession(error: error), requestContext: requestContext, completion: completionHandler)
@@ -136,7 +135,16 @@ extension URLSession: APIHandler {
                 )
             }
         }
-        Logger.logNetwork(.debug, "\(self) performing requestContext=<\(requestContext)>")
+
+        // Create a task
+        let task: URLSessionDataTask
+        switch requestContext.requestTaskType {
+        case .dataTask:
+            task = dataTask(with: requestContext.apiRequest, completionHandler: taskCompletionHandler)
+        case .uploadTask(let data):
+            task = uploadTask(with: requestContext.apiRequest, from: data, completionHandler: taskCompletionHandler)
+        }
+        // Start it
         task.resume()
     }
     // swiftlint:enable function_body_length

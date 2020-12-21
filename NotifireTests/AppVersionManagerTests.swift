@@ -21,7 +21,7 @@ class AppVersionManagerTests: XCTestCase {
 
     // MARK: - Util
     func createManager(apiManager: NotifireAPIManager = NotifireAPIFactory.createAPIManager(), currentVersion: String = "1.0.0") -> AppVersionManager {
-        return AppVersionManager(apiManager: apiManager, currentVersion: currentVersion)
+        return AppVersionManager(currentVersion: currentVersion)
     }
 
     let response = AppVersionResponse(forceUpdate: true, latestVersion: "1.0.0")

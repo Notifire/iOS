@@ -54,6 +54,11 @@
 				<key>NSIncludesSubdomains</key>
 				<true/>
 			</dict>
+            <key>dev-notifire.memonil.com</key>
+            <dict>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+            </dict>
 		</dict>
 	</dict>
 	<key>UIBackgroundModes</key>
@@ -81,5 +86,7 @@
 	<string>$(WS_URL)</string>
 	<key>queries</key>
 	<string></string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Notifire needs to access your photos.</string>
 </dict>
 </plist>

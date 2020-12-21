@@ -48,6 +48,7 @@ class RoundedContainerImageView: ConstrainableView {
         }
         set {
             roundedImageView.image = newValue
+            setNeedsDisplay()
         }
     }
 
@@ -66,6 +67,148 @@ class RoundedContainerImageView: ConstrainableView {
     private func layout() {
         add(subview: roundedImageView)
         roundedImageView.embed(in: self)
+    }
+}
+
+class RoundedActionButton: ActionButton {
+
+    override open var isHighlighted: Bool {
+        didSet {
+            backgroundColor = isHighlighted ? UIColor.primary.withAlphaComponent(0.3) : .compatibleSystemBackground
+        }
+    }
+
+    override func setup() {
+        super.setup()
+
+        translatesAutoresizingMaskIntoConstraints = false
+        tintColor = .white
+        backgroundColor = .compatibleSystemBackground
+
+        imageView?.contentMode = .scaleAspectFit
+        imageView?.backgroundColor = .primary
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        // Round the corners of edit button
+        layer.cornerRadius = frame.width / 2
+        layer.masksToBounds = true
+        imageEdgeInsets = .init(everySide: frame.width / 3.4)
+
+        // Round the corners of edit button image
+        if let imageView = imageView {
+            imageView.layer.cornerRadius = imageView.frame.width / 2
+        }
+    }
+}
+
+class RoundedEditableImageView: RoundedContainerImageView, UIGestureRecognizerDelegate {
+
+    enum ImageEditStyle {
+        case add
+        case edit
+
+        var image: UIImage {
+            switch self {
+            case .add: return UIImage(imageLiteralResourceName: "plus")
+            case .edit: return UIImage(imageLiteralResourceName: "pencil")
+            }
+        }
+
+        var height: CGFloat {
+            switch self {
+            case .add: return Size.Image.normalService * 0.8
+            case .edit: return Size.Image.smallService
+            }
+        }
+    }
+
+    // MARK: - Properties
+    var imageEditStyle: ImageEditStyle = .add {
+        didSet {
+            editButton.setImage(imageEditStyle.image.withRenderingMode(.alwaysTemplate), for: .normal)
+            setNeedsLayout()
+        }
+    }
+
+    weak var imageHighlightOverlayLayer: CALayer?
+
+    // MARK: UI
+    lazy var editButton: RoundedActionButton = {
+        let button = RoundedActionButton(type: .system)
+        button.setImage(imageEditStyle.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.onProperTap = { [unowned self] _ in
+            self.onUserAction?()
+        }
+        return button
+    }()
+
+    // MARK: Callback
+    /// Called whenever the user taps the editButton or taps/long presses the RoundedImageView
+    var onUserAction: (() -> Void)?
+
+    // MARK: - Inherited
+    override func setupSubviews() {
+        super.setupSubviews()
+
+        // Gesture Recognizer
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressImageView))
+        longPressGestureRecognizer.minimumPressDuration = 0
+        longPressGestureRecognizer.allowableMovement = 8
+        longPressGestureRecognizer.delegate = self
+        addGestureRecognizer(longPressGestureRecognizer)
+
+        // Border
+        for layer in [roundedImageView.layer, editButton.layer] {
+            layer.borderWidth = 1
+            layer.borderColor = UIColor.customSeparator.cgColor
+        }
+
+        // Layout
+        add(subview: editButton)
+        editButton.widthAnchor.constraint(equalToConstant: imageEditStyle.height).isActive = true
+        editButton.heightAnchor.constraint(equalTo: editButton.widthAnchor).isActive = true
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return touch.view !== editButton
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        // Compute the position for editButton
+        let theta: CGFloat = CGFloat.pi * 45 / 180
+        let radius = bounds.width / 2
+        let x: CGFloat = bounds.width / 2 + radius * cos(theta) - editButton.frame.width / 2
+        let y: CGFloat = bounds.width / 2 + radius * sin(theta) - editButton.frame.width / 2
+        let editButtonOrigin = CGPoint(x: x, y: y)
+        editButton.frame = CGRect(origin: editButtonOrigin, size: editButton.frame.size)
+    }
+
+    @objc private func didLongPressImageView(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        switch gestureRecognizer.state {
+        case .began:
+            // Add overlay
+            guard imageHighlightOverlayLayer == nil else { return }
+            let overlayLayer = CALayer()
+            overlayLayer.frame = roundedImageView.frame.insetBy(dx: -10, dy: -10)
+            overlayLayer.backgroundColor = UIColor.compatibleGray.withAlphaComponent(0.25).cgColor
+            overlayLayer.cornerRadius = overlayLayer.frame.width / 2
+            layer.insertSublayer(overlayLayer, below: editButton.layer)
+            imageHighlightOverlayLayer = overlayLayer
+        case .ended:
+            // Remove overlay and execute action
+            imageHighlightOverlayLayer?.removeFromSuperlayer()
+            onUserAction?()
+        case .cancelled, .changed, .failed:
+            // Remove overlay
+            imageHighlightOverlayLayer?.removeFromSuperlayer()
+        default:
+            break
+        }
     }
 }
 

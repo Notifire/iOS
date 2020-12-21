@@ -85,8 +85,4 @@ class RootViewController: VMViewController<RootViewModel>, NotifireAlertPresenti
         }
         present(alert: alertVC, animated: true, completion: nil)
     }
-
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return animationController(forPresented: presented)
-    }
 }

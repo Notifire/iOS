@@ -111,8 +111,4 @@ class LoginRegisterSplitterViewController: VMViewController<LoginRegisterSplitte
         headerSecondaryTextView.widthAnchor.constraint(equalTo: headerLabel.widthAnchor).isActive = true
         headerSecondaryTextView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: Size.componentSpacing).isActive = true
     }
-
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return animationController(forPresented: presented)
-    }
 }

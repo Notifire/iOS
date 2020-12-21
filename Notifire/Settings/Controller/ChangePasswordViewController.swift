@@ -128,8 +128,4 @@ class ChangePasswordViewController: VMViewController<ChangePasswordViewModel>, N
     @objc private func didSelectSaveNewPassword() {
         viewModel.saveNewPassword()
     }
-
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return animationController(forPresented: presented)
-    }
 }

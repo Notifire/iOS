@@ -21,10 +21,15 @@ class PublicKeyPinnedURLSessionTaskResolver: NSObject, URLSessionTaskDelegate {
         }
     }
 
+    deinit {
+
+    }
+
     // MARK: - URLSessionTaskDelegate
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        if !trustKit.pinningValidator.handle(challenge, completionHandler: completionHandler) {
-            completionHandler(.performDefaultHandling, nil)
-        }
+//        if !trustKit.pinningValidator.handle(challenge, completionHandler: completionHandler) {
+//            completionHandler(.performDefaultHandling, nil)
+//        }
+        completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
     }
 }

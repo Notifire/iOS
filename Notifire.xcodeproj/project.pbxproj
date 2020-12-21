@@ -519,6 +519,10 @@
 		897B77C325250576008602BB /* SwapOnlineOfflineRepresentablesOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897B77C125250576008602BB /* SwapOnlineOfflineRepresentablesOperation.swift */; };
 		897B77C8252505B4008602BB /* WebSocketConnectionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897B77C7252505B4008602BB /* WebSocketConnectionStatus.swift */; };
 		897B77C9252505B4008602BB /* WebSocketConnectionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897B77C7252505B4008602BB /* WebSocketConnectionStatus.swift */; };
+		8981636E258E7D29007AECE4 /* KeyboardFollowingButtonContaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8981636D258E7D29007AECE4 /* KeyboardFollowingButtonContaining.swift */; };
+		8981636F258E7D29007AECE4 /* KeyboardFollowingButtonContaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8981636D258E7D29007AECE4 /* KeyboardFollowingButtonContaining.swift */; };
+		89816375258EA60F007AECE4 /* ServiceCreationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89816374258EA60F007AECE4 /* ServiceCreationCoordinator.swift */; };
+		89816376258EA60F007AECE4 /* ServiceCreationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89816374258EA60F007AECE4 /* ServiceCreationCoordinator.swift */; };
 		8985338C219F95E000E0A656 /* NotificationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8985338B219F95E000E0A656 /* NotificationDetailViewController.swift */; };
 		89853398219FA46A00E0A656 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 89853391219FA46900E0A656 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		898533B7219FA9FE00E0A656 /* LocalNotifireNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */; };
@@ -995,6 +999,8 @@
 		897B77B82523EE81008602BB /* ServiceRepresentableChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRepresentableChanges.swift; sourceTree = "<group>"; };
 		897B77C125250576008602BB /* SwapOnlineOfflineRepresentablesOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapOnlineOfflineRepresentablesOperation.swift; sourceTree = "<group>"; };
 		897B77C7252505B4008602BB /* WebSocketConnectionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketConnectionStatus.swift; sourceTree = "<group>"; };
+		8981636D258E7D29007AECE4 /* KeyboardFollowingButtonContaining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardFollowingButtonContaining.swift; sourceTree = "<group>"; };
+		89816374258EA60F007AECE4 /* ServiceCreationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCreationCoordinator.swift; sourceTree = "<group>"; };
 		8985338B219F95E000E0A656 /* NotificationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailViewController.swift; sourceTree = "<group>"; };
 		89853391219FA46900E0A656 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		89853393219FA46A00E0A656 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -1215,15 +1221,9 @@
 			children = (
 				893995A92170EDE800687A79 /* ServicesCoordinator.swift */,
 				892DC0A5255F01C70067EB12 /* ServiceCoordinator.swift */,
+				89816374258EA60F007AECE4 /* ServiceCreationCoordinator.swift */,
 			);
 			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		890D4BA32561FBFE0049CDB1 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		890D4BA42561FC040049CDB1 /* ViewModel */ = {
@@ -1336,7 +1336,7 @@
 				8936E3C625635935007424A7 /* View Model Protocols */,
 				892DC0C92560A0570067EB12 /* TableView */,
 				89D4E1F42139F43E00630790 /* NotificationObserving.swift */,
-				897069E12134051E00D798AA /* KeyboardObserving.swift */,
+				89A66229258E7C4500324AE9 /* Keyboard */,
 				894B1F9A2505DA5100D0D671 /* BottomNavigator */,
 				894B1F962505DA3300D0D671 /* NavigationBar */,
 				894B1F952505DA2800D0D671 /* Reselectable */,
@@ -1765,7 +1765,6 @@
 				894AB6842512608600F2CBF5 /* View */,
 				894AB688251260AF00F2CBF5 /* ViewController */,
 				890D4BA42561FC040049CDB1 /* ViewModel */,
-				890D4BA32561FBFE0049CDB1 /* Controller */,
 				890D4BA22561FBF70049CDB1 /* Coordinator */,
 				894AB6892512616400F2CBF5 /* Extension */,
 				894AB67F2512606800F2CBF5 /* Protocol */,
@@ -2092,6 +2091,15 @@
 				892DC08D255DF2F20067EB12 /* Util */,
 			);
 			path = NotifireTests;
+			sourceTree = "<group>";
+		};
+		89A66229258E7C4500324AE9 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				897069E12134051E00D798AA /* KeyboardObserving.swift */,
+				8981636D258E7D29007AECE4 /* KeyboardFollowingButtonContaining.swift */,
+			);
+			path = Keyboard;
 			sourceTree = "<group>";
 		};
 		89B3EC3C2020E48F0068BA64 = {
@@ -2692,6 +2700,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/Sentry/Sentry.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
@@ -2703,6 +2712,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sentry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
@@ -2788,6 +2798,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/Sentry/Sentry.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
@@ -2799,6 +2810,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sentry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
@@ -3277,6 +3289,7 @@
 				893A4A842530D42800DD02D0 /* RealmObjectObserver.swift in Sources */,
 				8936E3C92563594E007424A7 /* TitleProviding.swift in Sources */,
 				8936E3D3256359E1007424A7 /* ChangePasswordCoordinator.swift in Sources */,
+				89816376258EA60F007AECE4 /* ServiceCreationCoordinator.swift in Sources */,
 				89576AF924FD412A0097BF87 /* BaseButton.swift in Sources */,
 				89576AFA24FD412A0097BF87 /* RealmProviding.swift in Sources */,
 				89576AFB24FD412A0097BF87 /* URLRequestExtension.swift in Sources */,
@@ -3382,6 +3395,7 @@
 				899C07182551E2E00005228E /* NavigationCoordinatorDelegate.swift in Sources */,
 				89F19D7C2568C1050030AFE0 /* UserAttentionPromptManager.swift in Sources */,
 				895418DC251945AE0046464D /* ServiceRepresentable.swift in Sources */,
+				8981636F258E7D29007AECE4 /* KeyboardFollowingButtonContaining.swift in Sources */,
 				89576B2B24FD412A0097BF87 /* TabbedCoordinator.swift in Sources */,
 				89F19D882569FCFA0030AFE0 /* PermissionStatusView.swift in Sources */,
 				89576B2C24FD412A0097BF87 /* TabBarViewModel.swift in Sources */,
@@ -3464,6 +3478,7 @@
 				895418FC251CAA660046464D /* GetServicesBatchOperation.swift in Sources */,
 				89BD25BC251E349400280929 /* RealmCollectionObserver.swift in Sources */,
 				8933F0B3214062F300645B3A /* ValidatableTextInput.swift in Sources */,
+				89816375258EA60F007AECE4 /* ServiceCreationCoordinator.swift in Sources */,
 				8985338C219F95E000E0A656 /* NotificationDetailViewController.swift in Sources */,
 				893995932170C58400687A79 /* TabBarViewController.swift in Sources */,
 				89E6B6D7250049F700F7A79C /* VMView.swift in Sources */,
@@ -3537,6 +3552,7 @@
 				897B77B92523EE81008602BB /* ServiceRepresentableChanges.swift in Sources */,
 				8998D8842520D435002A597B /* IndexPath+RowInit.swift in Sources */,
 				893AD7B825717542000ADFEC /* Config+TrustKit.swift in Sources */,
+				8981636E258E7D29007AECE4 /* KeyboardFollowingButtonContaining.swift in Sources */,
 				898533BA219FAA1700E0A656 /* LocalService.swift in Sources */,
 				8920CA892172345B00A72BD0 /* Stylable.swift in Sources */,
 				893FE02D21977FB2002CD846 /* NotificationLevelTableViewCell.swift in Sources */,

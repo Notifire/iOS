@@ -64,6 +64,13 @@ struct ComponentRule {
         ]
     }()
 
+    static let serviceNameRules: [ComponentRule] = {
+        return [
+            ComponentRule.init(kind: .minimum(length: 1), showIfBroken: false),
+            ComponentRule.init(kind: .maximum(length: Settings.Text.maximumLength), showIfBroken: true, brokenRuleDescription: "The service name is too long.")
+        ]
+    }()
+
     /// Email length rules
     private static let emailBaseRules: [ComponentRule] = {
         return [

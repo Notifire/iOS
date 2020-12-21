@@ -11,7 +11,9 @@ import UIKit
 class ChangeEmailViewController: VMViewController<ChangeEmailViewModel>, CenterStackViewPresenting, NotifireAlertPresenting, APIErrorResponding, APIErrorPresenting {
 
     // MARK: - Properties
-    lazy var textFieldReturnChainer = TextFieldReturnChainer(textField: emailTextInput.textField)
+    lazy var textFieldReturnChainer = TextFieldReturnChainer(textFields: [emailTextInput.textField], setLastReturnKeyTypeToDone: true) { [weak self] in
+        self?.viewModel.sendChangeEmail()
+    }
 
     // MARK: UI
     lazy var emailTextInput: ValidatableTextInput = {
@@ -42,10 +44,6 @@ class ChangeEmailViewController: VMViewController<ChangeEmailViewModel>, CenterS
 
         title = viewModel.title
         view.backgroundColor = .compatibleSystemBackground
-
-        textFieldReturnChainer.onFinalReturn = { [weak self] in
-            self?.viewModel.sendChangeEmail()
-        }
 
         setupSubviews()
         prepareViewModel()
@@ -103,10 +101,5 @@ class ChangeEmailViewController: VMViewController<ChangeEmailViewModel>, CenterS
         }))
         emailTextInput.textField.text = ""
         present(alert: alertVC, animated: true, completion: nil)
-    }
-
-    // MARK: NotifireAlertPresenting
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return animationController(forPresented: presented)
     }
 }

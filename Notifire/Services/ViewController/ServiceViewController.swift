@@ -143,10 +143,6 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         parentScrollView.delegate = self
     }
 
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return animationController(forPresented: presented)
-    }
-
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         guard
             #available(iOS 13.0, *),

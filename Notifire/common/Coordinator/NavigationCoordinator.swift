@@ -44,7 +44,7 @@ extension NavigatingCoordinator {
     }
 
     /// Add a new childCoordinator to the childCoordinators array and push its `ChildCoordinator.viewController` to the navigation stack.
-    /// - Parameter animated: whether the `pushViewController` should be animated.
+    /// - Parameter animated: whether the `pushViewController` should be animated. Default value is `true`.
     func push(childCoordinator: ChildCoordinator, animated: Bool = true) {
         // Add the child first
         add(childCoordinator: childCoordinator)

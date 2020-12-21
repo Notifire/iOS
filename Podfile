@@ -1,9 +1,10 @@
 project 'Notifire'
 platform :ios, '11.0'
 use_frameworks!
+install! 'cocoapods', :deterministic_uuids => false
 
 # Turn on to disable all warnings from Pods
-# inhibit_all_warnings!
+inhibit_all_warnings!
 
 abstract_target 'Abst' do
 
@@ -14,6 +15,7 @@ abstract_target 'Abst' do
   target 'Notifire' do
     pod 'Starscream', '~> 4.0.0'
     pod 'SkeletonView', '~> 1.9'
+    pod 'CropViewController', '~> 2.5.5'
     pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '6.0.9'
     pod 'TrustKit'
   end
@@ -21,6 +23,7 @@ abstract_target 'Abst' do
   target 'Notifire Mock' do
     pod 'Starscream', '~> 4.0.0'
     pod 'SkeletonView', '~> 1.9'
+    pod 'CropViewController', '~> 2.5.5'
     pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '6.0.9'
     pod 'TrustKit'
   end

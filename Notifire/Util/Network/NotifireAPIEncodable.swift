@@ -42,8 +42,11 @@ struct LoginProviderRequestBody: Encodable {
 
 struct ServiceCreationBody: Encodable {
     let name: String
-    let image: String
     let levels = Service.Levels(info: true, warning: true, error: true)
+}
+
+struct ServiceDeletionBody: Encodable {
+    let id: Int
 }
 
 struct PasswordValidationRequestBody: Encodable {

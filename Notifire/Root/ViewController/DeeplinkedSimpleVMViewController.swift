@@ -122,8 +122,4 @@ class DeeplinkedSimpleVMViewController<VM: DeeplinkViewModelRepresenting>: Deepl
         // Close the deeplink when we dismiss an EmailTokenError
         delegate?.shouldCloseDeeplink()
     }
-
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return animationController(forPresented: presented)
-    }
 }

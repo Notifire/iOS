@@ -24,6 +24,9 @@ enum LabelStyle {
     case semiboldCellTitle
     case cellTitle
 
+    // Buttons
+    case actionButton
+
     case dimmedInformation
     case centeredDimmedLightInformation
     case cellInformation
@@ -115,6 +118,11 @@ extension UILabel: Stylable {
         case .cellTitle:
             textColor = .compatibleLabel
             font = UIFont.systemFont(ofSize: 16)
+
+        // Buttons
+        case .actionButton:
+            textColor = .primary
+            font = UIFont.systemFont(ofSize: 15, weight: .medium)
 
         case .dimmedInformation:
             textColor = UIColor.black.withAlphaComponent(0.8)

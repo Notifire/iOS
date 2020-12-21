@@ -22,8 +22,9 @@ class TextFieldReturnChainer {
     ///     -   textFields: the text fields that will be chained for return action
     ///     -   setLastReturnKeyTypeToDone: whether to set the last textfield's `returnKeyType` to `.done`
     /// - Note: Specify the textFields in order in which they should be chained.
-    init(textFields: [UITextField], setLastReturnKeyTypeToDone: Bool = true) {
+    init(textFields: [UITextField], setLastReturnKeyTypeToDone: Bool = true, onFinalReturn: (() -> Void)? = nil) {
         self.textFields = textFields
+        self.onFinalReturn = onFinalReturn
 
         if setLastReturnKeyTypeToDone, let last = textFields.last {
             last.returnKeyType = .done
@@ -35,8 +36,8 @@ class TextFieldReturnChainer {
         }
     }
 
-    convenience init(textField: UITextField, setLastReturnKeyTypeToDone: Bool = true) {
-        self.init(textFields: [textField], setLastReturnKeyTypeToDone: setLastReturnKeyTypeToDone)
+    convenience init(textField: UITextField, setLastReturnKeyTypeToDone: Bool = true, onFinalReturn: (() -> Void)? = nil) {
+        self.init(textFields: [textField], setLastReturnKeyTypeToDone: setLastReturnKeyTypeToDone, onFinalReturn: onFinalReturn)
     }
 
     // MARK: - Private
