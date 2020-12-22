@@ -64,7 +64,11 @@ class DLResetPasswordViewModel: InputValidatingViewModel, UserSessionCreating, D
             case .error(let error):
                 self.onError?(error)
             case .success(let response):
-                let session = UserSessionManager.createEmailSession(loginSuccessResponse: response.payload)
+                guard response.success, let payload = response.payload else {
+                    self.onError?(.unknown)
+                    return
+                }
+                let session = UserSessionManager.createEmailSession(loginSuccessResponse: payload)
                 self.sessionDelegate?.didCreate(session: session)
             }
         }

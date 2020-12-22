@@ -54,9 +54,13 @@ extension DeeplinkViewModelRepresenting where UserError == EmailTokenError {
                 self.stateModel.state = .failed
                 self.onError?(error)
             case .success(let response):
-                let session = UserSessionManager.createEmailSession(loginSuccessResponse: response.payload)
+                guard response.success, let payload = response.payload else {
+                    self.onError?(.unknown)
+                    return
+                }
+                let session = UserSessionManager.createEmailSession(loginSuccessResponse: payload)
                 self.stateModel.state = .success
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [weak self] in
                     self?.sessionDelegate?.didCreate(session: session)
                 }
             }

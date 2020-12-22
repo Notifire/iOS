@@ -16,4 +16,6 @@ WS_URL = wss:$(SLASH)/notifire.memonil.com/ws/services
 
 // App name + bundle ID
 APP_DISPLAY_NAME=Notifire TF
-PRODUCT_BUNDLE_IDENTIFIER=com.dvdblk.Notifire.tf
+PARENT_APP_BUNDLE_IDENTIFIER=com.dvdblk.Notifire.tf
+PRODUCT_BUNDLE_IDENTIFIER=$(PARENT_APP_BUNDLE_IDENTIFIER)
+

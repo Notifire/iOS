@@ -20,7 +20,7 @@ class NotifireAPIManagerFetchMock: NotifireAPIManager, NotifireAPIManagerMocking
     let mockType: MockType
     var mockCompletion: (() -> Void)?
 
-    init(apiHandler: APIHandler = URLSession.shared, mockType: MockType) {
+    init(apiHandler: APIHandler = URLSession.custom, mockType: MockType) {
         self.mockType = mockType
         super.init(apiHandler: apiHandler)
     }

@@ -14,7 +14,7 @@ struct RealmManager {
 
     private static let schemaVersion: UInt64 = 5
     private static let realmFileExtension = "realm"
-    private static let appGroupIdentifier = "group.com.dvdblk.Notifire"
+    private static let appGroupIdentifier = UserSessionManager.appGroupSuiteName
 
     static func realmConfigurationFile(for userSession: UserSession) -> String {
         return "\(userSession.email).\(realmFileExtension)"

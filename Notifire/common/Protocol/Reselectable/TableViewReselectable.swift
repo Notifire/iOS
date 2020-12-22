@@ -18,3 +18,9 @@ extension TableViewReselectable {
         return true
     }
 }
+
+extension TableViewReselectable where Self: EmptyStatePresentable {
+    var viewToHideWithEmptyState: UIView {
+        return tableView
+    }
+}

@@ -14,7 +14,7 @@ class NotifireNotificationsHandler: NSObject {
     var activeRealmProvider: RealmProviding?
 
     enum NotificationHandlingError: Error {
-        case unknownContent
+        case unknownContent(Error)
         case noActiveUserSession
     }
 
@@ -29,19 +29,21 @@ class NotifireNotificationsHandler: NSObject {
         //UNUserNotificationCenter.current().delegate = self
     }
 
-    func getNotification(from userInfo: [AnyHashable: Any]) -> LocalNotifireNotification? {
-        guard let userInfoData = try? JSONSerialization.data(withJSONObject: userInfo, options: []),
-            let notifireNotification = try? JSONDecoder().decode(LocalNotifireNotification.self, from: userInfoData) else {
-                return nil
-        }
+    func getNotification(from userInfo: [AnyHashable: Any]) throws -> LocalNotifireNotification {
+        let userInfoData = try JSONSerialization.data(withJSONObject: userInfo, options: [])
+        let notifireNotification = try JSONDecoder().decode(LocalNotifireNotification.self, from: userInfoData)
         return notifireNotification
     }
 
     func handle(content: UNNotificationContent) throws -> LocalNotifireNotification {
         let userInfoDict = content.userInfo
-        guard let notifireNotification = getNotification(from: userInfoDict) else {
-            throw NotificationHandlingError.unknownContent
+        let notifireNotification: LocalNotifireNotification
+        do {
+            notifireNotification = try getNotification(from: userInfoDict)
+        } catch let error {
+            throw NotificationHandlingError.unknownContent(error)
         }
+
         guard let realm = activeRealmProvider?.realm else {
             throw NotificationHandlingError.noActiveUserSession
         }

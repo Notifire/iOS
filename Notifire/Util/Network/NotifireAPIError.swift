@@ -19,6 +19,7 @@ enum NotifireAPIError: Error, CustomStringConvertible {
     case invalidStatusCode(Int, String?)
     case invalidResponseBody(Decodable.Type, String)
     case clientError(ClientError)
+    case notConnectedToTheInternet
     case urlSession(error: Error)
 
     /// Represent any 40x response body.
@@ -41,6 +42,7 @@ enum NotifireAPIError: Error, CustomStringConvertible {
         case .invalidStatusCode(let statusCode, let responseBody): return "invalidStatusCode statusCode={\(statusCode)} | responseBody={\(responseBody ?? "empty-response-body")}"
         case .invalidResponseBody(let bodyType, let actualData): return "invalidResponseBody expectedResponseBodyType={\(bodyType)} | actualResponseData={\(actualData)}"
         case .clientError(let clientError): return "clientError code=<\(clientError.code)> | message=<\(clientError.message)>"
+        case .notConnectedToTheInternet: return "not connected to the internet"
         case .urlSession(let underlyingError): return "urlSessionError underlyingError={\(underlyingError)}"
         }
     }
@@ -54,6 +56,7 @@ enum NotifireAPIError: Error, CustomStringConvertible {
         case .invalidStatusCode(let statusCode, _): return "Invalid status code: \(statusCode)"
         case .invalidResponseBody: return "Unexpected response data."
         case .clientError(let clientError): return clientError.message
+        case .notConnectedToTheInternet: return "No internet connection."
         case .urlSession(let underlyingError):
             let error = underlyingError as NSError
             if error.domain == NSURLErrorDomain {

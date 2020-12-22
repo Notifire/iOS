@@ -143,7 +143,7 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
     }
 
     // MARK: Sync
-    func sync(services: [SyncServicesRequestBody.ServiceSyncData], completion: @escaping Callback<SyncServicesResponse>) {
+    func sync(services: [Service], completion: @escaping Callback<SyncServicesResponse>) {
         let body = SyncServicesRequestBody(services: services)
         let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.servicesSync, method: .post, body: body, queryItems: nil)
         performProtected(request: request, responseType: SyncServicesResponse.self, completion: completion)

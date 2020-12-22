@@ -97,10 +97,10 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
     private func updateViewStateAppearance(state: NotificationsViewModel.ViewState) {
         switch state {
         case .empty:
-            let emptyState = addEmptyState()
+            let emptyState = addEmptyStateView()
             emptyState?.set(title: viewModel.emptyTitle(), text: viewModel.emptyText())
         case .notifications:
-            removeEmptyState()
+            removeEmptyStateView()
         }
     }
 }

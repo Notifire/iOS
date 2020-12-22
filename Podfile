@@ -16,6 +16,7 @@ abstract_target 'Abst' do
     pod 'Starscream', '~> 4.0.0'
     pod 'SkeletonView', '~> 1.9'
     pod 'CropViewController', '~> 2.5.5'
+    pod 'SDWebImage', '~> 5.10.0'
     pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '6.0.9'
     pod 'TrustKit'
   end
@@ -24,6 +25,7 @@ abstract_target 'Abst' do
     pod 'Starscream', '~> 4.0.0'
     pod 'SkeletonView', '~> 1.9'
     pod 'CropViewController', '~> 2.5.5'
+    pod 'SDWebImage', '~> 5.10.0'
     pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '6.0.9'
     pod 'TrustKit'
   end

@@ -42,7 +42,6 @@ class SessionCoordinator: SectioningCoordinator {
             navigationController.navigationBar.isTranslucent = false
             let servicesCoordinator = ServicesCoordinator(sessionHandler: userSessionHandler)
             let navigationCoordinator = NavigationCoordinator(rootChildCoordinator: servicesCoordinator, navigationController: navigationController)
-            navigationCoordinator.delegate = servicesCoordinator
             childCoordinator = navigationCoordinator
         case .settings:
             let settingsViewModel = SettingsViewModel(sessionHandler: userSessionHandler)

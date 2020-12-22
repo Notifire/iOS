@@ -37,7 +37,7 @@ struct LoginDataResponse: Decodable {
 
 struct NotifireAPISuccessResponseWithLoginData: Decodable {
     let success: Bool
-    let payload: LoginDataResponse
+    let payload: LoginDataResponse?
 }
 
 // MARK: - /version
@@ -74,11 +74,14 @@ typealias LoginSuccessResponse = LoginDataResponse
 enum LoginUserError: Int, DecodableUserErrorRepresenting {
     case wrongPasswordOrAccountNotExist = 1
     case accountNotVerified = 2
+    /// This error can be triggered when a user attempts to log in with an SSO provider while already having an account created with his email.
+    case emailAlreadyExistsInTheSystem = 3
 
     var description: String {
         switch self {
         case .wrongPasswordOrAccountNotExist: return "You have entered a wrong password or this account doesn't exist."
         case .accountNotVerified: return "Your account is not verified yet! Check the link we've sent to your email."
+        case .emailAlreadyExistsInTheSystem: return "This email is already associated to an account provided by Notifire. Please log in with your password."
         }
     }
 }
@@ -86,7 +89,7 @@ enum LoginUserError: Int, DecodableUserErrorRepresenting {
 typealias LoginResponse = NotifireAPISuccessResponse<LoginSuccessResponse, LoginUserError>
 
 // MARK: - /account/login/{provider}
-typealias SSOLoginResponse = NotifireAPISuccessResponseWithLoginData
+typealias SSOLoginResponse = LoginResponse
 
 // MARK: - /account/password
 struct ChangePasswordResponsePayload: Decodable {
@@ -126,7 +129,10 @@ typealias ServicesResponse = [ServiceSnippet]
 typealias SyncServicesResponse = [ServiceChangeEvent]
 
 // MARK: - /service
-typealias ServiceGetResponse = Service
+struct ServiceGetResponse: Decodable {
+    let success: Bool
+    let service: Service?
+}
 
 typealias ServiceCreationResponse = Service
 

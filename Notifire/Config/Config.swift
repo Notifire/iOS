@@ -14,7 +14,7 @@ class Config {
     // MARK: - Private
     /// Error that can be thrown while accessing the config values
     enum Error: Swift.Error {
-        case missingKey, invalidValue
+        case missingKey(String), invalidValue
     }
 
     /// Enumeration of possible Info.plist values that this struct is accessing.
@@ -25,12 +25,13 @@ class Config {
         case buildNumber = "CFBundleVersion"
         case apiUrl = "API_URL"
         case wsURL = "WS_URL"
+        case productBundleID = "PARENT_APP_BUNDLE_IDENTIFIER"
     }
 
     /// Access the value for a specific [BundleKey](x-source-tag://Config.BundleKey)
     private static func value<T>(for key: BundleKey) throws -> T where T: LosslessStringConvertible {
         guard let object = Bundle.main.object(forInfoDictionaryKey: key.rawValue) else {
-            throw Error.missingKey
+            throw Error.missingKey(key.rawValue)
         }
 
         switch object {
@@ -56,6 +57,8 @@ class Config {
     static let apiUrlString: String = try! value(for: .apiUrl)
     // The WS URL
     static let wsUrlString: String = try! value(for: .wsURL)
+    // The Product Bundle Identifier
+    static let productBundleID: String = try! value(for: .productBundleID)
     // Privacy Policy URL
     static let privacyPolicyURL = URL(string: "https://notifire.dvdblk.com/privacypolicy")!
     // swiftlint:enable force_try

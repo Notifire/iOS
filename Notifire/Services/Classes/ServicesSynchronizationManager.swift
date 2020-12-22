@@ -100,7 +100,7 @@ class ServicesSynchronizationManager {
         let restOfLocalServices = Array(realmProvider.realm.objects(LocalService.self).filter(restOfLocalPredicate))
 
         // Merge current representables with non-duplicate local services
-        resultRepresentables = representables + restOfLocalServices
+        resultRepresentables = localServicesInRepresentables + restOfLocalServices
 
         // Sort
         resultRepresentables.sort(by: { $0.name < $1.name })

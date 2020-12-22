@@ -32,14 +32,17 @@ class StateModel<State: Equatable> {
 
     public var state: State {
         didSet {
-            guard oldValue != state else { return }
+            guard shouldNotifyStateChangeWhenOldNewValuesEqual || oldValue != state else { return }
             onStateChange?(oldValue, state)
         }
     }
 
+    public var shouldNotifyStateChangeWhenOldNewValuesEqual: Bool
+
     public var onStateChange: ((State, State) -> Void)?
 
-    init(defaultValue: State) {
+    init(defaultValue: State, shouldNotifyStateChangeWhenOldNewValuesEqual: Bool = false) {
         self.state = defaultValue
+        self.shouldNotifyStateChangeWhenOldNewValuesEqual = shouldNotifyStateChangeWhenOldNewValuesEqual
     }
 }

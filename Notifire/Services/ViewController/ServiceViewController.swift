@@ -27,11 +27,14 @@ protocol ServiceViewControllerDelegate: class {
     func shouldShowNotifications(for service: LocalService)
 }
 
-class ServiceViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, NavigationBarDisplaying, NotifireAlertPresenting {
+class ServiceViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, NavigationBarDisplaying, NotifireAlertPresenting, ErrorStatePresentable {
 
     // MARK: - Properties
     let viewModel: ServiceViewModel
     weak var delegate: ServiceViewControllerDelegate?
+
+    // MARK: ErrorStatePresentable
+    var emptyStateView: ErrorEmptyStateView?
 
     // MARK: Views
     let parentScrollView: UIScrollView = {
@@ -165,8 +168,8 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
     }
 
     private func prepareViewModel() {
-        viewModel.onViewStateChange = { [weak self] _, _ in
-            self?.updateAppearance()
+        viewModel.onViewStateChange = { [weak self] old, new in
+            self?.updateAppearance(old: old, new: new)
         }
         viewModel.onServiceUpdate = { [weak self] localService in
             self?.updateServiceUI(service: localService)
@@ -218,15 +221,28 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         gradientLayer = gradient
     }
 
-    private func updateAppearance() {
+    private func updateAppearance(old: ServiceViewModel.ViewState, new: ServiceViewModel.ViewState) {
         switch viewModel.viewState {
-        case .skeleton:
+        case .loading:
             parentScrollView.isUserInteractionEnabled = false
             parentScrollView.alpha = 0
             navigationItem.rightBarButtonItem = nil
+        case .error(let error):
+            switch error {
+            case .apiError(let error):
+                addErrorStateView(title: error.userFriendlyMessage) { [weak self] in
+                    self?.viewModel.start()
+                }
+            case .serviceCreationError:
+                addErrorStateView(title: "Unknown error encountered", onRetry: nil)
+            }
         case .displaying(let localService):
             updateServiceUI(service: localService)
             UIView.animate(withDuration: 0.2, animations: {
+                if self.emptyStateView != nil {
+                    // Previous state was error, remove it
+                    self.removeEmptyStateView()
+                }
                 self.parentScrollView.alpha = 1
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "baseline_more_horiz_black_24pt"), style: .plain, target: self, action: #selector(self.didTapMoreOptions))
             }, completion: { finished in

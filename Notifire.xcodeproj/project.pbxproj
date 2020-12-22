@@ -509,6 +509,8 @@
 		897069EE2134B68300D798AA /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069ED2134B68300D798AA /* LoginViewModel.swift */; };
 		897069F22134BD1200D798AA /* UIStackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069F12134BD1200D798AA /* UIStackViewExtension.swift */; };
 		897069F42134BF4C00D798AA /* KeyboardDismissing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069F32134BF4C00D798AA /* KeyboardDismissing.swift */; };
+		8973927A259181D600D2355A /* URLSession+custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89739279259181D600D2355A /* URLSession+custom.swift */; };
+		8973927B259181D600D2355A /* URLSession+custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89739279259181D600D2355A /* URLSession+custom.swift */; };
 		897B77AD2523E873008602BB /* PaginationLoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897B77AC2523E873008602BB /* PaginationLoadingTableViewCell.swift */; };
 		897B77AE2523E874008602BB /* PaginationLoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897B77AC2523E873008602BB /* PaginationLoadingTableViewCell.swift */; };
 		897B77B32523EE6B008602BB /* PaginationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897B77B22523EE6B008602BB /* PaginationHandler.swift */; };
@@ -537,6 +539,10 @@
 		899C07182551E2E00005228E /* NavigationCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899C07162551E2E00005228E /* NavigationCoordinatorDelegate.swift */; };
 		899C071A2551E4FE0005228E /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899C07192551E4FE0005228E /* ForgotPasswordViewModel.swift */; };
 		899C071B2551E4FE0005228E /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899C07192551E4FE0005228E /* ForgotPasswordViewModel.swift */; };
+		89A4F31425912A9400767224 /* GetServiceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4F31325912A9400767224 /* GetServiceOperation.swift */; };
+		89A4F31525912A9400767224 /* GetServiceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4F31325912A9400767224 /* GetServiceOperation.swift */; };
+		89A4F31D259156A000767224 /* CreateLocalServiceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4F31C259156A000767224 /* CreateLocalServiceOperation.swift */; };
+		89A4F31E259156A000767224 /* CreateLocalServiceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4F31C259156A000767224 /* CreateLocalServiceOperation.swift */; };
 		89A9048021B753F100D262E1 /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */; };
 		89A9048121B754A800D262E1 /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */; };
 		89A9048321B8589300D262E1 /* IndicatorStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A9048221B8589300D262E1 /* IndicatorStackView.swift */; };
@@ -824,6 +830,8 @@
 		892DC0C325609B840067EB12 /* SettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSection.swift; sourceTree = "<group>"; };
 		892DC0C625609BA40067EB12 /* SettingsRows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRows.swift; sourceTree = "<group>"; };
 		892DC0CE2560E4090067EB12 /* GenericUITableViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericUITableViewCells.swift; sourceTree = "<group>"; };
+		892E7EC22591D37E00DAF83A /* NotificationServiceExtension-dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "NotificationServiceExtension-dev.entitlements"; sourceTree = "<group>"; };
+		892E7EC32591D3D500DAF83A /* Notifire-dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Notifire-dev.entitlements"; sourceTree = "<group>"; };
 		8933F0AD2140421700645B3A /* NotifireBackgroundLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireBackgroundLayer.swift; sourceTree = "<group>"; };
 		8933F0AF2140424400645B3A /* CAPersistentAnimationsShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAPersistentAnimationsShapeLayer.swift; sourceTree = "<group>"; };
 		8933F0B2214062F300645B3A /* ValidatableTextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableTextInput.swift; sourceTree = "<group>"; };
@@ -994,6 +1002,7 @@
 		897069ED2134B68300D798AA /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		897069F12134BD1200D798AA /* UIStackViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackViewExtension.swift; sourceTree = "<group>"; };
 		897069F32134BF4C00D798AA /* KeyboardDismissing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDismissing.swift; sourceTree = "<group>"; };
+		89739279259181D600D2355A /* URLSession+custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+custom.swift"; sourceTree = "<group>"; };
 		897B77AC2523E873008602BB /* PaginationLoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationLoadingTableViewCell.swift; sourceTree = "<group>"; };
 		897B77B22523EE6B008602BB /* PaginationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationHandler.swift; sourceTree = "<group>"; };
 		897B77B82523EE81008602BB /* ServiceRepresentableChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRepresentableChanges.swift; sourceTree = "<group>"; };
@@ -1015,6 +1024,8 @@
 		8998D8832520D435002A597B /* IndexPath+RowInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IndexPath+RowInit.swift"; sourceTree = "<group>"; };
 		899C07162551E2E00005228E /* NavigationCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		899C07192551E4FE0005228E /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
+		89A4F31325912A9400767224 /* GetServiceOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetServiceOperation.swift; sourceTree = "<group>"; };
+		89A4F31C259156A000767224 /* CreateLocalServiceOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLocalServiceOperation.swift; sourceTree = "<group>"; };
 		89A9047F21B753F100D262E1 /* DateFormatterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtension.swift; sourceTree = "<group>"; };
 		89A9048221B8589300D262E1 /* IndicatorStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorStackView.swift; sourceTree = "<group>"; };
 		89A9048421B858B200D262E1 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
@@ -1940,9 +1951,11 @@
 			isa = PBXGroup;
 			children = (
 				895418FB251CAA660046464D /* GetServicesBatchOperation.swift */,
+				89A4F31325912A9400767224 /* GetServiceOperation.swift */,
 				89541916251CD1670046464D /* UpdateServiceRepresentablesOperation.swift */,
 				897B77C125250576008602BB /* SwapOnlineOfflineRepresentablesOperation.swift */,
 				895637BB2555231E005E4A4E /* SyncAllServicesOperation.swift */,
+				89A4F31C259156A000767224 /* CreateLocalServiceOperation.swift */,
 			);
 			path = Operation;
 			sourceTree = "<group>";
@@ -2074,6 +2087,7 @@
 			isa = PBXGroup;
 			children = (
 				898533CA21A041EE00E0A656 /* NotificationServiceExtension.entitlements */,
+				892E7EC22591D37E00DAF83A /* NotificationServiceExtension-dev.entitlements */,
 				89853393219FA46A00E0A656 /* NotificationService.swift */,
 				89853395219FA46A00E0A656 /* Info.plist */,
 			);
@@ -2166,6 +2180,7 @@
 				8933F0A8213D7EFC00645B3A /* Assets */,
 				89B3EC572020E4900068BA64 /* Info.plist */,
 				89B3EC74202337E90068BA64 /* Notifire.entitlements */,
+				892E7EC32591D3D500DAF83A /* Notifire-dev.entitlements */,
 				89B3EC542020E4900068BA64 /* LaunchScreen.storyboard */,
 			);
 			name = "Supporting Files";
@@ -2311,6 +2326,7 @@
 				894F44D225660C280043102C /* NSLayoutConstraint+Priority.swift */,
 				89F19D622566C1340030AFE0 /* UIActivityIndicatorView+Init.swift */,
 				89F19D682566C1780030AFE0 /* UIViewKeyframeAnimationOptions+Init.swift */,
+				89739279259181D600D2355A /* URLSession+custom.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2701,6 +2717,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Sentry/Sentry.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
@@ -2713,6 +2730,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sentry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
@@ -2799,6 +2817,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Sentry/Sentry.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
@@ -2811,6 +2830,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sentry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
@@ -3108,6 +3128,7 @@
 				892DC0B825607B3D0067EB12 /* CaseIterable+Init.swift in Sources */,
 				89541918251CD1670046464D /* UpdateServiceRepresentablesOperation.swift in Sources */,
 				893A4A352528D2B500DD02D0 /* CATransaction+Animation.swift in Sources */,
+				89A4F31E259156A000767224 /* CreateLocalServiceOperation.swift in Sources */,
 				89F19D852569FCE10030AFE0 /* WarningView.swift in Sources */,
 				89576AA324FD412A0097BF87 /* UserSessionHandler.swift in Sources */,
 				89576AA424FD412A0097BF87 /* Revealing.swift in Sources */,
@@ -3126,6 +3147,7 @@
 				89576AAB24FD412A0097BF87 /* Coordinator.swift in Sources */,
 				894F44D425660C280043102C /* NSLayoutConstraint+Priority.swift in Sources */,
 				89576AAC24FD412A0097BF87 /* NotifireNavigationController.swift in Sources */,
+				89A4F31525912A9400767224 /* GetServiceOperation.swift in Sources */,
 				895A3B8D25008A26000A7B50 /* UIImage+Resize.swift in Sources */,
 				89576AAD24FD412A0097BF87 /* ComponentValidator.swift in Sources */,
 				89E6B6C124FF0E5300F7A79C /* AppCoordinator+DeeplinkedVMViewControllerDelegate.swift in Sources */,
@@ -3366,6 +3388,7 @@
 				89576B1E24FD412A0097BF87 /* CellConfigurable.swift in Sources */,
 				8936E3BC2563177C007424A7 /* TextFieldReturnChainer.swift in Sources */,
 				89E6B6CD25001B6C00F7A79C /* LoginRegisterSplitterViewController.swift in Sources */,
+				8973927B259181D600D2355A /* URLSession+custom.swift in Sources */,
 				8902A678250D4460007BB5DF /* NotifireAPIRequestErrorContext.swift in Sources */,
 				89576B1F24FD412A0097BF87 /* NotifireAPIEndpoint.swift in Sources */,
 				895A3B9025008A35000A7B50 /* CGSize+Equal.swift in Sources */,
@@ -3463,6 +3486,7 @@
 				89E777ED2173E9F3009CF3DE /* NoSessionContainerViewController.swift in Sources */,
 				89374950256C40860013DB5B /* Config+Secrets.swift in Sources */,
 				893FE03321979A34002CD846 /* ServiceAPIKeyTableViewCell.swift in Sources */,
+				8973927A259181D600D2355A /* URLSession+custom.swift in Sources */,
 				8939957F216FE4D800687A79 /* Coordinator.swift in Sources */,
 				89A9049D21BF19EA00D262E1 /* NotifireNavigationController.swift in Sources */,
 				895A3B8C25008A26000A7B50 /* UIImage+Resize.swift in Sources */,
@@ -3621,6 +3645,7 @@
 				8920CA8B21723B9A00A72BD0 /* LoadableLabel.swift in Sources */,
 				89B3EC7620239D170068BA64 /* StringExtension.swift in Sources */,
 				893FE02421962C3E002CD846 /* ServiceNotificationsHeaderView.swift in Sources */,
+				89A4F31425912A9400767224 /* GetServiceOperation.swift in Sources */,
 				89A904A121C03E1400D262E1 /* NotificationDetailCells.swift in Sources */,
 				893FE02621962DC0002CD846 /* ServiceHeaderView.swift in Sources */,
 				892DC0BC256082E50067EB12 /* SettingsCellConfigurations.swift in Sources */,
@@ -3664,6 +3689,7 @@
 				89399585216FEFD500687A79 /* UIViewExtension.swift in Sources */,
 				896168002501B3A3007BF3F1 /* UIView+Embed.swift in Sources */,
 				897069C821334E7700D798AA /* ConstrainableView.swift in Sources */,
+				89A4F31D259156A000767224 /* CreateLocalServiceOperation.swift in Sources */,
 				8920CA772171578900A72BD0 /* CenterStackPresenting.swift in Sources */,
 				89A9048321B8589300D262E1 /* IndicatorStackView.swift in Sources */,
 				89541917251CD1670046464D /* UpdateServiceRepresentablesOperation.swift in Sources */,
@@ -4057,7 +4083,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "NotificationServiceExtension/NotificationServiceExtension-dev.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6QH7E4QW2D;
@@ -4295,7 +4321,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Notifire/Notifire.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Notifire/Notifire-dev.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 11;

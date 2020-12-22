@@ -101,5 +101,5 @@ struct SyncServicesRequestBody: Encodable {
         let updatedAt: Date
     }
 
-    let services: [ServiceSyncData]
+    let services: [Service]
 }

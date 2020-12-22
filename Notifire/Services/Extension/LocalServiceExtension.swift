@@ -44,4 +44,14 @@ extension LocalService {
     var asServiceSyncData: SyncServicesRequestBody.ServiceSyncData {
         return SyncServicesRequestBody.ServiceSyncData(id: id, updatedAt: updatedAt)
     }
+
+    var asService: Service {
+        let images: Service.Image?
+        if let small = smallImageURLString, let medium = mediumImageURLString, let large = largeImageURLString {
+            images = Service.Image(small: small, medium: medium, large: large)
+        } else {
+            images = nil
+        }
+        return Service(name: name, image: images, id: id, levels: Service.Levels(info: info, warning: warning, error: error), apiKey: serviceAPIKey, updatedAt: updatedAt)
+    }
 }

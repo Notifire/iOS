@@ -54,13 +54,17 @@
 				<key>NSIncludesSubdomains</key>
 				<true/>
 			</dict>
-            <key>dev-notifire.memonil.com</key>
-            <dict>
-                <key>NSExceptionAllowsInsecureHTTPLoads</key>
-                <true/>
-            </dict>
+			<key>dev-notifire.memonil.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 		</dict>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Notifire needs to access your photos.</string>
+	<key>PARENT_APP_BUNDLE_IDENTIFIER</key>
+	<string>$(PARENT_APP_BUNDLE_IDENTIFIER)</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
@@ -86,7 +90,5 @@
 	<string>$(WS_URL)</string>
 	<key>queries</key>
 	<string></string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Notifire needs to access your photos.</string>
 </dict>
 </plist>

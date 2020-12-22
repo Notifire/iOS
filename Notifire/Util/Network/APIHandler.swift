@@ -113,7 +113,7 @@ extension URLSession: APIHandler {
                     completion: completionHandler
                 )
             case .unauthorized, .methodNotAllowed, .badRequest:
-                guard let clientErrorResponse = try? decoder.decode(NotifireAPIError.ClientError.self, from: data) else {
+                guard let clientErrorResponse = try? decoder.decode(NotifireAPIError.ClientError.self, from: data), clientErrorResponse.code != 2 else {
                     fallthrough
                 }
                 URLSession.finish(

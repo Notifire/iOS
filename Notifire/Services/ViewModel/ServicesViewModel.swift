@@ -83,6 +83,13 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
     }
 
     var services: [ServiceRepresentable] = [] {
+        willSet {
+            //
+            // Refresh the Realm on this thread before setting a new value for services.
+            // This ensures that we get all objects created from another thread on time
+            // in this thread.
+            synchronizationManager.realmProvider.realm.refresh()
+        }
         didSet {
             self.threadSafeServices = synchronizationManager.createThreadSafeRepresentables(from: services)
         }
@@ -122,19 +129,6 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
     ///     - Fetches first page of services
     ///     - Attempts to /sync local services
     func start() {
-        // Observer for new LocalServices created in ServiceVCs
-        synchronizationManager.servicesHandler.onCollectionChange = { [weak self] changes in
-            switch changes {
-            case .update(let results, _, let insertions, _):
-                // Check if some services were created
-                guard !insertions.isEmpty else { return }
-                results
-            case .initial, .error:
-                // Don't care about these
-                break
-            }
-        }
-
         // WebSocket
         // Connection status
         websocketManager.onWebSocketConnectionStatusChange = { [weak self] old, new in
@@ -302,16 +296,62 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
         synchronizedQueue.addOperation(swapToOnlineOperation)
     }
 
-    /// Updates the `ServiceSnippet` from services to the created `LocalServic `
-    func updateSnippet(to local: LocalService) {
-        for (index, threadSafeRepresentable) in threadSafeServices.enumerated() {
-            guard
-                !local.isInvalidated,
-                case .snippet(let snippet) = threadSafeRepresentable,
-                snippet.id == local.id
-            else { continue }
-            services[index] = local
+    /// This function fetches a single Service resource by a given ServiceSnippet. It also creates a LocalService for this fetched Service and updates the threadSafeRepresentables array with the new LocalService.
+    func fetchService(snippet: ServiceSnippet, completion: ((LocalService?, (NotifireAPIError?, CreateLocalServiceOperation.Error?)?) -> Void)?) {
+        // Operations
+        let getServiceOperation = GetServiceOperation(serviceSnippet: snippet, apiManager: protectedApiManager)
+        let createServiceOperation = CreateLocalServiceOperation(synchronizationManager: synchronizationManager)
+        let serviceDataAdapterOperation = BlockOperation()
+
+        // Get -> Adapter -> Update
+        serviceDataAdapterOperation.addDependency(getServiceOperation)
+        createServiceOperation.addDependency(serviceDataAdapterOperation)
+
+        //
+        // Get service operation
+        getServiceOperation.completionHandler = { [unowned serviceDataAdapterOperation, unowned createServiceOperation] result in
+            guard case .error(let error) = result else { return }
+            serviceDataAdapterOperation.cancel()
+            createServiceOperation.cancel()
+            completion?(nil, (error, nil))
         }
+
+        //
+        // Create service operation
+        createServiceOperation.completionHandler = { [weak self] result in
+            guard let `self` = self else { return }
+            switch result {
+            case .created(let localServiceID, let index):
+                guard let localService = RealmManager.getLocalService(id: localServiceID, realm: self.synchronizationManager.realmProvider.realm) else {
+                    completion?(nil, (nil, .localServiceObjectNotFound))
+                    return
+                }
+                // Add localService to serviceRepresentables
+                self.services[index] = localService
+                // Callback
+                completion?(localService, nil)
+            case .error(let error):
+                completion?(nil, (nil, error))
+            }
+        }
+
+        //
+        // Adapter operation
+        serviceDataAdapterOperation.addExecutionBlock { [unowned getServiceOperation, unowned createServiceOperation, weak self] in
+            guard let `self` = self else { return }
+            if case .success(let getResponse) = getServiceOperation.result {
+                guard let service = getResponse.service else {
+                    completion?(nil, (nil, .serviceDeletedBeforeOperationStarted))
+                    return
+                }
+                createServiceOperation.service = service
+            }
+
+            createServiceOperation.threadSafeServiceRepresentables = self.threadSafeServices
+        }
+
+        // Enqueue
+        synchronizedQueue.addOperations([getServiceOperation, serviceDataAdapterOperation, createServiceOperation], waitUntilFinished: false)
     }
 
     // MARK: - Private

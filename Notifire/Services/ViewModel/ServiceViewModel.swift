@@ -11,8 +11,14 @@ import RealmSwift
 
 class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
 
+    enum ServiceError: Equatable {
+        case apiError(NotifireAPIError)
+        case serviceCreationError(CreateLocalServiceOperation.Error)
+    }
+
     enum ViewState: Equatable {
-        case skeleton
+        case loading
+        case error(ServiceError)
         case displaying(localService: LocalService)
     }
 
@@ -23,8 +29,9 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
 
     // MARK: - Properties
     let serviceRepresentable: ServiceRepresentable
-    var localServiceObserver: RealmObjectObserver<LocalService>?
     let userSessionHandler: UserSessionHandler
+    weak var servicesViewModel: ServicesViewModel?
+    var localServiceObserver: RealmObjectObserver<LocalService>?
 
     private var protectedApiManager: NotifireProtectedAPIManager {
         return userSessionHandler.notifireProtectedApiManager
@@ -40,10 +47,9 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
     }
 
     // MARK: Model
-    var viewState: ViewState = .skeleton {
-        didSet {
-            onViewStateChange?(oldValue, viewState)
-        }
+    var viewStateModel = StateModel(defaultValue: ViewState.loading, shouldNotifyStateChangeWhenOldNewValuesEqual: true)
+    var viewState: ViewState {
+        return viewStateModel.state
     }
 
     var isKeyVisible: Bool = false
@@ -62,9 +68,13 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
     var onServiceDeletion: (() -> Void)?
 
     // MARK: - Initialization
-    init(service: ServiceRepresentable, sessionHandler: UserSessionHandler) {
+    init(service: ServiceRepresentable, sessionHandler: UserSessionHandler, servicesVM: ServicesViewModel) {
         self.serviceRepresentable = service
         self.userSessionHandler = sessionHandler
+        self.servicesViewModel = servicesVM
+        viewStateModel.onStateChange = { [weak self] old, new in
+            self?.onViewStateChange?(old, new)
+        }
     }
 
     // MARK: - Methods
@@ -85,23 +95,25 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
     }
 
     func startDisplaying(localService: LocalService) {
-        // Create new RLM object observer
-        let observer = RealmObjectObserver(realmProvider: userSessionHandler, object: localService)
-        observer.onObjectChange = { [weak self] changes in
-            switch changes {
-            case .change(let object, _):
-                guard case .displaying(let service) = self?.viewState, service == object else { return }
-                self?.onServiceUpdate?(object)
-            case .deleted:
-                self?.onServiceDeletion?()
-            case .error:
-                break
+        if localServiceObserver == nil {
+            // Create new RLM object observer
+            let observer = RealmObjectObserver(realmProvider: userSessionHandler, object: localService)
+            observer.onObjectChange = { [weak self] changes in
+                switch changes {
+                case .change(let object, _):
+                    guard case .displaying(let service) = self?.viewState, service == object else { return }
+                    self?.onServiceUpdate?(object)
+                case .deleted:
+                    self?.onServiceDeletion?()
+                case .error:
+                    break
+                }
             }
+            localServiceObserver = observer
         }
-        localServiceObserver = observer
 
         // Change the viewState
-        viewState = .displaying(localService: localService)
+        viewStateModel.state = .displaying(localService: localService)
     }
 
     func fetch(serviceSnippet: ServiceSnippet) {
@@ -112,28 +124,29 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
 
         isFetching = true
 
-        viewState = .skeleton
+        viewStateModel.state = .loading
 
-        protectedApiManager.get(service: serviceSnippet) { [weak self] result in
-            guard let `self` = self else { return }
-            self.isFetching = false
-            switch result {
-            case .error(let error):
-                self.onError?(error)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                    self?.fetch(serviceSnippet: serviceSnippet)
+        self.servicesViewModel?.fetchService(snippet: serviceSnippet, completion: { [weak self] (maybeLocalService, maybeErrors) in
+            self?.isFetching = false
+            if let localService = maybeLocalService {
+                // Success - LocalService created
+                // Start displaying it
+
+                self?.startDisplaying(localService: localService)
+            } else if let errors = maybeErrors {
+
+                // Error - handle errors
+                if let apiError = errors.0 {
+                    // NotifireAPIError
+                    self?.viewStateModel.state = .error(.apiError(apiError))
+                } else if let createOperationError = errors.1 {
+                    // CreateLocalServiceOperation.Error
+                    self?.viewStateModel.state = .error(.serviceCreationError(createOperationError))
+                    // Ask the delegate to pop this VC
+                    self?.onServiceDeletion?()
                 }
-            case .success(let service):
-                guard let localService = RealmManager.createLocalService(from: service, realm: self.userSessionHandler.realm) else {
-                    Logger.log(.fault, "\(self) couldn't create new LocalService object, retrying GET /service request.")
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                        self?.fetch(serviceSnippet: serviceSnippet)
-                    }
-                    return
-                }
-                self.startDisplaying(localService: localService)
             }
-        }
+        })
     }
 
     func updateService(block: (() -> Void)) {

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   Notifire-dev.entitlements
+   Notifire
+
+   Created by David Bielik on 22/12/2020.
+   Copyright (c) 2020 David Bielik. All rights reserved.
+-->
+<plist version="1.0">
+    <dict>
+        <key>aps-environment</key>
+        <string>development</string>
+        <key>com.apple.developer.applesignin</key>
+        <array>
+            <string>Default</string>
+        </array>
+        <key>com.apple.developer.associated-domains</key>
+        <array>
+            <string>applinks:notifire.dvdblk.com</string>
+            <string>applinks:notifire.memonil.com</string>
+        </array>
+        <key>com.apple.security.application-groups</key>
+        <array>
+            <string>group.com.dvdblk.Notifire.dev</string>
+        </array>
+        <key>keychain-access-groups</key>
+        <array>
+            <string>$(AppIdentifierPrefix)com.dvdblk.Notifire.dev</string>
+        </array>
+    </dict>
+</plist>

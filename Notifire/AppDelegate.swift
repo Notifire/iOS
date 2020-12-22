@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let sessionCoordinator = appCoordinator?.sessionCoordinator else { return }
             sessionCoordinator.tabBarViewController.viewModel.currentTab = .notifications
             let notificationHandler = NotifireNotificationsHandler()
-            guard notificationHandler.getNotification(from: userInfo) != nil else {
+            guard (try? notificationHandler.getNotification(from: userInfo)) != nil else {
                 return
             }
         @unknown default: break

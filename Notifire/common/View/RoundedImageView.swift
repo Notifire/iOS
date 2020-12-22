@@ -8,8 +8,9 @@
 
 import UIKit
 import SkeletonView
+import SDWebImage
 
-class RoundedImageView: UIImageView {
+class RoundedImageView: SDAnimatedImageView {
 
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)

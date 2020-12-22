@@ -60,7 +60,7 @@ final class LoginViewModel: InputValidatingViewModel, APIErrorProducing, UserErr
     func shouldHandleManually(userError: UserError) -> Bool {
         switch userError {
         case .accountNotVerified: return true
-        case .wrongPasswordOrAccountNotExist: return false
+        case .wrongPasswordOrAccountNotExist, .emailAlreadyExistsInTheSystem: return false
         }
     }
 }

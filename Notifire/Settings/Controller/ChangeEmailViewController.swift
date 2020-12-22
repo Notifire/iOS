@@ -11,9 +11,7 @@ import UIKit
 class ChangeEmailViewController: VMViewController<ChangeEmailViewModel>, CenterStackViewPresenting, NotifireAlertPresenting, APIErrorResponding, APIErrorPresenting {
 
     // MARK: - Properties
-    lazy var textFieldReturnChainer = TextFieldReturnChainer(textFields: [emailTextInput.textField], setLastReturnKeyTypeToDone: true) { [weak self] in
-        self?.viewModel.sendChangeEmail()
-    }
+    lazy var textFieldReturnChainer = TextFieldReturnChainer(textFields: [emailTextInput.textField], setLastReturnKeyTypeToDone: true)
 
     // MARK: UI
     lazy var emailTextInput: ValidatableTextInput = {
@@ -64,6 +62,10 @@ class ChangeEmailViewController: VMViewController<ChangeEmailViewModel>, CenterS
     }
 
     private func prepareViewModel() {
+        textFieldReturnChainer.onFinalReturn = { [weak self] in
+            self?.viewModel.sendChangeEmail()
+        }
+
         viewModel.createComponentValidator(with: [emailTextInput])
 
         viewModel.afterValidation = { [weak self] success in

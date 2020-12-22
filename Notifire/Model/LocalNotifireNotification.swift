@@ -68,7 +68,11 @@ class LocalNotifireNotification: Object, Decodable {
         let datetimeString = try notificationContainer.decode(String.self, forKey: .date)
         date = DateFormatter.yyyyMMdd.date(from: datetimeString) ?? Date()
         rawLevel = try notificationContainer.decode(String.self, forKey: .level)
-        serviceID.value = try notificationContainer.decode(Int.self, forKey: .serviceID)
+        let serviceIDString = try notificationContainer.decode(String.self, forKey: .serviceID)
+        guard let serviceIDInt = Int(serviceIDString) else {
+            throw DecodingError.dataCorruptedError(forKey: CodingKeys.serviceID, in: notificationContainer, debugDescription: "Service ID was a String (\(serviceIDString)) that couldn't be converted to Int.")
+        }
+        serviceID.value = serviceIDInt
     }
 
     required init() {

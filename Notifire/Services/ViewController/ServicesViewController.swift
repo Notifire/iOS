@@ -79,7 +79,7 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
                 self.tableView.beginUpdates()
                 self.tableView.showsVerticalScrollIndicator = false
                 self.tableView.deleteRows(at: changes.deletions, with: .automatic)
-                self.tableView.insertRows(at: changes.insertions, with: .none)
+                self.tableView.insertRows(at: changes.insertions, with: .automatic)
                 for move in changes.moves {
                     self.tableView.moveRow(at: move.from, to: move.to)
                 }
@@ -148,7 +148,7 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
         case (_, .emptyState):
             changeVisibilityOfNavigationBarItems()
             tableView.hideSkeleton()
-            if let emptyStateView = addEmptyState() {
+            if let emptyStateView = addEmptyStateView() {
                 emptyStateView.serviceButton.addTarget(self, action: #selector(didSelectAddNewService), for: .touchUpInside)
             }
         case (.skeleton, .displayingServices):
@@ -157,7 +157,7 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
         case (.emptyState, .displayingServices):
             changeVisibilityOfNavigationBarItems()
             tableView.hideSkeleton()
-            removeEmptyState()
+            removeEmptyStateView()
         default:
             break
         }

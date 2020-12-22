@@ -13,8 +13,8 @@ class UserSessionManager {
 
     // MARK: - Properties
     private static let teamID = "6QH7E4QW2D"
-    private static let keychainAccessGroup = "\(teamID).\(Config.bundleID)"
-    static let appGroupSuiteName = "group.\(Config.bundleID)"
+    private static let keychainAccessGroup = "\(teamID).\(Config.productBundleID)"
+    static let appGroupSuiteName = "group.\(Config.productBundleID)"
     static let appGroupSuiteNameWithTeamID = "\(teamID).\(appGroupSuiteName)"
 
     /// Enumeration describing the keys used by the keychain
@@ -27,17 +27,17 @@ class UserSessionManager {
         case provider
     }
 
-    private static var keychain = Keychain(service: Config.bundleID, accessGroup: UserSessionManager.keychainAccessGroup)
+    private static var keychain = Keychain(service: "userData", accessGroup: keychainAccessGroup)
 
     // MARK: - Methods
     private static func keychainKey(key: KeychainKey, userIdentifier: String? = nil) -> String {
         let keychainKey: [String]
         if let identifier = userIdentifier {
             // the value is specific for some user
-            keychainKey = [Config.bundleID, identifier, key.rawValue]
+            keychainKey = [Config.productBundleID, identifier, key.rawValue]
         } else {
             // The value is specific only for the app (bundleID)
-            keychainKey = [Config.bundleID, key.rawValue]
+            keychainKey = [Config.productBundleID, key.rawValue]
         }
         return keychainKey.joined(separator: ".")
     }

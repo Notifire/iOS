@@ -49,19 +49,12 @@ class ServicesCoordinator: NavigatingChildCoordinator, PresentingCoordinator {
     }
 
     func show(service: ServiceRepresentable) {
-        let serviceViewModel = ServiceViewModel(service: service, sessionHandler: userSessionHandler)
+        let serviceViewModel = ServiceViewModel(service: service, sessionHandler: userSessionHandler, servicesVM: servicesViewController.viewModel)
         let serviceViewController = ServiceViewController(viewModel: serviceViewModel)
         serviceViewController.delegate = self
         presentedServiceController = serviceViewController
         let serviceCoordinator = ServiceCoordinator(serviceViewController: serviceViewController)
         parentNavigatingCoordinator?.push(childCoordinator: serviceCoordinator)
-    }
-
-    func popServiceController() {
-        guard
-            parentNavigatingCoordinator?.childCoordinators.last?.viewController == presentedServiceController
-        else { return }
-        parentNavigatingCoordinator?.popChildCoordinator(animated: true)
     }
 
     func showNotifications(service: LocalService) {
@@ -84,7 +77,11 @@ extension ServicesCoordinator: ServicesViewControllerDelegate {
 
 extension ServicesCoordinator: ServiceViewControllerDelegate {
     func didDeleteService() {
-        popServiceController()
+        // Pop Service ViewController
+        guard
+            parentNavigatingCoordinator?.childCoordinators.last?.viewController == presentedServiceController
+        else { return }
+        parentNavigatingCoordinator?.popChildCoordinator(animated: true)
     }
 
     func shouldShowNotifications(for service: LocalService) {
@@ -100,14 +97,5 @@ extension ServicesCoordinator: ServiceCreationCoordinatorDelegate {
 
     func didFinishServiceCreation() {
         dismissPresentedCoordinator(animated: true)
-    }
-}
-
-extension ServicesCoordinator: NavigationCoordinatorDelegate {
-    func didRemoveChild(coordinator: ChildCoordinator) {
-        guard coordinator.viewController === presentedServiceController else { return }
-        defer { presentedServiceController = nil }
-        guard let dismissedLocalService = presentedServiceController?.viewModel.currentLocalService else { return }
-        servicesViewController.viewModel.updateSnippet(to: dismissedLocalService)
     }
 }

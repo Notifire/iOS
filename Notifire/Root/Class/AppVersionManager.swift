@@ -53,8 +53,8 @@ class AppVersionManager {
     // MARK: - Initialization
     init(currentVersion: String = Config.appVersion) {
         // - Important:
-        // Keep the URLSession.shared API handler to avoid pinning `/version` endpoint
-        self.apiManager = NotifireAPIFactory.createAPIManager(apiHandler: URLSession.shared)
+        // Keep the URLSession.custom API handler to avoid pinning `/version` endpoint
+        self.apiManager = NotifireAPIFactory.createAPIManager(apiHandler: URLSession.custom)
         self.currentVersionString = currentVersion
     }
 

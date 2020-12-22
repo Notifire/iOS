@@ -17,6 +17,6 @@ struct URLRequestErrorContext<ResponseBody: Decodable> {
 
 extension URLRequestErrorContext: CustomStringConvertible {
     var description: String {
-        return "[URLRequestErrorContext] { error={\(error.description)} | requestContext={\(requestContext.description)} | statusCode={\(statusCode ?? -1)} | responseBodyString={\(responseBodyString ?? "nil")} }"
+        return "[URLRequestErrorContext] { error={\(error.description)} | requestContext={\(requestContext.description)} | statusCode={\(statusCode ?? -1)} }"
     }
 }

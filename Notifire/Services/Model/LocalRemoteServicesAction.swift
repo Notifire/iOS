@@ -25,7 +25,7 @@ enum LocalRemoteServicesAction: CustomStringConvertible {
     var description: String {
         switch self {
         case .add(let services): return "add batch of \(services.count) services"
-        case .changeSingleService(let changeEvent): return "change \(changeEvent.description)"
+        case .changeSingleService(let changeEvent): return "\(changeEvent.description)"
         case .changeMultipleServices(let changeEvents): return "bulk change of \(changeEvents.count) services"
         }
     }

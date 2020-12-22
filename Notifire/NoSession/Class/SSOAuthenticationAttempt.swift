@@ -17,7 +17,9 @@ class SSOAuthenticationAttempt {
         case unableToRetrieveAccessToken
         case notHandled
         case failed
+        case badIDToken
         case invalidResponse
+        case emailAlreadyExistsInTheSystem
         case unknown
 
         var description: String {
@@ -28,7 +30,9 @@ class SSOAuthenticationAttempt {
             case .unableToRetrieveAccessToken: return "Unable to retrieve access token."
             case .notHandled: return "Authorization prompt wasn't handled."
             case .failed: return "Authorization failed."
+            case .badIDToken: return "ID token was invalid."
             case .invalidResponse: return "Authorization returned invalid response."
+            case .emailAlreadyExistsInTheSystem: return LoginUserError.emailAlreadyExistsInTheSystem.description
             case .unknown: return "Unkown error occured while authorizing with this SSO provider."
             }
         }

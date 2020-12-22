@@ -47,11 +47,19 @@ class LoginRegisterSplitterViewModel: ViewModelRepresenting, APIErrorProducing, 
             case .error(let error):
                 self.onError?(error)
             case .success(let response):
-                let provider = AuthenticationProvider(ssoProvider: ssoProvider)
-                let providerData = AuthenticationProviderData(provider: provider, email: response.payload.email, userID: token)
-                let session = UserSession(refreshToken: response.payload.refreshToken, providerData: providerData)
-                session.accessToken = response.payload.accessToken
-                self.onLogin?(session)
+                if let payload = response.payload {
+                    let provider = AuthenticationProvider(ssoProvider: ssoProvider)
+                    let providerData = AuthenticationProviderData(provider: provider, email: payload.email, userID: token)
+                    let session = UserSession(refreshToken: payload.refreshToken, providerData: providerData)
+                    session.accessToken = payload.accessToken
+                    self.onLogin?(session)
+                } else if let error = response.error, error.code == .emailAlreadyExistsInTheSystem {
+                    self.onUserError?(.emailAlreadyExistsInTheSystem)
+                } else if !response.success, response.error == nil {
+                    self.onUserError?(.badIDToken)
+                } else {
+                    self.onError?(NotifireAPIError.unknown)
+                }
             }
         }
     }
