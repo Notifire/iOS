@@ -23,12 +23,13 @@ class DarkModeAuthorizationAppleIDButton: UIControl {
         self.action = action
         self.controlEvents = controlEvents
         setupButton()
+        updateBorder()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        updateBorder()
         setupButton()
+        updateBorder()
     }
 
     // MARK: - Private Methods

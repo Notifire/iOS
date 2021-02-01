@@ -23,8 +23,9 @@ enum ServiceSection {
 }
 
 protocol ServiceViewControllerDelegate: class {
-    func didDeleteService()
     func shouldShowNotifications(for service: LocalService)
+    func shouldPresentEditServiceView(for service: LocalService)
+    func shouldDismissServiceViewController()
 }
 
 class ServiceViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, NavigationBarDisplaying, NotifireAlertPresenting, ErrorStatePresentable {
@@ -160,7 +161,10 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         let titleLabelContainerView = UIView()
         titleLabelContainerView.translatesAutoresizingMaskIntoConstraints = false
         titleLabelContainerView.add(subview: titleLabel)
-        titleLabel.embed(in: titleLabelContainerView)
+        titleLabel.topAnchor.constraint(equalTo: titleLabelContainerView.topAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: titleLabelContainerView.bottomAnchor).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: titleLabelContainerView.centerXAnchor).isActive = true
+        titleLabel.widthAnchor.constraint(equalTo: titleLabelContainerView.widthAnchor, multiplier: 0.6).isActive = true
         titleLabelContainerView.layoutIfNeeded()
         titleLabelContainerView.sizeToFit()
         titleLabelContainerView.translatesAutoresizingMaskIntoConstraints = true
@@ -174,8 +178,8 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         viewModel.onServiceUpdate = { [weak self] localService in
             self?.updateServiceUI(service: localService)
         }
-        viewModel.onServiceDeletion = { [weak self] in
-            self?.delegate?.didDeleteService()
+        viewModel.onServiceShouldClose = { [weak self] in
+            self?.delegate?.shouldDismissServiceViewController()
         }
     }
 
@@ -264,14 +268,12 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
     // MARK: Event Handlers
     @objc private func didTapMoreOptions() {
         let options = UIAlertController(title: "", message: "Service options", preferredStyle: .actionSheet)
-        options.addAction(UIAlertAction(title: "Change service image", style: .default, handler: { _ in
-
+        options.addAction(UIAlertAction(title: "Edit service", style: .default, handler: { [weak self] _ in
+            guard let service = self?.viewModel.currentLocalService else { return }
+            self?.delegate?.shouldPresentEditServiceView(for: service)
         }))
-        options.addAction(UIAlertAction(title: "Set default image", style: .default, handler: { _ in
-
-        }))
-        options.addAction(UIAlertAction(title: "Rename this service", style: .default, handler: { _ in
-
+        options.addAction(UIAlertAction(title: "Set default image", style: .default, handler: { [weak self] _ in
+            self?.viewModel.setDefaultImage()
         }))
         options.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
             options.dismiss(animated: true, completion: nil)

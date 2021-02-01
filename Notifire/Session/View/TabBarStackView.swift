@@ -88,7 +88,7 @@ class TabBarStackView: UIStackView {
     private func startForwardAnimationFor(tabIndex: Int) {
         let button = buttons[tabIndex]
         UIView.animate(withDuration: 0.15, delay: 0, options: [.curveEaseOut, .allowUserInteraction, .beginFromCurrentState], animations: {
-            button.transform = button.transform.scaledBy(x: 0.75, y: 0.75)
+            button.transform = button.transform.scaledBy(x: 0.8, y: 0.8)
         }, completion: nil)
     }
 
@@ -119,4 +119,8 @@ class TabBarStackView: UIStackView {
         }
     }
 
+    public func button(for tab: Tab) -> UIButton? {
+        guard let index = tabs.firstIndex(where: { $0 == tab }) else { return nil }
+        return buttons[index]
+    }
 }

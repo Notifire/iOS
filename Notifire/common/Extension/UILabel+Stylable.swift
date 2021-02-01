@@ -125,7 +125,7 @@ extension UILabel: Stylable {
             font = UIFont.systemFont(ofSize: 15, weight: .medium)
 
         case .dimmedInformation:
-            textColor = UIColor.black.withAlphaComponent(0.8)
+            textColor = UIColor.compatibleLabel.withAlphaComponent(0.8)
             font = UIFont.systemFont(ofSize: 17)
         case .cellInformation:
             textColor = .compatibleLabel

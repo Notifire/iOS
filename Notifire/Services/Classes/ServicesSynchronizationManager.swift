@@ -119,11 +119,11 @@ class ServicesSynchronizationManager {
         }
     }
 
-    func deleteLocalServiceIfNeeded(from service: Service) {
+    func deleteLocalServiceIfNeeded(from serviceID: Int) {
         let realm = realmProvider.realm
         try? realm.write {
             // check if the service already exists
-            guard let localService = realm.object(ofType: LocalService.self, forPrimaryKey: service.id) else { return }
+            guard let localService = realm.object(ofType: LocalService.self, forPrimaryKey: serviceID) else { return }
             // delete service notifications
             realm.delete(localService.notifications)
             // delete the service

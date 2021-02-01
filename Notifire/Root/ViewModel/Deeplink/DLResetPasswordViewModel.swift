@@ -56,7 +56,7 @@ class DLResetPasswordViewModel: InputValidatingViewModel, UserSessionCreating, D
 
             switch result {
             case .error(.clientError(let clientError)):
-                if let emailTokenError = EmailTokenError(rawValue: clientError.code) {
+                if clientError.errorType == .email, let emailTokenError = EmailTokenError(rawValue: clientError.code) {
                     self.onUserError?(emailTokenError)
                 } else {
                     self.onError?(NotifireAPIError.clientError(clientError))

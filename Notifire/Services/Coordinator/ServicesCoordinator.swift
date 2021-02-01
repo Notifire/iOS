@@ -14,8 +14,6 @@ class ServicesCoordinator: NavigatingChildCoordinator, PresentingCoordinator {
     let servicesViewController: ServicesViewController
     let userSessionHandler: UserSessionHandler
 
-    private var presentedServiceController: ServiceViewController?
-
     private var protectedApiManager: NotifireProtectedAPIManager {
         return servicesViewController.viewModel.protectedApiManager
     }
@@ -30,6 +28,7 @@ class ServicesCoordinator: NavigatingChildCoordinator, PresentingCoordinator {
 
     // MARK: PresentingCoordinator
     var presentedCoordinator: ChildCoordinator?
+    var presentationDismissHandler: UIAdaptivePresentationDismissHandler?
 
     // MARK: - Initialization
     init(sessionHandler: UserSessionHandler) {
@@ -51,16 +50,8 @@ class ServicesCoordinator: NavigatingChildCoordinator, PresentingCoordinator {
     func show(service: ServiceRepresentable) {
         let serviceViewModel = ServiceViewModel(service: service, sessionHandler: userSessionHandler, servicesVM: servicesViewController.viewModel)
         let serviceViewController = ServiceViewController(viewModel: serviceViewModel)
-        serviceViewController.delegate = self
-        presentedServiceController = serviceViewController
         let serviceCoordinator = ServiceCoordinator(serviceViewController: serviceViewController)
         parentNavigatingCoordinator?.push(childCoordinator: serviceCoordinator)
-    }
-
-    func showNotifications(service: LocalService) {
-        let serviceNotificationsViewModel = ServiceNotificationsViewModel(realmProvider: userSessionHandler, service: service)
-        let notificationsCoordinator = NotificationsCoordinator(notificationsViewModel: serviceNotificationsViewModel)
-        parentNavigatingCoordinator?.push(childCoordinator: notificationsCoordinator)
     }
 }
 
@@ -73,19 +64,12 @@ extension ServicesCoordinator: ServicesViewControllerDelegate {
     func didSelectCreateService() {
         showServiceCreation()
     }
-}
 
-extension ServicesCoordinator: ServiceViewControllerDelegate {
-    func didDeleteService() {
-        // Pop Service ViewController
+    func didDeleteService(with id: Int) {
         guard
-            parentNavigatingCoordinator?.childCoordinators.last?.viewController == presentedServiceController
+            parentNavigatingCoordinator?.childCoordinators.contains(where: { ($0.viewController as? ServiceViewController)?.viewModel.currentServiceID == id }) != nil
         else { return }
-        parentNavigatingCoordinator?.popChildCoordinator(animated: true)
-    }
-
-    func shouldShowNotifications(for service: LocalService) {
-        showNotifications(service: service)
+        parentNavigatingCoordinator?.popToRootCoordinator()
     }
 }
 

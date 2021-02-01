@@ -29,6 +29,7 @@ extension SettingsViewController: UITableViewDataSource {
                 self?.tableView.endUpdates()
             }
         }
+        cell.backgroundColor = .compatibleSystemBackground
         return cell
     }
 

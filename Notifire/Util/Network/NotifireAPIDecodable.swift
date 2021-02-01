@@ -143,4 +143,4 @@ enum ServiceUpdateError: Int {
 
 typealias ServiceUpdateResponse = NotifireAPIPlainSuccessResponse
 
-typealias APIKeyChangeResponse = Service
+typealias APIKeyChangeResponse = NotifireAPIPlainSuccessResponse

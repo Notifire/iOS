@@ -11,7 +11,7 @@ import RealmSwift
 
 struct NotificationDetailHeader {
     let serviceName: String
-    let serviceImage: UIImage
+    let serviceImageURL: URL?
     let notificationDate: Date
     let notificationLevel: NotificationLevel
 }
@@ -34,7 +34,7 @@ class NotificationDetailHeaderCell: BaseTableViewCell, CellConfigurable {
     }
 
     func configure(data: DataType) {
-        serviceImageView.image = data.serviceImage
+        serviceImageView.roundedImageView.sd_setImage(with: data.serviceImageURL, placeholderImage: LocalService.defaultImage, options: [], completed: nil)
         serviceNameLabel.text = data.serviceName
         serviceImageView.set(level: data.notificationLevel)
     }
@@ -148,9 +148,12 @@ class NotificationDetailURLCell: BaseTableViewCell, CellConfigurable, Notificati
 
     override func setup() {
         layout()
-        urlLabel.onHypertextTapped = { [unowned self] in
-            guard let safeUrl = self.url else { return }
-            self.onURLTap?(safeUrl)
+        urlLabel.numberOfLines = 6
+        urlLabel.lineBreakMode = .byTruncatingTail
+        urlLabel.adjustsFontSizeToFitWidth = false
+        urlLabel.onHypertextTapped = { [weak self] in
+            guard let safeUrl = self?.url else { return }
+            self?.onURLTap?(safeUrl)
         }
     }
 
@@ -185,21 +188,34 @@ protocol NotificationDetailViewModelDelegate: class {
     func onNotificationDeletion()
 }
 
-class NotificationDetailViewModel {
+class NotificationDetailViewModel: ViewModelRepresenting {
 
+    // MARK: - Properties
     let realmProvider: RealmProviding
+    let serviceNotificationsObserver: ServiceNotificationsObserver?
+
     let notification: LocalNotifireNotification
-    var token: NotificationToken?
-    weak var delegate: NotificationDetailViewModelDelegate?
     var items: [CellConfiguring] = []
 
+    var token: NotificationToken?
+
+    weak var delegate: NotificationDetailViewModelDelegate?
+
+    // MARK: - Initialization
     init(realmProvider: RealmProviding, notification: LocalNotifireNotification) {
         self.realmProvider = realmProvider
         self.notification = notification
         self.items = NotificationDetailViewModel.createItems(from: notification)
+        if let serviceID = notification.currentServiceID {
+            // This always happens as currentServiceID always contains a value.
+            self.serviceNotificationsObserver = ServiceNotificationsObserver(realmProvider: realmProvider, serviceID: serviceID)
+        } else {
+            self.serviceNotificationsObserver = nil
+        }
         setupDeleteToken()
     }
 
+    // MARK: - Private
     private func setupDeleteToken() {
         guard token == nil else { return }
         token = notification.observe({ [weak self] change in
@@ -212,7 +228,8 @@ class NotificationDetailViewModel {
         guard let service = notification.service else { return [] }
         var result = [CellConfiguring]()
 
-        let notificationDetailHeader = NotificationDetailHeader(serviceName: service.name, serviceImage: service.smallImage, notificationDate: notification.date, notificationLevel: notification.level)
+        let imageURL = URL(string: service.largeImageURLString ?? "")
+        let notificationDetailHeader = NotificationDetailHeader(serviceName: service.name, serviceImageURL: imageURL, notificationDate: notification.date, notificationLevel: notification.level)
         result.append(NotificationDetailHeaderConfiguration(item: notificationDetailHeader))
 
         let notificationTitleBody = NotificationDetailTitleBody(body: notification.body)
@@ -230,6 +247,7 @@ class NotificationDetailViewModel {
     }
 
     func markNotificationAsRead() {
+        guard !notification.isInvalidated, !notification.isRead else { return }
         NotificationReadUnreadManager.markNotificationAsRead(notification: notification, realm: realmProvider.realm)
     }
 }

@@ -9,8 +9,8 @@
 import Foundation
 import RealmSwift
 
-typealias NotificationDetailConfiguration = CellConfiguration<NotificationTableViewCell, DefaultCellAppearance>
-typealias NotificationCompactConfiguration = CellConfiguration<ServiceNotificationTableViewCell, DefaultCellAppearance>
+typealias NotificationDetailConfiguration = CellConfiguration<NotificationTableViewCell, DefaultTappableCellAppearance>
+typealias NotificationCompactConfiguration = CellConfiguration<ServiceNotificationTableViewCell, DefaultTappableCellAppearance>
 
 class NotificationsViewModel: RealmCollectionViewModel<LocalNotifireNotification> {
 
@@ -92,11 +92,12 @@ class ServiceNotificationsViewModel: NotificationsViewModel {
     }
 
     override func resultsFilterPredicate() -> NSPredicate? {
-        return NSPredicate(format: "service.id == %d", service.id)
+        guard let safeService = service.safeHandle else { return nil }
+        return NSPredicate(format: "service.id == %d", safeService.id)
     }
 
     override func title() -> String {
-        return service.name
+        return service.safeHandle?.name ?? "Deleted service"
     }
 
     override func emptyTitle() -> String {
@@ -104,7 +105,7 @@ class ServiceNotificationsViewModel: NotificationsViewModel {
     }
 
     override func emptyText() -> String {
-        return "\(service.name) didn't send any notifications."
+        return "\(service.safeHandle?.name ?? "This service") didn't send any notifications."
     }
 
     override func cellConfiguration(for index: Int) -> CellConfiguring {

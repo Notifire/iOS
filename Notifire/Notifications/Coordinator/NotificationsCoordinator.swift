@@ -38,7 +38,7 @@ class NotificationsCoordinator: NavigatingChildCoordinator, TabbedCoordinator {
         notificationDetailVC.view.backgroundColor = .compatibleSystemBackground
         notificationDetailVC.viewModel.delegate = self
         let notificationDetailCoordinator = GenericCoordinator(viewController: notificationDetailVC)
-        parentNavigatingCoordinator?.add(childCoordinator: notificationDetailCoordinator)
+        parentNavigatingCoordinator?.push(childCoordinator: notificationDetailCoordinator)
     }
 }
 

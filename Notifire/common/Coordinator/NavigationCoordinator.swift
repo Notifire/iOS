@@ -58,6 +58,12 @@ extension NavigatingCoordinator {
         navigationController.popViewController(animated: animated)
     }
 
+    /// Pops all childCoordinators except for the root one.
+    /// - Parameter animated: if the pop should be animated. Default value is `true`.
+    func popToRootCoordinator(animated: Bool = true) {
+        navigationController.popToRootViewController(animated: animated)
+    }
+
     /// Default implementation for `navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool)`
     /// Removes the childcoordinator object of the popped viewcontroller from the childCoordinators array.
     func navigationControllerDidShow(_ navigationController: UINavigationController, viewController: UIViewController, animated: Bool) {

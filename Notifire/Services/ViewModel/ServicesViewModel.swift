@@ -91,10 +91,30 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
             synchronizationManager.realmProvider.realm.refresh()
         }
         didSet {
+            // Set thread safe services
             self.threadSafeServices = synchronizationManager.createThreadSafeRepresentables(from: services)
+            // Set service observers
+            var newObservers = [Int: ServiceNotificationsObserver]()
+            for service in services {
+                let serviceID = (service as? LocalService)?.safeHandle?.id ?? service.id
+                if let currentObserver = serviceNotificationsObservers[serviceID] {
+                    // Reuse the old one -- service wasn't changed
+                    newObservers[serviceID] = currentObserver
+                } else {
+                    // Create a new observer for this new service
+                    let newObserver = ServiceNotificationsObserver(realmProvider: userSessionHandler, serviceID: serviceID)
+                    newObserver.onNumberNotificationsChange = { [weak self] serviceID in
+                        guard let serviceIndex = self?.services.firstIndex(where: { $0.id == serviceID }) else { return }
+                        self?.onServicesChange?(.partial(changesData: ServiceRepresentableChangesData(deletions: [], insertions: [], modifications: [IndexPath(row: serviceIndex, section: 0)], moves: [])))
+                    }
+                    newObservers[serviceID] = newObserver
+                }
+            }
+            serviceNotificationsObservers = newObservers
         }
     }
     var threadSafeServices = ThreadSafeServiceRepresentables()
+    var serviceNotificationsObservers = [Int: ServiceNotificationsObserver]()
 
     // `true` after the SyncAllServicesOperation finished
     var areLocalServicesSynchronized: Bool = false
@@ -108,8 +128,10 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
     var onConnectionViewStateChange: ((WebSocketConnectionViewState) -> Void)?
     /// Called on `services` change
     var onServicesChange: ((ServiceRepresentableChanges) -> Void)?
-    /// called when `isFetching` changes
+    /// Called when `isFetching` changes
     var onIsFetchingChange: ((Bool) -> Void)?
+    /// Called when a service is deleted
+    var onServiceDeletion: ((Int) -> Void)?
 
     // MARK: - Initialization
     init(sessionHandler: UserSessionHandler) {
@@ -209,10 +231,14 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
         //
         // Adapter operation
         serviceDataAdapterOperation.addExecutionBlock { [unowned getServicesOperation, unowned updateServicesOperation, weak self] in
-            guard let `self` = self else { return }
-            if case .success(let services) = getServicesOperation.result {
-                let action: LocalRemoteServicesAction = .add(batch: services)
-                updateServicesOperation.action = action
+            guard let `self` = self, let result = getServicesOperation.result else { return }
+            switch result {
+            case .error(let error):
+                DispatchQueue.main.async { [weak self] in
+                    self?.onError?(error)
+                }
+            case .success(let services):
+                updateServicesOperation.action = .add(batch: services)
             }
 
             updateServicesOperation.threadSafeServiceRepresentables = self.threadSafeServices
@@ -246,7 +272,9 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
                 serviceDataAdapterOperation.cancel()
                 updateServicesOperation.cancel()
                 // Try again
-                self?.synchronizeLocalServicesWithRemote()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+                    self?.synchronizeLocalServicesWithRemote()
+                }
                 return
             }
         }
@@ -358,7 +386,8 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
     private func updateConnectionViewState(_ status: WebSocketConnectionStatus) {
         let newViewState: WebSocketConnectionViewState
         switch (connectionViewState, status) {
-        case (nil, .connecting), (_, .connected): newViewState = .connecting
+        case (nil, .connecting), (.connecting, .connecting), (_, .connected), (_, .disconnected(context: .disconnect(_, code: .expiredSessionID))), (_, .disconnected(context: .disconnect(_, code: .invalidAccessToken))):
+            newViewState = .connecting
         case (_, .disconnected), (_, .connecting): newViewState = .offline
         case (_, .authorized): newViewState = .connected
         }
@@ -395,6 +424,7 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
             if !synchronizationManager.isOfflineModeActive {
                 swapOnlineOfflineMode(to: .toOffline)
             }
+
         default:
             break
         }
@@ -438,15 +468,6 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
     }
 
     private func updateServiceRepresentables(with representables: [ServiceRepresentable], changes: ServiceRepresentableChanges = .full) {
-        // make sure the new representables are different
-        // or that there wasn't a successful attempt to fetch initial page
-        let newRepresentablesAreDifferent = !threadSafeServices.elementsEqual(representables, by: { (threadSafeRepresentable, newRepresentable) -> Bool in
-            switch threadSafeRepresentable {
-            case .service(let id): return id == newRepresentable.id
-            case .snippet(let snippet): return snippet.id == newRepresentable.id
-            }
-        })
-        guard newRepresentablesAreDifferent || isInitialPageFetch else { return }
         // update services
         services = representables
 
@@ -462,8 +483,14 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
             guard let `self` = self else { return }
             let newServiceRepresentables = self.synchronizationManager.createServiceRepresentables(from: threadSafeRepresentables)
             self.updateViewStateAndServiceRepresentableChanges(representables: newServiceRepresentables, changes: maybeChanges)
-        }
 
+            // Notify that we have deleted a service
+            if case .delete(let id) = data.serviceChangeData {
+                DispatchQueue.main.async { [weak self] in
+                    self?.onServiceDeletion?(id)
+                }
+            }
+        }
         synchronizedQueue.addOperation(updateServicesOperation)
     }
 

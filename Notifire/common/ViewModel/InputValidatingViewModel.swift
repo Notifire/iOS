@@ -43,6 +43,7 @@ class InputValidatingViewModel: ViewModelRepresenting, InputValidating {
     }
 
     var allComponentsValidated: Bool {
+
         return componentValidator?.allComponentsValid ?? false
     }
 }

@@ -46,6 +46,15 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
         return localService
     }
 
+    var currentServiceID: Int? {
+        switch viewState {
+        case .displaying:
+            return currentLocalService?.id
+        case .error, .loading:
+            return serviceRepresentable.id
+        }
+    }
+
     // MARK: Model
     var viewStateModel = StateModel(defaultValue: ViewState.loading, shouldNotifyStateChangeWhenOldNewValuesEqual: true)
     var viewState: ViewState {
@@ -65,7 +74,7 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
     var onViewStateChange: ((ViewState, ViewState) -> Void)?
     var onError: ((NotifireAPIError) -> Void)?
     var onServiceUpdate: ((LocalService) -> Void)?
-    var onServiceDeletion: (() -> Void)?
+    var onServiceShouldClose: (() -> Void)?
 
     // MARK: - Initialization
     init(service: ServiceRepresentable, sessionHandler: UserSessionHandler, servicesVM: ServicesViewModel) {
@@ -103,9 +112,7 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
                 case .change(let object, _):
                     guard case .displaying(let service) = self?.viewState, service == object else { return }
                     self?.onServiceUpdate?(object)
-                case .deleted:
-                    self?.onServiceDeletion?()
-                case .error:
+                case .error, .deleted:
                     break
                 }
             }
@@ -143,7 +150,7 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
                     // CreateLocalServiceOperation.Error
                     self?.viewStateModel.state = .error(.serviceCreationError(createOperationError))
                     // Ask the delegate to pop this VC
-                    self?.onServiceDeletion?()
+                    self?.onServiceShouldClose?()
                 }
             }
         })
@@ -173,9 +180,9 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
         }
     }
 
-    func generateNewAPIKey(password: String, completion: @escaping (APIKeyGenerationResult) -> Void) {
+    func generateNewAPIKey(completion: @escaping (APIKeyGenerationResult) -> Void) {
         guard let localService = currentLocalService else { return }
-        protectedApiManager.changeApiKey(for: localService, password: password) { [weak self] result in
+        protectedApiManager.changeApiKey(for: localService) { [weak self] result in
             switch result {
             case .error(let error):
                 self?.onError?(error)
@@ -207,7 +214,22 @@ class ServiceViewModel: ViewModelRepresenting, APIErrorProducing {
                 self.onError?(error)
             case .success:
                 break
-                // try? RealmManager.delete(localService: localService, realm: self.userSessionHandler.realm)
+                // Websocket takes care of deleting this service
+            }
+        }
+    }
+
+    func setDefaultImage() {
+        guard let localService = currentLocalService else { return }
+        protectedApiManager.updateServiceWithImage(service: localService, imageData: nil) { [weak self] result in
+            guard let `self` = self else { return }
+            switch result {
+            case .error(let error):
+                self.onError?(error)
+            case .success:
+                // don't do anything, success = false means
+                // that the updated service didn't change
+                break
             }
         }
     }

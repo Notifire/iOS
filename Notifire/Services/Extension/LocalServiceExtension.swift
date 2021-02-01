@@ -21,6 +21,15 @@ extension LocalService {
         info = service.levels.info
         warning = service.levels.warning
         error = service.levels.error
+        if let imageData = service.image {
+            smallImageURLString = imageData.small
+            mediumImageURLString = imageData.medium
+            largeImageURLString = imageData.large
+        } else {
+            smallImageURLString = nil
+            mediumImageURLString = nil
+            largeImageURLString = nil
+        }
     }
 
     func updateData(from serviceSnippet: ServiceSnippet) {
@@ -37,12 +46,8 @@ extension LocalService {
         }
     }
 
-    var asServiceUpdateRequestBody: ServiceUpdateRequestBody {
-        return ServiceUpdateRequestBody(name: name, id: id, levels: Service.Levels(info: info, warning: warning, error: error), image: smallImageDataString)
-    }
-
-    var asServiceSyncData: SyncServicesRequestBody.ServiceSyncData {
-        return SyncServicesRequestBody.ServiceSyncData(id: id, updatedAt: updatedAt)
+    func toServiceUpdateRequestBody(deleteImage: Bool = false) -> ServiceUpdateRequestBody {
+        return ServiceUpdateRequestBody(name: name, id: id, levels: Service.Levels(info: info, warning: warning, error: error), deleteImage: deleteImage)
     }
 
     var asService: Service {
@@ -53,5 +58,9 @@ extension LocalService {
             images = nil
         }
         return Service(name: name, image: images, id: id, levels: Service.Levels(info: info, warning: warning, error: error), apiKey: serviceAPIKey, updatedAt: updatedAt)
+    }
+
+    var levels: Service.Levels {
+        return Service.Levels(info: info, warning: warning, error: error)
     }
 }

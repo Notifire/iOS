@@ -77,7 +77,7 @@ class SettingsViewModel: ViewModelRepresenting {
         // Notifications
         newRowsAtSection.append((.notifications, [.notificationPrefixSetting]))
         // General
-        newRowsAtSection.append((.general, [.applicationVersion, .applicationUpdateAlert]))
+        newRowsAtSection.append((.general, [.applicationVersion, .applicationUpdateAlert, .openLinksWarningSetting]))
         // General Last
         newRowsAtSection.append((.generalLast, [.privacyPolicy, .contact]))
 
@@ -171,6 +171,15 @@ class SettingsViewModel: ViewModelRepresenting {
                 text: "Receive new version alerts",
                 switchedOnDescriptionText: "You will receive in-app alerts when a new version of the app is available to download from the App Store.",
                 switchedOffDescriptionText: "You won't receive in-app alerts for new versions of the application.",
+                session: userSession
+            )
+            newConfiguration = SettingsSwitchCellConfiguration(item: data)
+        case .openLinksWarningSetting:
+            let data = SettingsSwitchData(
+                sessionFlagKeypath: \.openLinksWarningEnabled,
+                text: "Warn me before opening URLs",
+                switchedOnDescriptionText: "You will be warned before opening a link from notifications.",
+                switchedOffDescriptionText: "Links will be opened without a warning.",
                 session: userSession
             )
             newConfiguration = SettingsSwitchCellConfiguration(item: data)

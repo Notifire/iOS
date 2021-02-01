@@ -48,7 +48,7 @@ class ServiceAPIKeyTableViewCell: ReusableBaseTableViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        backgroundColor = .compatibleSystemBackground
         updateUI()
     }
 

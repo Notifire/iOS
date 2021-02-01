@@ -31,7 +31,9 @@ class NotifireNotificationsHandler: NSObject {
 
     func getNotification(from userInfo: [AnyHashable: Any]) throws -> LocalNotifireNotification {
         let userInfoData = try JSONSerialization.data(withJSONObject: userInfo, options: [])
-        let notifireNotification = try JSONDecoder().decode(LocalNotifireNotification.self, from: userInfoData)
+        let notificationDecoder = JSONDecoder()
+        notificationDecoder.dateDecodingStrategy = .timestampStrategy
+        let notifireNotification = try notificationDecoder.decode(LocalNotifireNotification.self, from: userInfoData)
         return notifireNotification
     }
 
@@ -71,7 +73,7 @@ class NotifireNotificationsHandler: NSObject {
         guard let realm = activeRealmProvider?.realm else {
             return nil
         }
-        let notifications = realm.objects(LocalNotifireNotification.self).filter(LocalNotifireNotification.isReadPredicate)
+        let notifications = realm.objects(LocalNotifireNotification.self).filter(LocalNotifireNotification.isUnreadPredicate)
         return notifications.count
     }
 }

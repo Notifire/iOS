@@ -71,6 +71,8 @@ struct UserDefaultBool<Key: UserDefaultsKey>: UserDefaultSessionEditing {
             let result = UserDefaults.standard.bool(forKey: defaultsKey)
             return negated ? !result : result
         }
-        set { UserDefaults.standard.set(negated ? !newValue : newValue, forKey: defaultsKey) }
+        set {
+            UserDefaults.standard.set(negated ? !newValue : newValue, forKey: defaultsKey)
+        }
     }
 }

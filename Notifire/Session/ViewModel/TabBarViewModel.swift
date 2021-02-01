@@ -78,7 +78,7 @@ class TabBarViewModel: RealmCollectionViewModel<LocalNotifireNotification> {
 
     // MARK: - Inherited
     override func resultsFilterPredicate() -> NSPredicate? {
-        return LocalNotifireNotification.isReadPredicate
+        return LocalNotifireNotification.isUnreadPredicate
     }
 
     // MARK: - Internal

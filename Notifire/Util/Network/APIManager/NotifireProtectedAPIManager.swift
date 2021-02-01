@@ -48,7 +48,7 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
             // We have an access token available in the User's session
             let requestContext = NotifireProtectedAPIManager.createAuthorizedRequestContext(request: request, requestTaskType: requestTaskType, accessToken: currentAccessToken, responseType: responseType)
             apiHandler.perform(requestContext: requestContext) { [weak self] responseContext in
-                if case .error(let errorContext) = responseContext, case .invalidStatusCode(let statusCode, _) = errorContext.error, case .unauthorized? = NotifireAPIStatusCode(rawValue: statusCode) {
+                if case .error(let errorContext) = responseContext, case .clientError(let clientError) = errorContext.error, clientError.errorType == .auth {
                     self?.fetchNewAccessToken(completion: fetchAccessTokenCompletion)
                 } else {
                     self?.createApiCompletionHandler(managerCompletion: completion)(responseContext)
@@ -111,7 +111,7 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
 
     // MARK: Password Change
     func change(oldPassword: String, to newPassword: String, completion: @escaping Callback<ChangePasswordResponse>) {
-        let body = ChangePasswordRequestBody(oldPassword: oldPassword, newPassword: newPassword)
+        let body = ChangePasswordRequestBody(password: oldPassword, newPassword: newPassword)
         let request = createAPIRequest(
             endpoint: NotifireProtectedAPIEndpoint.password,
             method: .put,
@@ -143,7 +143,7 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
     }
 
     // MARK: Sync
-    func sync(services: [Service], completion: @escaping Callback<SyncServicesResponse>) {
+    func sync(services: [SyncServicesRequestBody.ServiceSyncData], completion: @escaping Callback<SyncServicesResponse>) {
         let body = SyncServicesRequestBody(services: services)
         let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.servicesSync, method: .post, body: body, queryItems: nil)
         performProtected(request: request, responseType: SyncServicesResponse.self, completion: completion)
@@ -159,22 +159,33 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
 
     // MARK: Create
     // FIXME: createService
-    func createService(name: String, imageData: Data?, completion: @escaping Callback<NotifireAPIPlainSuccessResponse>) {
+    func createService(name: String, imageData: ImageData?, completion: @escaping Callback<NotifireAPIPlainSuccessResponse>) {
         let body = ServiceCreationBody(name: name)
-        let multipartRequest = createMultipartAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .post, imageData: imageData, body: body)
+        let multipartRequest = createMultipartAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .post, imageData: imageData?.data, imageFormat: imageData?.format, body: body)
         performProtected(request: multipartRequest.0, responseType: NotifireAPIPlainSuccessResponse.self, requestTaskType: .uploadTask(data: multipartRequest.1), completion: completion)
     }
 
     // MARK: Update
     func update(service: LocalService, completion: @escaping Callback<ServiceUpdateResponse>) {
-        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .put, body: service.asServiceUpdateRequestBody, queryItems: nil)
+        let body = service.toServiceUpdateRequestBody()
+        updateService(updateRequestBody: body, completion: completion)
+    }
+
+    func updateService(updateRequestBody: ServiceUpdateRequestBody, completion: @escaping Callback<ServiceUpdateResponse>) {
+        let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .put, body: updateRequestBody, queryItems: nil)
         performProtected(request: request, responseType: ServiceUpdateResponse.self, completion: completion)
     }
 
     // MARK: Update With Image
-    func update(serviceWithImage service: LocalService, imageData: Data?, completion: @escaping Callback<ServiceUpdateResponse>) {
-        // TODO:
+    /// If `imageData = nil` the image is deleted, otherwise a new image is uploaded.
+    func updateServiceWithImage(service: LocalService, imageData: ImageData?, completion: @escaping Callback<ServiceUpdateResponse>) {
+        let body = service.toServiceUpdateRequestBody(deleteImage: imageData == nil)
+        updateServiceWithImage(updateRequestBody: body, imageData: imageData, completion: completion)
+    }
 
+    func updateServiceWithImage(updateRequestBody: ServiceUpdateRequestBody, imageData: ImageData?, completion: @escaping Callback<ServiceUpdateResponse>) {
+        let request = createMultipartAPIRequest(endpoint: NotifireProtectedAPIEndpoint.service, method: .put, imageData: imageData?.data, imageFormat: imageData?.format, body: updateRequestBody)
+        performProtected(request: request.0, responseType: ServiceUpdateResponse.self, requestTaskType: .uploadTask(data: request.1), completion: completion)
     }
 
     // MARK: Delete
@@ -185,8 +196,8 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
     }
 
     // MARK: Change API Key
-    func changeApiKey(for service: LocalService, password: String, completion: @escaping Callback<APIKeyChangeResponse>) {
-        let body = ChangeServiceKeyBody(apiKey: service.serviceAPIKey, password: password)
+    func changeApiKey(for service: LocalService, completion: @escaping Callback<APIKeyChangeResponse>) {
+        let body = ChangeServiceKeyBody(apiKey: service.serviceAPIKey)
         let request = createAPIRequest(endpoint: NotifireProtectedAPIEndpoint.serviceKey, method: .put, body: body, queryItems: nil)
         performProtected(request: request, responseType: APIKeyChangeResponse.self, completion: completion)
     }

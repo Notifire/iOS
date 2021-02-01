@@ -57,13 +57,12 @@ struct ServiceUpdateRequestBody: Encodable {
     let name: String
     let id: Int
     let levels: Service.Levels
-    // FIXME: Possible change because of multipart
-    let image: String?
+    /// If `true` and no image data is uploaded, service image is deleted.
+    let deleteImage: Bool?
 }
 
 struct ChangeServiceKeyBody: Encodable {
     let apiKey: String
-    let password: String
 }
 
 struct PaginationData {
@@ -83,7 +82,8 @@ struct PaginationData {
 }
 
 struct ChangePasswordRequestBody: Encodable {
-    let oldPassword: String
+    /// Current password (old password)
+    let password: String
     let newPassword: String
 }
 
@@ -101,5 +101,5 @@ struct SyncServicesRequestBody: Encodable {
         let updatedAt: Date
     }
 
-    let services: [Service]
+    let services: [ServiceSyncData]
 }

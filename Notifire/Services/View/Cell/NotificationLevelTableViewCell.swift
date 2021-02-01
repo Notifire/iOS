@@ -35,6 +35,7 @@ class NotificationLevelTableViewCell: ReusableBaseTableViewCell {
     override func setup() {
         layout()
         setupLevelSwitch()
+        backgroundColor = .compatibleSystemBackground
     }
 
     override func layoutSubviews() {

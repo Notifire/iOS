@@ -62,16 +62,7 @@ extension URLSession: APIHandler {
             let decoder = JSONDecoder()
             switch statusCode {
             case .success:
-                decoder.dateDecodingStrategy = .custom({ decoder -> Date in
-                    let dateDouble = try decoder.singleValueContainer().decode(Double.self)
-                    return Date(timeIntervalSince1970: dateDouble)
-                })
-                do {
-                    try decoder.decode(requestContext.responseBodyType, from: data)
-                } catch let error {
-                    print(error)
-                }
-
+                decoder.dateDecodingStrategy = .timestampStrategy
                 guard let response = try? decoder.decode(requestContext.responseBodyType, from: data) else {
                     URLSession.finish(
                         nil,
@@ -113,7 +104,8 @@ extension URLSession: APIHandler {
                     completion: completionHandler
                 )
             case .unauthorized, .methodNotAllowed, .badRequest:
-                guard let clientErrorResponse = try? decoder.decode(NotifireAPIError.ClientError.self, from: data), clientErrorResponse.code != 2 else {
+                guard let clientErrorResponse = try? decoder.decode(ClientError.self, from: data) else {
+                    // Fallthrough to the last 'default' case in case the decoding fails.
                     fallthrough
                 }
                 URLSession.finish(

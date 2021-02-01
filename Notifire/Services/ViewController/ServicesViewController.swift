@@ -9,6 +9,34 @@
 import UIKit
 import SkeletonView
 
+class ServicesTableView: UITableView {
+
+    /// Whether this tableView is currently scrolling or not.
+    public var isScrolling: Bool = false
+
+    // MARK: - Initialization
+    override init(frame: CGRect, style: UITableView.Style) {
+        super.init(frame: frame, style: style)
+        setup()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+
+    private func setup() {
+        rowHeight = Size.Cell.heightExtended
+        estimatedRowHeight = Size.Cell.heightExtended
+        removeLastSeparatorAndDontShowEmptyCells()
+        backgroundColor = .compatibleBackgroundAccent
+        contentInsetAdjustmentBehavior = .never
+        isSkeletonable = true
+        register(reusableHeaderFooter: ServicesTableViewFooterView.self)
+        register(cells: [ServiceTableViewCell.self, PaginationLoadingTableViewCell.self])
+    }
+}
+
 class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBarDisplaying, EmptyStatePresentable, TableViewReselectable, APIErrorPresenting, APIErrorResponding {
 
     // MARK: - Properties
@@ -17,18 +45,10 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
     private var isInitialLoad: Bool = true
 
     // MARK: Views
-    lazy var tableView: UITableView = {
-        let tv = UITableView()
+    lazy var servicesTableView: ServicesTableView = {
+        let tv = ServicesTableView()
         tv.dataSource = self
         tv.delegate = self
-        tv.rowHeight = Size.Cell.heightExtended
-        tv.estimatedRowHeight = Size.Cell.heightExtended
-        tv.removeLastSeparatorAndDontShowEmptyCells()
-        tv.backgroundColor = .compatibleBackgroundAccent
-        tv.contentInsetAdjustmentBehavior = .never
-        tv.isSkeletonable = true
-        tv.register(reusableHeaderFooter: ServicesTableViewFooterView.self)
-        tv.register(cells: [ServiceTableViewCell.self, PaginationLoadingTableViewCell.self])
         return tv
     }()
 
@@ -37,6 +57,11 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
     // MARK: EmptyStatePresentable
     typealias EmptyStateView = ServicesEmptyStateView
     var emptyStateView: EmptyStateView?
+
+    // MARK: TableViewReselectable
+    var tableView: UITableView {
+        return servicesTableView
+    }
 
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -75,20 +100,23 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
             switch changes {
             case .partial(let changes):
                 let currentOffset = self.tableView.contentOffset
-                UIView.setAnimationsEnabled(false)
                 self.tableView.beginUpdates()
-                self.tableView.showsVerticalScrollIndicator = false
                 self.tableView.deleteRows(at: changes.deletions, with: .automatic)
                 self.tableView.insertRows(at: changes.insertions, with: .automatic)
                 for move in changes.moves {
                     self.tableView.moveRow(at: move.from, to: move.to)
                 }
                 self.tableView.reloadRows(at: changes.modifications, with: .automatic)
-                self.tableView.setContentOffset(currentOffset, animated: false)
-                self.tableView.showsVerticalScrollIndicator = true
+                if !self.servicesTableView.isScrolling {
+                    self.tableView.setContentOffset(currentOffset, animated: false)
+                    self.tableView.flashScrollIndicators()
+                }
                 self.tableView.endUpdates()
-                UIView.setAnimationsEnabled(true)
-                self.tableView.flashScrollIndicators()
+                if !changes.moves.isEmpty {
+                    self.tableView.beginUpdates()
+                    self.tableView.reloadRows(at: changes.moves.map({ $0.to }), with: .automatic)
+                    self.tableView.endUpdates()
+                }
             case .full:
                 self.tableView.reloadData()
             }
@@ -119,6 +147,10 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
             }
 
             self.connectionStatusView?.updateStyle(from: state)
+        }
+
+        viewModel.onServiceDeletion = { [weak self] id in
+            self?.delegate?.didDeleteService(with: id)
         }
 
         setViewModelOnError()

@@ -7,14 +7,25 @@
 //
 
 import UIKit
-import CropViewController
 
 /// Represents a Coordinator that can present another Coordinator or ViewController.
 protocol PresentingCoordinator: Coordinator {
     /// The currently presented coordinator
     var presentedCoordinator: ChildCoordinator? { get set }
     /// The `UIViewController` that presents a new ChildCoordinator
-    var presentingViewController: UIViewController? { get }
+    var presentingViewController: UIViewController { get }
+    /// The handler for dismiss by swipe. Using this class ensures that the next presentation doesn't get blocked by the guard in `present(childCoordinator:)`
+    var presentationDismissHandler: UIAdaptivePresentationDismissHandler? { get set }
+
+    /// The presentation function that will be called by the default implementation of `present(childCoordinator:)`.
+    /// This function is supposed to present the new viewcontroller.
+    /// - Parameters:
+    ///     - presentedViewController: the viewController that will be presented by a presentingViewController.
+    func presentationFunction(for presentedViewController: UIViewController?) -> ((UIViewController, Bool, (() -> Void)?) -> Void)
+    /// The viewcontroller dismissal function that will be called by the default implementation of `present(childCoordinator:)`
+    /// - Parameters:
+    ///     - dismissedViewController: the viewController that will be presented by a presentingViewController.
+    func dismissFunction(for dismissedViewController: UIViewController?) -> ((Bool, (() -> Void)?) -> Void)
 
     /// Present a new `ChildCoordinator` if presentedCoordinator is nil.
     func present(childCoordinator: ChildCoordinator, animated: Bool, modalPresentationStyle: UIModalPresentationStyle)
@@ -23,7 +34,7 @@ protocol PresentingCoordinator: Coordinator {
 }
 
 extension PresentingCoordinator where Self: ChildCoordinator {
-    var presentingViewController: UIViewController? {
+    var presentingViewController: UIViewController {
         return viewController
     }
 }
@@ -37,14 +48,43 @@ private extension UIModalPresentationStyle {
     }
 }
 
+class UIAdaptivePresentationDismissHandler: NSObject, UIAdaptivePresentationControllerDelegate {
+
+    /// Called when the presented view controller is dismissed
+    var onDismiss: (() -> Void)?
+
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        onDismiss?()
+    }
+}
+
 extension PresentingCoordinator {
+
+    func presentationFunction(for presentedViewController: UIViewController?) -> ((UIViewController, Bool, (() -> Void)?) -> Void) {
+        return presentingViewController.present(_:animated:completion:)
+    }
+
+    func dismissFunction(for dismissedViewController: UIViewController?) -> ((Bool, (() -> Void)?) -> Void) {
+        return presentingViewController.dismiss(animated:completion:)
+    }
+
     func present(childCoordinator: ChildCoordinator, animated: Bool, modalPresentationStyle: UIModalPresentationStyle = .defaultValue) {
         guard presentedCoordinator == nil else { return }
 
         presentedCoordinator = childCoordinator
         childCoordinator.viewController.modalPresentationStyle = modalPresentationStyle
+
+        if #available(iOS 13, *), !childCoordinator.viewController.isModalInPresentation {
+            let defaultPresentationHandler = UIAdaptivePresentationDismissHandler()
+            defaultPresentationHandler.onDismiss = { [weak self] in
+                self?.presentedCoordinator = nil
+                self?.presentationDismissHandler = nil
+            }
+            presentationDismissHandler = defaultPresentationHandler
+            childCoordinator.viewController.presentationController?.delegate = defaultPresentationHandler
+        }
         childCoordinator.start()
-        presentingViewController?.present(childCoordinator.viewController, animated: animated, completion: nil)
+        presentationFunction(for: childCoordinator.viewController)(childCoordinator.viewController, animated, nil)
     }
 
     /// Convenience method to present a `UIViewController` which will get encapsulated in a `GenericCoordinator`
@@ -54,12 +94,44 @@ extension PresentingCoordinator {
     }
 
     func dismissPresentedCoordinator(animated: Bool, completion: (() -> Void)? = nil) {
-        guard presentedCoordinator != nil else { return }
+        guard let presentedCoordinator = presentedCoordinator else { return }
 
-        presentingViewController?.dismiss(animated: animated, completion: { [weak self] in
+        dismissFunction(for: presentedCoordinator.viewController)(animated, { [weak self] in
             self?.presentedCoordinator = nil
+            self?.presentationDismissHandler = nil
             completion?()
         })
+    }
+}
+
+import CropViewController
+
+protocol ImagePickerPresentingCoordinator: PresentingCoordinator {
+    /// The frame of the `UIView` that any CropViewController will get presented from and to.
+    /// - Note: For more info, check out `CropViewController.presentAnimatedFrom` and
+    ///         `CropViewController.dismissAnimatedFrom`
+    var presentationViewFrame: CGRect { get }
+}
+
+extension ImagePickerPresentingCoordinator {
+    func presentationFunction(for presentedViewController: UIViewController?) -> ((UIViewController, Bool, (() -> Void)?) -> Void) {
+        // Present with CropViewController animation
+        if let presented = presentedViewController as? CropViewController {
+            return { [unowned self] _, animated, completion in
+                presented.presentAnimatedFrom(self.presentingViewController, fromView: nil, fromFrame: self.presentationViewFrame, setup: nil, completion: completion)
+            }
+        }
+        return presentingViewController.present(_:animated:completion:)
+    }
+
+    func dismissFunction(for dismissedViewController: UIViewController?) -> ((Bool, (() -> Void)?) -> Void) {
+        // Dismiss with CropViewController animation
+        if let dismissed = dismissedViewController as? CustomCropViewController, !dismissed.didFinishWithCancel {
+            return { [unowned self] _, completion in
+                dismissed.dismissAnimatedFrom(self.presentingViewController, toView: nil, toFrame: self.presentationViewFrame, setup: nil, completion: completion)
+            }
+        }
+        return presentingViewController.dismiss(animated:completion:)
     }
 }
 
@@ -69,7 +141,9 @@ class ServiceNameCreationViewModel: InputValidatingViewModel, APIErrorProducing 
     // MARK: - Properties
     let protectedApiManager: NotifireProtectedAPIManager
     var name: String = ""
-    var imageData: Data?
+    weak var serviceImageCreationViewModel: ServiceImageCreationViewModel?
+    /// `true` if an image the user provided in ServiceImageCreation should be uesd.
+    var shouldUseImage: Bool = false
 
     let loadingModel = LoadingModel()
 
@@ -90,6 +164,11 @@ class ServiceNameCreationViewModel: InputValidatingViewModel, APIErrorProducing 
     func createNewService() {
         guard allComponentsValidated, !loadingModel.isLoading else { return }
         loadingModel.toggle()
+
+        var imageData: ImageData?
+        if shouldUseImage, let imgData = serviceImageCreationViewModel?.imageData {
+            imageData = imgData
+        }
 
         protectedApiManager.createService(name: name, imageData: imageData) { [weak self] result in
             guard let `self` = self else { return }
@@ -232,33 +311,25 @@ class ServiceNameCreationViewController: VMViewController<ServiceNameCreationVie
 }
 
 // MARK: - Service Image
-import SDWebImage
-class ImagePicker {
 
-    /// Whether the UIImagePickerController can be presented to the user.
-    static var canPresentImagePickerController: Bool {
-        return UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
-    }
-
-    static func createDefaultController() -> UIImagePickerController {
-        let pickerController = UIImagePickerController()
-        pickerController.mediaTypes = ["public.image"]
-        pickerController.sourceType = .photoLibrary
-        return pickerController
-    }
-}
-
-class ServiceImageCreationCoordinator: NSObject, ChildCoordinator, PresentingCoordinator {
+class ServiceImageCreationCoordinator: ChildCoordinator, ImagePickerPresentingCoordinator {
 
     // MARK: - Properties
     var viewController: UIViewController {
         return serviceImageCreationViewController
     }
 
+    private var serviceImagePicker: ServiceImagePicker?
+
     let serviceImageCreationViewController: ServiceImageCreationViewController
 
-    // MARK: PresentingCoordinator
+    // MARK: ImagePickerPresentingCoordinator
     var presentedCoordinator: ChildCoordinator?
+    var presentationDismissHandler: UIAdaptivePresentationDismissHandler?
+
+    var presentationViewFrame: CGRect {
+        return serviceImageCreationViewController.imageViewFrameWithViewCoordinates
+    }
 
     // MARK: - Initialization
     init(imageCreationVM: ServiceImageCreationViewModel) {
@@ -272,222 +343,51 @@ class ServiceImageCreationCoordinator: NSObject, ChildCoordinator, PresentingCoo
     }
 
     func showImagePicker() {
-        guard ImagePicker.canPresentImagePickerController else {
-            // Present Alert
-            let alertController = UIAlertController(title: "Photos unavailable", message: "There was a problem with accessing your photos. Please verify that you photo library is not empty.", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Ok", style: .default) { [weak self] _ in
-                self?.dismissPresentedCoordinator(animated: true)
-            })
-            present(viewController: alertController, animated: true)
-            return
-        }
-        // Present Picker
-        let pickerController = ImagePicker.createDefaultController()
-        pickerController.delegate = self
-        present(viewController: pickerController, animated: true)
-    }
-}
-
-import CoreImage
-import MobileCoreServices
-
-func generateGif(gifImage: SDAnimatedImage, filename: String) -> Bool {
-    let documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-    let path = documentsDirectoryPath.appending(filename)
-    let fileProperties = [kCGImagePropertyGIFDictionary as String: [kCGImagePropertyGIFLoopCount as String: 0]]
-    let cfURL = URL(fileURLWithPath: path) as CFURL
-    if let destination = CGImageDestinationCreateWithURL(cfURL, kUTTypeGIF, Int(gifImage.animatedImageFrameCount), nil) {
-            CGImageDestinationSetProperties(destination, fileProperties as CFDictionary?)
-        for i in 0..<gifImage.animatedImageFrameCount {
-            guard let cgImage = gifImage.animatedImageFrame(at: i)?.sd_croppedImage(with: CGRect(x: 20, y: 20, width: 40, height: 40))?.cgImage else { continue }
-            let gifProperties = [kCGImagePropertyGIFDictionary as String: [kCGImagePropertyGIFDelayTime as String: gifImage.animatedImageDuration(at: i)]]
-            CGImageDestinationAddImage(destination, cgImage, gifProperties as CFDictionary?)
-            }
-            return CGImageDestinationFinalize(destination)
-        }
-    return false
-}
-
-extension ServiceImageCreationCoordinator: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismissPresentedCoordinator(animated: true)
-    }
-
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        // Verify that the user picked an Image
-        guard
-            let image = info[.originalImage] as? UIImage,
-            let imageURL = info[.imageURL] as? URL
-        else {
-            dismissPresentedCoordinator(animated: true)
-            return
-        }
-
-        // Check the imageType
-        let imageFileExtension = imageURL.pathExtension
-        if imageFileExtension.lowercased() == "gif", let gifData = try? Data(contentsOf: imageURL) {
-            //let image = SDAnimatedImage(data: gifData)?.sd_croppedImage(with: CGRect(x: 20, y: 20, width: 60, height: 60))
-            let image = SDAnimatedImage(data: gifData)!
-            generateGif(gifImage: image, filename: "/test.gif")
-
-//            for i in 0...image.animatedImageFrameCount {
-//
-//                image.animatedImageFrame(at: i)?.sd_croppedImage(with: CGRect(x: 20, y: 20, width: 60, height: 60))
-//            }
-            let croppedGifURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("/test.gif")
-            let croppedGifData = try? Data(contentsOf: croppedGifURL)
-            serviceImageCreationViewController.update(image: SDAnimatedImage(data: croppedGifData!)!)
-
-            dismissPresentedCoordinator(animated: true) { [weak self] in
-                let cropVC = CustomCropViewController(croppingStyle: .circular, image: SDAnimatedImage(data: gifData)!)
-                cropVC.delegate = self
-                cropVC.set(animatedImage: SDAnimatedImage(data: gifData)!)
-                self?.present(viewController: cropVC, animated: true, modalPresentationStyle: .fullScreen)
-            }
-        } else {
-            dismissPresentedCoordinator(animated: true) { [weak self] in
-                let cropVC = CustomCropViewController(croppingStyle: .circular, image: image)
-                cropVC.delegate = self
-                self?.present(viewController: cropVC, animated: true, modalPresentationStyle: .fullScreen)
+        let imagePicker = ServiceImagePicker(presenter: self)
+        imagePicker.completion = { [weak self] result in
+            switch result {
+            case .selected(let image, let format):
+                self?.serviceImageCreationViewController.update(image: image, format: format)
+            case .cancelled:
+                break
             }
         }
+        let view = serviceImageCreationViewController.view
+        let imageFrame = view?.convert(serviceImageCreationViewController.imageView.frame, to: view)
+        imagePicker.pickImage(imageFrame: imageFrame)
+        serviceImagePicker = imagePicker
     }
 }
 
-extension UIView {
-    class func getAllSubviews<T: UIView>(from parenView: UIView) -> [T] {
-            return parenView.subviews.flatMap { subView -> [T] in
-                var result = getAllSubviews(from: subView) as [T]
-                if let view = subView as? T { result.append(view) }
-                return result
-            }
-        }
+struct ImageData {
+    let format: ServiceImagePicker.ImageFormat
+    let data: Data
 }
 
-/// A customized `CropViewController`.
-/// - Features:
-///     - GIF support
-///     - Colored 'Done' / 'Cancel' buttons.
-class CustomCropViewController: CropViewController {
+protocol ImageDataContainingViewModel: ViewModelRepresenting {
+    var imageData: ImageData? { get set }
 
-    // MARK: - Properties
-    lazy var backgroundAnimatedImageView = SDAnimatedImageView()
-    lazy var foregroundAnimatedImageView = SDAnimatedImageView()
+    func setNewImageData(from image: UIImage, format: ServiceImagePicker.ImageFormat) throws
+}
 
-    /// Automatically set to `true` when animatedImageViews contain an image.
-    private var useAnimatedImageViews = false
-
-    var backgroundImageView: UIImageView? {
-        return cropView.subviews.first?.subviews.first?.subviews.first as? UIImageView
-    }
-
-    var foregroundImageView: UIImageView? {
-        return cropView.subviews.last?.subviews.first as? UIImageView
-    }
-
-    var kvoCropViewToken: NSKeyValueObservation?
-
-    // MARK: - Public
-    public func set(animatedImage: SDAnimatedImage) {
-        backgroundAnimatedImageView.image = animatedImage
-        foregroundAnimatedImageView.image = animatedImage
-        foregroundAnimatedImageView.layer.borderColor = UIColor.yellow.cgColor
-        foregroundAnimatedImageView.layer.borderWidth = 1
-        useAnimatedImageViews = true
-    }
-
-    // MARK: - View Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        guard
-            useAnimatedImageViews,
-            let backgroundImageView = backgroundImageView,
-            let foregroundImageView = foregroundImageView
-        else { return }
-        backgroundImageView.superview?.insertSubview(backgroundAnimatedImageView, aboveSubview: backgroundImageView)
-        foregroundImageView.superview?.insertSubview(foregroundAnimatedImageView, aboveSubview: foregroundImageView)
-
-        guard let scrollViewPanGestureRecognizer = UIView.getAllSubviews(from: cropView).first(where: { $0 is TOCropScrollView })!.gestureRecognizers?.first(where: { $0 is UIPanGestureRecognizer }) else { return }
-        scrollViewPanGestureRecognizer.addTarget(self, action: #selector(didPanScrollView))
-
-        kvoCropViewToken = cropView.observe(\.imageViewFrame, options: .new) { [weak self] (_, _) in
-            self?.foregroundAnimatedImageView.frame = self?.foregroundImageView?.frame ?? .zero
-        }
-    }
-
-    deinit {
-        kvoCropViewToken?.invalidate()
-    }
-
-    @objc func didPanScrollView(_ gestureRecognizer: UIPanGestureRecognizer) {
-        print(cropView.cropBoxFrame, cropView.imageViewFrame, cropView.imageCropFrame)
-        let point = CGPoint(x: cropView.imageViewFrame.origin.x - cropView.cropBoxFrame.origin.x, y: cropView.imageViewFrame.origin.y - cropView.cropBoxFrame.origin.y)
-        let newFrame = CGRect(origin: point, size: cropView.imageViewFrame.size)
-        //foregroundAnimatedImageView.frame = foregroundImageView?.frame ?? .zero
-        // observe cropViewFrame
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        // Toolbar Buttons Color
-        // Need to keep this in viewWillAppear otherwise the color is not changed.
-        toolbar.subviews.map({ ($0 as? UIButton) }).forEach({ $0?.setTitleColor(.primary, for: .normal) })
-
-//        // swiftlint:disable force_cast
-//        let imagesViews = [
-//            cropView.subviews[0].subviews[0].subviews[0] as! UIImageView,
-//            cropView.subviews[3].subviews.first! as! UIImageView
-//        ]
-//        var images = [CGImage]()
-//        var duration: TimeInterval = 0
-//        for i in 0..<animatedImage!.animatedImageFrameCount {
-//            guard let cgImage = animatedImage!.animatedImageFrame(at: i)?.cgImage else { continue }
-//            images.append(cgImage)
-//            duration += animatedImage!.animatedImageDuration(at: i)
-//        }
-//        var uiImages = images.map({ UIImage(cgImage: $0) })
-//        for imageView in imagesViews {
-//            imageView.animationImages = uiImages
-//            imageView.animationDuration = duration
-//            imageView.startAnimating()
-//        }
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        guard
-            let backgroundImageView = backgroundImageView,
-            let foregroundImageView = foregroundImageView
-        else { return }
-        //foregroundAnimatedImageView.frame = foregroundImageView.frame
-        backgroundAnimatedImageView.frame = backgroundImageView.frame
+extension ImageDataContainingViewModel {
+    func setNewImageData(from image: UIImage, format: ServiceImagePicker.ImageFormat) throws {
+        let data = try format.createData(from: image)
+        imageData = ImageData(format: format, data: data)
     }
 }
 
-extension ServiceImageCreationCoordinator: CropViewControllerDelegate {
-    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
-        dismissPresentedCoordinator(animated: true)
-    }
-
-    func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        serviceImageCreationViewController.update(image: SDAnimatedImage(data: image.sd_imageData(as: .GIF)!))
-        dismissPresentedCoordinator(animated: true)
-    }
+class ServiceImageCreationViewModel: ImageDataContainingViewModel {
+    var imageData: ImageData?
 }
-
-class ServiceImageCreationViewModel: ViewModelRepresenting {}
 
 class ServiceImageCreationViewController: VMViewController<ServiceImageCreationViewModel>, NavigationBarDisplaying {
 
     // MARK: - Properties
+    var imageViewFrameWithViewCoordinates: CGRect {
+        return view.convert(imageView.frame, to: view)
+    }
+
     // MARK: UI
     lazy var titleAndInformationView: TitleAndInformationView = {
         let view = TitleAndInformationView()
@@ -509,14 +409,14 @@ class ServiceImageCreationViewController: VMViewController<ServiceImageCreationV
         button.isEnabled = false
         button.setTitle("Next", for: .normal)
         button.onProperTap = { [unowned self] _ in
-            self.onContinuePress?(self.imageView.image?.pngData())
+            self.onContinuePress?(true)
         }
         return button
     }()
 
     lazy var skipButton: ActionButton = {
         let button = ActionButton.createActionButton(text: "Skip for now") { [unowned self] _ in
-            self.onContinuePress?(nil)
+            self.onContinuePress?(false)
         }
         button.titleLabel?.set(style: .actionButton)
         return button
@@ -527,8 +427,10 @@ class ServiceImageCreationViewController: VMViewController<ServiceImageCreationV
     var onImageAddPress: (() -> Void)?
     /// Called when the user presses Cancel
     var onCancelPress: (() -> Void)?
-    /// Called when the user continues to the next screen. The parameter of this property may contain the service image.
-    var onContinuePress: ((Data?) -> Void)?
+    /// Called when the user continues to the next screen. The parameter is `true` if the user provided image should be used.
+    /// - Note:
+    ///     The parameter is `true` if the user pressed the 'Next' button instead of 'Skip this for now'.
+    var onContinuePress: ((Bool) -> Void)?
 
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -570,10 +472,21 @@ class ServiceImageCreationViewController: VMViewController<ServiceImageCreationV
         onCancelPress?()
     }
 
-    func update(image: UIImage?) {
-        imageView.image = image
-
-        continueButton.isEnabled = image != nil
+    func update(image: UIImage, format imageFormat: ServiceImagePicker.ImageFormat) {
+        do {
+            // Create PNG
+            try viewModel.setNewImageData(from: image, format: imageFormat)
+            imageView.image = image
+            continueButton.isEnabled = true
+        } catch {
+            // Formatting failed
+            Logger.log(.error, "\(self) unable to create image data for this image (format=\(imageFormat.rawValue))")
+            let alertVC = NotifireAlertViewController(alertTitle: "Image upload error", alertText: "Formatting of this image failed. Please use another one.", alertStyle: .fail)
+            alertVC.add(action: NotifireAlertAction(title: "Ok", style: .neutral, handler: { _ in
+                alertVC.dismiss(animated: true, completion: nil)
+            }))
+            present(alertVC, animated: true, completion: nil)
+        }
     }
 }
 
@@ -625,8 +538,8 @@ class ServiceCreationCoordinator: NavigationCoordinator<ServiceImageCreationCoor
         rootChildCoordinator.serviceImageCreationViewController.onCancelPress = { [weak self] in
             self?.serviceCreationDelegate?.didCancelServiceCreation()
         }
-        rootChildCoordinator.serviceImageCreationViewController.onContinuePress = { [weak self] data in
-            self?.showServiceNameCreation(imageData: data)
+        rootChildCoordinator.serviceImageCreationViewController.onContinuePress = { [weak self] useImage in
+            self?.showServiceNameCreation(useImage: useImage)
         }
         super.start()
     }
@@ -640,9 +553,10 @@ class ServiceCreationCoordinator: NavigationCoordinator<ServiceImageCreationCoor
 
     }
 
-    private func showServiceNameCreation(imageData: Data?) {
+    private func showServiceNameCreation(useImage: Bool) {
         let viewModel = ServiceNameCreationViewModel(protectedApiManager: protectedApiManager)
-        viewModel.imageData = imageData
+        viewModel.shouldUseImage = useImage
+        viewModel.serviceImageCreationViewModel = rootChildCoordinator.serviceImageCreationViewController.viewModel
         viewModel.onServiceCreated = { [weak self] created in
             if created {
                 self?.serviceCreationDelegate?.didFinishServiceCreation()

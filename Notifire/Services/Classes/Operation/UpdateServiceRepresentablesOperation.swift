@@ -63,15 +63,15 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
     // MARK: Util
     private func handle(serviceChangeEvent: ServiceChangeEvent, shouldComplete: Bool = true) {
         let result: Result?
-        switch serviceChangeEvent.type {
-        case .create:
-            result = create(service: serviceChangeEvent.service)
-        case .update:
-            result = update(service: serviceChangeEvent.service)
-        case .delete:
-            result = delete(service: serviceChangeEvent.service)
-        case .upsert:
-            result = upsert(service: serviceChangeEvent.service)
+        switch serviceChangeEvent.serviceChangeData {
+        case .create(let service):
+            result = create(service: service)
+        case .update(let service):
+            result = update(service: service)
+        case .upsert(let service):
+            result = upsert(service: service)
+        case .delete(let id):
+            result = delete(serviceID: id)
         }
 
         if shouldComplete, let result = result {
@@ -247,13 +247,13 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
         }
     }
 
-    func delete(service: Service) -> Result? {
+    func delete(serviceID: Int) -> Result? {
         guard var serviceRepresentables = serviceRepresentables else {
             Logger.log(.fault, "\(self) serviceRepresentables is nil")
             return nil
         }
 
-        if let representableIndexToDelete = serviceRepresentables.firstIndex(where: { $0.id == service.id }) {
+        if let representableIndexToDelete = serviceRepresentables.firstIndex(where: { $0.id == serviceID }) {
             // service already presented in the UI
             // remove the service from the representables array
             serviceRepresentables.remove(at: representableIndexToDelete)
@@ -265,11 +265,11 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
                 moves: []
             )
 
-            synchronizationManager.deleteLocalServiceIfNeeded(from: service)
+            synchronizationManager.deleteLocalServiceIfNeeded(from: serviceID)
 
             return (serviceRepresentables, .partial(changesData: changes))
         } else {
-            synchronizationManager.deleteLocalServiceIfNeeded(from: service)
+            synchronizationManager.deleteLocalServiceIfNeeded(from: serviceID)
             // service was not in the serviceRepresentables array
             return (serviceRepresentables, nil)
         }

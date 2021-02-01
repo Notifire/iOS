@@ -12,6 +12,33 @@ protocol NotificationsViewControllerDelegate: class {
     func didSelect(notification: LocalNotifireNotification)
 }
 
+class UnreadNotificationsLabel: UILabel {
+
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+        setup()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+
+    private func setup() {
+        clipsToBounds = true
+        numberOfLines = 0
+        textAlignment = .center
+        backgroundColor = .primary
+        textColor = .white
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = bounds.height / 2
+        print(layer.cornerRadius)
+    }
+}
+
 class NotificationsViewController: UIViewController, NavigationBarDisplaying, EmptyStatePresentable, TableViewReselectable {
 
     // MARK: - Properties
@@ -105,10 +132,19 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
     }
 }
 
+extension UIColor {
+    func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { rendererContext in
+            self.setFill()
+            rendererContext.fill(CGRect(origin: .zero, size: size))
+        }
+    }
+}
 extension NotificationsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        delegate?.didSelect(notification: viewModel.collection[indexPath.row])
+        let notification = viewModel.collection[indexPath.row]
+        delegate?.didSelect(notification: notification)
     }
 
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -143,6 +179,7 @@ extension NotificationsViewController: UITableViewDataSource {
         let configuration = viewModel.cellConfiguration(for: indexPath.row)
         let cell = tableView.dequeueReusableCell(withIdentifier: type(of: configuration).reuseIdentifier, for: indexPath)
         configuration.configure(cell: cell)
+        cell.selectionStyle = .default
         return cell
     }
 }

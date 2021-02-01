@@ -13,14 +13,21 @@ protocol ValidatableComponent: class {
     var rules: [ComponentRule] { get set }
     var validityState: ValidatableComponentState { get set }
     var showsValidState: Bool { get set }
+    /// IF `true` then the `.neutral` state is taken as valid.
+    var neutralStateValid: Bool { get }
 }
 
 extension ValidatableComponent {
     var isValid: Bool {
-        guard case .valid = validityState else {
-            return false
+        switch validityState {
+        case .valid: return true
+        case .neutral: return neutralStateValid
+        case .validating, .invalid: return false
         }
-        return true
+    }
+
+    var neutralStateValid: Bool {
+        return false
     }
 }
 

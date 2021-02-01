@@ -9,7 +9,7 @@
 import UIKit
 
 /// A generic coordinator class that is used for UIViewControllers that require having a coordinator for some interaction with other coordinators.
-class GenericCoordinator<ViewController: UIViewController>: ChildCoordinator {
+class GenericCoordinator<ViewController: UIViewController>: ChildCoordinator, NavigatingChildCoordinator {
 
     // MARK: - Properties
     let rootViewController: ViewController
@@ -18,6 +18,9 @@ class GenericCoordinator<ViewController: UIViewController>: ChildCoordinator {
     var viewController: UIViewController {
         return rootViewController
     }
+
+    // MARK: NavigatingChildCoordinator
+    var parentNavigatingCoordinator: NavigatingCoordinator?
 
     // MARK: - Initialization
     init(viewController: ViewController) {

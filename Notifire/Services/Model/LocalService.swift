@@ -49,6 +49,16 @@ class LocalService: Object {
         return primaryKey() ?? #keyPath(LocalService.id)
     }
 
+    /// Returns self if the object is not invalidated.
+    var safeHandle: LocalService? {
+        guard !isInvalidated else { return nil }
+        return self
+    }
+
+    var unreadNotifications: Results<LocalNotifireNotification> {
+        return notifications.filter(LocalNotifireNotification.isUnreadPredicate)
+    }
+
     // MARK: Images
     func image(from keyPath: KeyPath<LocalService, String?>) -> UIImage {
         return LocalService.createImage(from: self[keyPath: keyPath])

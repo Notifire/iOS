@@ -8,12 +8,21 @@
 
 import UIKit
 import SkeletonView
+import SDWebImage
 
 class ServiceTableViewCell: ReusableBaseTableViewCell {
 
     // MARK: Views
     let serviceImageView = RoundedImageView()
-    let serviceNameLabel = UILabel(style: .semiboldCellTitle)
+    lazy var serviceNameLabel: UILabel = {
+        let label = UILabel(style: .semiboldCellTitle)
+        label.isSkeletonable = true
+        label.linesCornerRadius = 10
+        label.numberOfLines = 1
+        label.lineBreakMode = .byTruncatingTail
+        label.adjustsFontSizeToFitWidth = false
+        return label
+    }()
     let unreadNotificationsLabel = UILabel(style: .cellSubtitle)
 
     // MARK: Inherited
@@ -26,8 +35,7 @@ class ServiceTableViewCell: ReusableBaseTableViewCell {
         layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
         isSkeletonable = true
         serviceImageView.isSkeletonable = true
-        serviceNameLabel.isSkeletonable = true
-        serviceNameLabel.linesCornerRadius = 10
+
     }
 
     // MARK: Private
@@ -69,12 +77,16 @@ class ServiceTableViewCell: ReusableBaseTableViewCell {
 
     // MARK: Update model
     func configure(from representable: ServiceRepresentable) {
-        // TODO: Add downloader
-        serviceImageView.image = LocalService.defaultImage
+        if let imageURL = representable.imageURL {
+            serviceImageView.sd_setImage(with: imageURL, placeholderImage: LocalService.defaultImage, options: [], context: [:])
+        } else {
+            serviceImageView.image = LocalService.defaultImage
+        }
         serviceNameLabel.text = representable.name
-        // FIXME:
-//        let unreadCount = service.notifications.filter(LocalNotifireNotification.isReadPredicate).count
-//        let unreadText = unreadCount == 0 ? "" : "\(unreadCount)"
-//        unreadNotificationsLabel.text = unreadText
+        if let local = representable as? LocalService, !local.isInvalidated {
+            let unreadCount = local.notifications.filter(LocalNotifireNotification.isUnreadPredicate).count
+            let unreadText = unreadCount == 0 ? "" : "\(unreadCount)"
+            unreadNotificationsLabel.text = unreadText
+        }
     }
 }

@@ -42,13 +42,16 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
         return textField.text ?? textField.attributedText?.string ?? ""
     }
 
+    var neutralStateValid: Bool
+
     // MARK: - Initialization
-    init(textField: CustomTextField? = nil) {
+    init(textField: CustomTextField? = nil, neutralStateValid: Bool = false) {
         if let safeTextField = textField {
             self.textField = safeTextField
         } else {
             self.textField = BorderedTextField()
         }
+        self.neutralStateValid = neutralStateValid
         super.init()
         self.textField.delegate = self
         self.textField.parentValidatableTextInput = self
@@ -56,6 +59,7 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
 
     required init?(coder aDecoder: NSCoder) {
         self.textField = BorderedTextField()
+        self.neutralStateValid = false
         super.init(coder: aDecoder)
     }
 

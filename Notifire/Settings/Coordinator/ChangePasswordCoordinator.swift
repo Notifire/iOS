@@ -8,11 +8,9 @@
 
 import Foundation
 
-class ChangePasswordCoordinator: GenericSuccessCoordinator<ChangePasswordViewController>, NavigatingChildCoordinator {
+class ChangePasswordCoordinator: GenericSuccessCoordinator<ChangePasswordViewController> {
 
     // MARK: - Properties
-    // MARK: NavigatingChildCoordinator
-    var parentNavigatingCoordinator: NavigatingCoordinator?
 
     // MARK: Inherited
     override func dismissAfterSuccessOk() {

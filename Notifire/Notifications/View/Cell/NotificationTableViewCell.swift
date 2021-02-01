@@ -20,7 +20,7 @@ extension NotificationPresenting where Self: BaseTableViewCell {
             isNotificationReadView = nil
         } else {
             guard isNotificationReadView == nil else { return }
-            let circleView = UIView()
+            let circleView = CircleView()
             circleView.backgroundColor = .primary
             contentView.add(subview: circleView)
             circleView.heightAnchor.constraint(equalTo: circleView.widthAnchor).isActive = true
@@ -29,7 +29,6 @@ extension NotificationPresenting where Self: BaseTableViewCell {
             let leadingSpace = (contentView.layoutMargins.left - Size.Image.unreadNotificationAlert) / 2
             circleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: leadingSpace).isActive = true
             isNotificationReadView = circleView
-            circleView.layer.cornerRadius = Size.Image.unreadNotificationAlert / 2
         }
     }
 }
@@ -137,7 +136,11 @@ class NotificationTableViewCell: NotificationBaseTableViewCell, CellConfigurable
 
     func configure(data notification: LocalNotifireNotification) {
         guard let service = notification.service else { return }
-        serviceImageView.image = service.smallImage
+        if let imageURLString = service.mediumImageURLString, let imageURL = URL(string: imageURLString) {
+            serviceImageView.roundedImageView.sd_setImage(with: imageURL, placeholderImage: LocalService.defaultImage, options: [], completed: nil)
+        } else {
+            serviceImageView.image = LocalService.defaultImage
+        }
         serviceInformationLabel.text = "\(service.name)"
         bodyLabel.text = notification.body
         let dateString = notification.date.formatRelativeString()

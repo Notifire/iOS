@@ -93,4 +93,12 @@ extension ServicesViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         delegate?.didSelect(service: service)
     }
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        servicesTableView.isScrolling = true
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        servicesTableView.isScrolling = false
+    }
 }

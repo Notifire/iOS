@@ -26,10 +26,12 @@ enum SettingsSectionRow: Int {
     case notificationPermissionStatus
     case goToSettingsButton
     case notificationPrefixSetting
-    case applicationUpdateAlert
 
     // MARK: General
     case applicationVersion
+    case applicationUpdateAlert
+    case openLinksWarningSetting
+
     case privacyPolicy
     case contact
 }

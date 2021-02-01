@@ -15,6 +15,16 @@ extension UIView {
         subview.translatesAutoresizingMaskIntoConstraints = false
     }
 
+    func insert(subview: UIView, belowSubview: UIView) {
+        insertSubview(subview, belowSubview: belowSubview)
+        subview.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    func insert(subview: UIView, aboveSubview: UIView) {
+        insertSubview(subview, aboveSubview: aboveSubview)
+        subview.translatesAutoresizingMaskIntoConstraints = false
+    }
+
     func toCircle() {
         layer.cornerRadius = bounds.height / 2
         clipsToBounds = true

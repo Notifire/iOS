@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         switch application.applicationState {
         case .active, .inactive, .background:
             guard let sessionCoordinator = appCoordinator?.sessionCoordinator else { return }
-            sessionCoordinator.tabBarViewController.viewModel.currentTab = .notifications
+            //sessionCoordinator.tabBarViewController.viewModel.currentTab = .notifications
             let notificationHandler = NotifireNotificationsHandler()
             guard (try? notificationHandler.getNotification(from: userInfo)) != nil else {
                 return

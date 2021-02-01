@@ -8,6 +8,13 @@
 
 import UIKit
 
+class CircleView: UIView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = bounds.width / 2
+    }
+}
+
 class TabBarViewController: VMViewController<TabBarViewModel>, AppRevealing {
 
     // MARK: - Properties
@@ -18,6 +25,7 @@ class TabBarViewController: VMViewController<TabBarViewModel>, AppRevealing {
     // MARK: Views
     /// UIView for the child view controllers (selected tabs)
     let containerView = UIView()
+    let buttonsContainerView = UIView()
 
     lazy var tabBarStackView: TabBarStackView = {
         let stackView = TabBarStackView(tabs: viewModel.tabs)
@@ -32,8 +40,13 @@ class TabBarViewController: VMViewController<TabBarViewModel>, AppRevealing {
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
-        prepareViewModel()
         updateTabBarStackViewSize()
+        notificationsButton = tabBarStackView.button(for: .notifications)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        prepareViewModel()
     }
 
     // MARK: - Initialization
@@ -70,19 +83,18 @@ class TabBarViewController: VMViewController<TabBarViewModel>, AppRevealing {
 
     private func addNotificationsAlertViewIfNeeded() {
         guard notificationsAlertView == nil, let notificationsButton = notificationsButton, let imageView = notificationsButton.imageView else { return }
-        let circleView = UIView()
+        let circleView = CircleView()
         circleView.backgroundColor = .primary
-        notificationsButton.add(subview: circleView)
+        buttonsContainerView.add(subview: circleView)
         circleView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -8).isActive = true
         circleView.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 8).isActive = true
         circleView.heightAnchor.constraint(equalTo: circleView.widthAnchor).isActive = true
         circleView.widthAnchor.constraint(equalToConstant: Size.Image.unreadNotificationAlert).isActive = true
-        notificationsButton.layoutIfNeeded()
-        circleView.toCircle()
+        buttonsContainerView.layoutIfNeeded()
         circleView.transform = circleView.transform.scaledBy(x: 0.5, y: 0.5)
         let animator = UIViewPropertyAnimator(duration: 0.7, dampingRatio: 0.25) {
             circleView.transform = .identity
-            notificationsButton.layoutIfNeeded()
+            self.buttonsContainerView.layoutIfNeeded()
         }
         animator.startAnimation()
         notificationsAlertView = circleView
@@ -112,7 +124,6 @@ class TabBarViewController: VMViewController<TabBarViewModel>, AppRevealing {
         containerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 
         // collection view container
-        let buttonsContainerView = UIView()
         buttonsContainerView.backgroundColor = .compatibleSystemBackground
         view.add(subview: buttonsContainerView)
         buttonsContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true

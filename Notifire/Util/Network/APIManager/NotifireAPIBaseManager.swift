@@ -48,11 +48,11 @@ class NotifireAPIBaseManager {
         if let requestBody = body {
             request.addBody(requestBody)
         }
-        request.timeoutInterval = 10
+        request.timeoutInterval = 15
         return request
     }
 
-    open func createMultipartAPIRequest<Body: Encodable>(endpoint: CustomStringConvertible, method: HTTPMethod, imageData: Data?, body: Body, queryItems: [URLQueryItem]? = nil) -> (URLRequest, Data) {
+    open func createMultipartAPIRequest<Body: Encodable>(endpoint: CustomStringConvertible, method: HTTPMethod, imageData: Data?, imageFormat: ServiceImagePicker.ImageFormat?, body: Body, queryItems: [URLQueryItem]? = nil) -> (URLRequest, Data) {
         // Create normal request
         var request = createAPIRequest(endpoint: endpoint, method: method, body: nil as EmptyRequestBody?)
         let boundary = UUID().uuidString
@@ -62,9 +62,9 @@ class NotifireAPIBaseManager {
         let boundaryData = "\r\n--\(boundary)\r\n".data(using: .utf8) ?? Data()
         var data = Data()
         // Image
-        if let imageData = imageData {
+        if let imageData = imageData, let fileExtension = imageFormat?.fileExtension {
             data.append(boundaryData)
-            data.append("Content-Disposition: form-data; name=\"image\"; filename=\"service.png\"\r\n".data(using: .utf8) ?? Data())
+            data.append("Content-Disposition: form-data; name=\"image\"; filename=\"svc.\(fileExtension)\"\r\n".data(using: .utf8) ?? Data())
             data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8) ?? Data())
             data.append(imageData)
         }

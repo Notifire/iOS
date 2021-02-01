@@ -10,5 +10,6 @@ import Foundation
 
 protocol ServicesViewControllerDelegate: class {
     func didSelect(service: ServiceRepresentable)
+    func didDeleteService(with id: Int)
     func didSelectCreateService()
 }

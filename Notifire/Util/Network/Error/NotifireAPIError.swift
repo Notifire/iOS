@@ -22,18 +22,6 @@ enum NotifireAPIError: Error, CustomStringConvertible {
     case notConnectedToTheInternet
     case urlSession(error: Error)
 
-    /// Represent any 40x response body.
-    struct ClientError: Decodable, Equatable {
-        let code: Int
-        let message: String
-
-        // swiftlint:disable nesting
-        private enum CodingKeys: String, CodingKey {
-            case code = "errorCode", message = "errorMessage"
-        }
-        // swiftlint:disable nesting
-    }
-
     public var description: String {
         switch self {
         case .unknown: return "unknown"

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ServiceHeaderView: ConstrainableView {
 
@@ -21,7 +22,14 @@ class ServiceHeaderView: ConstrainableView {
     }
 
     // MARK: Views
-    lazy var serviceNameLabel: UILabel = UILabel(style: .title)
+    lazy var serviceNameLabel: UILabel = {
+        let label = UILabel(style: .title)
+        label.adjustsFontSizeToFitWidth = false
+        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 2
+        label.textAlignment = .center
+        return label
+    }()
 
     lazy var serviceImageView: RoundedShadowImageView = RoundedShadowImageView(image: nil)
 
@@ -52,11 +60,16 @@ class ServiceHeaderView: ConstrainableView {
         serviceNameLabel.centerXAnchor.constraint(equalTo: floatingContentView.centerXAnchor).isActive = true
         serviceNameLabel.topAnchor.constraint(equalTo: serviceImageView.bottomAnchor, constant: 1.5 * floatingDistanceFromTop).isActive = true
         serviceNameLabel.bottomAnchor.constraint(equalTo: floatingContentView.bottomAnchor, constant: -floatingDistanceFromTop * 2).isActive = true
+        serviceNameLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.56).isActive = true
     }
 
     private func updateUI() {
         guard let service = service else { return }
         serviceNameLabel.text = service.name
-        serviceImageView.image = service.largeImage
+        if let urlString = service.largeImageURLString, let url =  URL(string: urlString) {
+            serviceImageView.roundedImageView.sd_setImage(with: url, placeholderImage: LocalService.defaultImage, options: [], context: [:])
+        } else {
+            serviceImageView.image = LocalService.defaultImage
+        }
     }
 }

@@ -9,13 +9,13 @@
 import Foundation
 
 enum EmailTokenError: Int, UserErrorRepresenting {
-    case invalid = 0
     case expired = 1
+    case invalid = 2
 
     var description: String {
         switch self {
-        case .invalid: return "The link is invalid."
         case .expired: return "The link has expired."
+        case .invalid: return "The link is invalid."
         }
     }
 }

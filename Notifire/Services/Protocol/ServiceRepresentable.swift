@@ -11,7 +11,7 @@ import Foundation
 protocol ServiceRepresentable {
     var name: String { get }
     var id: Int { get }
-//    var image: String? { get }
+    var imageURL: URL? { get }
 }
 
 // MARK: Equatable
@@ -24,7 +24,8 @@ extension ServiceRepresentable {
 
 // MARK: - LocalService + ServiceRepresentable
 extension LocalService: ServiceRepresentable {
-    var image: String? {
-        return smallImageDataString
+    var imageURL: URL? {
+        guard let urlString = mediumImageURLString else { return nil }
+        return URL(string: urlString)
     }
 }

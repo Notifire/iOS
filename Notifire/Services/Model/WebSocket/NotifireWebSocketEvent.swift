@@ -21,7 +21,7 @@ protocol EventTypeable {
 }
 
 /// Represents the events that are sent from the server to the client.
-struct NotifireWebSocketEvent<EventData: Codable & EventTypeable>: Codable {
+struct NotifireWebSocketEvent<EventData: Decodable & EventTypeable>: Decodable {
 
     enum DecodingError: Error {
         case mismatchedDataAndEvent
