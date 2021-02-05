@@ -8,6 +8,7 @@
 
 import Foundation
 import Starscream
+import Network
 
 protocol ServiceWebSocketManagerDelegate: class {
     /// Invoked whenever the websocket server enforces the client to do a new connect operation (not reconnect)
@@ -22,6 +23,9 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
     // MARK: - Properties
     let socket: WebSocket
     let apiManager: NotifireProtectedAPIManager
+    /// networkMonitor has type `NWPathMonitor` but `AnyObject` is used to avoid iOS 11 unavailability
+    weak var networkMonitor: AnyObject?
+
     weak var delegate: ServiceWebSocketManagerDelegate?
 
     // MARK: Model
@@ -84,10 +88,30 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
     func connect() {
         guard isDisconnected else { return }
 
+        // Add network connectivity observer
+        if #available(iOS 12, *), networkMonitor == nil {
+            let monitor = NWPathMonitor()
+            monitor.pathUpdateHandler = { [weak self] path in
+                if path.status != .satisfied {
+                    self?.disconnect(code: .noInternetConnection)
+                }
+            }
+            monitor.start(queue: DispatchQueue.global(qos: .background))
+            self.networkMonitor = monitor
+        }
+
         webSocketConnectionStatus = .connecting
 
         // Attempt to connect
         socket.connect()
+    }
+
+    func disconnect(code: WebSocketErrorCode = .noInternetConnection) {
+        guard !isDisconnected else { return }
+
+        webSocketConnectionStatus = .disconnected(context: .disconnect(reason: "No internet connection", code: code))
+
+        socket.disconnect()
     }
 
     // MARK: - Private
@@ -250,7 +274,7 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
                     delegate?.didRequestFreshConnect()
                 case .invalidAccessToken:
                     shouldGenerateNewAccessToken = true
-                case .invalidFormat, .unknown:
+                case .noInternetConnection, .invalidFormat, .unknown:
                     break
                 }
             case .error: break

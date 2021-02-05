@@ -10,6 +10,9 @@ import Foundation
 
 /// Represents the error code returned when a `WebSocket` session closes.
 enum WebSocketErrorCode: Int {
+    /// The user's network interface contains 0 elements.
+    /// Invoked on Airplane Mode or when the user has no internet connection.
+    case noInternetConnection = 1
     /// Formatting error, usually invoked from Cerberus.
     case invalidFormat = 1000
     /// User's access token is no longer valid.
