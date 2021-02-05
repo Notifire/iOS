@@ -386,7 +386,7 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
     private func updateConnectionViewState(_ status: WebSocketConnectionStatus) {
         let newViewState: WebSocketConnectionViewState
         switch (connectionViewState, status) {
-        case (nil, .connecting), (.connecting, .connecting), (_, .connected), (_, .disconnected(context: .disconnect(_, code: .expiredSessionID))), (_, .disconnected(context: .disconnect(_, code: .invalidAccessToken))):
+        case (nil, .connecting), (.connecting, .connecting), (_, .connected), (_, .disconnected(context: .disconnect(_, code: .expiredSessionID))), (_, .disconnected(context: .disconnect(_, code: .invalidAccessToken))), (_, .disconnected(context: .disconnect(_, code: .appWillResignActive))):
             newViewState = .connecting
         case (_, .disconnected), (_, .connecting): newViewState = .offline
         case (_, .authorized): newViewState = .connected

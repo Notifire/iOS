@@ -13,6 +13,8 @@ enum WebSocketErrorCode: Int {
     /// The user's network interface contains 0 elements.
     /// Invoked on Airplane Mode or when the user has no internet connection.
     case noInternetConnection = 1
+    /// The user moved the app from Foreground Active to Foreground Inactive
+    case appWillResignActive = 2
     /// Formatting error, usually invoked from Cerberus.
     case invalidFormat = 1000
     /// User's access token is no longer valid.

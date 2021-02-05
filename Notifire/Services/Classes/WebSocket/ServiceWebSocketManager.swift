@@ -208,7 +208,11 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
         case .text(let string):
             parseAndHandle(text: string)
         case .error(let error):
-            webSocketConnectionStatus = .disconnected(context: .error(error))
+            if #available(iOS 12, *), let nwError = error as? NWError, nwError == .posix(.ECONNABORTED) {
+                webSocketConnectionStatus = .disconnected(context: .disconnect(reason: "App went to foreground inactive", code: .appWillResignActive))
+            } else {
+                webSocketConnectionStatus = .disconnected(context: .error(error))
+            }
         case .binary, .cancelled, .ping, .pong, .viabilityChanged, .reconnectSuggested:
             break
         }
@@ -274,7 +278,7 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
                     delegate?.didRequestFreshConnect()
                 case .invalidAccessToken:
                     shouldGenerateNewAccessToken = true
-                case .noInternetConnection, .invalidFormat, .unknown:
+                case .noInternetConnection, .appWillResignActive, .invalidFormat, .unknown:
                     break
                 }
             case .error: break
