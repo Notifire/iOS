@@ -186,7 +186,6 @@
 		8939958E2170011100687A79 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939958D2170011100687A79 /* SplashView.swift */; };
 		89399590217002AD00687A79 /* Revealing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939958F217002AD00687A79 /* Revealing.swift */; };
 		893995932170C58400687A79 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995922170C58400687A79 /* TabBarViewController.swift */; };
-		893995972170DEA500687A79 /* NotifireUserSessionManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995962170DEA500687A79 /* NotifireUserSessionManagerMock.swift */; };
 		8939959D2170ED4900687A79 /* NoSessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939959C2170ED4900687A79 /* NoSessionCoordinator.swift */; };
 		8939959F2170ED7900687A79 /* SessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939959E2170ED7900687A79 /* SessionCoordinator.swift */; };
 		893995A12170ED9700687A79 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995A02170ED9700687A79 /* TabBarViewModel.swift */; };
@@ -3847,7 +3846,6 @@
 				897069F42134BF4C00D798AA /* KeyboardDismissing.swift in Sources */,
 				8936E3C1256333E7007424A7 /* ViewModelled.swift in Sources */,
 				89BDADE7217A921A000E38FC /* ServiceViewController.swift in Sources */,
-				893995972170DEA500687A79 /* NotifireUserSessionManagerMock.swift in Sources */,
 				893995A62170EDC900687A79 /* TabbedCoordinator.swift in Sources */,
 				893995A12170ED9700687A79 /* TabBarViewModel.swift in Sources */,
 				899AF49A25964D5C003EADA8 /* ServiceIdentifiable.swift in Sources */,

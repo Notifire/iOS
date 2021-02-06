@@ -12,7 +12,7 @@ extension UserSessionManager {
     public static func createEmailSession(loginSuccessResponse: LoginSuccessResponse) -> UserSession {
         // userID is nil because email doesn't provide a userID token
         let providerData = AuthenticationProviderData(provider: .email, email: loginSuccessResponse.email, userID: nil)
-        let session = UserSession(refreshToken: loginSuccessResponse.refreshToken, providerData: providerData)
+        let session = UserSession(userID: loginSuccessResponse.userID, refreshToken: loginSuccessResponse.refreshToken, providerData: providerData)
         session.accessToken = loginSuccessResponse.accessToken
         return session
     }

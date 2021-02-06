@@ -17,9 +17,16 @@ class UserSessionManager {
     static let appGroupSuiteName = "group.\(Config.productBundleID)"
     static let appGroupSuiteNameWithTeamID = "\(teamID).\(appGroupSuiteName)"
 
+    /// Shared user defaults for the app and the extensions
+    static let userDefaults = UserDefaults(suiteName: appGroupSuiteName) ?? UserDefaults.standard
+
     /// Enumeration describing the keys used by the keychain
     /// Note: User specific
     enum KeychainKey: String, CaseIterable {
+        /// The user ID of the last logged in user. Used to automatically log in the previous user / load the previous `UserSession`
+        case lastUserID
+
+        // The rest of these are specific to the previous user session
         case email
         case refreshToken
         case deviceToken
@@ -30,11 +37,12 @@ class UserSessionManager {
     private static var keychain = Keychain(service: "userData", accessGroup: keychainAccessGroup)
 
     // MARK: - Methods
-    private static func keychainKey(key: KeychainKey, userIdentifier: String? = nil) -> String {
+    private static func keychainKey(key: KeychainKey, userIdentifier: Int? = nil) -> String {
         let keychainKey: [String]
         if let identifier = userIdentifier {
             // the value is specific for some user
-            keychainKey = [Config.productBundleID, identifier, key.rawValue]
+            let keychainUserIdentifier = "user\(identifier)"
+            keychainKey = [Config.productBundleID, keychainUserIdentifier, key.rawValue]
         } else {
             // The value is specific only for the app (bundleID)
             keychainKey = [Config.productBundleID, key.rawValue]
@@ -46,28 +54,29 @@ class UserSessionManager {
     /// - Parameters:
     ///     - key: the unique key for the value in the keychain
     ///     - userIdentifier: optional identifier that is used to differentiate various user accounts that could be logged in on one device (e.g. user's email)
-    private static func getKeychainValue(key: KeychainKey, userIdentifier: String? = nil) -> String? {
+    private static func getKeychainValue(key: KeychainKey, userIdentifier: Int? = nil) -> String? {
         return try? keychain.getString(
             keychainKey(key: key, userIdentifier: userIdentifier)
         )
     }
 
-    private static func setKeychainValue(value: String, key: KeychainKey, userIdentifier: String? = nil) {
+    private static func setKeychainValue(value: String, key: KeychainKey, userIdentifier: Int? = nil) {
         try? keychain.set(value, key: keychainKey(key: key, userIdentifier: userIdentifier))
     }
 
-    private static func loadUserSession(email: String) -> UserSession? {
+    private static func loadUserSession(userID: Int) -> UserSession? {
         // Get data that will be used to instantiate a new UserSession
         guard
-            let refreshToken = getKeychainValue(key: KeychainKey.refreshToken, userIdentifier: email),
-            let providerString = getKeychainValue(key: KeychainKey.provider, userIdentifier: email),
+            let email = getKeychainValue(key: KeychainKey.email, userIdentifier: userID),
+            let refreshToken = getKeychainValue(key: KeychainKey.refreshToken, userIdentifier: userID),
+            let providerString = getKeychainValue(key: KeychainKey.provider, userIdentifier: userID),
             let provider = AuthenticationProvider(providerString: providerString)
         else { return nil }
         // There userIdentifier might be nil if the provider = .email
-        let ssoUserIdentifier = getKeychainValue(key: KeychainKey.ssoUserIdentifier, userIdentifier: email)
+        let ssoUserIdentifier = getKeychainValue(key: KeychainKey.ssoUserIdentifier, userIdentifier: userID)
         let providerData = AuthenticationProviderData(provider: provider, email: email, userID: ssoUserIdentifier)
-        let userSession = UserSession(refreshToken: refreshToken, providerData: providerData)
-        if let deviceToken = getKeychainValue(key: KeychainKey.deviceToken, userIdentifier: email) {
+        let userSession = UserSession(userID: userID, refreshToken: refreshToken, providerData: providerData)
+        if let deviceToken = getKeychainValue(key: KeychainKey.deviceToken, userIdentifier: userID) {
             userSession.deviceToken = deviceToken
         }
         return userSession
@@ -77,8 +86,9 @@ class UserSessionManager {
     /// Return a UserSession from the keychain.
     public class func previousUserSession() -> UserSession? {
         guard
-            let keychainStoredEmail = getKeychainValue(key: KeychainKey.email),
-            let session = loadUserSession(email: keychainStoredEmail)
+            let keychainStoredUserIDString = getKeychainValue(key: KeychainKey.lastUserID),
+            let keychainStoredUserID = Int(keychainStoredUserIDString),
+            let session = loadUserSession(userID: keychainStoredUserID)
         else { return nil }
         return session
     }
@@ -94,11 +104,13 @@ class UserSessionManager {
     }
 
     static func saveSessionInParts(session: UserSession, email: Bool, refreshToken: Bool, providerData: Bool, deviceToken: Bool) {
-        let userIdentifier = session.email
+        let userIdentifier = session.userID
+
+        // Save the last logged in userID to the lastUserID key
+        setKeychainValue(value: String(session.userID), key: .lastUserID)
+
         // Email
         if email {
-            // set the last logged in email to the email in this userSession
-            setKeychainValue(value: session.email, key: KeychainKey.email)
             // set the email of the userSession
             setKeychainValue(value: session.email, key: KeychainKey.email, userIdentifier: userIdentifier)
         }
@@ -124,10 +136,10 @@ class UserSessionManager {
 
     static func removeSession(userSession: UserSession) {
         // remove last logged in email
-        try? keychain.remove(KeychainKey.email.rawValue)
+        try? keychain.remove(KeychainKey.lastUserID.rawValue)
         // remove user data
         for key in KeychainKey.allCases {
-            try? keychain.remove(keychainKey(key: key, userIdentifier: userSession.email))
+            try? keychain.remove(keychainKey(key: key, userIdentifier: userSession.userID))
         }
     }
 

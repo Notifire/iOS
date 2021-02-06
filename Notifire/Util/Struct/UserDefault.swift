@@ -54,8 +54,8 @@ struct UserDefault<T: PropertyListValue, Key: UserDefaultsKey>: UserDefaultSessi
     var identifier: String?
 
     var wrappedValue: T? {
-        get { UserDefaults.standard.value(forKey: defaultsKey) as? T ?? defaultValue }
-        set { UserDefaults.standard.set(newValue, forKey: defaultsKey) }
+        get { UserSessionManager.userDefaults.value(forKey: defaultsKey) as? T ?? defaultValue }
+        set { UserSessionManager.userDefaults.set(newValue, forKey: defaultsKey) }
     }
 }
 
@@ -68,11 +68,11 @@ struct UserDefaultBool<Key: UserDefaultsKey>: UserDefaultSessionEditing {
 
     var wrappedValue: Bool {
         get {
-            let result = UserDefaults.standard.bool(forKey: defaultsKey)
+            let result = UserSessionManager.userDefaults.bool(forKey: defaultsKey)
             return negated ? !result : result
         }
         set {
-            UserDefaults.standard.set(negated ? !newValue : newValue, forKey: defaultsKey)
+            UserSessionManager.userDefaults.set(negated ? !newValue : newValue, forKey: defaultsKey)
         }
     }
 }

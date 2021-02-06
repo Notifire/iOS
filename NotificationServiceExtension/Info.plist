@@ -27,5 +27,7 @@
 		<key>NSExtensionPrincipalClass</key>
 		<string>$(PRODUCT_MODULE_NAME).NotificationService</string>
 	</dict>
+	<key>PARENT_APP_BUNDLE_IDENTIFIER</key>
+	<string>$(PARENT_APP_BUNDLE_IDENTIFIER)</string>
 </dict>
 </plist>

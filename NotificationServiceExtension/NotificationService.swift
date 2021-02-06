@@ -37,8 +37,9 @@ class NotificationService: UNNotificationServiceExtension {
             }
             // Check if the user has enabled title prefixing
             if previousSession.settings.prefixNotificationTitleEnabled {
-                bestAttemptContent.title = "\(notification.level.emoji) ● \(bestAttemptContent.title)"
+                bestAttemptContent.title = "\(notification.level.emoji) \(bestAttemptContent.title)"
             }
+            // Update App Icon Badge
             bestAttemptContent.badge = NSNumber(value: unread)
             contentHandler(bestAttemptContent)
         }

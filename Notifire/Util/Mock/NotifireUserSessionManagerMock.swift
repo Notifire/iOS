@@ -22,7 +22,7 @@ class NotifireUserSessionManagerMock: UserSessionManager {
         switch sessionState {
         case .mockSession:
             let providerData = AuthenticationProviderData(provider: .email, email: "testicek@testicek.com", userID: nil)
-            return UserSession(refreshToken: "xDDD", providerData: providerData)
+            return UserSession(userID: 1, refreshToken: "xDDD", providerData: providerData)
         case .noSession:
             return nil
         }

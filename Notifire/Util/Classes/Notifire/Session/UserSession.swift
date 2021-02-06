@@ -19,10 +19,12 @@ struct AuthenticationProviderData {
 class UserSession {
 
     // MARK: - Properties
-    /// The data from the login provider (e.g. email / userID)
-    let providerData: AuthenticationProviderData
+    /// The unique integer identifier of a user in the Notifire backend.
+    let userID: Int
     /// Used to obtain the access token
     var refreshToken: String
+    /// The data from the login provider (e.g. email / userID)
+    let providerData: AuthenticationProviderData
     /// Current device token
     var deviceToken: String?
     /// Current access token
@@ -45,9 +47,10 @@ class UserSession {
     }
 
     // MARK: - Initialization
-    init(refreshToken: String, providerData: AuthenticationProviderData) {
+    init(userID: Int, refreshToken: String, providerData: AuthenticationProviderData) {
+        self.userID = userID
         self.refreshToken = refreshToken
         self.providerData = providerData
-        self.settings = UserSessionSettings(identifier: providerData.email)
+        self.settings = UserSessionSettings(identifier: String(userID))
     }
 }

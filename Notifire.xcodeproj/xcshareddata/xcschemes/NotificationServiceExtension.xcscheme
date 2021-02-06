@@ -89,7 +89,7 @@
       <RemoteRunnable
          runnableDebuggingMode = "0"
          BundleIdentifier = "com.dvdblk.Notifire.dev"
-         RemotePath = "/var/containers/Bundle/Application/39F27433-92D6-4744-9287-0A39CAF79783/Notifire.app">
+         RemotePath = "/var/containers/Bundle/Application/A49A3344-EBBA-4841-9FD6-3CB3AEAC077C/Notifire.app">
       </RemoteRunnable>
       <MacroExpansion>
          <BuildableReference

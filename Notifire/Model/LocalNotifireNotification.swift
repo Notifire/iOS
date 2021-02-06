@@ -35,6 +35,10 @@ class LocalNotifireNotification: Object, Decodable {
         }
     }
 
+    /// Used to store the userID associated with this notification.
+    /// Removed (set to nil) in `NotificationService` after checking if the currently logged in userID is equal to this value.
+    var userID: Int?
+
     @objc dynamic var body: String?
     @objc dynamic var urlString: String?
     @objc dynamic var date: Date
@@ -64,6 +68,7 @@ class LocalNotifireNotification: Object, Decodable {
         case text = "text"
         case level = "level"
         case serviceID = "service-uid"
+        case userID = "user-id"
     }
 
     convenience required init(from decoder: Decoder) throws {
@@ -76,10 +81,11 @@ class LocalNotifireNotification: Object, Decodable {
         let notificationContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .notificationsContainer)
         text = try notificationContainer.decodeIfPresent(String.self, forKey: .text)
         urlString = try notificationContainer.decodeIfPresent(String.self, forKey: .urlString)
-        let dateString = try notificationContainer.decode(String.self, forKey: .date)
-        date = Date(timeIntervalSince1970: Double(dateString)!)
+        let dateDouble = try notificationContainer.decode(Double.self, forKey: .date)
+        date = Date(timeIntervalSince1970: dateDouble)
         rawLevel = try notificationContainer.decode(String.self, forKey: .level)
         serviceID.value = try notificationContainer.decode(Int.self, forKey: .serviceID)
+        userID = try notificationContainer.decode(Int.self, forKey: .userID)
     }
 
     required init() {

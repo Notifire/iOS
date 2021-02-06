@@ -33,6 +33,7 @@ struct LoginDataResponse: Decodable {
     let email: String
     let refreshToken: String
     let accessToken: String
+    let userID: Int
 }
 
 struct NotifireAPISuccessResponseWithLoginData: Decodable {
