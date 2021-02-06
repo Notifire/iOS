@@ -35,7 +35,6 @@ class ServiceTableViewCell: ReusableBaseTableViewCell {
         layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
         isSkeletonable = true
         serviceImageView.isSkeletonable = true
-
     }
 
     // MARK: Private
@@ -87,6 +86,8 @@ class ServiceTableViewCell: ReusableBaseTableViewCell {
             let unreadCount = local.notifications.filter(LocalNotifireNotification.isUnreadPredicate).count
             let unreadText = unreadCount == 0 ? "" : "\(unreadCount)"
             unreadNotificationsLabel.text = unreadText
+        } else {
+            unreadNotificationsLabel.text = nil
         }
     }
 }
