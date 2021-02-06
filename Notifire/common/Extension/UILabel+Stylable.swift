@@ -153,3 +153,13 @@ extension UILabel: Stylable {
     // swiftlint:enable function_body_length
 
 }
+
+// MARK: - Text Attributes
+typealias TextAttributes = [NSAttributedString.Key: Any]
+
+extension TextAttributes {
+    static let navigationTitle = [
+        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.heavy),
+        NSAttributedString.Key.foregroundColor: UIColor.compatibleLabel
+    ]
+}

@@ -136,6 +136,9 @@ class RoundedEditableImageView: RoundedContainerImageView, UIGestureRecognizerDe
 
     weak var imageHighlightOverlayLayer: CALayer?
 
+    // MARK: Static
+    static let allowedMovementOffset: CGFloat = 8
+
     // MARK: UI
     lazy var editButton: RoundedActionButton = {
         let button = RoundedActionButton(type: .system)
@@ -202,11 +205,22 @@ class RoundedEditableImageView: RoundedContainerImageView, UIGestureRecognizerDe
             imageHighlightOverlayLayer = overlayLayer
         case .ended:
             // Remove overlay and execute action
-            imageHighlightOverlayLayer?.removeFromSuperlayer()
-            onUserAction?()
-        case .cancelled, .changed, .failed:
+            if let overlayLayer = imageHighlightOverlayLayer {
+                overlayLayer.removeFromSuperlayer()
+                onUserAction?()
+                imageHighlightOverlayLayer = nil
+            }
+        case .changed:
+            let location = gestureRecognizer.location(in: self)
+            if location.x < -Self.allowedMovementOffset || location.x > bounds.width + Self.allowedMovementOffset ||
+                location.y < -Self.allowedMovementOffset || location.y > bounds.height + Self.allowedMovementOffset {
+                imageHighlightOverlayLayer?.removeFromSuperlayer()
+                imageHighlightOverlayLayer = nil
+            }
+        case .cancelled, .failed:
             // Remove overlay
             imageHighlightOverlayLayer?.removeFromSuperlayer()
+            imageHighlightOverlayLayer = nil
         default:
             break
         }

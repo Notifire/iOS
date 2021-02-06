@@ -272,7 +272,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
             guard let service = self?.viewModel.currentLocalService else { return }
             self?.delegate?.shouldPresentEditServiceView(for: service)
         }))
-        options.addAction(UIAlertAction(title: "Set default image", style: .default, handler: { [weak self] _ in
+        options.addAction(UIAlertAction(title: "Use default service image", style: .default, handler: { [weak self] _ in
             self?.viewModel.setDefaultImage()
         }))
         options.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in

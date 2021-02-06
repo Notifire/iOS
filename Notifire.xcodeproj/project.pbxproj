@@ -233,6 +233,8 @@
 		893FE031219783F0002CD846 /* NotificationLevelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE030219783F0002CD846 /* NotificationLevelModel.swift */; };
 		893FE03321979A34002CD846 /* ServiceAPIKeyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE03221979A34002CD846 /* ServiceAPIKeyTableViewCell.swift */; };
 		893FE0372197C225002CD846 /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE0362197C225002CD846 /* CopyableLabel.swift */; };
+		8946BB0425CE279B004B6F2B /* AlertPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8946BB0325CE279B004B6F2B /* AlertPresenting.swift */; };
+		8946BB0525CE279B004B6F2B /* AlertPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8946BB0325CE279B004B6F2B /* AlertPresenting.swift */; };
 		8948F57221A0AD8200BB6E10 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8948F57121A0AD8200BB6E10 /* RoundedImageView.swift */; };
 		8948F57421A0C00000BB6E10 /* NotifirePoppable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8948F57321A0C00000BB6E10 /* NotifirePoppable.swift */; };
 		8949EBDE251189F00045D1A7 /* RegisterSuccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8949EBDD251189F00045D1A7 /* RegisterSuccessViewModel.swift */; };
@@ -944,6 +946,7 @@
 		893FE030219783F0002CD846 /* NotificationLevelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationLevelModel.swift; sourceTree = "<group>"; };
 		893FE03221979A34002CD846 /* ServiceAPIKeyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAPIKeyTableViewCell.swift; sourceTree = "<group>"; };
 		893FE0362197C225002CD846 /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
+		8946BB0325CE279B004B6F2B /* AlertPresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenting.swift; sourceTree = "<group>"; };
 		8948F57121A0AD8200BB6E10 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
 		8948F57321A0C00000BB6E10 /* NotifirePoppable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifirePoppable.swift; sourceTree = "<group>"; };
 		8949EBDD251189F00045D1A7 /* RegisterSuccessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSuccessViewModel.swift; sourceTree = "<group>"; };
@@ -1380,6 +1383,7 @@
 				894B1F962505DA3300D0D671 /* NavigationBar */,
 				894B1F952505DA2800D0D671 /* Reselectable */,
 				899C07162551E2E00005228E /* NavigationCoordinatorDelegate.swift */,
+				8946BB0325CE279B004B6F2B /* AlertPresenting.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -3176,6 +3180,7 @@
 				89576AA024FD412A0097BF87 /* AppCoordinator.swift in Sources */,
 				89576AA124FD412A0097BF87 /* Service.swift in Sources */,
 				894B1FA12505DECA00D0D671 /* TabBarStackView.swift in Sources */,
+				8946BB0525CE279B004B6F2B /* AlertPresenting.swift in Sources */,
 				89576AA224FD412A0097BF87 /* FireLayerProperties.swift in Sources */,
 				899C071B2551E4FE0005228E /* ForgotPasswordViewModel.swift in Sources */,
 				893B90202512B9700056DBF9 /* Reusable.swift in Sources */,
@@ -3632,6 +3637,7 @@
 				897069E42134721300D798AA /* CurvedTopView.swift in Sources */,
 				8933F0B02140424400645B3A /* CAPersistentAnimationsShapeLayer.swift in Sources */,
 				8922E26F219F3D0A001984C4 /* NotificationsViewModel.swift in Sources */,
+				8946BB0425CE279B004B6F2B /* AlertPresenting.swift in Sources */,
 				890391F72537C942005C5C99 /* RealmManager+Service.swift in Sources */,
 				8936E3C425633766007424A7 /* GenericSuccessCoordinator.swift in Sources */,
 				8936E3BB2563177C007424A7 /* TextFieldReturnChainer.swift in Sources */,

@@ -42,6 +42,8 @@ class ServiceEditViewModel: InputValidatingViewModel, ImageDataContainingViewMod
     // MARK: Callback
     /// Called when the service is updated on the remote API succesfully.
     var onSuccess: (() -> Void)?
+    /// Called when the new service name is already in use by another service.
+    var onServiceNameInUse: (() -> Void)?
     /// Called when the view should be allowed to make an update request.
     /// E.g. when the user uploads an image OR changes the name OR both.
     var onReadyToEditServiceChange: ((Bool) -> Void)?
@@ -74,7 +76,7 @@ class ServiceEditViewModel: InputValidatingViewModel, ImageDataContainingViewMod
 
     // MARK: - Methods
     func updateService() {
-        guard allComponentsValidated, !loadingModel.isLoading, let localService = service.safeHandle else { return }
+        guard readyToEditService, !loadingModel.isLoading, let localService = service.safeHandle else { return }
         loadingModel.toggle()
 
         let completion: NotifireAPIBaseManager.Callback<ServiceUpdateResponse> = { [weak self] result in
@@ -84,8 +86,12 @@ class ServiceEditViewModel: InputValidatingViewModel, ImageDataContainingViewMod
             switch result {
             case .error(let error):
                 self.onError?(error)
-            case .success:
-                self.onSuccess?()
+            case .success(let response):
+                if response.success {
+                    self.onSuccess?()
+                } else {
+                    self.onServiceNameInUse?()
+                }
             }
         }
 
@@ -118,8 +124,11 @@ class ServiceEditViewModel: InputValidatingViewModel, ImageDataContainingViewMod
 class ServiceEditViewController: VMViewController<ServiceEditViewModel>, APIErrorResponding, APIErrorPresenting {
 
     // MARK: - Properties
-    /// Called when the user presses 'Cancel' or when the edit is successful.
+    /// Called when the user has edited the service name or the service image but wants to cancel the edit process.
+    /// Should show an alert confirming his decision to cancel.
     var onShouldCloseServiceEdit: (() -> Void)?
+    /// Called when the user confirms 'Cancel' press or when the edit is successful.
+    var onCloseServiceEdit: (() -> Void)?
     /// Called when the user wants to add a new image.
     var onImageAddPress: (() -> Void)?
 
@@ -175,7 +184,7 @@ class ServiceEditViewController: VMViewController<ServiceEditViewModel>, APIErro
     override func viewDidLoad() {
         super.viewDidLoad()
         // View
-        title = viewModel.title
+        setupTitleLabel()
         view.backgroundColor = .compatibleSystemBackground
         serviceNameLabel.text = "Service name"
 
@@ -190,6 +199,16 @@ class ServiceEditViewController: VMViewController<ServiceEditViewModel>, APIErro
     }
 
     // MARK: - Private
+    private func setupTitleLabel() {
+        let navigationLabel = UILabel()
+        let navigationTitle = NSMutableAttributedString(string: "Edit ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+                                                                                      NSAttributedString.Key.foregroundColor: UIColor.compatibleSecondaryLabel])
+        let serviceName = viewModel.service.safeHandle?.name ?? "service"
+        navigationTitle.append(NSMutableAttributedString(string: serviceName, attributes: TextAttributes.navigationTitle))
+        navigationLabel.attributedText = navigationTitle
+        navigationItem.titleView = navigationLabel
+    }
+
     private func setupSubviews() {
         view.add(subview: imageView)
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -220,7 +239,7 @@ class ServiceEditViewController: VMViewController<ServiceEditViewModel>, APIErro
         }
 
         viewModel.onSuccess = { [weak self] in
-            self?.onShouldCloseServiceEdit?()
+            self?.onCloseServiceEdit?()
         }
 
         viewModel.loadingModel.onLoadingChange = { [weak self] loading in
@@ -246,7 +265,11 @@ class ServiceEditViewController: VMViewController<ServiceEditViewModel>, APIErro
     }
 
     @objc private func didSelectCancel() {
-        onShouldCloseServiceEdit?()
+        if viewModel.readyToEditService {
+            onShouldCloseServiceEdit?()
+        } else {
+            onCloseServiceEdit?()
+        }
     }
 
     func update(image: UIImage, format imageFormat: ServiceImagePicker.ImageFormat) {
@@ -266,7 +289,7 @@ class ServiceEditViewController: VMViewController<ServiceEditViewModel>, APIErro
     }
 }
 
-class ServiceEditCoordinator: ChildCoordinator, ImagePickerPresentingCoordinator {
+class ServiceEditCoordinator: ChildCoordinator, ImagePickerPresentingCoordinator, OKAlertPresenting, OKCancelAlertPresenting {
 
     // MARK: - Properties
     let serviceEditController: ServiceEditViewController
@@ -295,6 +318,24 @@ class ServiceEditCoordinator: ChildCoordinator, ImagePickerPresentingCoordinator
     func start() {
         serviceEditController.onImageAddPress = { [weak self] in
             self?.showImagePicker()
+        }
+
+        serviceEditController.onShouldCloseServiceEdit = { [weak self] in
+            self?.presentOKCancelAlert(
+                title: "You have unsaved edits",
+                message: "Do you really want to discard your changes to this service?",
+                preferredStyle: .alert,
+                okTitle: "Yes",
+                cancelTitle: "No",
+                onOK: { [weak self] in
+                    self?.serviceEditController.onCloseServiceEdit?()
+                },
+                onCancel: nil
+            )
+        }
+
+        serviceEditController.viewModel.onServiceNameInUse = { [weak self] in
+            self?.presentOKAlert(title: "This service name is already in use.", message: "Please try again with another name.", preferredStyle: .alert)
         }
     }
 
@@ -350,7 +391,7 @@ class ServiceCoordinator: ChildCoordinator, NavigatingChildCoordinator, Presenti
     func showServiceEdit(localService: LocalService) {
         let serviceEditViewModel = ServiceEditViewModel(sessionHandler: serviceViewController.viewModel.userSessionHandler, service: localService)
         let serviceEditVC = ServiceEditViewController(viewModel: serviceEditViewModel)
-        serviceEditVC.onShouldCloseServiceEdit = { [weak self] in
+        serviceEditVC.onCloseServiceEdit = { [weak self] in
             self?.dismissPresentedCoordinator(animated: true)
         }
         let serviceEditCoordinator = ServiceEditCoordinator(serviceEditController: serviceEditVC)
