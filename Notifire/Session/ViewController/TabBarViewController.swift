@@ -59,8 +59,8 @@ class TabBarViewController: VMViewController<TabBarViewModel>, AppRevealing {
         }
 
         // Notify delegate if the tab gets reselected
-        viewModel.onTabReselect = { [unowned self] tab in
-            self.delegate?.didReselect(tab: tab)
+        viewModel.onTabReselect = { [unowned self] tab, animated in
+            self.delegate?.didReselect(tab: tab, animated: animated)
         }
     }
 

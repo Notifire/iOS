@@ -84,20 +84,23 @@ class NotificationsViewModel: RealmCollectionViewModel<LocalNotifireNotification
 }
 
 class ServiceNotificationsViewModel: NotificationsViewModel {
-    let service: LocalService
 
-    init(realmProvider: RealmProviding, service: LocalService) {
-        self.service = service
+    let serviceID: Int
+    var service: LocalService? {
+        return realmProvider.realm.object(ofType: LocalService.self, forPrimaryKey: serviceID)
+    }
+
+    init(realmProvider: RealmProviding, serviceID: Int) {
+        self.serviceID = serviceID
         super.init(realmProvider: realmProvider)
     }
 
     override func resultsFilterPredicate() -> NSPredicate? {
-        guard let safeService = service.safeHandle else { return nil }
-        return NSPredicate(format: "service.id == %d", safeService.id)
+        return NSPredicate(format: "service.id == %d OR serviceSnippet.id == %d", serviceID, serviceID)
     }
 
     override func title() -> String {
-        return service.safeHandle?.name ?? "Deleted service"
+        return service?.safeHandle?.name ?? ""
     }
 
     override func emptyTitle() -> String {
@@ -105,7 +108,7 @@ class ServiceNotificationsViewModel: NotificationsViewModel {
     }
 
     override func emptyText() -> String {
-        return "\(service.safeHandle?.name ?? "This service") didn't send any notifications."
+        return "\(service?.safeHandle?.name ?? "This service") didn't send any notifications."
     }
 
     override func cellConfiguration(for index: Int) -> CellConfiguring {
@@ -115,5 +118,4 @@ class ServiceNotificationsViewModel: NotificationsViewModel {
     override class var configurationType: CellConfiguring.Type {
         return NotificationCompactConfiguration.self
     }
-
 }

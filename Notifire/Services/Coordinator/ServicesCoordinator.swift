@@ -47,18 +47,31 @@ class ServicesCoordinator: NavigatingChildCoordinator, PresentingCoordinator {
         present(childCoordinator: serviceCreationCoordinator, animated: true, modalPresentationStyle: .fullScreen)
     }
 
-    func show(service: ServiceRepresentable) {
+    @discardableResult
+    func show(service: ServiceRepresentable, animated: Bool) -> ServiceCoordinator {
         let serviceViewModel = ServiceViewModel(service: service, sessionHandler: userSessionHandler, servicesVM: servicesViewController.viewModel)
         let serviceViewController = ServiceViewController(viewModel: serviceViewModel)
         let serviceCoordinator = ServiceCoordinator(serviceViewController: serviceViewController)
-        parentNavigatingCoordinator?.push(childCoordinator: serviceCoordinator)
+        parentNavigatingCoordinator?.push(childCoordinator: serviceCoordinator, animated: animated)
+        return serviceCoordinator
+    }
+
+    /// Push a ServiceVC and NotificationDetailVC from a `LocalNotifireNotification` object.
+    func showServiceAnd(notification: LocalNotifireNotification, animated: Bool) {
+        guard let service: ServiceRepresentable = notification.serviceSnippet?.asServiceSnippet ?? notification.service else { return }
+        // Service VC
+        let serviceCoordinator = show(service: service, animated: false)
+        // Notifications VC
+        let notificationsCoordinator = serviceCoordinator.showNotifications(serviceID: service.id, animated: false)
+        // Notification Detail VC
+        notificationsCoordinator.showDetailed(notification: notification, animated: animated)
     }
 }
 
 // MARK: - ServicesViewControllerDelegate
 extension ServicesCoordinator: ServicesViewControllerDelegate {
     func didSelect(service: ServiceRepresentable) {
-        show(service: service)
+        show(service: service, animated: true)
     }
 
     func didSelectCreateService() {

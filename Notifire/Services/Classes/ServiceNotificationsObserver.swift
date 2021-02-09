@@ -18,7 +18,7 @@ class ServiceNotificationsObserver {
             realmProvider: realmProvider,
             sortOptions: nil,
             filterPredicate: NSCompoundPredicate(andPredicateWithSubpredicates: [
-                NSPredicate(format: "serviceID == %d OR service.id == %d", serviceID, serviceID),
+                NSPredicate(format: "serviceSnippet.id == %d OR service.id == %d", serviceID, serviceID),
                 LocalNotifireNotification.isUnreadPredicate
             ]))
         observer.onCollectionChange = { [weak self] change in

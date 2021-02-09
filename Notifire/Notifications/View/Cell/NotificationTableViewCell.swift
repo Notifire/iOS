@@ -135,13 +135,15 @@ class NotificationTableViewCell: NotificationBaseTableViewCell, CellConfigurable
     }
 
     func configure(data notification: LocalNotifireNotification) {
-        guard let service = notification.service else { return }
-        if let imageURLString = service.mediumImageURLString, let imageURL = URL(string: imageURLString) {
+        guard let service: ServiceRepresentable = notification.service ?? notification.serviceSnippet else { return }
+        // Local Service
+        if let imageURL = service.imageURL {
             serviceImageView.roundedImageView.sd_setImage(with: imageURL, placeholderImage: LocalService.defaultImage, options: [], completed: nil)
         } else {
             serviceImageView.image = LocalService.defaultImage
         }
         serviceInformationLabel.text = "\(service.name)"
+
         bodyLabel.text = notification.body
         let dateString = notification.date.formatRelativeString()
         dateLabel.text = dateString

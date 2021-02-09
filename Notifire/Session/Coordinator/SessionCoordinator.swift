@@ -88,12 +88,12 @@ extension SessionCoordinator: TabBarViewControllerDelegate {
         changeSection(to: tab)
     }
 
-    func didReselect(tab: Tab) {
+    func didReselect(tab: Tab, animated: Bool) {
         guard
             let childCoordinator = childCoordinators[tab],
             let reselectableViewController = childCoordinator.viewController as? Reselectable,
-            !reselectableViewController.reselect()
+            !reselectableViewController.reselect(animated: animated)
         else { return }
-        reselectableViewController.reselectChildViewControllers()
+        reselectableViewController.reselectChildViewControllers(animated: animated)
     }
 }

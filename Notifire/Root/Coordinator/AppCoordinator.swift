@@ -52,6 +52,38 @@ class AppCoordinator: Coordinator {
         deeplinkHandler.appCoordinator = self
 
         revealAppContent()
+
+        // Handle notification tap
+        rootViewController.viewModel.notificationsHandler.onNotificationTap = { [weak self] notificationID in
+            guard let sessionCoordinator = self?.sessionCoordinator else { return }
+            sessionCoordinator.userSessionHandler.realm.refresh()
+            if let notification = sessionCoordinator.userSessionHandler.realm.object(ofType: LocalNotifireNotification.self, forPrimaryKey: notificationID) {
+                if sessionCoordinator.tabBarViewController.viewModel.currentTab == .some(.services), let servicesNavigationCoordinator = sessionCoordinator.activeCoordinator as? NavigationCoordinator<ServicesCoordinator> {
+                    // Current tab = services
+                    let servicesCoordinator = servicesNavigationCoordinator.rootChildCoordinator
+                    if !servicesCoordinator.servicesViewController.isViewLoaded {
+                        // App Launch
+                        servicesCoordinator.servicesViewController.onViewDidAppear = {
+                            servicesCoordinator.showServiceAnd(notification: notification, animated: false)
+                            servicesCoordinator.servicesViewController.onViewDidAppear = nil
+                        }
+                    } else {
+                        // App already launched
+                        sessionCoordinator.tabBarViewController.viewModel.updateTab(to: .services, animated: false)
+                        servicesCoordinator.showServiceAnd(notification: notification, animated: true)
+                    }
+                } else {
+                    // Switch to services
+                    sessionCoordinator.tabBarViewController.viewModel.updateTab(to: .services, animated: false)
+                    if let servicesNavigationCoordinator = sessionCoordinator.activeCoordinator as? NavigationCoordinator<ServicesCoordinator> {
+                        let servicesCoordinator = servicesNavigationCoordinator.rootChildCoordinator
+                        servicesCoordinator.showServiceAnd(notification: notification, animated: true)
+                    }
+                }
+            } else {
+                print("XXX notification doesn't exist")
+            }
+        }
     }
 
     // MARK: Private

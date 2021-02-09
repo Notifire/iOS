@@ -10,5 +10,5 @@ import Foundation
 
 protocol TabBarViewControllerDelegate: class {
     func didSelect(tab: Tab)
-    func didReselect(tab: Tab)
+    func didReselect(tab: Tab, animated: Bool)
 }

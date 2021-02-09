@@ -225,12 +225,24 @@ class NotificationDetailViewModel: ViewModelRepresenting {
     }
 
     private static func createItems(from notification: LocalNotifireNotification) -> [CellConfiguring] {
-        guard let service = notification.service else { return [] }
         var result = [CellConfiguring]()
 
-        let imageURL = URL(string: service.largeImageURLString ?? "")
-        let notificationDetailHeader = NotificationDetailHeader(serviceName: service.name, serviceImageURL: imageURL, notificationDate: notification.date, notificationLevel: notification.level)
-        result.append(NotificationDetailHeaderConfiguration(item: notificationDetailHeader))
+        if let service = notification.service {
+            let imageURL = URL(string: service.largeImageURLString ?? "")
+            let notificationDetailHeader = NotificationDetailHeader(serviceName: service.name, serviceImageURL: imageURL, notificationDate: notification.date, notificationLevel: notification.level)
+            result.append(NotificationDetailHeaderConfiguration(item: notificationDetailHeader))
+        } else if let serviceSnippet = notification.serviceSnippet {
+            let imageURL = URL(string: serviceSnippet.largeImageURLString ?? "")
+            let notificationDetailHeader = NotificationDetailHeader(
+                serviceName: serviceSnippet.name,
+                serviceImageURL: imageURL,
+                notificationDate: notification.date,
+                notificationLevel: notification.level
+            )
+            result.append(NotificationDetailHeaderConfiguration(item: notificationDetailHeader))
+        } else {
+            return []
+        }
 
         let notificationTitleBody = NotificationDetailTitleBody(body: notification.body)
         result.append(NotificationDetailTitleBodyConfiguration(item: notificationTitleBody))

@@ -82,7 +82,6 @@ extension SSOManager: GIDSignInDelegate {
 
         if let error = error {
             if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
-                //print("The user has not signed in before or they have since signed out.")
                 currentAuthAttempt.state = .error(.userHasNotSignedIn)
             } else if (error as NSError).code == GIDSignInErrorCode.canceled.rawValue {
                 currentAuthAttempt.state = .error(.userCancelled)

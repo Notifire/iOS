@@ -12,7 +12,7 @@ import UIKit
 protocol NavigatingCoordinator: Coordinator, UINavigationControllerDelegate {
     /// The main navigation controller
     var navigationController: UINavigationController { get }
-    /// The child coordinators that this coordinator presented via push.
+    /// The child coordinators that this coordinator is currently presenting.
     var childCoordinators: [ChildCoordinator] { get set }
     var delegate: NavigationCoordinatorDelegate? { get }
 }
@@ -50,6 +50,10 @@ extension NavigatingCoordinator {
         add(childCoordinator: childCoordinator)
         // Push it to the navigationHierarchy stack
         navigationController.pushViewController(childCoordinator.viewController, animated: animated)
+        // Triggers viewDidLoad on the pushed VC in case there are multiple pushes
+        if !animated {
+            _ = childCoordinator.viewController.view
+        }
     }
 
     /// Removes the last coordinator that was added to the childCoordinator hierarchy.

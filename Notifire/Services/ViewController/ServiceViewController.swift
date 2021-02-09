@@ -120,6 +120,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         prepareViewModel()
         layout()
         addScrollViewGradientLayer()
+        viewModel.start()
     }
 
     override func viewDidLayoutSubviews() {
@@ -135,10 +136,6 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
         serviceHeaderView.layoutIfNeeded()
         notificationsHeaderView.setNeedsLayout()
         notificationsHeaderView.layoutIfNeeded()
-
-        guard viewModel.isFirstAppearance else { return }
-        viewModel.isFirstAppearance = false
-        viewModel.start()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -249,8 +246,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
                 }
                 self.parentScrollView.alpha = 1
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "baseline_more_horiz_black_24pt"), style: .plain, target: self, action: #selector(self.didTapMoreOptions))
-            }, completion: { finished in
-                guard finished else { return }
+            }, completion: { _ in
                 self.parentScrollView.isUserInteractionEnabled = true
             })
         }

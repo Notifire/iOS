@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Window
         let applicationWindow = UIWindow(frame: UIScreen.main.bounds)
         applicationWindow.tintColor = .primary
+
         // App Coordinator
         self.window = applicationWindow
         appCoordinator = AppCoordinator(window: applicationWindow)
@@ -66,15 +67,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // Handles notification tap
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        switch application.applicationState {
-        case .active, .inactive, .background:
-            guard let sessionCoordinator = appCoordinator?.sessionCoordinator else { return }
-            //sessionCoordinator.tabBarViewController.viewModel.currentTab = .notifications
-            let notificationHandler = NotifireNotificationsHandler()
-            guard (try? notificationHandler.getNotification(from: userInfo)) != nil else {
-                return
-            }
-        @unknown default: break
+        //guard let sessionCoordinator = appCoordinator?.sessionCoordinator else { return }
+        let notificationHandler = NotifireNotificationsHandler()
+        guard (try? notificationHandler.getNotification(from: userInfo)) != nil else {
+            return
         }
+        switch application.applicationState {
+        case .active:
+            print("XXX State", "active")
+        case .inactive:
+            print("XXX State", "inactive")
+        case .background:
+            print("XXX State", "background")
+        }
+
+//        switch application.applicationState {
+//        case .active, .inactive, .background:
+//            guard let sessionCoordinator = appCoordinator?.sessionCoordinator else { return }
+//            // Get push notification from userInfo
+//            guard
+//                let notificationID = userInfo[NotifireNotificationsHandler.notificationIDKey] as? String,
+//                let notification = sessionCoordinator.userSessionHandler.realm.object(ofType: LocalNotifireNotification.self, forPrimaryKey: notificationID)
+//            else { return }
+//
+//            // Switch to services
+//            sessionCoordinator.tabBarViewController.viewModel.currentTab = .services
+//            guard
+//                let servicesNavigationCoordinator = sessionCoordinator.activeCoordinator as? NavigationCoordinator<ServicesCoordinator>
+//            else { return }
+//            let servicesCoordinator = servicesNavigationCoordinator.rootChildCoordinator
+//            servicesCoordinator.showServiceAnd(notification: notification)
+//        @unknown default: break
+//        }
     }
 }

@@ -349,13 +349,15 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
         createServiceOperation.completionHandler = { [weak self] result in
             guard let `self` = self else { return }
             switch result {
-            case .created(let localServiceID, let index):
+            case .created(let localServiceID, let maybeIndex):
                 guard let localService = RealmManager.getLocalService(id: localServiceID, realm: self.synchronizationManager.realmProvider.realm) else {
                     completion?(nil, (nil, .localServiceObjectNotFound))
                     return
                 }
-                // Add localService to serviceRepresentables
-                self.services[index] = localService
+                if let index = maybeIndex {
+                    // Add localService to serviceRepresentables
+                    self.services[index] = localService
+                }
                 // Callback
                 completion?(localService, nil)
             case .error(let error):

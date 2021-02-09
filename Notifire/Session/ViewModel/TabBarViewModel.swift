@@ -19,16 +19,7 @@ class TabBarViewModel: RealmCollectionViewModel<LocalNotifireNotification> {
     }
 
     // MARK: Model
-    var currentTab: Tab? = nil {
-        didSet {
-            guard let tab = currentTab else { return }
-            guard oldValue != tab else {
-                onTabReselect?(tab)
-                return
-            }
-            onTabChange?(tab)
-        }
-    }
+    private (set) var currentTab: Tab?
 
     var tabs: [Tab] {
         return Tab.allCases
@@ -48,7 +39,8 @@ class TabBarViewModel: RealmCollectionViewModel<LocalNotifireNotification> {
 
     // MARK: Callbacks
     var onTabChange: ((Tab) -> Void)?
-    var onTabReselect: ((Tab) -> Void)?
+    /// Called when a `Tab` is reselected. `Bool` = animated.
+    var onTabReselect: ((Tab, Bool) -> Void)?
     var onNotificationsAlertStateChange: ((NewNotificationsAlertState) -> Void)?
     var onShouldPresentNotificationRequirement: (() -> Void)?
 
@@ -82,8 +74,14 @@ class TabBarViewModel: RealmCollectionViewModel<LocalNotifireNotification> {
     }
 
     // MARK: - Internal
-    func updateTab(to tab: Tab) {
+    func updateTab(to tab: Tab, animated: Bool = true) {
+        let oldValue = currentTab
         currentTab = tab
+        guard oldValue != tab else {
+            onTabReselect?(tab, animated)
+            return
+        }
+        onTabChange?(tab)
     }
 
     override func onResults(change: RealmCollectionChange<Results<LocalNotifireNotification>>) {

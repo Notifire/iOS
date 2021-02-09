@@ -11,8 +11,6 @@ import UIKit
 
 class NotifireNotificationsHandler: NSObject {
 
-    var activeRealmProvider: RealmProviding?
-
     enum NotificationHandlingError: Error {
         case unknownContent(Error)
         case noActiveUserSession
@@ -23,25 +21,37 @@ class NotifireNotificationsHandler: NSObject {
         case error(NotificationHandlingError)
     }
 
+    // MARK: - Properties
+    static let notificationIDKey = LocalNotifireNotification.primaryKey() ?? "notificationID"
+
+    var activeRealmProvider: RealmProviding?
+
+    // MARK: Callback
+    /// Called when the user taps on a notification. Parameter is `notificationID`.
+    var onNotificationTap: ((String) -> Void)?
+
     // MARK: - Initialization
     override init() {
         super.init()
-        //UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().delegate = self
     }
 
-    func getNotification(from userInfo: [AnyHashable: Any]) throws -> LocalNotifireNotification {
+    func getNotification(from userInfo: [AnyHashable: Any]) throws -> (LocalNotifireNotification, LocalServiceSnippet) {
         let userInfoData = try JSONSerialization.data(withJSONObject: userInfo, options: [])
         let notificationDecoder = JSONDecoder()
         notificationDecoder.dateDecodingStrategy = .timestampStrategy
         let notifireNotification = try notificationDecoder.decode(LocalNotifireNotification.self, from: userInfoData)
-        return notifireNotification
+        let notificationServiceSnippet = try notificationDecoder.decode(LocalServiceSnippet.self, from: userInfoData)
+        return (notifireNotification, notificationServiceSnippet)
     }
 
+    /// Create an instance of `LocalNotifireNotification`
     func handle(content: UNNotificationContent) throws -> LocalNotifireNotification {
         let userInfoDict = content.userInfo
         let notifireNotification: LocalNotifireNotification
+        let localServiceSnippet: LocalServiceSnippet
         do {
-            notifireNotification = try getNotification(from: userInfoDict)
+            (notifireNotification, localServiceSnippet) = try getNotification(from: userInfoDict)
         } catch let error {
             throw NotificationHandlingError.unknownContent(error)
         }
@@ -50,25 +60,29 @@ class NotifireNotificationsHandler: NSObject {
             throw NotificationHandlingError.noActiveUserSession
         }
 
-        if let service = realm.object(ofType: LocalService.self, forPrimaryKey: notifireNotification.serviceID) {
+        if let service = realm.object(ofType: LocalService.self, forPrimaryKey: localServiceSnippet.id) {
             // LocalService exists
             try realm.write {
                 // Create normal notification that has a parent service.
                 notifireNotification.service = service
                 service.notifications.append(notifireNotification)
-                // we don't need this value anymore (accessible via notification.service variable)
-                notifireNotification.serviceID.value = nil
             }
         } else {
             // LocalService doesn't exist yet
             try realm.write {
-                // Create orphaned Notification (no parent service)
+                realm.add(localServiceSnippet, update: .modified)
+                notifireNotification.serviceSnippet = localServiceSnippet
+
+                // Create a Notification without a parent service
                 realm.add(notifireNotification)
             }
         }
+        realm.refresh()
         return notifireNotification
     }
 
+    /// Return the number of unread notifications.
+    /// Used to update the App Icon Badge number.
     func numberOfUnreadNotifications() -> Int? {
         guard let realm = activeRealmProvider?.realm else {
             return nil
@@ -81,6 +95,14 @@ class NotifireNotificationsHandler: NSObject {
 // MARK: - UNUserNotificationCenterDelegate
 extension NotifireNotificationsHandler: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        //completionHandler([])
+        completionHandler([.alert, .badge, .sound])
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        // Check if the notification contains notificationID
+        if let notificationID = userInfo[NotifireNotificationsHandler.notificationIDKey] as? String {
+            onNotificationTap?(notificationID)
+        }
     }
 }

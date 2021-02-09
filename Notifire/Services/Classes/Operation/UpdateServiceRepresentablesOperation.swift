@@ -20,6 +20,10 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
         return synchronizationManager.servicesHandler.collection
     }
 
+    var localServiceSnippets: RealmSwift.Results<LocalServiceSnippet> {
+        return synchronizationManager.realmProvider.realm.objects(LocalServiceSnippet.self)
+    }
+
     // MARK: Adaptor Operation Supplies
     /// These variables are supplied by the BlockOperation (adaptor)
 
@@ -158,6 +162,16 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
         guard var serviceRepresentables = serviceRepresentables else {
             Logger.log(.fault, "\(self) serviceRepresentables is nil")
             return nil
+        }
+
+        // Update the LocalServiceSnippet if needed
+        if let localServiceSnippet = localServiceSnippets.first(where: { $0.id == service.id }) {
+            localServiceSnippet.name = service.name
+            if let image = service.image {
+                localServiceSnippet.smallImageURLString = image.small
+                localServiceSnippet.mediumImageURLString = image.medium
+                localServiceSnippet.largeImageURLString = image.large
+            }
         }
 
         var nameChanged = false

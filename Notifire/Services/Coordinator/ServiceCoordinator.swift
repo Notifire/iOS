@@ -382,10 +382,16 @@ class ServiceCoordinator: ChildCoordinator, NavigatingChildCoordinator, Presenti
     }
 
     func showNotifications(localService: LocalService) {
+        showNotifications(serviceID: localService.id)
+    }
+
+    @discardableResult
+    func showNotifications(serviceID: Int, animated: Bool = true) -> NotificationsCoordinator {
         let realmProvider = serviceViewController.viewModel.userSessionHandler
-        let serviceNotificationsViewModel = ServiceNotificationsViewModel(realmProvider: realmProvider, service: localService)
+        let serviceNotificationsViewModel = ServiceNotificationsViewModel(realmProvider: realmProvider, serviceID: serviceID)
         let notificationsCoordinator = NotificationsCoordinator(notificationsViewModel: serviceNotificationsViewModel)
-        parentNavigatingCoordinator?.push(childCoordinator: notificationsCoordinator)
+        parentNavigatingCoordinator?.push(childCoordinator: notificationsCoordinator, animated: animated)
+        return notificationsCoordinator
     }
 
     func showServiceEdit(localService: LocalService) {

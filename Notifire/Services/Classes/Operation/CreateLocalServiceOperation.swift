@@ -20,8 +20,16 @@ class CreateLocalServiceOperation: Operation, ThreadSafeServiceRepresentableOper
 
     /// Represents the result of this operation
     enum Result {
+        /// When a service creation error occurs
         case error(Error)
-        case created(localServiceID: Int, at: Int)
+        /// When a service is created.
+        /// The `at` parameter determines whether the service should be updated in the threadSafeServiceRepresentables array.
+        ///
+        /// Service should be updated in threadSafeRepresentables when all of these cases are met:
+        /// - the user opens a notification
+        /// - the service the notification belongs to is not yet present in the threadSafeRepresentables array
+        /// - the service the notifications belongs to is not yet created locally (no LocalService in Realm)
+        case created(localServiceID: Int, at: Int?)
     }
 
     // MARK: - Properties
@@ -46,23 +54,6 @@ class CreateLocalServiceOperation: Operation, ThreadSafeServiceRepresentableOper
         }
 
         Logger.log(.debug, "\(self) creating new local service.")
-
-        // Verify that threadSafeServiceRepresentables contain the service.
-        guard
-            let serviceIndex = threadSafeServiceRepresentables?.firstIndex(where: {
-                switch $0 {
-                case .service(let id):
-                    return id == service.id
-                case .snippet(let snippet):
-                    return snippet.id == service.id
-                }
-            })
-        else {
-            Logger.log(.error, "\(self) couldn't create new local service because it was deleted already.")
-            complete(.error(.serviceDeletedBeforeOperationStarted))
-            return
-        }
-
         let localService: LocalService
         do {
             localService = try RealmManager.createLocalService(from: service, realm: synchronizationManager.realmProvider.realm)
@@ -72,6 +63,15 @@ class CreateLocalServiceOperation: Operation, ThreadSafeServiceRepresentableOper
             return
         }
 
+        // Check if threadSafeServiceRepresentables contain the service.
+        let serviceIndex = threadSafeServiceRepresentables?.firstIndex(where: {
+            switch $0 {
+            case .service(let id):
+                return id == service.id
+            case .snippet(let snippet):
+                return snippet.id == service.id
+            }
+        })
         complete(.created(localServiceID: localService.id, at: serviceIndex))
     }
 

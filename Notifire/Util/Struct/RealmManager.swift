@@ -12,7 +12,7 @@ import RealmSwift
 /// Manager class for Realm operations.
 struct RealmManager {
 
-    private static let schemaVersion: UInt64 = 5
+    private static let schemaVersion: UInt64 = 8
     private static let realmFileExtension = "realm"
     private static let appGroupIdentifier = UserSessionManager.appGroupSuiteName
 
@@ -94,6 +94,32 @@ struct RealmManager {
                 //- Property 'LocalService.smallImageDataString' has been added.
                 //- Property 'LocalService.mediumImageDataString' has been added.
                 //- Property 'LocalService.largeImageDataString' has been added.
+            }
+            if oldSchemaVersion < 6 {
+                // -    Add
+                //- Property 'LocalNotifireNotification.notificationID' has been added.
+                migration.enumerateObjects(ofType: LocalNotifireNotification.className()) { (_, newObject) in
+                    if let primaryKeyName = LocalNotifireNotification.primaryKey() {
+                        newObject?[primaryKeyName] = UUID().uuidString
+                    }
+                }
+            }
+            if oldSchemaVersion < 7 {
+                // -    Add
+                //- Property 'LocalNotifireNotification.title' has been added.
+                migration.enumerateObjects(ofType: LocalNotifireNotification.className()) { (_, newObject) in
+                    newObject?["title"] = nil
+                }
+            }
+            if oldSchemaVersion < 8 {
+                // -    Delete
+                // LocalNotifireNotification.title
+                // LocalNotifireNotification.serviceID
+                // -    Add
+                // LocalNotifireNotification.serviceSnippet
+                migration.enumerateObjects(ofType: LocalNotifireNotification.className()) { (_, newObject) in
+                    newObject?["serviceSnippet"] = nil
+                }
             }
         }
         configuration.fileURL = url

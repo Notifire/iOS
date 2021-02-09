@@ -601,6 +601,11 @@
 		89CA5A9E250EB3130020A564 /* LaunchArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CA5A9C250EB3120020A564 /* LaunchArgument.swift */; };
 		89CA5A9F250EB3130020A564 /* LaunchArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CA5A9C250EB3120020A564 /* LaunchArgument.swift */; };
 		89CA5AA1250EB5910020A564 /* XCTestCase+Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CA5AA0250EB5910020A564 /* XCTestCase+Delay.swift */; };
+		89CAB8A625D1DAD8001133A4 /* LocalServiceSnippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAB8A525D1DAD8001133A4 /* LocalServiceSnippet.swift */; };
+		89CAB8A725D1DAD8001133A4 /* LocalServiceSnippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAB8A525D1DAD8001133A4 /* LocalServiceSnippet.swift */; };
+		89CAB8B125D1DADF001133A4 /* LocalServiceSnippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAB8A525D1DAD8001133A4 /* LocalServiceSnippet.swift */; };
+		89CAB8B625D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAB8B525D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift */; };
+		89CAB8B725D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAB8B525D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift */; };
 		89D4E1F12139ED0F00630790 /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F02139ED0F00630790 /* CALayerExtension.swift */; };
 		89D4E1F32139ED3D00630790 /* CAPersistentAnimationsLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F22139ED3D00630790 /* CAPersistentAnimationsLayer.swift */; };
 		89D4E1F52139F43E00630790 /* NotificationObserving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F42139F43E00630790 /* NotificationObserving.swift */; };
@@ -1090,6 +1095,8 @@
 		89CA5A98250EB1880020A564 /* LaunchArgumentsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchArgumentsHandler.swift; sourceTree = "<group>"; };
 		89CA5A9C250EB3120020A564 /* LaunchArgument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchArgument.swift; sourceTree = "<group>"; };
 		89CA5AA0250EB5910020A564 /* XCTestCase+Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Delay.swift"; sourceTree = "<group>"; };
+		89CAB8A525D1DAD8001133A4 /* LocalServiceSnippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalServiceSnippet.swift; sourceTree = "<group>"; };
+		89CAB8B525D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalServiceSnippet+ServiceRepresentable.swift"; sourceTree = "<group>"; };
 		89D4E1F02139ED0F00630790 /* CALayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
 		89D4E1F22139ED3D00630790 /* CAPersistentAnimationsLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAPersistentAnimationsLayer.swift; sourceTree = "<group>"; };
 		89D4E1F42139F43E00630790 /* NotificationObserving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationObserving.swift; sourceTree = "<group>"; };
@@ -1300,7 +1307,9 @@
 		890D4BA72561FC490049CDB1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */,
 				892B415821C4150B00D28ABE /* NotificationLevel.swift */,
+				893FE030219783F0002CD846 /* NotificationLevelModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1885,6 +1894,7 @@
 				894AB68A2512617300F2CBF5 /* ServicesViewController+TableView.swift */,
 				89017CA42526BF1900EC9DC8 /* ServicesViewController+AppRevealing.swift */,
 				8903920F2538F8C2005C5C99 /* ServiceViewController+TableView.swift */,
+				89CAB8B525D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1968,6 +1978,7 @@
 			isa = PBXGroup;
 			children = (
 				898533B9219FAA1700E0A656 /* LocalService.swift */,
+				89CAB8A525D1DAD8001133A4 /* LocalServiceSnippet.swift */,
 				895418E1251965930046464D /* ServiceSnippet.swift */,
 				89BDADE2217A5693000E38FC /* Service.swift */,
 				897B77B82523EE81008602BB /* ServiceRepresentableChanges.swift */,
@@ -2221,8 +2232,6 @@
 				89BDADD5217928A9000E38FC /* CheckValidityOption.swift */,
 				89D4E2022139FDD100630790 /* FireLayerProperties.swift */,
 				893995A22170EDA900687A79 /* Tab.swift */,
-				8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */,
-				893FE030219783F0002CD846 /* NotificationLevelModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3262,6 +3271,7 @@
 				89E6B6C524FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */,
 				89E6B6D52500434F00F7A79C /* LoginCoordinator.swift in Sources */,
 				89250A1525004F2A00F00630 /* BottomNavigatorContaining.swift in Sources */,
+				89CAB8B725D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift in Sources */,
 				89576AC824FD412A0097BF87 /* SettingsViewController.swift in Sources */,
 				89F19D91256B802B0030AFE0 /* UIHyperTextView.swift in Sources */,
 				8936E3B22562E5C3007424A7 /* ValidatingViewModelBinder.swift in Sources */,
@@ -3420,6 +3430,7 @@
 				89576B1024FD412A0097BF87 /* EmptyStatePresentable.swift in Sources */,
 				894AB68C2512617300F2CBF5 /* ServicesViewController+TableView.swift in Sources */,
 				89576B1124FD412A0097BF87 /* UIViewControllerExtension.swift in Sources */,
+				89CAB8A725D1DAD8001133A4 /* LocalServiceSnippet.swift in Sources */,
 				89576B1224FD412A0097BF87 /* RegisterViewModel.swift in Sources */,
 				89576B1324FD412A0097BF87 /* NotifireAPIManager.swift in Sources */,
 				89576B1424FD412A0097BF87 /* LoginViewModel.swift in Sources */,
@@ -3504,6 +3515,7 @@
 				898533B7219FA9FE00E0A656 /* LocalNotifireNotification.swift in Sources */,
 				892683BE2593FAEB00346275 /* JSONDecoder.DateDecodingStrategy+Timestamp.swift in Sources */,
 				8902A680250DAE70007BB5DF /* UserSessionManager.swift in Sources */,
+				89CAB8B125D1DADF001133A4 /* LocalServiceSnippet.swift in Sources */,
 				89A9048121B754A800D262E1 /* DateFormatterExtension.swift in Sources */,
 				8902A67E250DAE64007BB5DF /* AuthenticationProvider.swift in Sources */,
 				895637B42554E786005E4A4E /* Logger+Init.swift in Sources */,
@@ -3762,6 +3774,7 @@
 				896168002501B3A3007BF3F1 /* UIView+Embed.swift in Sources */,
 				897069C821334E7700D798AA /* ConstrainableView.swift in Sources */,
 				89A4F31D259156A000767224 /* CreateLocalServiceOperation.swift in Sources */,
+				89CAB8A625D1DAD8001133A4 /* LocalServiceSnippet.swift in Sources */,
 				8920CA772171578900A72BD0 /* CenterStackPresenting.swift in Sources */,
 				89A9048321B8589300D262E1 /* IndicatorStackView.swift in Sources */,
 				89541917251CD1670046464D /* UpdateServiceRepresentablesOperation.swift in Sources */,
@@ -3827,6 +3840,7 @@
 				894AB6862512609700F2CBF5 /* ServiceTableViewCell.swift in Sources */,
 				89D4E1F32139ED3D00630790 /* CAPersistentAnimationsLayer.swift in Sources */,
 				899C071A2551E4FE0005228E /* ForgotPasswordViewModel.swift in Sources */,
+				89CAB8B625D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift in Sources */,
 				897069D62133733100D798AA /* Theme.swift in Sources */,
 				89A9048521B858B200D262E1 /* NotificationTableViewCell.swift in Sources */,
 				89F19D7E2568DD950030AFE0 /* NotificationsRequirementViewController.swift in Sources */,

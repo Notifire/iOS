@@ -15,18 +15,19 @@ class LocalNotifireNotification: Object, Decodable {
     static let sortByDateKeyPath = "date"
     static let isUnreadPredicate = NSPredicate(format: "isRead == %@", NSNumber(value: false))
 
-    /// This variable stores the service ID of the service it belongs to.
+    /// This variable stores the service snippet (id + name) it belongs to.
     /// - Note:
-    ///     -   Used when the notification service is NOT downloaded previously on the device.
+    ///     -   Used when the notification LocalService is NOT downloaded previously on the device.
     ///        e.g. when the user creates a service X on device A and a notification for X is received on device B (which doesn't previously know about X)
-    ///     -   This variable is set to nil whenever the respective service is associated with this notification.
-    let serviceID = RealmOptional<Int>()
+    ///     -   This variable is set to nil whenever the respective LocalService is associated with this notification.
+    @objc dynamic var serviceSnippet: LocalServiceSnippet?
+
     /// This variable is not nil when a `LocalService` has been identified for this notification.
     @objc dynamic var service: LocalService?
 
     /// Get the service ID that this notification is associated with.
     var currentServiceID: Int? {
-        if let serviceID = serviceID.value {
+        if let serviceID = serviceSnippet?.id {
             return serviceID
         } else if let serviceID = service?.id {
             return serviceID
@@ -45,6 +46,11 @@ class LocalNotifireNotification: Object, Decodable {
     @objc dynamic var text: String?
     @objc dynamic var rawLevel: String
     @objc dynamic var isRead: Bool = false
+    @objc dynamic var notificationID: String = UUID().uuidString
+
+    override static func primaryKey() -> String? {
+        return "notificationID"
+    }
 
     var level: NotificationLevel {
         return NotificationLevel(rawValue: rawLevel) ?? .info
@@ -63,11 +69,11 @@ class LocalNotifireNotification: Object, Decodable {
 
         // Values
         case body = "body"
+        case title = "title"
         case urlString = "url"
         case date = "timestamp"
         case text = "text"
         case level = "level"
-        case serviceID = "service-uid"
         case userID = "user-id"
     }
 
@@ -84,7 +90,6 @@ class LocalNotifireNotification: Object, Decodable {
         let dateDouble = try notificationContainer.decode(Double.self, forKey: .date)
         date = Date(timeIntervalSince1970: dateDouble)
         rawLevel = try notificationContainer.decode(String.self, forKey: .level)
-        serviceID.value = try notificationContainer.decode(Int.self, forKey: .serviceID)
         userID = try notificationContainer.decode(Int.self, forKey: .userID)
     }
 

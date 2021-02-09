@@ -13,8 +13,8 @@ protocol TableViewReselectable: Reselectable {
 }
 
 extension TableViewReselectable {
-    func reselect() -> ReselectHandled {
-        tableView.setContentOffset(.zero, animated: true)
+    func reselect(animated: Bool) -> ReselectHandled {
+        tableView.setContentOffset(.zero, animated: animated)
         return true
     }
 }

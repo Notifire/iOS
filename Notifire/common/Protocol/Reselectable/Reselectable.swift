@@ -13,20 +13,20 @@ protocol Reselectable: UIViewController {
     typealias ReselectHandled = Bool
 
     /// - returns: `true` if the class handled the reselection, `false` otherwise
-    func reselect() -> ReselectHandled
+    func reselect(animated: Bool) -> ReselectHandled
 }
 
 extension Reselectable {
-    func reselect() -> ReselectHandled {
-        return reselectChildViewControllers()
+    func reselect(animated: Bool) -> ReselectHandled {
+        return reselectChildViewControllers(animated: animated)
     }
 
     @discardableResult
     /// Reselects all the childviewcontrollers that are also `Reselectable`
     /// - returns: `true` if any of the Reselectable child VCs got reselected, `false` otherwise
-    func reselectChildViewControllers() -> ReselectHandled {
+    func reselectChildViewControllers(animated: Bool) -> ReselectHandled {
         for childVC in children {
-            guard let reselectableVC = childVC as? Reselectable, reselectableVC.reselect() else { continue }
+            guard let reselectableVC = childVC as? Reselectable, reselectableVC.reselect(animated: animated) else { continue }
             return true
         }
         return false

@@ -10,9 +10,11 @@ import UserNotifications
 
 class NotificationService: UNNotificationServiceExtension {
 
+    // MARK: - Properties
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
 
+    // MARK: - Overrides
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
@@ -29,12 +31,15 @@ class NotificationService: UNNotificationServiceExtension {
 
             notificationHandler.activeRealmProvider = RealmProvider(userSession: previousSession)
             guard
-                let unread = notificationHandler.numberOfUnreadNotifications(),
-                let notification = try? notificationHandler.handle(content: bestAttemptContent)
+                let notification = try? notificationHandler.handle(content: bestAttemptContent),
+                let unread = notificationHandler.numberOfUnreadNotifications()
             else {
                 contentHandler(bestAttemptContent)
                 return
             }
+            // Set best attempt content
+            bestAttemptContent.userInfo.updateValue(notification.notificationID, forKey: NotifireNotificationsHandler.notificationIDKey)
+
             // Check if the user has enabled title prefixing
             if previousSession.settings.prefixNotificationTitleEnabled {
                 bestAttemptContent.title = "\(notification.level.emoji) \(bestAttemptContent.title)"

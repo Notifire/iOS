@@ -30,13 +30,24 @@ extension RealmManager {
             local.updateData(from: service)
 
             // Add existing notifications to this service
-            let notificationPredicate = NSPredicate(format: "serviceID = %d", service.id)
+            let notificationPredicate = NSPredicate(format: "serviceSnippet.id = %d", service.id)
             let serviceNotifications = realm.objects(LocalNotifireNotification.self).filter(notificationPredicate)
+            var serviceSnippet: LocalServiceSnippet?
 
             for serviceNotification in serviceNotifications {
+                if serviceSnippet == nil {
+                    serviceSnippet = serviceNotification.serviceSnippet
+                }
+                // Remove the ServiceSnippet from the notification
+                serviceNotification.serviceSnippet = nil
+
                 // Set the notification's parent to the new local service
                 serviceNotification.service = local
-                serviceNotification.serviceID.value = nil
+            }
+
+            if let snippet = serviceSnippet {
+                // Remove the ServiceSnippet
+                realm.delete(snippet)
             }
 
             // add it to the user's realm

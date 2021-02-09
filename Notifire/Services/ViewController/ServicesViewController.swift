@@ -63,6 +63,10 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
         return servicesTableView
     }
 
+    // MARK: Callback
+    /// Called at the end of viewDidAppear.
+    var onViewDidAppear: (() -> Void)?
+
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +90,7 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
         isInitialLoad = false
         updateViewStateAppearance(state: .skeleton, oldState: .skeleton)
         viewModel.start()
+        onViewDidAppear?()
     }
 
     // MARK: - Private

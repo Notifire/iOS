@@ -31,20 +31,20 @@ class NotificationsCoordinator: NavigatingChildCoordinator, TabbedCoordinator {
         notificationsViewController.delegate = self
     }
 
-    func showDetailed(notification: LocalNotifireNotification) {
+    func showDetailed(notification: LocalNotifireNotification, animated: Bool) {
         let realmProvider = notificationsViewController.viewModel.realmProvider
         let notificationDetailVM = NotificationDetailViewModel(realmProvider: realmProvider, notification: notification)
         let notificationDetailVC = NotificationDetailViewController(viewModel: notificationDetailVM)
         notificationDetailVC.view.backgroundColor = .compatibleSystemBackground
         notificationDetailVC.viewModel.delegate = self
         let notificationDetailCoordinator = GenericCoordinator(viewController: notificationDetailVC)
-        parentNavigatingCoordinator?.push(childCoordinator: notificationDetailCoordinator)
+        parentNavigatingCoordinator?.push(childCoordinator: notificationDetailCoordinator, animated: animated)
     }
 }
 
 extension NotificationsCoordinator: NotificationsViewControllerDelegate {
     func didSelect(notification: LocalNotifireNotification) {
-        showDetailed(notification: notification)
+        showDetailed(notification: notification, animated: true)
     }
 }
 

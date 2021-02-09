@@ -35,7 +35,6 @@ class UnreadNotificationsLabel: UILabel {
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = bounds.height / 2
-        print(layer.cornerRadius)
     }
 }
 
