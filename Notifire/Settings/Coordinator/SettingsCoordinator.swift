@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class SettingsCoordinator: NavigatingChildCoordinator {
+class SettingsCoordinator: NSObject, NavigatingChildCoordinator, PresentingCoordinator {
 
     // MARK: - Properties
     let settingsViewController: SettingsViewController
@@ -20,6 +21,13 @@ class SettingsCoordinator: NavigatingChildCoordinator {
     var viewController: UIViewController {
         return settingsViewController
     }
+
+    // MARK: PresentingCoordinator
+    var presentedCoordinator: ChildCoordinator?
+    var presentingViewController: UIViewController {
+        return viewController
+    }
+    var presentationDismissHandler: UIAdaptivePresentationDismissHandler?
 
     // MARK: - Initialization
     init(settingsViewController: SettingsViewController) {
@@ -56,7 +64,27 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
     }
 
     func didSelectContactButton() {
-        guard let url = URL(string: "https://google.com") else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        if MFMailComposeViewController.canSendMail() {
+            // Get data to append
+            let modelName = UIDevice.modelName
+            let iOSVersion = UIDevice.current.systemVersion
+            let appVersion = Config.appVersion
+
+            let mailVC = MFMailComposeViewController()
+            mailVC.view.tintColor = .primary
+            mailVC.mailComposeDelegate = self
+            mailVC.setToRecipients(["notifire.support@dvdblk.com"])
+            mailVC.setMessageBody("\n\n\n---\nNotifire Version: \(appVersion)\niOS Version: \(iOSVersion)\nModel Name: \(modelName)", isHTML: false)
+
+            present(viewController: mailVC, animated: true)
+        } else {
+            URLOpener.open(urlString: "https://notifire.dvdblk.com")
+        }
+    }
+}
+
+extension SettingsCoordinator: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        dismissPresentedCoordinator(animated: true)
     }
 }

@@ -18,4 +18,13 @@ class URLOpener {
         else { return }
             UIApplication.shared.open(appSettings)
     }
+
+    static func open(url: URL) {
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+
+    static func open(urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
 }

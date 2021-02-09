@@ -606,6 +606,8 @@
 		89CAB8B125D1DADF001133A4 /* LocalServiceSnippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAB8A525D1DAD8001133A4 /* LocalServiceSnippet.swift */; };
 		89CAB8B625D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAB8B525D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift */; };
 		89CAB8B725D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAB8B525D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift */; };
+		89CAB8BC25D22D9D001133A4 /* UIDevice+modelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAB8BB25D22D9D001133A4 /* UIDevice+modelName.swift */; };
+		89CAB8BD25D22D9D001133A4 /* UIDevice+modelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAB8BB25D22D9D001133A4 /* UIDevice+modelName.swift */; };
 		89D4E1F12139ED0F00630790 /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F02139ED0F00630790 /* CALayerExtension.swift */; };
 		89D4E1F32139ED3D00630790 /* CAPersistentAnimationsLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F22139ED3D00630790 /* CAPersistentAnimationsLayer.swift */; };
 		89D4E1F52139F43E00630790 /* NotificationObserving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F42139F43E00630790 /* NotificationObserving.swift */; };
@@ -1097,6 +1099,7 @@
 		89CA5AA0250EB5910020A564 /* XCTestCase+Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Delay.swift"; sourceTree = "<group>"; };
 		89CAB8A525D1DAD8001133A4 /* LocalServiceSnippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalServiceSnippet.swift; sourceTree = "<group>"; };
 		89CAB8B525D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalServiceSnippet+ServiceRepresentable.swift"; sourceTree = "<group>"; };
+		89CAB8BB25D22D9D001133A4 /* UIDevice+modelName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+modelName.swift"; sourceTree = "<group>"; };
 		89D4E1F02139ED0F00630790 /* CALayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
 		89D4E1F22139ED3D00630790 /* CAPersistentAnimationsLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAPersistentAnimationsLayer.swift; sourceTree = "<group>"; };
 		89D4E1F42139F43E00630790 /* NotificationObserving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationObserving.swift; sourceTree = "<group>"; };
@@ -2392,6 +2395,7 @@
 				89739279259181D600D2355A /* URLSession+custom.swift */,
 				892683B82593F9B500346275 /* JSONDecoder.DateDecodingStrategy+Timestamp.swift */,
 				8926840025963AD400346275 /* CGPoint+distance.swift */,
+				89CAB8BB25D22D9D001133A4 /* UIDevice+modelName.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -3444,6 +3448,7 @@
 				897B77C9252505B4008602BB /* WebSocketConnectionStatus.swift in Sources */,
 				89CA5A9A250EB1880020A564 /* LaunchArgumentsHandler.swift in Sources */,
 				894B1FA82505DF2E00D0D671 /* TabBarGestureHandler.swift in Sources */,
+				89CAB8BD25D22D9D001133A4 /* UIDevice+modelName.swift in Sources */,
 				896167FE2501ABAE007BF3F1 /* ForgotPasswordViewController.swift in Sources */,
 				894B1F8D2505D69900D0D671 /* ChildViewControllerContainerProviding.swift in Sources */,
 				8949EBE225118A0E0045D1A7 /* RegisterSuccessViewModel.swift in Sources */,
@@ -3705,6 +3710,7 @@
 				8920CA702171377900A72BD0 /* RegisterCoordinator.swift in Sources */,
 				892DC082255DDB270067EB12 /* UserSessionSettings.swift in Sources */,
 				892683CA25940B2600346275 /* ClientAuthError.swift in Sources */,
+				89CAB8BC25D22D9D001133A4 /* UIDevice+modelName.swift in Sources */,
 				897069E72134A36700D798AA /* TappableLabel.swift in Sources */,
 				899C07172551E2E00005228E /* NavigationCoordinatorDelegate.swift in Sources */,
 				892DC0AC256074EC0067EB12 /* SettingsViewModel.swift in Sources */,
