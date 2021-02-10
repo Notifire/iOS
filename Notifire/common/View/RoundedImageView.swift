@@ -295,24 +295,54 @@ class RoundedEmojiImageView: RoundedContainerImageView {
 
 class RoundedShadowImageView: RoundedContainerImageView {
 
+    // MARK: - Properties
+    /// The shadow layer.
+    var shadowLayer: CALayer?
+    /// The layer that contains the shadow layer.
+    /// - Note: This layer is crucial to mask the shadow properly under transparent images. Do not remove / modify it.
+    var shadowOpaqueLayer: CALayer?
+
+    // MARK: - Overrides
     override func setupSubviews() {
         super.setupSubviews()
         backgroundColor = .clear
+
+        // Create opaque layer
+        let shadowOpaqueLayer = CALayer()
+        shadowOpaqueLayer.backgroundColor = UIColor.black.cgColor
+        self.shadowOpaqueLayer = shadowOpaqueLayer
+
+        // Create shadow layer
+        let shadowLayer = CALayer()
+
+        shadowLayer.backgroundColor = UIColor.black.cgColor
+        shadowLayer.shadowRadius = 8
+        shadowLayer.shadowOpacity = 0.4
+        shadowLayer.shadowOffset = .zero
+        self.shadowLayer = shadowLayer
+        shadowOpaqueLayer.insertSublayer(shadowLayer, at: 0)
+
+        // Insert shadow opaque layer
+        layer.insertSublayer(shadowOpaqueLayer, at: 0)
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        skeletonCornerRadius = Float(bounds.width / 2)
 
-        if isSkeletonActive {
-            layer.shadowRadius = 0
-            layer.shadowOpacity = 0
-            layer.shadowOffset = .zero
-        } else {
-            layer.shadowRadius = 8
-            layer.shadowOpacity = 0.4
-            layer.shadowOffset = .zero
-            layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: bounds.width/2).cgPath
-        }
+        guard let shadowLayer = shadowLayer, let shadowOpaqueLayer = shadowOpaqueLayer else { return }
+        shadowOpaqueLayer.frame = bounds
+        shadowOpaqueLayer.cornerRadius = shadowOpaqueLayer.frame.width/2
+        shadowLayer.frame = shadowOpaqueLayer.bounds
+        shadowLayer.cornerRadius = shadowLayer.frame.width/2
+
+        // Create path that will mask the shadow
+        let path = CGMutablePath()
+        path.addRect(bounds.insetBy(dx: -16, dy: -16))
+        path.addPath(UIBezierPath(ovalIn: shadowLayer.bounds).cgPath)
+
+        let shape = CAShapeLayer()
+        shape.path = path
+        shape.fillRule = .evenOdd
+        shadowOpaqueLayer.mask = shape
     }
 }
