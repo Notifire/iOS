@@ -80,8 +80,6 @@ class AppCoordinator: Coordinator {
                         servicesCoordinator.showServiceAnd(notification: notification, animated: true)
                     }
                 }
-            } else {
-                print("XXX notification doesn't exist")
             }
         }
     }
