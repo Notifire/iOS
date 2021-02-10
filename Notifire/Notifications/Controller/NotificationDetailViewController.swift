@@ -128,15 +128,7 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
 
     private func setTapOn(urlCell: NotificationDetailURLCell) {
         urlCell.onURLTap = { [weak self] url in
-            let alert = NotifireAlertViewController(alertTitle: "Warning", alertText: "You are about to be redirected to an external URL. Are you sure you want to proceed?")
-            alert.add(action: NotifireAlertAction(title: "Yes, take me there.", style: .positive, handler: { _ in
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                alert.dismiss(animated: false, completion: nil)
-            }))
-            alert.add(action: NotifireAlertAction(title: "No", style: .neutral, handler: { _ in
-                alert.dismiss(animated: true, completion: nil)
-            }))
-            self?.present(alert: alert, animated: true, completion: nil)
+            URLOpener.open(url: url)
         }
     }
 }

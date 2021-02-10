@@ -28,9 +28,6 @@ class UserSessionSettings {
     @UserDefaultBool(key: DefaultsKey.prefixNotificationTitleWithServiceName, initialValue: true)
     var prefixNotificationTitleEnabled: Bool
 
-    @UserDefaultBool(key: DefaultsKey.openLinksWarningEnabled, initialValue: false)
-    var openLinksWarningEnabled: Bool
-
     // MARK: - Init
     /// - Important: Always set the `.identifier` of each `Bool` value.
     init(identifier: String) {
@@ -57,7 +54,7 @@ class UserSessionSettings {
         Logger.log(.info, "\(self) initializing user defaults")
 
         let keyPaths: [ReferenceWritableKeyPath<UserSessionSettings, UserDefaultBool<DefaultsKey>>] = [
-            \._appUpdateReminderEnabled, \._prefixNotificationTitleEnabled, \._openLinksWarningEnabled
+            \._appUpdateReminderEnabled, \._prefixNotificationTitleEnabled
         ]
         for keyPath in keyPaths {
             self[keyPath: keyPath].wrappedValue = self[keyPath: keyPath].initialValue

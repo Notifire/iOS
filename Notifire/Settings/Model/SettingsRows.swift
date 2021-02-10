@@ -30,7 +30,6 @@ enum SettingsSectionRow: Int {
     // MARK: General
     case applicationVersion
     case applicationUpdateAlert
-    case openLinksWarningSetting
 
     case privacyPolicy
     case contact
