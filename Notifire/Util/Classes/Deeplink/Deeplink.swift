@@ -28,19 +28,14 @@ class Deeplink {
     init(option: Option, presenter: UIViewController?) {
         self.option = option
 
-        if #available(iOS 13.0, *), let presenter = presenter {
-            // No need to use a new UIWindow to present the Deeplink on iOS 13.0+
-            // because you can't open a deeplink while a system alert is present.
-            self.deeplinkPresenter = presenter
-            self.window = nil
-        } else {
-            let newWindow = UIWindow(frame: UIScreen.main.bounds)
-            let vc = UIViewController()
-            newWindow.rootViewController = vc
-            newWindow.windowLevel = UIWindow.Level.alert + 1
-            newWindow.makeKeyAndVisible()
-            self.deeplinkPresenter = vc
-            self.window = newWindow
-        }
+        // Need to use a new UIWindow to present the Deeplink
+        // because you can open a deeplink while another VC presentation is in progress.
+        let newWindow = UIWindow(frame: UIScreen.main.bounds)
+        let vc = UIViewController()
+        newWindow.rootViewController = vc
+        newWindow.windowLevel = UIWindow.Level.alert + 1
+        newWindow.makeKeyAndVisible()
+        self.deeplinkPresenter = vc
+        self.window = newWindow
     }
 }
