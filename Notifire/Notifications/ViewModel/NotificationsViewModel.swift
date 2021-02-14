@@ -152,6 +152,16 @@ class NotificationsViewModel: RealmCollectionViewModel<LocalNotifireNotification
         try? realmProvider.realm.commitWrite(withoutNotifying: [token])
     }
 
+    /// Deletes the notification from the realm.
+    public func delete(notification: LocalNotifireNotification) {
+        // Make sure it's not deleted already
+        guard let safeNotification = notification.safeReference else { return }
+        let realm = realmProvider.realm
+        try? realm.write {
+            realm.delete(safeNotification)
+        }
+    }
+
     public func set(notificationsFilterData: NotificationsFilterData) {
         self.notificationsFilterData = notificationsFilterData
     }
@@ -178,7 +188,7 @@ class ServiceNotificationsViewModel: NotificationsViewModel {
     }
 
     override func title() -> String {
-        return service?.safeHandle?.name ?? ""
+        return service?.safeReference?.name ?? ""
     }
 
     override func emptyTitle() -> String {
@@ -192,7 +202,7 @@ class ServiceNotificationsViewModel: NotificationsViewModel {
         if notificationsFilterData.isDefaultFilterData {
             return super.emptyText()
         }
-        return "\(service?.safeHandle?.name ?? "This service") didn't send any notifications."
+        return "\(service?.safeReference?.name ?? "This service") didn't send any notifications."
     }
 
     override func cellConfiguration(for index: Int) -> CellConfiguring {

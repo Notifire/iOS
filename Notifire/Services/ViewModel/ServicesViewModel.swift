@@ -96,7 +96,7 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
             // Set service observers
             var newObservers = [Int: ServiceNotificationsObserver]()
             for service in services {
-                let serviceID = (service as? LocalService)?.safeHandle?.id ?? service.id
+                let serviceID = (service as? LocalService)?.safeReference?.id ?? service.id
                 if let currentObserver = serviceNotificationsObservers[serviceID] {
                     // Reuse the old one -- service wasn't changed
                     newObservers[serviceID] = currentObserver

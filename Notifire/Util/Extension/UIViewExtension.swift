@@ -54,14 +54,15 @@ extension UITableView {
         tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: 0.5))
     }
 
+    /// Reload the tableView data without moving the contentOffest the user has currently scrolled to.
     func reloadDataWithoutMoving() {
+        setContentOffset(contentOffset, animated: false)
+        // Save current
         let beforeContentSize = contentSize
-        let beforeContentOffset = contentOffset
         reloadData()
-        setNeedsLayout()
         layoutIfNeeded()
         let afterContentSize = contentSize
-        let offset = CGPoint(x: 0, y: beforeContentOffset.y + (afterContentSize.height - beforeContentSize.height))
+        let offset = CGPoint(x: 0, y: contentOffset.y + (afterContentSize.height - beforeContentSize.height))
         contentOffset = offset
     }
 }

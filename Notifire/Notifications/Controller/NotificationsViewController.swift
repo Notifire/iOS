@@ -44,6 +44,10 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
     let viewModel: NotificationsViewModel
     weak var delegate: NotificationsViewControllerDelegate?
 
+    /// Used to properly calculate the contentOffset and contentSize after adding new elements to the
+    /// table view.
+    var heightDictionary: [String: CGFloat] = [:]
+
     // MARK: Callback
     /// Called when the user taps the filter rightBarButtonItem.
     var onFilterActionTapped: (() -> Void)?
@@ -164,57 +168,5 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
     // MARK: Event Handling
     @objc private func didPressFilterButton() {
         onFilterActionTapped?()
-    }
-}
-
-extension UIColor {
-    func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
-        return UIGraphicsImageRenderer(size: size).image { rendererContext in
-            self.setFill()
-            rendererContext.fill(CGRect(origin: .zero, size: size))
-        }
-    }
-}
-extension NotificationsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let notification = viewModel.collection[indexPath.row]
-        delegate?.didSelect(notification: notification)
-    }
-
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let notification = viewModel.collection[indexPath.row]
-        let isRead = notification.isRead
-        let changeReadAction = UIContextualAction(style: .normal, title: isRead ? "Unread" : "Read") { [weak self] (_, _, completion) in
-            self?.viewModel.swapNotificationReadUnread(notification: notification)
-            completion(true)
-            (tableView.cellForRow(at: indexPath) as? NotificationPresenting)?.updateNotificationReadView(from: notification)
-        }
-        changeReadAction.backgroundColor = .primary
-        changeReadAction.image = isRead ? #imageLiteral(resourceName: "baseline_email_black_48pt").withRenderingMode(.alwaysTemplate) :  #imageLiteral(resourceName: "baseline_drafts_black_48pt").withRenderingMode(.alwaysTemplate)
-        let config = UISwipeActionsConfiguration(actions: [changeReadAction])
-        return config
-    }
-
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        return nil
-    }
-
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .none
-    }
-}
-
-extension NotificationsViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.collection.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let configuration = viewModel.cellConfiguration(for: indexPath.row)
-        let cell = tableView.dequeueReusableCell(withIdentifier: type(of: configuration).reuseIdentifier, for: indexPath)
-        configuration.configure(cell: cell)
-        cell.selectionStyle = .default
-        return cell
     }
 }

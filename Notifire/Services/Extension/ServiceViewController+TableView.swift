@@ -157,7 +157,7 @@ extension ServiceViewController: UITableViewDelegate {
             }))
             present(alert: notifireAlertVC, animated: true, completion: nil)
         } else if indexPath.section == 2 {
-            guard let localService = viewModel.currentLocalService?.safeHandle else { return }
+            guard let localService = viewModel.currentLocalService?.safeReference else { return }
             let notifireAlertVC = NotifireAlertViewController(
                 alertTitle: "Delete all notifications for \(localService.name)?",
                 alertText: "CAUTION: this action is irreversible. Your notifications are saved only on the device that received them.",
@@ -165,7 +165,7 @@ extension ServiceViewController: UITableViewDelegate {
             )
             notifireAlertVC.add(action: NotifireAlertAction(title: "Yes", style: .positive, handler: { _ in
                 notifireAlertVC.dismiss(animated: true, completion: { [weak self] in
-                    guard let `self` = self, let localService = localService.safeHandle else { return }
+                    guard let `self` = self, let localService = localService.safeReference else { return }
                     let deleted = self.viewModel.deleteServiceNotifications()
                     let afterDeletionAlert = NotifireAlertViewController(
                         alertTitle: deleted ? "Success!" : "Something went wrong.",

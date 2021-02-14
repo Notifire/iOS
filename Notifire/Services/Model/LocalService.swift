@@ -49,12 +49,6 @@ class LocalService: Object {
         return primaryKey() ?? #keyPath(LocalService.id)
     }
 
-    /// Returns self if the object is not invalidated.
-    var safeHandle: LocalService? {
-        guard !isInvalidated else { return nil }
-        return self
-    }
-
     var unreadNotifications: Results<LocalNotifireNotification> {
         return notifications.filter(LocalNotifireNotification.isUnreadPredicate)
     }

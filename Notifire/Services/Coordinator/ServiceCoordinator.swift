@@ -76,7 +76,7 @@ class ServiceEditViewModel: InputValidatingViewModel, ImageDataContainingViewMod
 
     // MARK: - Methods
     func updateService() {
-        guard readyToEditService, !loadingModel.isLoading, let localService = service.safeHandle else { return }
+        guard readyToEditService, !loadingModel.isLoading, let localService = service.safeReference else { return }
         loadingModel.toggle()
 
         let completion: NotifireAPIBaseManager.Callback<ServiceUpdateResponse> = { [weak self] result in
@@ -203,7 +203,7 @@ class ServiceEditViewController: VMViewController<ServiceEditViewModel>, APIErro
         let navigationLabel = UILabel()
         let navigationTitle = NSMutableAttributedString(string: "Edit ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
                                                                                       NSAttributedString.Key.foregroundColor: UIColor.compatibleSecondaryLabel])
-        let serviceName = viewModel.service.safeHandle?.name ?? "service"
+        let serviceName = viewModel.service.safeReference?.name ?? "service"
         navigationTitle.append(NSMutableAttributedString(string: serviceName, attributes: TextAttributes.navigationTitle))
         navigationLabel.attributedText = navigationTitle
         navigationItem.titleView = navigationLabel
