@@ -19,14 +19,11 @@ extension DateFormatter {
     }()
 }
 
-enum DateFormatStyle {
-    case complete
-
-    var dateFormat: String {
-        switch self {
-        case .complete: return "HH:mm, dd.MM.yyyy"
-        }
-    }
+enum DateFormatStyle: String {
+    case dateOnly = "dd.MM.yyyy"
+    case complete = "HH:mm:ss.SS, dd.MM.yyyy"
+    case completeDateFirst = "dd.MM.yyyy HH:mm"
+    case completeSpaced = "dd.MM.yyyy\tHH:mm"
 }
 
 extension Date {
@@ -35,18 +32,23 @@ extension Date {
         let calendar = Calendar(identifier: .gregorian)
         dateFormatter.doesRelativeDateFormatting = true
 
+        let dateMinus7D = Date().addingTimeInterval(-604800)
+        let lastWeekRange = dateMinus7D...Date()
+
         if calendar.isDateInToday(self) {
-            dateFormatter.timeStyle = .short
-            dateFormatter.dateStyle = .none
+            // Today
+            dateFormatter.timeStyle = .short    // Short time
+            dateFormatter.dateStyle = .none     // No date
         } else if calendar.isDateInYesterday(self) {
-            dateFormatter.timeStyle = .none
-            dateFormatter.dateStyle = .medium
-        } else if calendar.compare(Date(), to: self, toGranularity: .weekOfYear) == .orderedSame {
-            let weekday = calendar.dateComponents([.weekday], from: self).weekday ?? 0
+            // Yesterday
+            dateFormatter.timeStyle = .none     // No time
+            dateFormatter.dateStyle = .medium   // "Yesterday
+        } else if lastWeekRange.contains(self) {
+            let weekday = calendar.component(.weekday, from: self)
             return dateFormatter.weekdaySymbols[weekday-1]
         } else {
-            dateFormatter.timeStyle = .none
-            dateFormatter.dateStyle = .short
+            dateFormatter.doesRelativeDateFormatting = false
+            dateFormatter.dateFormat = DateFormatStyle.dateOnly.rawValue
         }
 
         return dateFormatter.string(from: self)
@@ -54,7 +56,7 @@ extension Date {
 
     func string(with style: DateFormatStyle) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = style.dateFormat
+        dateFormatter.dateFormat = style.rawValue
         return dateFormatter.string(from: self)
     }
 }

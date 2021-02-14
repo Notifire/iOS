@@ -8,40 +8,6 @@
 
 import UIKit
 
-protocol CellAppearanceDescribing {
-    /// The required height for this cell.
-    /// - Note: Return `nil` for cells that don't need a specific setting.
-    static var height: CGFloat? { get }
-    static var selectionStyle: UITableViewCell.SelectionStyle { get }
-    static var accessoryType: UITableViewCell.AccessoryType { get }
-}
-
-extension CellAppearanceDescribing {
-    static var height: CGFloat? {
-        return nil
-    }
-
-    static var selectionStyle: UITableViewCell.SelectionStyle {
-        return .none
-    }
-
-    static var accessoryType: UITableViewCell.AccessoryType {
-        return .none
-    }
-}
-
-struct DefaultCellAppearance: CellAppearanceDescribing {}
-struct DefaultTappableCellAppearance: CellAppearanceDescribing {
-    static var selectionStyle: UITableViewCell.SelectionStyle {
-        return .default
-    }
-}
-struct DefaultAutomaticHeightCellAppearance: CellAppearanceDescribing {
-    static var height: CGFloat? {
-        return UITableView.automaticDimension
-    }
-}
-
 protocol CellConfigurable {
     associatedtype DataType
     func configure(data: DataType)

@@ -16,10 +16,11 @@
 	<key>com.apple.security.application-groups</key>
 	<array>
 		<string>group.com.dvdblk.Notifire</string>
+		<string>group.com.dvdblk.Notifire.mock</string>
 	</array>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)com.dvdblk.Notifire</string>
+		<string>$(AppIdentifierPrefix)com.dvdblk.Notifire.mock</string>
 	</array>
 </dict>
 </plist>

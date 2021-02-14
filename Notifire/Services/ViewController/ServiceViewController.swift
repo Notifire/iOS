@@ -115,7 +115,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .compatibleBackgroundAccent
-        hideNavigationBarBackButtonText()
+        hideNavigationBarBackButtonText(newBackBarText: "Service")
         setupTitleView()
         prepareViewModel()
         layout()
@@ -253,6 +253,7 @@ class ServiceViewController: UIViewController, UINavigationControllerDelegate, U
     }
 
     private func updateServiceUI(service: LocalService) {
+        navigationItem.backButtonTitle = service.name
         titleLabel.text = service.name
         serviceHeaderView.service = service
         infoCell.levelSwitch.setOn(service.info, animated: true)

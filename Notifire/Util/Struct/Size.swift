@@ -23,6 +23,7 @@ struct Size {
     static let doubleMargin: CGFloat = 32
 
     struct Image {
+        static let settingsImage: CGFloat = 29
         static let smallService: CGFloat = 36
         static let mediumService: CGFloat = 50
         static let normalService: CGFloat = 80
@@ -36,6 +37,7 @@ struct Size {
 
     struct Cell {
         static let height: CGFloat = 44
+        static let insetGroupedHeight: CGFloat = 52
         static let heightExtended: CGFloat = 60
         static let narrowSideMargin: CGFloat = 12
         static let sideMargin: CGFloat = 16
@@ -44,7 +46,8 @@ struct Size {
     }
 
     struct Navigator {
-        static let symbolSize: CGSize = CGSize(equal: 14)
+        static let smallSymbolSize: CGSize = CGSize(equal: 14)
+        static let symbolSize: CGSize = CGSize(equal: Image.symbol)
         static let height: CGFloat = 48
         static let separatorHeight: CGFloat = 1
     }

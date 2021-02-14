@@ -44,6 +44,10 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
     let viewModel: NotificationsViewModel
     weak var delegate: NotificationsViewControllerDelegate?
 
+    // MARK: Callback
+    /// Called when the user taps the filter rightBarButtonItem.
+    var onFilterActionTapped: (() -> Void)?
+
     // MARK: Views
     lazy var tableView: UITableView = {
         let table = UITableView()
@@ -74,10 +78,9 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = viewModel.title()
+        setupNavBar()
         view.backgroundColor = .compatibleSystemBackground
-        hideNavigationBarBackButtonText()
-        hideNavigationBar()
+
         prepareViewModel()
         layout()
         updateViewStateAppearance(state: viewModel.viewState)
@@ -85,6 +88,28 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
     }
 
     // MARK: - Private
+    private func setupNavBar() {
+        updateRightBarButtonItem()
+        hideNavigationBarBackButtonText(newBackBarText: "Notifications")
+        hideNavigationBar()
+
+        title = viewModel.title()
+    }
+
+    private func updateRightBarButtonItem() {
+        let filterImage: UIImage
+        if #available(iOS 13, *) {
+            let weight = viewModel.notificationsFilterData.isDefaultFilterData ? UIImage.SymbolWeight.regular : .bold
+            let symbolConfiguration = UIImage.SymbolConfiguration(weight: weight)
+            filterImage = UIImage(systemName: "slider.horizontal.3", withConfiguration: symbolConfiguration) ?? UIImage()
+        } else {
+            filterImage = #imageLiteral(resourceName: "slider.horizontal.3").resized(to: Size.Navigator.symbolSize)
+        }
+        let barButtonItem = ActionButton.createActionBarButtonItem(image: filterImage, target: self, action: #selector(didPressFilterButton))
+        barButtonItem.tintColor = viewModel.notificationsFilterData.isDefaultFilterData ? .compatibleLabel : .primary
+        navigationItem.rightBarButtonItem = barButtonItem
+    }
+
     private func layout() {
         view.add(subview: tableView)
         tableView.embedInVerticalSafeArea(in: view)
@@ -93,6 +118,7 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
     private func prepareViewModel() {
         let configurationType = type(of: viewModel).configurationType
         tableView.register(configurationType.cellType, forCellReuseIdentifier: configurationType.reuseIdentifier)
+        // ViewState
         viewModel.onViewStateChange = { [weak self] state in
             self?.updateViewStateAppearance(state: state)
         }
@@ -118,6 +144,11 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
             case .error: break
             }
         }
+
+        // Filters
+        viewModel.onNotificationsFilterDataChange = { [weak self] in
+            self?.updateRightBarButtonItem()
+        }
     }
 
     private func updateViewStateAppearance(state: NotificationsViewModel.ViewState) {
@@ -128,6 +159,11 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
         case .notifications:
             removeEmptyStateView()
         }
+    }
+
+    // MARK: Event Handling
+    @objc private func didPressFilterButton() {
+        onFilterActionTapped?()
     }
 }
 

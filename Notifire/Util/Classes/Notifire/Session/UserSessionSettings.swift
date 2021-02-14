@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UserSessionSettings {
+class UserSessionSettings: NSObject {
 
     /// Enum describing keys used in the UserDefaults
     /// Note: User specific
@@ -23,7 +23,7 @@ class UserSessionSettings {
 
     // MARK: User Preferences
     @UserDefaultBool(key: DefaultsKey.appUpdateReminderEnabled, initialValue: true)
-    var appUpdateReminderEnabled: Bool
+    @objc dynamic var appUpdateReminderEnabled: Bool
 
     @UserDefaultBool(key: DefaultsKey.prefixNotificationTitleWithServiceName, initialValue: true)
     var prefixNotificationTitleEnabled: Bool
@@ -36,6 +36,7 @@ class UserSessionSettings {
 
         // Don't touch. Need to keep this as is. For more information check `isFirstLaunchAfterLogin`
         self._isFirstLaunchAfterLogin.identifier = identifier
+        super.init()
         setInitialValuesIfNeeded()
     }
 

@@ -13,10 +13,18 @@ class SettingsViewController: VMViewController<SettingsViewModel>, NavigationBar
     // MARK: - Properties
     weak var delegate: SettingsViewControllerDelegate?
 
+    private lazy var dataSource = SettingsTableViewDataSource(tableViewViewModel: viewModel)
+
     // MARK: Views
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.dataSource = self
+        let style: UITableView.Style
+        if #available(iOS 13.0, *) {
+            style = .insetGrouped
+        } else {
+            style = .grouped
+        }
+        let tableView = UITableView(frame: .zero, style: style)
+        tableView.dataSource = dataSource
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .compatibleBackgroundAccent
@@ -27,6 +35,7 @@ class SettingsViewController: VMViewController<SettingsViewModel>, NavigationBar
             UITableViewCenteredNegativeCell.self,
             UITableViewValue1Cell.self,
             SettingsSwitchTableViewCell.self,
+            UITableViewReusableCell.self,
             UITableViewActionCell.self,
             UITableViewWarningCell.self
         ])

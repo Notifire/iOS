@@ -24,20 +24,20 @@ class NotifireAPIManagerMock: NotifireAPIManager, NotifireAPIManagerMocking {
     }
 
     override func confirmAccount(emailToken: String, completion: @escaping Callback<ConfirmAccountResponse>) {
-        returnSuccessAfter(completion: completion, response: ConfirmAccountResponse(success: true, payload: LoginDataResponse(email: "testtest", refreshToken: "testtestRefreshToken", accessToken: "jwt")))
+        returnSuccessAfter(completion: completion, response: ConfirmAccountResponse(success: true, payload: LoginDataResponse(email: "testtest", refreshToken: "testtestRefreshToken", accessToken: "jwt", userID: 0)))
     }
 
     override func resetPassword(password: String, token: String, completion: @escaping NotifireAPIBaseManager.Callback<ResetPasswordResponse>) {
         //returnSuccessAfter(completion: completion, response: ResetPasswordResponse(success: true, payload: LoginSuccessResponse(email: "testicek@testicek.com", refreshToken: "asdasd", accessToken: "asdasd")))
-        returnErrorResponseAfter(error: .clientError(NotifireAPIError.ClientError(code: 2, message: "Testicek")), completion: completion)
+        returnErrorResponseAfter(error: .clientError(ClientError(code: 2, message: "Test", errorType: .email)), completion: completion)
     }
 
     override func changeEmail(token: String, completion: @escaping NotifireAPIBaseManager.Callback<ChangeEmailResponse>) {
-        returnSuccessAfter(completion: completion, response: ChangeEmailResponse(success: true, payload: LoginSuccessResponse(email: "asd@asd.com", refreshToken: "Asd", accessToken: "Asd")))
+        returnSuccessAfter(completion: completion, response: ChangeEmailResponse(success: true, payload: LoginSuccessResponse(email: "asd@asd.com", refreshToken: "Asd", accessToken: "Asd", userID: 0)))
     }
 
     override func revertEmail(token: String, completion: @escaping NotifireAPIBaseManager.Callback<ChangeEmailResponse>) {
-        returnSuccessAfter(completion: completion, response: ChangeEmailResponse(success: true, payload: LoginSuccessResponse(email: "asd@asd.com", refreshToken: "Asd", accessToken: "Asd")))
+        returnSuccessAfter(completion: completion, response: ChangeEmailResponse(success: true, payload: LoginSuccessResponse(email: "asd@asd.com", refreshToken: "Asd", accessToken: "Asd", userID: 0)))
     }
 
     override func checkValidity(option: CheckValidityOption, input: String, completion: @escaping Callback<CheckValidityResponse>) {
@@ -45,11 +45,11 @@ class NotifireAPIManagerMock: NotifireAPIManager, NotifireAPIManagerMocking {
     }
 
     override func login(email: String, password: String, completion: @escaping Callback<LoginResponse>) {
-        returnSuccessAfter(completion: completion, response: LoginResponse(success: true, payload: LoginSuccessResponse(email: "xDD", refreshToken: "LUL", accessToken: "ojgsdljgksjdfg"), error: nil))
+        returnSuccessAfter(completion: completion, response: LoginResponse(success: true, payload: LoginSuccessResponse(email: "xDD", refreshToken: "LUL", accessToken: "ojgsdljgksjdfg", userID: 0), error: nil))
     }
 
     override func login(token: String, ssoProvider: SSOAuthenticationProvider, completion: @escaping Callback<SSOLoginResponse>) {
-        let response = SSOLoginResponse(success: true, payload: LoginSuccessResponse(email: "testicek@testicek.testicek", refreshToken: "xdddddd", accessToken: "KEKW"))
+        let response = SSOLoginResponse(success: true, payload: LoginSuccessResponse(email: "testicek@testicek.testicek", refreshToken: "xdddddd", accessToken: "KEKW", userID: 0), error: nil)
         returnSuccessAfter(completion: completion, response: response)
     }
 
@@ -104,7 +104,8 @@ class NotifireProtectedAPIManagerMock: NotifireProtectedAPIManager, NotifireAPIM
     }
 
     override func get(service: ServiceSnippet, completion: @escaping NotifireAPIBaseManager.Callback<ServiceGetResponse>) {
-        returnSuccessAfter(completion: completion, response: ServiceGetResponse(name: service.name, image: ServiceGetResponse.Image(small: "", medium: "", large: ""), id: service.id, levels: ServiceGetResponse.Levels(info: true, warning: true, error: false), apiKey: "test", updatedAt: Date()))
+        let response = ServiceGetResponse(success: true, service: Service(name: service.name, image: Service.Image(small: "", medium: "", large: ""), id: service.id, levels: .init(info: true, warning: true, error: false), apiKey: "test", updatedAt: Date()))
+        returnSuccessAfter(completion: completion, response: response)
     }
 
     override func getServices(limit: Int, paginationData: PaginationData?, completion: @escaping NotifireAPIBaseManager.Callback<ServicesResponse>) {
@@ -130,12 +131,12 @@ class NotifireProtectedAPIManagerMock: NotifireProtectedAPIManager, NotifireAPIM
         returnSuccessAfter(completion: completion, response: [])
     }
 
-    override func createService(name: String, imageData: Data?, completion: @escaping NotifireAPIBaseManager.Callback<NotifireAPIPlainSuccessResponse>) {
+    override func createService(name: String, imageData: ImageData?, completion: @escaping NotifireAPIBaseManager.Callback<NotifireAPIPlainSuccessResponse>) {
         returnSuccessAfter(completion: completion, response: NotifireAPIPlainSuccessResponse(success: false))
     }
 
-    override func changeApiKey(for service: LocalService, password: String, completion: @escaping Callback<APIKeyChangeResponse>) {
-        returnSuccessAfter(completion: completion, response: APIKeyChangeResponse(name: service.name, image: .init(small: "ASD", medium: "ASD", large: "asd"), id: service.id, levels: .init(info: true, warning: true, error: true), apiKey: "asd  ", updatedAt: Date()))
+    override func changeApiKey(for service: LocalService, completion: @escaping NotifireAPIBaseManager.Callback<APIKeyChangeResponse>) {
+        returnSuccessAfter(completion: completion, response: APIKeyChangeResponse(success: true))
     }
 
     override func delete(service: LocalService, completion: @escaping Callback<EmptyRequestBody>) {

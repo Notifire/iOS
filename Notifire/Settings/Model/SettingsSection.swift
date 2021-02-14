@@ -9,7 +9,8 @@
 import Foundation
 
 /// Represents each section in the Settings View Controller.
-enum SettingsSection: Int {
+enum SettingsSection: Int, SectionAndRowRepresentable {
+
     /// The User Settings section
     case user
     case userLogout

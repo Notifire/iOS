@@ -67,9 +67,9 @@ class WebsocketMockEngine: Engine {
     }
 
     func write(data: Data, opcode: FrameOpCode, completion: (() -> Void)?) {
-        let readyEvent = NotifireWebSocketReadyEvent(data: NotifireWebSocketReadyEventData(sessionID: "1", heartbeatInterval: 15))
+        let readyEventDictionary: [String: Any] = ["d": ["sessionID": "1", "pingInterval": 30], "event": "ready"]
         guard
-            let encodedData = try? JSONEncoder().encode(readyEvent),
+            let encodedData = try? JSONSerialization.data(withJSONObject: readyEventDictionary),
             let readyEventStringData = String(data: encodedData, encoding: .utf8)
         else { return }
 

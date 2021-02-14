@@ -1,5 +1,5 @@
 //
-//  SettingsTableViewCell.swift
+//  SettingsCellConfigurations.swift
 //  Notifire
 //
 //  Created by David Bielik on 14/11/2020.
@@ -8,29 +8,18 @@
 
 import UIKit
 
-// MARK: - SettingsDefaultCellConfiguration
 typealias SettingsDefaultCellConfiguration = CellConfiguration<UITableViewValue1Cell, DefaultCellAppearance>
 
-// MARK: - SettingsDisclosureCellConfiguration
-typealias SettingsDisclosureCellConfiguration = CellConfiguration<UITableViewValue1Cell, DisclosureCellAppearance>
+typealias SettingsDisclosureCellConfiguration = DefaultDisclosureCellConfiguration
 
-struct DisclosureCellAppearance: CellAppearanceDescribing {
-    static var accessoryType: UITableViewCell.AccessoryType {
-        return .disclosureIndicator
-    }
-
-    static var selectionStyle: UITableViewCell.SelectionStyle {
-        return .default
-    }
-}
-
-// MARK: - SettingsCenteredCellConfiguration
 typealias SettingsCenteredCellConfiguration = CellConfiguration<UITableViewCenteredNegativeCell, DefaultTappableCellAppearance>
 
 // MARK: - SettingsSwitchCellConfiguration
 struct SettingsSwitchData {
     /// The keypath to the flag that is controlled by the `UISwitch`
     let sessionFlagKeypath: ReferenceWritableKeyPath<UserSessionSettings, Bool>
+    /// This value is `true` if the session flag should be observed for changes via KVO.
+    let shouldObserveFlag: Bool
     /// The main text that is associated with this flag
     let text: String
     /// The description text displayed when the flag is switched on.
@@ -45,6 +34,10 @@ class SettingsSwitchTableViewCell: ReusableBaseTableViewCell, CellConfigurable {
 
     // MARK: - Properties
     var data: DataType?
+
+    /// Holds the Observation so it doesn't get deallocated.
+    /// For more info check `SettingsSwitchData.observeFlag`
+    var flagObserver: NSKeyValueObservation?
 
     // MARK: UI
     lazy var toggleSwitch: UISwitch = {
@@ -71,6 +64,10 @@ class SettingsSwitchTableViewCell: ReusableBaseTableViewCell, CellConfigurable {
         toggleSwitch.addTarget(self, action: #selector(handleSwitchChange), for: .valueChanged)
 
         layout()
+    }
+
+    deinit {
+        flagObserver?.invalidate()
     }
 
     // MARK: - Private
@@ -125,6 +122,21 @@ class SettingsSwitchTableViewCell: ReusableBaseTableViewCell, CellConfigurable {
         informationLabel.text = data.text
         toggleSwitch.isOn = data.session?.settings[keyPath: data.sessionFlagKeypath] ?? false
         updateDescriptionText()
+
+        // Register the observer if needed
+        if data.shouldObserveFlag {
+            flagObserver?.invalidate()
+            flagObserver = data.session?.settings.observe(data.sessionFlagKeypath, options: [.new, .old], changeHandler: { [weak self] (_, change) in
+                guard
+                    let `self` = self,
+                    let newValue = change.newValue,
+                    self.toggleSwitch.isOn != newValue
+                else { return }
+                // Update the switch and text if the new value is different
+                self.toggleSwitch.isOn = newValue
+                self.updateDescriptionText()
+            })
+        }
     }
 }
 

@@ -57,6 +57,11 @@ extension NotifireNavigationController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         let isSystemSwipeToBackEnabled = interactivePopGestureRecognizer?.isEnabled == true
         let isThereStackedViewControllers = viewControllers.count > 1
-        return isSystemSwipeToBackEnabled && isThereStackedViewControllers
+        var isValidPan = false
+        // Avoids unnecessary pans / swipes that aim to the Right direction initially
+        if let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
+            isValidPan = panGestureRecognizer.velocity(in: view).x > 0
+        }
+        return isSystemSwipeToBackEnabled && isThereStackedViewControllers && isValidPan
     }
 }

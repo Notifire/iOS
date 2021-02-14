@@ -107,7 +107,7 @@ class NotificationDetailAdditionalTextCell: BaseTableViewCell, CellConfigurable,
     // MARK: - Properties
     // MARK: NotificationDetailIndicatorCell
     static var indicatorImage: UIImage {
-        return #imageLiteral(resourceName: "notification_indicator_additional_text")
+        return #imageLiteral(resourceName: "doc.plaintext")
     }
     // MARK: Views
     let additionalTextLabel = CopyableLabel(style: .informationHeader)
@@ -138,7 +138,7 @@ class NotificationDetailURLCell: BaseTableViewCell, CellConfigurable, Notificati
     var url: DataType?
     // MARK: NotificationDetailIndicatorCell
     static var indicatorImage: UIImage {
-        return #imageLiteral(resourceName: "baseline_link_black_48pt")
+        return #imageLiteral(resourceName: "link")
     }
     // MARK: Views
     let urlLabel = TappableLabel()

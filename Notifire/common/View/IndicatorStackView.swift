@@ -13,14 +13,14 @@ class IndicatorStackView: UIStackView {
     private static let circleSeparatorWidth: CGFloat = 2
     private static let spacing: CGFloat = 4
 
-    private let textImageView = UIImageView(notifireImage: #imageLiteral(resourceName: "notification_indicator_additional_text"))
+    private let textImageView = UIImageView(notifireImage: #imageLiteral(resourceName: "doc.plaintext"))
     private let circleView: UIView = {
         let view = UIView()
         view.backgroundColor = .spinnerColor
         view.layer.cornerRadius = IndicatorStackView.circleSeparatorWidth/2
         return view
     }()
-    private let urlImageView = UIImageView(notifireImage: #imageLiteral(resourceName: "baseline_link_black_48pt"))
+    private let urlImageView = UIImageView(notifireImage: #imageLiteral(resourceName: "link"))
 
     override init(frame: CGRect) {
         super.init(frame: frame)

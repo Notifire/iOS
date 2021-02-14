@@ -60,6 +60,10 @@ class UIAdaptivePresentationDismissHandler: NSObject, UIAdaptivePresentationCont
 
 extension PresentingCoordinator {
 
+    var canPresentCoordinator: Bool {
+        return presentedCoordinator == nil
+    }
+
     func presentationFunction(for presentedViewController: UIViewController?) -> ((UIViewController, Bool, (() -> Void)?) -> Void) {
         return presentingViewController.present(_:animated:completion:)
     }
@@ -69,7 +73,7 @@ extension PresentingCoordinator {
     }
 
     func present(childCoordinator: ChildCoordinator, animated: Bool, modalPresentationStyle: UIModalPresentationStyle = .defaultValue) {
-        guard presentedCoordinator == nil else { return }
+        guard canPresentCoordinator else { return }
 
         presentedCoordinator = childCoordinator
         childCoordinator.viewController.modalPresentationStyle = modalPresentationStyle

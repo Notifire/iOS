@@ -10,7 +10,7 @@ import Foundation
 
 /// Contains all rows for all sections in Settings.
 /// The rows that belong to each section can be found in `SettingsSection`
-enum SettingsSectionRow: Int {
+enum SettingsSectionRow: Int, SectionAndRowRepresentable {
     // MARK: User
     /// The current (logged in) account provider (e.g. Google, Apple, Email...)
     case accountProvider

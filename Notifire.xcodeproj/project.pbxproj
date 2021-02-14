@@ -608,6 +608,8 @@
 		89CAB8B725D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAB8B525D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift */; };
 		89CAB8BC25D22D9D001133A4 /* UIDevice+modelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAB8BB25D22D9D001133A4 /* UIDevice+modelName.swift */; };
 		89CAB8BD25D22D9D001133A4 /* UIDevice+modelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAB8BB25D22D9D001133A4 /* UIDevice+modelName.swift */; };
+		89D1074925D74D2E00AD86D1 /* NotificationsFilterViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D1074825D74D2E00AD86D1 /* NotificationsFilterViewController+TableView.swift */; };
+		89D1075025D74D3100AD86D1 /* NotificationsFilterViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D1074825D74D2E00AD86D1 /* NotificationsFilterViewController+TableView.swift */; };
 		89D4E1F12139ED0F00630790 /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F02139ED0F00630790 /* CALayerExtension.swift */; };
 		89D4E1F32139ED3D00630790 /* CAPersistentAnimationsLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F22139ED3D00630790 /* CAPersistentAnimationsLayer.swift */; };
 		89D4E1F52139F43E00630790 /* NotificationObserving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F42139F43E00630790 /* NotificationObserving.swift */; };
@@ -646,8 +648,28 @@
 		89E6B6D7250049F700F7A79C /* VMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6D6250049F700F7A79C /* VMView.swift */; };
 		89E6B6D8250049F700F7A79C /* VMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6D6250049F700F7A79C /* VMView.swift */; };
 		89E777ED2173E9F3009CF3DE /* NoSessionContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E777EC2173E9F3009CF3DE /* NoSessionContainerViewController.swift */; };
+		89E8177925D8531E00BA8927 /* DateDisclosureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8177825D8531E00BA8927 /* DateDisclosureTableViewCell.swift */; };
+		89E8177A25D8531E00BA8927 /* DateDisclosureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8177825D8531E00BA8927 /* DateDisclosureTableViewCell.swift */; };
+		89E8177F25D875F500BA8927 /* TimeframeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8177E25D875F500BA8927 /* TimeframeSelectionViewController.swift */; };
+		89E8178025D875F500BA8927 /* TimeframeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8177E25D875F500BA8927 /* TimeframeSelectionViewController.swift */; };
+		89E8178525D8764200BA8927 /* UITableView+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8178425D8764200BA8927 /* UITableView+Init.swift */; };
+		89E8178625D8764200BA8927 /* UITableView+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8178425D8764200BA8927 /* UITableView+Init.swift */; };
 		89E8B865250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */; };
 		89E8B866250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */; };
+		89ECEB1A25D6DCE0003C868D /* NotificationsFilterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECEB1925D6DCE0003C868D /* NotificationsFilterData.swift */; };
+		89ECEB1B25D6DCE0003C868D /* NotificationsFilterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECEB1925D6DCE0003C868D /* NotificationsFilterData.swift */; };
+		89ECEB2025D6ED2D003C868D /* NotificationsFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECEB1F25D6ED2D003C868D /* NotificationsFilterViewModel.swift */; };
+		89ECEB2125D6ED2D003C868D /* NotificationsFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECEB1F25D6ED2D003C868D /* NotificationsFilterViewModel.swift */; };
+		89ECEB2625D6ED4A003C868D /* NotificationsFilterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECEB2525D6ED4A003C868D /* NotificationsFilterCoordinator.swift */; };
+		89ECEB2725D6ED4A003C868D /* NotificationsFilterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECEB2525D6ED4A003C868D /* NotificationsFilterCoordinator.swift */; };
+		89ECEB2C25D6ED56003C868D /* NotificationsFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECEB2B25D6ED56003C868D /* NotificationsFilterViewController.swift */; };
+		89ECEB2D25D6ED56003C868D /* NotificationsFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECEB2B25D6ED56003C868D /* NotificationsFilterViewController.swift */; };
+		89EE332E25D7888E00BA5A70 /* CellAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EE332D25D7888E00BA5A70 /* CellAppearance.swift */; };
+		89EE332F25D7888E00BA5A70 /* CellAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EE332D25D7888E00BA5A70 /* CellAppearance.swift */; };
+		89EE333725D788CF00BA5A70 /* CellAppearanceDescribing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EE333625D788CF00BA5A70 /* CellAppearanceDescribing.swift */; };
+		89EE333825D788CF00BA5A70 /* CellAppearanceDescribing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EE333625D788CF00BA5A70 /* CellAppearanceDescribing.swift */; };
+		89EE333D25D7897700BA5A70 /* NotificationFiltersCellConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EE333C25D7897700BA5A70 /* NotificationFiltersCellConfigurations.swift */; };
+		89EE333E25D7897700BA5A70 /* NotificationFiltersCellConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EE333C25D7897700BA5A70 /* NotificationFiltersCellConfigurations.swift */; };
 		89F19D632566C1340030AFE0 /* UIActivityIndicatorView+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D622566C1340030AFE0 /* UIActivityIndicatorView+Init.swift */; };
 		89F19D642566C1340030AFE0 /* UIActivityIndicatorView+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D622566C1340030AFE0 /* UIActivityIndicatorView+Init.swift */; };
 		89F19D662566C1590030AFE0 /* DLChangeEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F19D652566C1590030AFE0 /* DLChangeEmailViewModel.swift */; };
@@ -1100,6 +1122,7 @@
 		89CAB8A525D1DAD8001133A4 /* LocalServiceSnippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalServiceSnippet.swift; sourceTree = "<group>"; };
 		89CAB8B525D1E276001133A4 /* LocalServiceSnippet+ServiceRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalServiceSnippet+ServiceRepresentable.swift"; sourceTree = "<group>"; };
 		89CAB8BB25D22D9D001133A4 /* UIDevice+modelName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+modelName.swift"; sourceTree = "<group>"; };
+		89D1074825D74D2E00AD86D1 /* NotificationsFilterViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsFilterViewController+TableView.swift"; sourceTree = "<group>"; };
 		89D4E1F02139ED0F00630790 /* CALayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
 		89D4E1F22139ED3D00630790 /* CAPersistentAnimationsLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAPersistentAnimationsLayer.swift; sourceTree = "<group>"; };
 		89D4E1F42139F43E00630790 /* NotificationObserving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationObserving.swift; sourceTree = "<group>"; };
@@ -1124,7 +1147,17 @@
 		89E6B6D6250049F700F7A79C /* VMView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMView.swift; sourceTree = "<group>"; };
 		89E777EB2173C04C009CF3DE /* Mock.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Mock.xcconfig; sourceTree = "<group>"; };
 		89E777EC2173E9F3009CF3DE /* NoSessionContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSessionContainerViewController.swift; sourceTree = "<group>"; };
+		89E8177825D8531E00BA8927 /* DateDisclosureTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDisclosureTableViewCell.swift; sourceTree = "<group>"; };
+		89E8177E25D875F500BA8927 /* TimeframeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeframeSelectionViewController.swift; sourceTree = "<group>"; };
+		89E8178425D8764200BA8927 /* UITableView+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Init.swift"; sourceTree = "<group>"; };
 		89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotifireButton+Loadable.swift"; sourceTree = "<group>"; };
+		89ECEB1925D6DCE0003C868D /* NotificationsFilterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsFilterData.swift; sourceTree = "<group>"; };
+		89ECEB1F25D6ED2D003C868D /* NotificationsFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsFilterViewModel.swift; sourceTree = "<group>"; };
+		89ECEB2525D6ED4A003C868D /* NotificationsFilterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsFilterCoordinator.swift; sourceTree = "<group>"; };
+		89ECEB2B25D6ED56003C868D /* NotificationsFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsFilterViewController.swift; sourceTree = "<group>"; };
+		89EE332D25D7888E00BA5A70 /* CellAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellAppearance.swift; sourceTree = "<group>"; };
+		89EE333625D788CF00BA5A70 /* CellAppearanceDescribing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellAppearanceDescribing.swift; sourceTree = "<group>"; };
+		89EE333C25D7897700BA5A70 /* NotificationFiltersCellConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationFiltersCellConfigurations.swift; sourceTree = "<group>"; };
 		89F19D622566C1340030AFE0 /* UIActivityIndicatorView+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+Init.swift"; sourceTree = "<group>"; };
 		89F19D652566C1590030AFE0 /* DLChangeEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLChangeEmailViewModel.swift; sourceTree = "<group>"; };
 		89F19D682566C1780030AFE0 /* UIViewKeyframeAnimationOptions+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewKeyframeAnimationOptions+Init.swift"; sourceTree = "<group>"; };
@@ -1295,6 +1328,7 @@
 				890D4BA82561FCA10049CDB1 /* ViewModel */,
 				890D4BA92561FCAE0049CDB1 /* Controller */,
 				890D4BA62561FC200049CDB1 /* Coordinator */,
+				89D1074725D74D1600AD86D1 /* Extension */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -1303,6 +1337,7 @@
 			isa = PBXGroup;
 			children = (
 				893995A72170EDDA00687A79 /* NotificationsCoordinator.swift */,
+				89ECEB2525D6ED4A003C868D /* NotificationsFilterCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -1313,6 +1348,7 @@
 				8909A3BB218F24EE00EADD09 /* LocalNotifireNotification.swift */,
 				892B415821C4150B00D28ABE /* NotificationLevel.swift */,
 				893FE030219783F0002CD846 /* NotificationLevelModel.swift */,
+				89ECEB1925D6DCE0003C868D /* NotificationsFilterData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1321,6 +1357,7 @@
 			isa = PBXGroup;
 			children = (
 				8922E26E219F3D0A001984C4 /* NotificationsViewModel.swift */,
+				89ECEB1F25D6ED2D003C868D /* NotificationsFilterViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1331,6 +1368,8 @@
 				89B3EC4A2020E4900068BA64 /* NotificationsViewController.swift */,
 				893FE0292197488C002CD846 /* ServiceNotificationsViewController.swift */,
 				8985338B219F95E000E0A656 /* NotificationDetailViewController.swift */,
+				89ECEB2B25D6ED56003C868D /* NotificationsFilterViewController.swift */,
+				89E8177E25D875F500BA8927 /* TimeframeSelectionViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1603,6 +1642,7 @@
 			isa = PBXGroup;
 			children = (
 				893B901E2512B9700056DBF9 /* Reusable.swift */,
+				89EE333625D788CF00BA5A70 /* CellAppearanceDescribing.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -1610,6 +1650,7 @@
 		892DC0CD2560E3FF0067EB12 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				89EE332D25D7888E00BA5A70 /* CellAppearance.swift */,
 				892DC0CE2560E4090067EB12 /* GenericUITableViewCells.swift */,
 			);
 			path = Cell;
@@ -1752,6 +1793,8 @@
 			children = (
 				89A904A021C03E1400D262E1 /* NotificationDetailCells.swift */,
 				89A9048421B858B200D262E1 /* NotificationTableViewCell.swift */,
+				89EE333C25D7897700BA5A70 /* NotificationFiltersCellConfigurations.swift */,
+				89E8177825D8531E00BA8927 /* DateDisclosureTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2317,6 +2360,14 @@
 			path = Struct;
 			sourceTree = "<group>";
 		};
+		89D1074725D74D1600AD86D1 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				89D1074825D74D2E00AD86D1 /* NotificationsFilterViewController+TableView.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		89D4E1F82139F92200630790 /* Layer */ = {
 			isa = PBXGroup;
 			children = (
@@ -2396,6 +2447,7 @@
 				892683B82593F9B500346275 /* JSONDecoder.DateDecodingStrategy+Timestamp.swift */,
 				8926840025963AD400346275 /* CGPoint+distance.swift */,
 				89CAB8BB25D22D9D001133A4 /* UIDevice+modelName.swift */,
+				89E8178425D8764200BA8927 /* UITableView+Init.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -3199,6 +3251,7 @@
 				892DC0B825607B3D0067EB12 /* CaseIterable+Init.swift in Sources */,
 				89541918251CD1670046464D /* UpdateServiceRepresentablesOperation.swift in Sources */,
 				893A4A352528D2B500DD02D0 /* CATransaction+Animation.swift in Sources */,
+				89E8178025D875F500BA8927 /* TimeframeSelectionViewController.swift in Sources */,
 				89A4F31E259156A000767224 /* CreateLocalServiceOperation.swift in Sources */,
 				89F19D852569FCE10030AFE0 /* WarningView.swift in Sources */,
 				89576AA324FD412A0097BF87 /* UserSessionHandler.swift in Sources */,
@@ -3215,6 +3268,8 @@
 				89F19D822569FCCC0030AFE0 /* NotificationsRequirementViewModel.swift in Sources */,
 				89576AAA24FD412A0097BF87 /* ServiceAPIKeyTableViewCell.swift in Sources */,
 				8936E3D0256359C7007424A7 /* SuccessAlertDataProviding.swift in Sources */,
+				89ECEB1B25D6DCE0003C868D /* NotificationsFilterData.swift in Sources */,
+				89ECEB2725D6ED4A003C868D /* NotificationsFilterCoordinator.swift in Sources */,
 				89576AAB24FD412A0097BF87 /* Coordinator.swift in Sources */,
 				894F44D425660C280043102C /* NSLayoutConstraint+Priority.swift in Sources */,
 				89576AAC24FD412A0097BF87 /* NotifireNavigationController.swift in Sources */,
@@ -3229,6 +3284,7 @@
 				89576AB024FD412A0097BF87 /* HairlineView.swift in Sources */,
 				895637C52557599A005E4A4E /* Encodable+Dictionary.swift in Sources */,
 				895418EF251B986A0046464D /* WebsocketMockEngine.swift in Sources */,
+				89EE332F25D7888E00BA5A70 /* CellAppearance.swift in Sources */,
 				89576AB224FD412A0097BF87 /* ValidatableTextInput.swift in Sources */,
 				892683B4259383A900346275 /* ImageCropHandler.swift in Sources */,
 				89576AB324FD412A0097BF87 /* NotificationDetailViewController.swift in Sources */,
@@ -3266,6 +3322,7 @@
 				89541912251CB92F0046464D /* Logger+Init.swift in Sources */,
 				89576AC224FD412A0097BF87 /* APIErrorProducing.swift in Sources */,
 				895A3B782500609B000A7B50 /* BottomNavigatorLabelContaining.swift in Sources */,
+				89ECEB2125D6ED2D003C868D /* NotificationsFilterViewModel.swift in Sources */,
 				89576AC324FD412A0097BF87 /* NotifireAPIEncodable.swift in Sources */,
 				896167EC25016EF1007BF3F1 /* NavigationCoordinator.swift in Sources */,
 				89576AC424FD412A0097BF87 /* NotifireAPIBaseManager.swift in Sources */,
@@ -3296,6 +3353,7 @@
 				89576ACF24FD412A0097BF87 /* Stylable.swift in Sources */,
 				89576AD024FD412A0097BF87 /* NotificationLevelTableViewCell.swift in Sources */,
 				89576AD124FD412A0097BF87 /* Loadable.swift in Sources */,
+				89ECEB2D25D6ED56003C868D /* NotificationsFilterViewController.swift in Sources */,
 				89576AD224FD412A0097BF87 /* InputValidating.swift in Sources */,
 				892DC0A7255F01C70067EB12 /* ServiceCoordinator.swift in Sources */,
 				89D6169C2503002A00287331 /* NavigationBarDisplaying.swift in Sources */,
@@ -3343,9 +3401,11 @@
 				89D616992502FE1600287331 /* KeyboardObserverHandler.swift in Sources */,
 				89E6B6BE24FF0E3E00F7A79C /* AppCoordinator+UserSessionHandlerDelegate.swift in Sources */,
 				896167F225017794007BF3F1 /* NavigationBarProviding.swift in Sources */,
+				89EE333825D788CF00BA5A70 /* CellAppearanceDescribing.swift in Sources */,
 				8915FB2525260AB400BD36B2 /* WebSocketOperation.swift in Sources */,
 				89576AE524FD412A0097BF87 /* DeeplinkHandler.swift in Sources */,
 				89576AE624FD412A0097BF87 /* NotifireNotificationHandler.swift in Sources */,
+				89E8178625D8764200BA8927 /* UITableView+Init.swift in Sources */,
 				8966C89425530F9C00F037C3 /* RepeatingTimer.swift in Sources */,
 				89576AE724FD412A0097BF87 /* RoundedImageView.swift in Sources */,
 				89F19D702567190D0030AFE0 /* DeeplinkViewModelRepresenting.swift in Sources */,
@@ -3435,6 +3495,7 @@
 				894AB68C2512617300F2CBF5 /* ServicesViewController+TableView.swift in Sources */,
 				89576B1124FD412A0097BF87 /* UIViewControllerExtension.swift in Sources */,
 				89CAB8A725D1DAD8001133A4 /* LocalServiceSnippet.swift in Sources */,
+				89E8177A25D8531E00BA8927 /* DateDisclosureTableViewCell.swift in Sources */,
 				89576B1224FD412A0097BF87 /* RegisterViewModel.swift in Sources */,
 				89576B1324FD412A0097BF87 /* NotifireAPIManager.swift in Sources */,
 				89576B1424FD412A0097BF87 /* LoginViewModel.swift in Sources */,
@@ -3459,6 +3520,7 @@
 				8936E3C525633766007424A7 /* GenericSuccessCoordinator.swift in Sources */,
 				895418E3251965930046464D /* ServiceSnippet.swift in Sources */,
 				89576B1A24FD412A0097BF87 /* ValidatableComponentState.swift in Sources */,
+				89EE333E25D7897700BA5A70 /* NotificationFiltersCellConfigurations.swift in Sources */,
 				892DC08F255E00A00067EB12 /* NotifireAPIManagerMocking.swift in Sources */,
 				89576B1B24FD412A0097BF87 /* ServicesViewModel.swift in Sources */,
 				893AD79C25715E91000ADFEC /* DarkModeAuthorizationAppleIDButton.swift in Sources */,
@@ -3470,6 +3532,7 @@
 				89E6B6CD25001B6C00F7A79C /* LoginRegisterSplitterViewController.swift in Sources */,
 				8973927B259181D600D2355A /* URLSession+custom.swift in Sources */,
 				8902A678250D4460007BB5DF /* NotifireAPIRequestErrorContext.swift in Sources */,
+				89D1075025D74D3100AD86D1 /* NotificationsFilterViewController+TableView.swift in Sources */,
 				89576B1F24FD412A0097BF87 /* NotifireAPIEndpoint.swift in Sources */,
 				895A3B9025008A35000A7B50 /* CGSize+Equal.swift in Sources */,
 				892683A5259368C200346275 /* CustomCropViewController.swift in Sources */,
@@ -3589,6 +3652,8 @@
 				89816375258EA60F007AECE4 /* ServiceCreationCoordinator.swift in Sources */,
 				8985338C219F95E000E0A656 /* NotificationDetailViewController.swift in Sources */,
 				893995932170C58400687A79 /* TabBarViewController.swift in Sources */,
+				89ECEB2625D6ED4A003C868D /* NotificationsFilterCoordinator.swift in Sources */,
+				89E8177F25D875F500BA8927 /* TimeframeSelectionViewController.swift in Sources */,
 				89E6B6D7250049F700F7A79C /* VMView.swift in Sources */,
 				8920CA902172BB1E00A72BD0 /* Animation.swift in Sources */,
 				8933F0FC214339D700645B3A /* NotifireAPIDecodable.swift in Sources */,
@@ -3598,6 +3663,7 @@
 				895A3B9625008C73000A7B50 /* SSOAuthenticationAttempt.swift in Sources */,
 				895A3B8625006DB4000A7B50 /* AuthenticationProvider.swift in Sources */,
 				8933F0DD2143360300645B3A /* NotifireAPITypealias.swift in Sources */,
+				89E8177925D8531E00BA8927 /* DateDisclosureTableViewCell.swift in Sources */,
 				89D4E1FA2139F94000630790 /* BaseLayer.swift in Sources */,
 				8920CA74217144DF00A72BD0 /* NavigationActionViewController.swift in Sources */,
 				89B3EC7320232A310068BA64 /* LoginViewController.swift in Sources */,
@@ -3632,6 +3698,7 @@
 				8933F0F3214338EA00645B3A /* NotifireAPIBaseManager.swift in Sources */,
 				8939958E2170011100687A79 /* SplashView.swift in Sources */,
 				893A4A5F2530BA8700DD02D0 /* WebSocketOperationType.swift in Sources */,
+				89ECEB2C25D6ED56003C868D /* NotificationsFilterViewController.swift in Sources */,
 				8948F57421A0C00000BB6E10 /* NotifirePoppable.swift in Sources */,
 				8936E3CF256359C7007424A7 /* SuccessAlertDataProviding.swift in Sources */,
 				89E6B6C424FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */,
@@ -3663,6 +3730,7 @@
 				8998D8842520D435002A597B /* IndexPath+RowInit.swift in Sources */,
 				893AD7B825717542000ADFEC /* Config+TrustKit.swift in Sources */,
 				8981636E258E7D29007AECE4 /* KeyboardFollowingButtonContaining.swift in Sources */,
+				89EE332E25D7888E00BA5A70 /* CellAppearance.swift in Sources */,
 				898533BA219FAA1700E0A656 /* LocalService.swift in Sources */,
 				8920CA892172345B00A72BD0 /* Stylable.swift in Sources */,
 				893FE02D21977FB2002CD846 /* NotificationLevelTableViewCell.swift in Sources */,
@@ -3703,6 +3771,7 @@
 				892B415921C4150B00D28ABE /* NotificationLevel.swift in Sources */,
 				89F19D842569FCE10030AFE0 /* WarningView.swift in Sources */,
 				893995AA2170EDE800687A79 /* ServicesCoordinator.swift in Sources */,
+				89E8178525D8764200BA8927 /* UITableView+Init.swift in Sources */,
 				893995A32170EDA900687A79 /* Tab.swift in Sources */,
 				8954190B251CB8B40046464D /* ServicesSynchronizationManager.swift in Sources */,
 				892683B92593F9B500346275 /* JSONDecoder.DateDecodingStrategy+Timestamp.swift in Sources */,
@@ -3734,6 +3803,7 @@
 				896167EE250174FA007BF3F1 /* GenericCoordinator.swift in Sources */,
 				8920CA8B21723B9A00A72BD0 /* LoadableLabel.swift in Sources */,
 				89B3EC7620239D170068BA64 /* StringExtension.swift in Sources */,
+				89EE333D25D7897700BA5A70 /* NotificationFiltersCellConfigurations.swift in Sources */,
 				893FE02421962C3E002CD846 /* ServiceNotificationsHeaderView.swift in Sources */,
 				89A4F31425912A9400767224 /* GetServiceOperation.swift in Sources */,
 				89A904A121C03E1400D262E1 /* NotificationDetailCells.swift in Sources */,
@@ -3744,7 +3814,9 @@
 				8933F0F72143391000645B3A /* NotifireProtectedAPIManager.swift in Sources */,
 				893A4A832530D42800DD02D0 /* RealmObjectObserver.swift in Sources */,
 				89F19D8D256B5FC40030AFE0 /* PrivacyPolicyViewController.swift in Sources */,
+				89D1074925D74D2E00AD86D1 /* NotificationsFilterViewController+TableView.swift in Sources */,
 				89D616B12505A86600287331 /* AuthenticationProvider+Image.swift in Sources */,
+				89ECEB2025D6ED2D003C868D /* NotificationsFilterViewModel.swift in Sources */,
 				894B1FA42505DF0600D0D671 /* TabBarPressGestureRecognizer.swift in Sources */,
 				89250B2524FEF66A00BC7C2C /* VMViewController.swift in Sources */,
 				89E8B865250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */,
@@ -3824,6 +3896,7 @@
 				896167D725012F06007BF3F1 /* NotifireBackgroundView.swift in Sources */,
 				894B1FA72505DF2E00D0D671 /* TabBarGestureHandler.swift in Sources */,
 				896167FD2501ABAE007BF3F1 /* ForgotPasswordViewController.swift in Sources */,
+				89EE333725D788CF00BA5A70 /* CellAppearanceDescribing.swift in Sources */,
 				894B1F8C2505D69900D0D671 /* ChildViewControllerContainerProviding.swift in Sources */,
 				8922E26D219F3CF6001984C4 /* RealmCollectionViewModel.swift in Sources */,
 				8933F0C82141D0C000645B3A /* RootViewController.swift in Sources */,
@@ -3870,6 +3943,7 @@
 				893995A12170ED9700687A79 /* TabBarViewModel.swift in Sources */,
 				899AF49A25964D5C003EADA8 /* ServiceIdentifiable.swift in Sources */,
 				8933F0EC2143388E00645B3A /* NotifireAPIRequestContext.swift in Sources */,
+				89ECEB1A25D6DCE0003C868D /* NotificationsFilterData.swift in Sources */,
 				8936E3D825639278007424A7 /* ChangeEmailViewModel.swift in Sources */,
 				892683E72595C1D500346275 /* ServiceNotificationsObserver.swift in Sources */,
 			);

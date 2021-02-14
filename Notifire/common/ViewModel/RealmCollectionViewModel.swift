@@ -18,10 +18,12 @@ class RealmCollectionViewModel<RealmObject: Object>: ViewModelRepresenting {
     // MARK: - Properties
     let realmProvider: RealmProviding
 
-    var realmObjects: Results<RealmObject>!
+    lazy var collection: Results<RealmObject> = realmProvider.realm.objects(RealmObject.self).filter(NSPredicate(value: false))
+    var resultsToken: NotificationToken?
 
-    lazy var collection: Results<RealmObject> = {
-        var results = realmObjects!
+    // MARK: - Setup
+    func getCollection() -> Results<RealmObject> {
+        var results = realmProvider.realm.objects(RealmObject.self)
         if let predicate = resultsFilterPredicate() {
             results = results.filter(predicate)
         }
@@ -29,10 +31,8 @@ class RealmCollectionViewModel<RealmObject: Object>: ViewModelRepresenting {
             results = results.sorted(byKeyPath: sortOptions.keyPath, ascending: sortOptions.ascending)
         }
         return results
-    }()
-    var resultsToken: NotificationToken?
+    }
 
-    // MARK: - Setup
     func resultsSortOptions() -> SortOptions? {
         return nil
     }
@@ -46,7 +46,7 @@ class RealmCollectionViewModel<RealmObject: Object>: ViewModelRepresenting {
 
     init(realmProvider: RealmProviding) {
         self.realmProvider = realmProvider
-        realmObjects = realmProvider.realm.objects(RealmObject.self)
+        collection = getCollection()
     }
 
     deinit {
@@ -58,6 +58,18 @@ class RealmCollectionViewModel<RealmObject: Object>: ViewModelRepresenting {
         resultsToken = collection.observe({ [weak self] change in
             self?.onResults(change: change)
         })
+    }
+
+    /// Remove the current results token and set a new one from the current collection.
+    func refreshResultsToken() {
+        resultsToken?.invalidate()
+        resultsToken = nil
+        setupResultsTokenIfNeeded()
+    }
+
+    func reloadCollection() {
+        collection = getCollection()
+        refreshResultsToken()
     }
 
     open func onResults(change: RealmCollectionChange<Results<RealmObject>>) {
