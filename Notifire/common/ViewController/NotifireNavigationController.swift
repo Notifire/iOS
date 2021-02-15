@@ -32,19 +32,21 @@ class NotifireNavigationController: UINavigationController {
         // The trick here is to wire up our full-width `fullWidthBackGestureRecognizer` to execute the same handler as
         // the system `interactivePopGestureRecognizer`. That's done by assigning the same "targets" (effectively
         // object and selector) of the system one to our gesture recognizer.
+        let targetsKey = "targets"
         guard
             let interactivePopGestureRecognizer = interactivePopGestureRecognizer,
-            let targets = interactivePopGestureRecognizer.value(forKey: "targets")
+            let targets = interactivePopGestureRecognizer.value(forKey: targetsKey)
         else {
             return
         }
 
-        fullWidthBackGestureRecognizer.setValue(targets, forKey: "targets")
+        fullWidthBackGestureRecognizer.setValue(targets, forKey: targetsKey)
         fullWidthBackGestureRecognizer.delegate = self
         view.addGestureRecognizer(fullWidthBackGestureRecognizer)
     }
 }
 
+// MARK: - NotifireNavigationController+Reselectable
 extension NotifireNavigationController: Reselectable {
     func reselect(animated: Bool) -> Bool {
         guard viewControllers.count > 1 else { return false }
@@ -53,6 +55,7 @@ extension NotifireNavigationController: Reselectable {
     }
 }
 
+// MARK: - NotifireNavigationController+UIGestureRecognizerDelegate
 extension NotifireNavigationController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         let isSystemSwipeToBackEnabled = interactivePopGestureRecognizer?.isEnabled == true
@@ -63,5 +66,12 @@ extension NotifireNavigationController: UIGestureRecognizerDelegate {
             isValidPan = panGestureRecognizer.velocity(in: view).x > 0
         }
         return isSystemSwipeToBackEnabled && isThereStackedViewControllers && isValidPan
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        // Respect the FullScreenBackGesturePanAltering classes
+        guard let panAltering = topViewController as? FullScreenBackGesturePanAltering else { return false }
+        let shouldCancelPanGesture = panAltering.prioritizedGestureRecognizers.contains(otherGestureRecognizer)
+        return shouldCancelPanGesture
     }
 }

@@ -658,6 +658,8 @@
 		89E817BA25D9B13B00BA8927 /* NotificationsViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E817B825D9B13900BA8927 /* NotificationsViewController+TableView.swift */; };
 		89E817BF25D9B7D000BA8927 /* RealmObject+SafeHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E817BE25D9B7D000BA8927 /* RealmObject+SafeHandle.swift */; };
 		89E817C025D9B7D000BA8927 /* RealmObject+SafeHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E817BE25D9B7D000BA8927 /* RealmObject+SafeHandle.swift */; };
+		89E817C525DAC85D00BA8927 /* FullScreenBackGesturePanAltering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E817C425DAC85C00BA8927 /* FullScreenBackGesturePanAltering.swift */; };
+		89E817C625DAC85D00BA8927 /* FullScreenBackGesturePanAltering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E817C425DAC85C00BA8927 /* FullScreenBackGesturePanAltering.swift */; };
 		89E8B865250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */; };
 		89E8B866250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */; };
 		89ECEB1A25D6DCE0003C868D /* NotificationsFilterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECEB1925D6DCE0003C868D /* NotificationsFilterData.swift */; };
@@ -1156,6 +1158,7 @@
 		89E8178425D8764200BA8927 /* UITableView+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Init.swift"; sourceTree = "<group>"; };
 		89E817B825D9B13900BA8927 /* NotificationsViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsViewController+TableView.swift"; sourceTree = "<group>"; };
 		89E817BE25D9B7D000BA8927 /* RealmObject+SafeHandle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmObject+SafeHandle.swift"; sourceTree = "<group>"; };
+		89E817C425DAC85C00BA8927 /* FullScreenBackGesturePanAltering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenBackGesturePanAltering.swift; sourceTree = "<group>"; };
 		89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotifireButton+Loadable.swift"; sourceTree = "<group>"; };
 		89ECEB1925D6DCE0003C868D /* NotificationsFilterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsFilterData.swift; sourceTree = "<group>"; };
 		89ECEB1F25D6ED2D003C868D /* NotificationsFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsFilterViewModel.swift; sourceTree = "<group>"; };
@@ -1440,6 +1443,7 @@
 				894B1F952505DA2800D0D671 /* Reselectable */,
 				899C07162551E2E00005228E /* NavigationCoordinatorDelegate.swift */,
 				8946BB0325CE279B004B6F2B /* AlertPresenting.swift */,
+				89E817C425DAC85C00BA8927 /* FullScreenBackGesturePanAltering.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -3303,6 +3307,7 @@
 				89576AB524FD412A0097BF87 /* Animation.swift in Sources */,
 				895637C225575989005E4A4E /* AppVersionManager.swift in Sources */,
 				89576AB624FD412A0097BF87 /* NotifireAPIDecodable.swift in Sources */,
+				89E817C625DAC85D00BA8927 /* FullScreenBackGesturePanAltering.swift in Sources */,
 				89D616AA2505A81300287331 /* SSOAuthenticationProvider+Image.swift in Sources */,
 				8915FB382526107700BD36B2 /* WebSocketDisconnectContext.swift in Sources */,
 				89F19D672566C1590030AFE0 /* DLChangeEmailViewModel.swift in Sources */,
@@ -3752,6 +3757,7 @@
 				892DC0C425609B840067EB12 /* SettingsSection.swift in Sources */,
 				8915FB312526106400BD36B2 /* WebSocketErrorCode.swift in Sources */,
 				89D6169B2503002A00287331 /* NavigationBarDisplaying.swift in Sources */,
+				89E817C525DAC85D00BA8927 /* FullScreenBackGesturePanAltering.swift in Sources */,
 				894B1F982505DA4300D0D671 /* TableViewReselectable.swift in Sources */,
 				893FE02A2197488D002CD846 /* ServiceNotificationsViewController.swift in Sources */,
 				893FE02F21977FD8002CD846 /* BaseTableViewCell.swift in Sources */,
