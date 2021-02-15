@@ -38,6 +38,12 @@ class RoundedImageView: SDAnimatedImageView {
         skeletonCornerRadius = Float(bounds.width / 2)
         clipsToBounds = true
     }
+
+    override func sd_setImage(with url: URL?, placeholderImage placeholder: UIImage?, options: SDWebImageOptions = [], context: [SDWebImageContextOption: Any]?, progress progressBlock: SDImageLoaderProgressBlock?, completed completedBlock: SDExternalCompletionBlock? = nil) {
+        let newPlaceholder = image == nil ? placeholder : image
+        sd_imageIndicator = SDWebImageActivityIndicator.gray
+        super.sd_setImage(with: url, placeholderImage: newPlaceholder, options: options, context: context, progress: progressBlock, completed: completedBlock)
+    }
 }
 
 class RoundedContainerImageView: ConstrainableView {
