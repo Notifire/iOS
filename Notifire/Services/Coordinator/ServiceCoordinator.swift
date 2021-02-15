@@ -289,7 +289,7 @@ class ServiceEditViewController: VMViewController<ServiceEditViewModel>, APIErro
     }
 }
 
-class ServiceEditCoordinator: ChildCoordinator, ImagePickerPresentingCoordinator, OKAlertPresenting, OKCancelAlertPresenting {
+class ServiceEditCoordinator: ChildCoordinator, PresentingCoordinator, OKAlertPresenting, OKCancelAlertPresenting {
 
     // MARK: - Properties
     let serviceEditController: ServiceEditViewController

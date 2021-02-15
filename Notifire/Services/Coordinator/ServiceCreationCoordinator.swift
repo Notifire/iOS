@@ -108,37 +108,6 @@ extension PresentingCoordinator {
     }
 }
 
-import CropViewController
-
-protocol ImagePickerPresentingCoordinator: PresentingCoordinator {
-    /// The frame of the `UIView` that any CropViewController will get presented from and to.
-    /// - Note: For more info, check out `CropViewController.presentAnimatedFrom` and
-    ///         `CropViewController.dismissAnimatedFrom`
-    var presentationViewFrame: CGRect { get }
-}
-
-extension ImagePickerPresentingCoordinator {
-    func presentationFunction(for presentedViewController: UIViewController?) -> ((UIViewController, Bool, (() -> Void)?) -> Void) {
-        // Present with CropViewController animation
-        if let presented = presentedViewController as? CropViewController {
-            return { [unowned self] _, animated, completion in
-                presented.presentAnimatedFrom(self.presentingViewController, fromView: nil, fromFrame: self.presentationViewFrame, setup: nil, completion: completion)
-            }
-        }
-        return presentingViewController.present(_:animated:completion:)
-    }
-
-    func dismissFunction(for dismissedViewController: UIViewController?) -> ((Bool, (() -> Void)?) -> Void) {
-        // Dismiss with CropViewController animation
-        if let dismissed = dismissedViewController as? CustomCropViewController, !dismissed.didFinishWithCancel {
-            return { [unowned self] _, completion in
-                dismissed.dismissAnimatedFrom(self.presentingViewController, toView: nil, toFrame: self.presentationViewFrame, setup: nil, completion: completion)
-            }
-        }
-        return presentingViewController.dismiss(animated:completion:)
-    }
-}
-
 // MARK: - Service Name
 class ServiceNameCreationViewModel: InputValidatingViewModel, APIErrorProducing {
 
@@ -316,7 +285,7 @@ class ServiceNameCreationViewController: VMViewController<ServiceNameCreationVie
 
 // MARK: - Service Image
 
-class ServiceImageCreationCoordinator: ChildCoordinator, ImagePickerPresentingCoordinator {
+class ServiceImageCreationCoordinator: ChildCoordinator, PresentingCoordinator {
 
     // MARK: - Properties
     var viewController: UIViewController {
@@ -330,10 +299,6 @@ class ServiceImageCreationCoordinator: ChildCoordinator, ImagePickerPresentingCo
     // MARK: ImagePickerPresentingCoordinator
     var presentedCoordinator: ChildCoordinator?
     var presentationDismissHandler: UIAdaptivePresentationDismissHandler?
-
-    var presentationViewFrame: CGRect {
-        return serviceImageCreationViewController.imageViewFrameWithViewCoordinates
-    }
 
     // MARK: - Initialization
     init(imageCreationVM: ServiceImageCreationViewModel) {
