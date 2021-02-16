@@ -25,7 +25,7 @@ extension ServiceRepresentable {
 // MARK: - LocalService + ServiceRepresentable
 extension LocalService: ServiceRepresentable {
     var imageURL: URL? {
-        guard let urlString = mediumImageURLString else { return nil }
+        guard let urlString = smallImageURLString else { return nil }
         return URL(string: urlString)
     }
 }

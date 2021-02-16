@@ -324,7 +324,7 @@ class RoundedShadowImageView: RoundedContainerImageView {
         shadowLayer.backgroundColor = UIColor.black.cgColor
         shadowLayer.shadowRadius = 8
         shadowLayer.shadowOpacity = 0.4
-        shadowLayer.shadowOffset = .zero
+        shadowLayer.shadowOffset = CGSize(width: 0, height: 1)
         self.shadowLayer = shadowLayer
         shadowOpaqueLayer.insertSublayer(shadowLayer, at: 0)
 

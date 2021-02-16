@@ -67,7 +67,14 @@ class ServiceHeaderView: ConstrainableView {
         guard let service = service else { return }
         serviceNameLabel.text = service.name
         if let urlString = service.largeImageURLString, let url =  URL(string: urlString) {
-            serviceImageView.roundedImageView.sd_setImage(with: url, placeholderImage: LocalService.defaultImage, options: [], context: [:])
+            // Image URLs exist <=> the user has setup an image for this service
+            if let smallImage = SDImageCache.shared.imageFromCache(forKey: service.smallImageURLString, options: [], context: nil) {
+                // Use small image as placeholder
+                serviceImageView.roundedImageView.sd_setImage(with: url, placeholderImage: smallImage, options: [], context: [:])
+            } else {
+                // Use default placeholder
+                serviceImageView.roundedImageView.sd_setImage(with: url, placeholderImage: LocalService.defaultImage, options: [], context: [:])
+            }
         } else {
             serviceImageView.image = LocalService.defaultImage
         }
