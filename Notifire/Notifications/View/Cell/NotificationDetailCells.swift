@@ -192,7 +192,7 @@ class NotificationDetailViewModel: ViewModelRepresenting {
 
     // MARK: - Properties
     let realmProvider: RealmProviding
-    let serviceNotificationsObserver: ServiceNotificationsObserver?
+    let unreadNotificationsObserver: NotificationsUnreadCountObserver?
 
     let notification: LocalNotifireNotification
     var items: [CellConfiguring] = []
@@ -202,15 +202,17 @@ class NotificationDetailViewModel: ViewModelRepresenting {
     weak var delegate: NotificationDetailViewModelDelegate?
 
     // MARK: - Initialization
-    init(realmProvider: RealmProviding, notification: LocalNotifireNotification) {
+    /// - Parameters:
+    ///     - serviceUnreadCount: Whether to count the number of unread notifications for the notification's service or not.
+    init(realmProvider: RealmProviding, notification: LocalNotifireNotification, serviceUnreadCount: Bool) {
         self.realmProvider = realmProvider
         self.notification = notification
         self.items = NotificationDetailViewModel.createItems(from: notification)
-        if let serviceID = notification.currentServiceID {
-            // This always happens as currentServiceID always contains a value.
-            self.serviceNotificationsObserver = ServiceNotificationsObserver(realmProvider: realmProvider, serviceID: serviceID)
+        if let serviceID = notification.currentServiceID, serviceUnreadCount {
+            // currentServiceID always contains a value.
+            self.unreadNotificationsObserver = ServiceNotificationsUnreadCountObserver(realmProvider: realmProvider, serviceID: serviceID)
         } else {
-            self.serviceNotificationsObserver = nil
+            self.unreadNotificationsObserver = NotificationsUnreadCountObserver(realmProvider: realmProvider)
         }
         setupDeleteToken()
     }
@@ -256,10 +258,5 @@ class NotificationDetailViewModel: ViewModelRepresenting {
         }
 
         return result
-    }
-
-    func markNotificationAsRead() {
-        guard !notification.isInvalidated, !notification.isRead else { return }
-        NotificationReadUnreadManager.markNotificationAsRead(notification: notification, realm: realmProvider.realm)
     }
 }

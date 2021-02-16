@@ -149,7 +149,11 @@ class NotificationsViewModel: RealmCollectionViewModel<LocalNotifireNotification
         guard let token = resultsToken else { return }
         realmProvider.realm.beginWrite()
         notification.isRead = !notification.isRead
-        try? realmProvider.realm.commitWrite(withoutNotifying: [token])
+        if notificationsFilterData.readUnreadState == .all {
+            try? realmProvider.realm.commitWrite(withoutNotifying: [token])
+        } else {
+            try? realmProvider.realm.commitWrite(withoutNotifying: [])
+        }
     }
 
     /// Deletes the notification from the realm.
@@ -164,6 +168,11 @@ class NotificationsViewModel: RealmCollectionViewModel<LocalNotifireNotification
 
     public func set(notificationsFilterData: NotificationsFilterData) {
         self.notificationsFilterData = notificationsFilterData
+    }
+
+    public func markAsRead(notification: LocalNotifireNotification) {
+        guard !notification.isInvalidated, !notification.isRead else { return }
+        NotificationReadUnreadManager.markNotificationAsRead(notification: notification, realm: realmProvider.realm)
     }
 }
 
@@ -192,14 +201,14 @@ class ServiceNotificationsViewModel: NotificationsViewModel {
     }
 
     override func emptyTitle() -> String {
-        if notificationsFilterData.isDefaultFilterData {
+        if !notificationsFilterData.isDefaultFilterData {
             return super.emptyTitle()
         }
         return ""
     }
 
     override func emptyText() -> String {
-        if notificationsFilterData.isDefaultFilterData {
+        if !notificationsFilterData.isDefaultFilterData {
             return super.emptyText()
         }
         return "\(service?.safeReference?.name ?? "This service") didn't send any notifications."

@@ -42,7 +42,6 @@
 		891D661B25653B54003BD7E1 /* UserSessionManager+CreateSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891D661A25653B54003BD7E1 /* UserSessionManager+CreateSession.swift */; };
 		891D661C25653B54003BD7E1 /* UserSessionManager+CreateSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891D661A25653B54003BD7E1 /* UserSessionManager+CreateSession.swift */; };
 		8920CA702171377900A72BD0 /* RegisterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA6F2171377900A72BD0 /* RegisterCoordinator.swift */; };
-		8920CA74217144DF00A72BD0 /* NavigationActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA73217144DF00A72BD0 /* NavigationActionViewController.swift */; };
 		8920CA772171578900A72BD0 /* CenterStackPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA762171578900A72BD0 /* CenterStackPresenting.swift */; };
 		8920CA792171739900A72BD0 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA782171739900A72BD0 /* ActionButton.swift */; };
 		8920CA812172188000A72BD0 /* NotifireAPIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA802172188000A72BD0 /* NotifireAPIFactory.swift */; };
@@ -76,8 +75,8 @@
 		892683C425940AE600346275 /* ClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892683C225940AE500346275 /* ClientError.swift */; };
 		892683CA25940B2600346275 /* ClientAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892683C925940B2600346275 /* ClientAuthError.swift */; };
 		892683CB25940B2600346275 /* ClientAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892683C925940B2600346275 /* ClientAuthError.swift */; };
-		892683E72595C1D500346275 /* ServiceNotificationsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892683E62595C1D400346275 /* ServiceNotificationsObserver.swift */; };
-		892683E82595C1D500346275 /* ServiceNotificationsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892683E62595C1D400346275 /* ServiceNotificationsObserver.swift */; };
+		892683E72595C1D500346275 /* ServiceNotificationsUnreadCountObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892683E62595C1D400346275 /* ServiceNotificationsUnreadCountObserver.swift */; };
+		892683E82595C1D500346275 /* ServiceNotificationsUnreadCountObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892683E62595C1D400346275 /* ServiceNotificationsUnreadCountObserver.swift */; };
 		8926840125963AD700346275 /* CGPoint+distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8926840025963AD400346275 /* CGPoint+distance.swift */; };
 		8926840225963AD800346275 /* CGPoint+distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8926840025963AD400346275 /* CGPoint+distance.swift */; };
 		892B413621C1A5F000D28ABE /* ScrollViewReselectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413521C1A5F000D28ABE /* ScrollViewReselectable.swift */; };
@@ -338,7 +337,6 @@
 		89576AB724FD412A0097BF87 /* SessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8939959E2170ED7900687A79 /* SessionCoordinator.swift */; };
 		89576AB824FD412A0097BF87 /* NotifireAPITypealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0DC2143360300645B3A /* NotifireAPITypealias.swift */; };
 		89576AB924FD412A0097BF87 /* BaseLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1F92139F94000630790 /* BaseLayer.swift */; };
-		89576ABA24FD412A0097BF87 /* NavigationActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA73217144DF00A72BD0 /* NavigationActionViewController.swift */; };
 		89576ABB24FD412A0097BF87 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B3EC7220232A310068BA64 /* LoginViewController.swift */; };
 		89576ABC24FD412A0097BF87 /* NotifireAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0EF214338B500645B3A /* NotifireAPIError.swift */; };
 		89576ABD24FD412A0097BF87 /* LocalServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898533C2219FAEE300E0A656 /* LocalServiceExtension.swift */; };
@@ -839,7 +837,6 @@
 		8915FB362526107700BD36B2 /* WebSocketDisconnectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketDisconnectContext.swift; sourceTree = "<group>"; };
 		891D661A25653B54003BD7E1 /* UserSessionManager+CreateSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserSessionManager+CreateSession.swift"; sourceTree = "<group>"; };
 		8920CA6F2171377900A72BD0 /* RegisterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCoordinator.swift; sourceTree = "<group>"; };
-		8920CA73217144DF00A72BD0 /* NavigationActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationActionViewController.swift; sourceTree = "<group>"; };
 		8920CA762171578900A72BD0 /* CenterStackPresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterStackPresenting.swift; sourceTree = "<group>"; };
 		8920CA782171739900A72BD0 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		8920CA7A217212B200A72BD0 /* NotifireAPIManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireAPIManagerMock.swift; sourceTree = "<group>"; };
@@ -866,7 +863,7 @@
 		892683B82593F9B500346275 /* JSONDecoder.DateDecodingStrategy+Timestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder.DateDecodingStrategy+Timestamp.swift"; sourceTree = "<group>"; };
 		892683C225940AE500346275 /* ClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientError.swift; sourceTree = "<group>"; };
 		892683C925940B2600346275 /* ClientAuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientAuthError.swift; sourceTree = "<group>"; };
-		892683E62595C1D400346275 /* ServiceNotificationsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceNotificationsObserver.swift; sourceTree = "<group>"; };
+		892683E62595C1D400346275 /* ServiceNotificationsUnreadCountObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceNotificationsUnreadCountObserver.swift; sourceTree = "<group>"; };
 		8926840025963AD400346275 /* CGPoint+distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+distance.swift"; sourceTree = "<group>"; };
 		892B413521C1A5F000D28ABE /* ScrollViewReselectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewReselectable.swift; sourceTree = "<group>"; };
 		892B413721C1D47A00D28ABE /* NotificationsEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsEmptyStateView.swift; sourceTree = "<group>"; };
@@ -1400,7 +1397,6 @@
 			children = (
 				89BF1ADD256229E200A9FD61 /* RegisterSuccessViewController.swift */,
 				897069EA2134B4D200D798AA /* RegisterViewController.swift */,
-				8920CA73217144DF00A72BD0 /* NavigationActionViewController.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -2061,7 +2057,7 @@
 				8954190A251CB8B40046464D /* ServicesSynchronizationManager.swift */,
 				897B77B22523EE6B008602BB /* PaginationHandler.swift */,
 				892683AC25936B5900346275 /* ServiceImagePicker.swift */,
-				892683E62595C1D400346275 /* ServiceNotificationsObserver.swift */,
+				892683E62595C1D400346275 /* ServiceNotificationsUnreadCountObserver.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -3317,7 +3313,6 @@
 				895A3B8725006DB4000A7B50 /* AuthenticationProvider.swift in Sources */,
 				89576AB824FD412A0097BF87 /* NotifireAPITypealias.swift in Sources */,
 				89576AB924FD412A0097BF87 /* BaseLayer.swift in Sources */,
-				89576ABA24FD412A0097BF87 /* NavigationActionViewController.swift in Sources */,
 				89576ABB24FD412A0097BF87 /* LoginViewController.swift in Sources */,
 				89D616A62505A7DD00287331 /* UserSessionManager+UserSessionHandler.swift in Sources */,
 				896167D02501170B007BF3F1 /* NotifireButton.swift in Sources */,
@@ -3462,7 +3457,7 @@
 				8936E3C92563594E007424A7 /* TitleProviding.swift in Sources */,
 				8936E3D3256359E1007424A7 /* ChangePasswordCoordinator.swift in Sources */,
 				89816376258EA60F007AECE4 /* ServiceCreationCoordinator.swift in Sources */,
-				892683E82595C1D500346275 /* ServiceNotificationsObserver.swift in Sources */,
+				892683E82595C1D500346275 /* ServiceNotificationsUnreadCountObserver.swift in Sources */,
 				89576AF924FD412A0097BF87 /* BaseButton.swift in Sources */,
 				89E817BA25D9B13B00BA8927 /* NotificationsViewController+TableView.swift in Sources */,
 				89576AFA24FD412A0097BF87 /* RealmProviding.swift in Sources */,
@@ -3679,7 +3674,6 @@
 				8933F0DD2143360300645B3A /* NotifireAPITypealias.swift in Sources */,
 				89E8177925D8531E00BA8927 /* DateDisclosureTableViewCell.swift in Sources */,
 				89D4E1FA2139F94000630790 /* BaseLayer.swift in Sources */,
-				8920CA74217144DF00A72BD0 /* NavigationActionViewController.swift in Sources */,
 				89B3EC7320232A310068BA64 /* LoginViewController.swift in Sources */,
 				8936E3D5256359F4007424A7 /* ChangePasswordViewModel.swift in Sources */,
 				894F44D325660C280043102C /* NSLayoutConstraint+Priority.swift in Sources */,
@@ -3961,7 +3955,7 @@
 				8933F0EC2143388E00645B3A /* NotifireAPIRequestContext.swift in Sources */,
 				89ECEB1A25D6DCE0003C868D /* NotificationsFilterData.swift in Sources */,
 				8936E3D825639278007424A7 /* ChangeEmailViewModel.swift in Sources */,
-				892683E72595C1D500346275 /* ServiceNotificationsObserver.swift in Sources */,
+				892683E72595C1D500346275 /* ServiceNotificationsUnreadCountObserver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,7 +18,6 @@ protocol FullScreenBackGesturePanAltering {
 extension NotificationsViewController: FullScreenBackGesturePanAltering {
     var prioritizedGestureRecognizers: [UIGestureRecognizer] {
         // take only the pangesturerecognizers (to get the UITableViewCell pan gesture)
-        // and ignore the main tableview one.
-        return tableView.gestureRecognizers?.filter({ $0 is UIPanGestureRecognizer && $0 != tableView.panGestureRecognizer }) ?? []
+        return tableView.gestureRecognizers?.filter({ $0 is UIPanGestureRecognizer }) ?? []
     }
 }

@@ -94,7 +94,7 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
             // Set thread safe services
             self.threadSafeServices = synchronizationManager.createThreadSafeRepresentables(from: services)
             // Set service observers
-            var newObservers = [Int: ServiceNotificationsObserver]()
+            var newObservers = [Int: ServiceNotificationsUnreadCountObserver]()
             for service in services {
                 let serviceID = (service as? LocalService)?.safeReference?.id ?? service.id
                 if let currentObserver = serviceNotificationsObservers[serviceID] {
@@ -102,8 +102,8 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
                     newObservers[serviceID] = currentObserver
                 } else {
                     // Create a new observer for this new service
-                    let newObserver = ServiceNotificationsObserver(realmProvider: userSessionHandler, serviceID: serviceID)
-                    newObserver.onNumberNotificationsChange = { [weak self] serviceID in
+                    let newObserver = ServiceNotificationsUnreadCountObserver(realmProvider: userSessionHandler, serviceID: serviceID)
+                    newObserver.onNumberNotificationsChange = { [weak self] _ in
                         guard let serviceIndex = self?.services.firstIndex(where: { $0.id == serviceID }) else { return }
                         self?.onServicesChange?(.partial(changesData: ServiceRepresentableChangesData(deletions: [], insertions: [], modifications: [IndexPath(row: serviceIndex, section: 0)], moves: [])))
                     }
@@ -114,7 +114,7 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
         }
     }
     var threadSafeServices = ThreadSafeServiceRepresentables()
-    var serviceNotificationsObservers = [Int: ServiceNotificationsObserver]()
+    var serviceNotificationsObservers = [Int: ServiceNotificationsUnreadCountObserver]()
 
     // `true` after the SyncAllServicesOperation finished
     var areLocalServicesSynchronized: Bool = false

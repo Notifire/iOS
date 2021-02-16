@@ -42,7 +42,8 @@ class NotificationsCoordinator: NavigatingChildCoordinator, TabbedCoordinator, P
     // MARK: Notification Detail
     func showDetailed(notification: LocalNotifireNotification, animated: Bool) {
         let realmProvider = notificationsViewController.viewModel.realmProvider
-        let notificationDetailVM = NotificationDetailViewModel(realmProvider: realmProvider, notification: notification)
+        let showServiceUnreadCount = notificationsViewController.viewModel is ServiceNotificationsViewModel
+        let notificationDetailVM = NotificationDetailViewModel(realmProvider: realmProvider, notification: notification, serviceUnreadCount: showServiceUnreadCount)
         let notificationDetailVC = NotificationDetailViewController(viewModel: notificationDetailVM)
         notificationDetailVC.view.backgroundColor = .compatibleSystemBackground
         notificationDetailVC.viewModel.delegate = self

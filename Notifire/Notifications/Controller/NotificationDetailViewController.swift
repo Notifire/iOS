@@ -62,15 +62,6 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
         updateBackBarButtonItem()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        // Mark notification as 'Read' if the user has stayed in the view for at least 2 seconds.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.viewModel.markNotificationAsRead()
-        }
-    }
-
     // MARK: - Private
     private func updateBackBarButtonItem() {
         // Make sure that the user is not interacting right now, otherwise flag this event
@@ -86,7 +77,7 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
         // `popViewController` is used here as a hack to be able to change
         // the navigationBar's `topItem?.backBarButtonItem`
         navigationController.popViewController(animated: false)
-        if let numberUnread = viewModel.notification.service?.unreadNotifications.count, numberUnread != 0 {
+        if let numberUnread = viewModel.unreadNotificationsObserver?.currentUnreadCount, numberUnread != 0 {
             let image = UIImage.labelledImage(with: "\(numberUnread)", font: UIFont.systemFont(ofSize: 12, weight: .medium)).withRenderingMode(.alwaysOriginal)
             let roundedBarButtonItem = UIBarButtonItem(image: image, style: UIBarButtonItem.Style.done, target: nil, action: nil)
             navigationController.navigationBar.topItem?.backBarButtonItem = roundedBarButtonItem
@@ -103,10 +94,10 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
         let hhmm = dateComponents.removeFirst()
         let yymmdd = dateComponents.removeFirst()
         let dateText = NSMutableAttributedString(string: hhmm, attributes: [.font: UIFont.boldSystemFont(ofSize: 17),
-                                                                            .foregroundColor: UIColor.black])
+                                                                            .foregroundColor: UIColor.compatibleLabel])
         dateText.append(NSAttributedString(string: ","))
         dateText.append(NSAttributedString(string: yymmdd, attributes: [.font: UIFont.systemFont(ofSize: 14),
-                                                                        .foregroundColor: UIColor.black.withAlphaComponent(0.85)]))
+                                                                        .foregroundColor: UIColor.compatibleLabel.withAlphaComponent(0.85)]))
         let dateLabel = UILabel()
         dateLabel.attributedText = dateText
         navigationItem.titleView = dateLabel
@@ -116,7 +107,7 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
         // Register cells
         viewModel.items.forEach { tableView.register(type(of: $0).cellType, forCellReuseIdentifier: type(of: $0).reuseIdentifier)}
 
-        viewModel.serviceNotificationsObserver?.onNumberNotificationsChange = { [weak self] _ in
+        viewModel.unreadNotificationsObserver?.onNumberNotificationsChange = { [weak self] _ in
             self?.updateBackBarButtonItem()
         }
     }
@@ -124,12 +115,6 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
     private func layout() {
         view.add(subview: tableView)
         tableView.embed(in: view)
-    }
-
-    private func setTapOn(urlCell: NotificationDetailURLCell) {
-        urlCell.onURLTap = { [weak self] url in
-            URLOpener.open(url: url)
-        }
     }
 }
 
@@ -144,7 +129,9 @@ extension NotificationDetailViewController: UITableViewDataSource {
         cell.separatorInset.left = newLayoutMargins.left
         cell.backgroundColor = .compatibleSystemBackground
         if let urlCell = cell as? NotificationDetailURLCell {
-            setTapOn(urlCell: urlCell)
+            urlCell.onURLTap = { url in
+                URLOpener.open(url: url)
+            }
         }
         return cell
     }

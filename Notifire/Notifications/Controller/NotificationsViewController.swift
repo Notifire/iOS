@@ -135,18 +135,26 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
             case .initial:
                 tableView.reloadData()
             case .update(_, let deletions, let insertions, let modifications):
-                guard tableView.contentSize.height >= tableView.bounds.height else {
+                // If we're doing a manual delete e.g. when the user has filtering for
+                // unread only notifications, make sure to use begin/end updates
+                // or
+                // If the tableView isn't covering the entire screen
+                if !deletions.isEmpty || (tableView.contentSize.height < tableView.bounds.height) {
+                    let shouldReloadRows = deletions.isEmpty
                     tableView.beginUpdates()
                     tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
                                          with: .top)
                     tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
-                                         with: .bottom)
-                    tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
-                                         with: .fade)
+                                         with: .top)
+                    if shouldReloadRows {
+                        tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                             with: .fade)
+                    }
                     tableView.endUpdates()
-                    return
+                } else {
+                    tableView.reloadDataWithoutMoving()
+                    tableView.flashScrollIndicators()
                 }
-                tableView.reloadDataWithoutMoving()
             case .error: break
             }
         }

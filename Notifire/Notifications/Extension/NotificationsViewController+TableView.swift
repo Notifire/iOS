@@ -12,6 +12,7 @@ extension NotificationsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let notification = viewModel.collection[indexPath.row]
+        viewModel.markAsRead(notification: notification)
         delegate?.didSelect(notification: notification)
     }
 
