@@ -373,6 +373,8 @@ class ServiceImageCreationViewController: VMViewController<ServiceImageCreationV
         return view
     }()
 
+    lazy var maximumFileSizeLabel = UILabel(style: .centeredDimmedLightInformation, text: "Maximum image size is 8MB.", alignment: .center)
+
     lazy var continueButton: NotifireButton = {
         let button = NotifireButton()
         button.isEnabled = false
@@ -423,18 +425,28 @@ class ServiceImageCreationViewController: VMViewController<ServiceImageCreationV
 
         view.add(subview: imageView)
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: Size.Image.extraLargeService).isActive = true
-        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+        let imageViewHeight = imageView.heightAnchor.constraint(equalToConstant: Size.Image.extraLargeService)
+        imageViewHeight.priority = .init(900)
+        imageViewHeight.isActive = true
+        let imageViewHeightMinimum = imageView.heightAnchor.constraint(greaterThanOrEqualToConstant: Size.Image.mediumService)
+        imageViewHeightMinimum.priority = .init(600)
+        imageViewHeightMinimum.isActive = true
+        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
         imageView.topAnchor.constraint(equalTo: titleAndInformationView.bottomAnchor, constant: Size.componentSpacing * 3).isActive = true
 
         view.add(subview: skipButton)
-        skipButton.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Size.textFieldSpacing).isActive = true
+        skipButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Size.textFieldSpacing).isActive = true
         skipButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
         view.add(subview: continueButton)
         continueButton.bottomAnchor.constraint(equalTo: skipButton.topAnchor, constant: -Size.textFieldSpacing).isActive = true
         continueButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         continueButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: Size.componentWidthRelativeToScreenWidth).isActive = true
+
+        view.add(subview: maximumFileSizeLabel)
+        maximumFileSizeLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: Size.textFieldSpacing).isActive = true
+        maximumFileSizeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        maximumFileSizeLabel.bottomAnchor.constraint(lessThanOrEqualTo: continueButton.topAnchor, constant: -Size.componentSpacing * 2).isActive = true
     }
 
     @objc private func didSelectCancelCreationButton() {
