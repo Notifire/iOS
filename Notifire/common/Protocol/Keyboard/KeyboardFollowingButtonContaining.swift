@@ -14,7 +14,7 @@ protocol KeyboardFollowingButtonContaining: KeyboardObserving {
     var shouldAddKeyboardFollowingContainer: Bool { get }
 
     /// Add a keyboard following button at the bottom of the screen just above the keyboard.
-    func addKeyboardFollowing(button: UIButton)
+    func addKeyboardFollowing(button: UIButton, buttonBottomLessThanOrEqualToAnchor: NSLayoutYAxisAnchor?)
 }
 
 extension KeyboardFollowingButtonContaining {
@@ -22,14 +22,20 @@ extension KeyboardFollowingButtonContaining {
 }
 
 extension KeyboardFollowingButtonContaining where Self: UIViewController {
-    func addKeyboardFollowing(button: UIButton) {
+
+    /// Add a keyboard following button to the bottom (or optionally to elsewhere depending on `buttonBottomLessThanOrEqualToAnchor`)
+    func addKeyboardFollowing(button: UIButton, buttonBottomLessThanOrEqualToAnchor: NSLayoutYAxisAnchor? = nil) {
         view.add(subview: button)
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         button.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: Size.componentWidthRelativeToScreenWidth).isActive = true
         let buttonBottomConstraint = button.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         buttonBottomConstraint.priority = .init(950)
         buttonBottomConstraint.isActive = true
-        button.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Size.textFieldSpacing).isActive = true
+        if let buttonBottomGuideAnchor = buttonBottomLessThanOrEqualToAnchor {
+            button.bottomAnchor.constraint(lessThanOrEqualTo: buttonBottomGuideAnchor, constant: -Size.textFieldSpacing).isActive = true
+        } else {
+            button.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Size.textFieldSpacing).isActive = true
+        }
 
         if shouldAddKeyboardFollowingContainer {
             let buttonContainerView = UIView()

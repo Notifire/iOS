@@ -8,74 +8,54 @@
 
 import UIKit
 
-class RegisterCoordinator: ChildCoordinator {
-
-    enum RegistrationState {
-        case registering
-        case success
-    }
+class RegisterCoordinator: NavigationCoordinator<GenericCoordinator<RegisterEmailViewController>> {
 
     // MARK: - Properties
-    let navigationController: NotifireActionNavigationController
-    let registerViewController: RegisterViewController
-    var successViewController: RegisterSuccessViewController?
     weak var parentCoordinator: NoSessionCoordinator?
 
-    var registrationState: RegistrationState = .registering
-
-    // MARK: ChildCoordinator
-    var viewController: UIViewController {
-        return navigationController
+    init() {
+        let registerEmailVM = RegisterEmailViewModel(apiManager: NotifireAPIFactory.createAPIManager())
+        let registerEmailVC = RegisterEmailViewController(viewModel: registerEmailVM)
+        let registerEmailCoordinator = GenericCoordinator(viewController: registerEmailVC)
+        super.init(
+            rootChildCoordinator: registerEmailCoordinator,
+            navigationController: NotifireNavigationController()
+        )
     }
 
-    // MARK: - Initialization
-    init(apiManager: NotifireAPIManager) {
-        registerViewController = RegisterViewController(viewModel: RegisterViewModel(apiManager: apiManager))
-        self.navigationController = NotifireActionNavigationController(rootViewController: registerViewController)
-    }
+    override func start() {
+        super.start()
 
-    // MARK: - Private
-    private func presentRegister() {
-        guard successViewController != nil else { return }
-        navigationController.popViewController(animated: true)
-        successViewController = nil
+        rootChildCoordinator.rootViewController.delegate = self
     }
+}
 
-    private func presentSuccessVC() {
-        guard successViewController == nil else { return }
-        let registerSuccessViewModel = RegisterSuccessViewModel(apiManager: registerViewController.viewModel.apiManager, email: registerViewController.viewModel.email)
-        let registerSuccessViewController = RegisterSuccessViewController(viewModel: registerSuccessViewModel)
-        successViewController = registerSuccessViewController
-        registerSuccessViewController.delegate = self
-        navigationController.pushViewController(registerSuccessViewController, animated: true)
-    }
-
-    // MARK: - Internal
-    func start() {
-        registerViewController.delegate = self
-    }
-
-    func finish() {
+extension RegisterCoordinator: RegisteringViewControllerDelegate {
+    func shouldSignInInsteadOfRegister() {
         parentCoordinator?.finishRegisterOrLoginFlow()
     }
 }
 
-extension RegisterCoordinator: RegisterSuccessViewControllerDelegate {
-    func didFinishRegister() {
-        finish()
-    }
-
-    func shouldStartNewRegistration() {
-        presentRegister()
+extension RegisterCoordinator: RegisterEmailViewControllerDelegate {
+    func shouldContinueFromRegisterEmail(registerEmailViewController: RegisterEmailViewController) {
+        let registerPasswordVM = RegisterPasswordViewModel(
+            registerEmailViewModel: registerEmailViewController.viewModel
+        )
+        let registerPasswordVC = RegisterPasswordViewController(viewModel: registerPasswordVM)
+        registerPasswordVC.delegate = self
+        let registerPasswordCoordinator = GenericCoordinator(viewController: registerPasswordVC)
+        push(childCoordinator: registerPasswordCoordinator, animated: true)
     }
 }
 
-extension RegisterCoordinator: RegisterViewControllerDelegate {
-    func shouldFinishRegistration() {
-        finish()
-    }
-
-    func didRegisterSuccessfully() {
-        presentSuccessVC()
+extension RegisterCoordinator: RegisterPasswordViewControllerDelegate {
+    func didRegisterSuccessfully(registerPasswordViewController: RegisterPasswordViewController) {
+        let apiManager = registerPasswordViewController.viewModel.apiManager
+        let email = registerPasswordViewController.viewModel.email
+        let registerSuccessVM = RegisterSuccessViewModel(apiManager: apiManager, email: email)
+        let registerSuccessVC = RegisterSuccessViewController(viewModel: registerSuccessVM)
+        registerSuccessVC.delegate = self
+        let registerSuccessCoordinator = GenericCoordinator(viewController: registerSuccessVC)
+        push(childCoordinator: registerSuccessCoordinator, animated: true)
     }
 }

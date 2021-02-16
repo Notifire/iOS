@@ -245,6 +245,7 @@ class ServiceEditViewController: VMViewController<ServiceEditViewModel>, APIErro
         viewModel.loadingModel.onLoadingChange = { [weak self] loading in
             self?.editedServiceNameInput.textField.isEnabled = !loading
             self?.navigationItem.leftBarButtonItem?.isEnabled = !loading
+            self?.imageView.isUserInteractionEnabled = !loading
             self?.updateRightBarButtonItem()
         }
 

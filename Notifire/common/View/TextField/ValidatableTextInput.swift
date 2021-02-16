@@ -190,13 +190,14 @@ extension ValidatableTextInput {
     /// Create ValidatableTextInput for a password entry textfield.
     static func createPasswordTextInput<VM: InputValidatingViewModel>(textFieldType: CustomTextField.Type, newPasswordTextContentType: Bool, placeholderText: String, rules: [ComponentRule] = ComponentRule.passwordRules, viewModel: VM, bindableKeyPath: ReferenceWritableKeyPath<VM, String>) -> ValidatableTextInput {
         let textField = textFieldType.init()
-        textField.isSecureTextEntry = true
+        textField.setPlaceholder(text: placeholderText)
         if #available(iOS 12.0, *), newPasswordTextContentType {
             textField.textContentType = .newPassword
         } else {
             textField.textContentType = .password
         }
-        textField.setPlaceholder(text: placeholderText)
+        textField.keyboardType = .default
+        textField.isSecureTextEntry = true
         let input = ValidatableTextInput(textField: textField)
         input.rules = rules
         input.validatingViewModelBinder = ValidatingViewModelBinder(viewModel: viewModel, for: bindableKeyPath)

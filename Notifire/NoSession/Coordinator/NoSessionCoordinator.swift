@@ -34,11 +34,11 @@ class NoSessionCoordinator: Coordinator {
     // MARK: Register
     func startRegisterFlow() {
         guard presentedCoordinator == nil else { return }
-        let newRegisterCoordinator = RegisterCoordinator(apiManager: loginRegisterSplitterVC.viewModel.notifireApiManager)
-        newRegisterCoordinator.parentCoordinator = self
-        newRegisterCoordinator.start()
-        presentedCoordinator = newRegisterCoordinator
-        noSessionContainerViewController.presentCoverVertical(viewController: newRegisterCoordinator.viewController)
+        let registerCoordinator = RegisterCoordinator()
+        registerCoordinator.parentCoordinator = self
+        registerCoordinator.start()
+        presentedCoordinator = registerCoordinator
+        noSessionContainerViewController.presentCoverVertical(viewController: registerCoordinator.viewController)
     }
 
     // MARK: Login

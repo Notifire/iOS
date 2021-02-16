@@ -70,7 +70,7 @@ extension UILabel: Stylable {
             font = UIFont.systemFont(ofSize: 28, weight: .bold)
         case .title:
             textColor = .compatibleLabel
-            font = UIFont.systemFont(ofSize: 20, weight: .bold)
+            font = UIFont.systemFont(ofSize: 21, weight: .bold)
             numberOfLines = 1
         case .negative:
             textColor = UIColor.red.withAlphaComponent(0.9)

@@ -220,7 +220,6 @@
 		893B90232512B99A0056DBF9 /* UITableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893B90212512B9990056DBF9 /* UITableView+Reusable.swift */; };
 		893B90252512C1EB0056DBF9 /* UITableViewCell+Margins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893B90242512C1EB0056DBF9 /* UITableViewCell+Margins.swift */; };
 		893B90262512C1EB0056DBF9 /* UITableViewCell+Margins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893B90242512C1EB0056DBF9 /* UITableViewCell+Margins.swift */; };
-		893FE01D2195E3C1002CD846 /* ServiceCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE01C2195E3C1002CD846 /* ServiceCreationViewController.swift */; };
 		893FE01F21960BCC002CD846 /* ChoiceSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE01E21960BCC002CD846 /* ChoiceSeparatorView.swift */; };
 		893FE02121960BE5002CD846 /* ServiceCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE02021960BE5002CD846 /* ServiceCreationViewModel.swift */; };
 		893FE02421962C3E002CD846 /* ServiceNotificationsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE02321962C3E002CD846 /* ServiceNotificationsHeaderView.swift */; };
@@ -417,7 +416,6 @@
 		89576B0B24FD412A0097BF87 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0E0214337AD00645B3A /* HTTPMethod.swift */; };
 		89576B0C24FD412A0097BF87 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069D32133730A00D798AA /* Size.swift */; };
 		89576B0D24FD412A0097BF87 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893995AB2170EDF300687A79 /* SettingsCoordinator.swift */; };
-		89576B0F24FD412A0097BF87 /* ServiceCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893FE01C2195E3C1002CD846 /* ServiceCreationViewController.swift */; };
 		89576B1024FD412A0097BF87 /* EmptyStatePresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B413921C1DFDE00D28ABE /* EmptyStatePresentable.swift */; };
 		89576B1124FD412A0097BF87 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897069CD21335C3400D798AA /* UIViewControllerExtension.swift */; };
 		89576B1224FD412A0097BF87 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F0CB2141D94700645B3A /* RegisterViewModel.swift */; };
@@ -660,6 +658,7 @@
 		89E817C025D9B7D000BA8927 /* RealmObject+SafeHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E817BE25D9B7D000BA8927 /* RealmObject+SafeHandle.swift */; };
 		89E817C525DAC85D00BA8927 /* FullScreenBackGesturePanAltering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E817C425DAC85C00BA8927 /* FullScreenBackGesturePanAltering.swift */; };
 		89E817C625DAC85D00BA8927 /* FullScreenBackGesturePanAltering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E817C425DAC85C00BA8927 /* FullScreenBackGesturePanAltering.swift */; };
+		89E817CE25DAF79600BA8927 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E817CD25DAF79500BA8927 /* AuthenticationServices.framework */; };
 		89E8B865250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */; };
 		89E8B866250114FB00A6AC12 /* NotifireButton+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */; };
 		89ECEB1A25D6DCE0003C868D /* NotificationsFilterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECEB1925D6DCE0003C868D /* NotificationsFilterData.swift */; };
@@ -968,7 +967,6 @@
 		893B901E2512B9700056DBF9 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		893B90212512B9990056DBF9 /* UITableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Reusable.swift"; sourceTree = "<group>"; };
 		893B90242512C1EB0056DBF9 /* UITableViewCell+Margins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Margins.swift"; sourceTree = "<group>"; };
-		893FE01C2195E3C1002CD846 /* ServiceCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCreationViewController.swift; sourceTree = "<group>"; };
 		893FE01E21960BCC002CD846 /* ChoiceSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceSeparatorView.swift; sourceTree = "<group>"; };
 		893FE02021960BE5002CD846 /* ServiceCreationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCreationViewModel.swift; sourceTree = "<group>"; };
 		893FE02321962C3E002CD846 /* ServiceNotificationsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceNotificationsHeaderView.swift; sourceTree = "<group>"; };
@@ -1159,6 +1157,7 @@
 		89E817B825D9B13900BA8927 /* NotificationsViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsViewController+TableView.swift"; sourceTree = "<group>"; };
 		89E817BE25D9B7D000BA8927 /* RealmObject+SafeHandle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmObject+SafeHandle.swift"; sourceTree = "<group>"; };
 		89E817C425DAC85C00BA8927 /* FullScreenBackGesturePanAltering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenBackGesturePanAltering.swift; sourceTree = "<group>"; };
+		89E817CD25DAF79500BA8927 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		89E8B864250114FB00A6AC12 /* NotifireButton+Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotifireButton+Loadable.swift"; sourceTree = "<group>"; };
 		89ECEB1925D6DCE0003C868D /* NotificationsFilterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsFilterData.swift; sourceTree = "<group>"; };
 		89ECEB1F25D6ED2D003C868D /* NotificationsFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsFilterViewModel.swift; sourceTree = "<group>"; };
@@ -1249,6 +1248,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89E817CE25DAF79600BA8927 /* AuthenticationServices.framework in Frameworks */,
 				896ADD772506DBB500EE7B51 /* Realm.framework in Frameworks */,
 				91A4C865A6FF77FCF5F5FE14 /* Pods_Abst_Notifire.framework in Frameworks */,
 				896ADD7A2506DBB600EE7B51 /* RealmSwift.framework in Frameworks */,
@@ -1938,7 +1938,6 @@
 			children = (
 				893995AD2170EECE00687A79 /* ServicesViewController.swift */,
 				89BDADE6217A921A000E38FC /* ServiceViewController.swift */,
-				893FE01C2195E3C1002CD846 /* ServiceCreationViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2586,6 +2585,7 @@
 		CC7A7813572D08E26068BCF2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				89E817CD25DAF79500BA8927 /* AuthenticationServices.framework */,
 				89250B0124FE6F5A00BC7C2C /* Realm.framework */,
 				89250B0224FE6F5A00BC7C2C /* RealmSwift.framework */,
 				CF48406CF4114A37FB479C6B /* Pods_Abst_Notifire.framework */,
@@ -3504,7 +3504,6 @@
 				896167FB2501AB9A007BF3F1 /* ForgotPasswordCoordinator.swift in Sources */,
 				89541906251CB8980046464D /* ServiceWebSocketManager.swift in Sources */,
 				89576B0D24FD412A0097BF87 /* SettingsCoordinator.swift in Sources */,
-				89576B0F24FD412A0097BF87 /* ServiceCreationViewController.swift in Sources */,
 				8949EBE125118A090045D1A7 /* RegisterSuccessViewControllerDelegate.swift in Sources */,
 				89576B1024FD412A0097BF87 /* EmptyStatePresentable.swift in Sources */,
 				894AB68C2512617300F2CBF5 /* ServicesViewController+TableView.swift in Sources */,
@@ -3896,7 +3895,6 @@
 				896167FA2501AB9A007BF3F1 /* ForgotPasswordCoordinator.swift in Sources */,
 				893995AC2170EDF300687A79 /* SettingsCoordinator.swift in Sources */,
 				8949EBE025118A090045D1A7 /* RegisterSuccessViewControllerDelegate.swift in Sources */,
-				893FE01D2195E3C1002CD846 /* ServiceCreationViewController.swift in Sources */,
 				892B413A21C1DFDE00D28ABE /* EmptyStatePresentable.swift in Sources */,
 				893B90252512C1EB0056DBF9 /* UITableViewCell+Margins.swift in Sources */,
 				8936E3DB25639293007424A7 /* ChangeEmailViewController.swift in Sources */,

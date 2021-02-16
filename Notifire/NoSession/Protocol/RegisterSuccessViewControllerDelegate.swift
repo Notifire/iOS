@@ -8,7 +8,6 @@
 
 import Foundation
 
-protocol RegisterSuccessViewControllerDelegate: class {
-    func didFinishRegister()
+protocol RegisterSuccessViewControllerDelegate: RegisteringViewControllerDelegate {
     func shouldStartNewRegistration()
 }

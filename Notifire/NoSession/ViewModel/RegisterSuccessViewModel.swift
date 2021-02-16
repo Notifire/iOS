@@ -24,6 +24,10 @@ class RegisterSuccessViewModel: ViewModelRepresenting {
         }
     }
 
+    var resendConfirmationText: String {
+        return "Resend confirmation email"
+    }
+
     // MARK: Callback
     var onResendButtonStateChange: ((ResendButtonState) -> Void)?
 
