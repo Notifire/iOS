@@ -93,7 +93,9 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
 
     // MARK: - Private
     private func setupNavBar() {
-        updateRightBarButtonItem()
+        if !viewModel.collection.isEmpty {
+            updateRightBarButtonItem()
+        }
         hideNavigationBarBackButtonText(newBackBarText: "Notifications")
         hideNavigationBar()
 
