@@ -97,6 +97,7 @@ class NotificationTableViewCell: NotificationBaseTableViewCell, CellConfigurable
     typealias DataType = LocalNotifireNotification
 
     // MARK: - Properties
+    var currentNotificationID: String?
     // MARK: Views
     let serviceImageView = RoundedEmojiImageView(image: nil, size: .normal)
 
@@ -143,7 +144,7 @@ class NotificationTableViewCell: NotificationBaseTableViewCell, CellConfigurable
             serviceImageView.image = LocalService.defaultImage
         }
         serviceInformationLabel.text = "\(service.name)"
-
+        currentNotificationID = notification.notificationID
         bodyLabel.text = notification.body
         let dateString = notification.date.formatRelativeString()
         dateLabel.text = dateString

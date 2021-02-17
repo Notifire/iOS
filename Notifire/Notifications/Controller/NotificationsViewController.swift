@@ -9,7 +9,9 @@
 import UIKit
 
 protocol NotificationsViewControllerDelegate: class {
+    /// Called when the notification should be presented in detail. e.g. push NotificationDetailVC
     func didSelect(notification: LocalNotifireNotification)
+    func getNotificationDetailVC(notification: LocalNotifireNotification) -> NotificationDetailViewController
 }
 
 class UnreadNotificationsLabel: UILabel {
@@ -42,6 +44,7 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
 
     // MARK: - Properties
     let viewModel: NotificationsViewModel
+
     weak var delegate: NotificationsViewControllerDelegate?
 
     /// Used to properly calculate the contentOffset and contentSize after adding new elements to the
@@ -178,5 +181,10 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
     // MARK: Event Handling
     @objc private func didPressFilterButton() {
         onFilterActionTapped?()
+    }
+
+    func showNotificationDetailVC(notification: LocalNotifireNotification) {
+        viewModel.markAsRead(notification: notification)
+        delegate?.didSelect(notification: notification)
     }
 }

@@ -150,8 +150,10 @@ class NotificationsViewModel: RealmCollectionViewModel<LocalNotifireNotification
         realmProvider.realm.beginWrite()
         notification.isRead = !notification.isRead
         if notificationsFilterData.readUnreadState == .all {
+            // if the filters are disabled, don't notify the delegate
             try? realmProvider.realm.commitWrite(withoutNotifying: [token])
         } else {
+            // Otherwise notify so that it reloads the view
             try? realmProvider.realm.commitWrite(withoutNotifying: [])
         }
     }

@@ -15,6 +15,8 @@ protocol NavigatingCoordinator: Coordinator, UINavigationControllerDelegate {
     /// The child coordinators that this coordinator is currently presenting.
     var childCoordinators: [ChildCoordinator] { get set }
     var delegate: NavigationCoordinatorDelegate? { get }
+    /// The child coordinator of the `topViewController`
+    var topChildCoordinator: ChildCoordinator? { get }
 }
 
 /// A `ChildCoordinator` that allows pushing/popping from a parent navigationCoordinator.
@@ -23,6 +25,10 @@ protocol NavigatingChildCoordinator: ChildCoordinator {
 }
 
 extension NavigatingCoordinator {
+    var topChildCoordinator: ChildCoordinator? {
+        return childCoordinators.last
+    }
+
     /// Adds a child coordinator to the `childCoordinators` stack and starts it via `start()`
     /// - Parameters:
     ///     - childCoordinator: the child coordinator that will be added to the stack of childCoordinators

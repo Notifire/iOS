@@ -41,14 +41,22 @@ class NotificationsCoordinator: NavigatingChildCoordinator, TabbedCoordinator, P
 
     // MARK: Notification Detail
     func showDetailed(notification: LocalNotifireNotification, animated: Bool) {
+        let notificationDetailVC = createNotificationDetailVC(notification: notification)
+        showDetailed(notificationDetailVC: notificationDetailVC, animated: animated)
+    }
+
+    func showDetailed(notificationDetailVC: NotificationDetailViewController, animated: Bool) {
+        let notificationDetailCoordinator = GenericCoordinator(viewController: notificationDetailVC)
+        parentNavigatingCoordinator?.push(childCoordinator: notificationDetailCoordinator, animated: animated)
+    }
+
+    func createNotificationDetailVC(notification: LocalNotifireNotification) -> NotificationDetailViewController {
         let realmProvider = notificationsViewController.viewModel.realmProvider
         let showServiceUnreadCount = notificationsViewController.viewModel is ServiceNotificationsViewModel
         let notificationDetailVM = NotificationDetailViewModel(realmProvider: realmProvider, notification: notification, serviceUnreadCount: showServiceUnreadCount)
         let notificationDetailVC = NotificationDetailViewController(viewModel: notificationDetailVM)
-        notificationDetailVC.view.backgroundColor = .compatibleSystemBackground
         notificationDetailVC.viewModel.delegate = self
-        let notificationDetailCoordinator = GenericCoordinator(viewController: notificationDetailVC)
-        parentNavigatingCoordinator?.push(childCoordinator: notificationDetailCoordinator, animated: animated)
+        return notificationDetailVC
     }
 
     // MARK: Notification Filters
@@ -74,10 +82,16 @@ extension NotificationsCoordinator: NotificationsViewControllerDelegate {
     func didSelect(notification: LocalNotifireNotification) {
         showDetailed(notification: notification, animated: true)
     }
+
+    func getNotificationDetailVC(notification: LocalNotifireNotification) -> NotificationDetailViewController {
+        return createNotificationDetailVC(notification: notification)
+    }
 }
 
 extension NotificationsCoordinator: NotificationDetailViewModelDelegate {
     func onNotificationDeletion() {
-        parentNavigatingCoordinator?.popChildCoordinator()
+        if let topChildVC = parentNavigatingCoordinator?.topChildCoordinator?.viewController as? NotificationDetailViewController, topChildVC.viewIfLoaded?.window != nil {
+            parentNavigatingCoordinator?.popChildCoordinator()
+        }
     }
 }

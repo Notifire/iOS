@@ -614,6 +614,8 @@
 		89D4E1FC2139FD2200630790 /* NotifireLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1FB2139FD2200630790 /* NotifireLayer.swift */; };
 		89D4E1FE2139FD3E00630790 /* MultiplePathAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E1FD2139FD3E00630790 /* MultiplePathAnimator.swift */; };
 		89D4E2032139FDD100630790 /* FireLayerProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E2022139FDD100630790 /* FireLayerProperties.swift */; };
+		89D5946F25DCD09600B16D59 /* PreferredContentSizeAutochanging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D5946E25DCD09600B16D59 /* PreferredContentSizeAutochanging.swift */; };
+		89D5947025DCD09600B16D59 /* PreferredContentSizeAutochanging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D5946E25DCD09600B16D59 /* PreferredContentSizeAutochanging.swift */; };
 		89D616982502FE1600287331 /* KeyboardObserverHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616972502FE1600287331 /* KeyboardObserverHandler.swift */; };
 		89D616992502FE1600287331 /* KeyboardObserverHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616972502FE1600287331 /* KeyboardObserverHandler.swift */; };
 		89D6169B2503002A00287331 /* NavigationBarDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D6169A2503002A00287331 /* NavigationBarDisplaying.swift */; };
@@ -1132,6 +1134,7 @@
 		89D4E1FB2139FD2200630790 /* NotifireLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireLayer.swift; sourceTree = "<group>"; };
 		89D4E1FD2139FD3E00630790 /* MultiplePathAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplePathAnimator.swift; sourceTree = "<group>"; };
 		89D4E2022139FDD100630790 /* FireLayerProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireLayerProperties.swift; sourceTree = "<group>"; };
+		89D5946E25DCD09600B16D59 /* PreferredContentSizeAutochanging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferredContentSizeAutochanging.swift; sourceTree = "<group>"; };
 		89D616972502FE1600287331 /* KeyboardObserverHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserverHandler.swift; sourceTree = "<group>"; };
 		89D6169A2503002A00287331 /* NavigationBarDisplaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarDisplaying.swift; sourceTree = "<group>"; };
 		89D616A42505A7DD00287331 /* UserSessionManager+UserSessionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserSessionManager+UserSessionHandler.swift"; sourceTree = "<group>"; };
@@ -1649,6 +1652,7 @@
 			children = (
 				893B901E2512B9700056DBF9 /* Reusable.swift */,
 				89EE333625D788CF00BA5A70 /* CellAppearanceDescribing.swift */,
+				89D5946E25DCD09600B16D59 /* PreferredContentSizeAutochanging.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -3259,6 +3263,7 @@
 				892DC0B825607B3D0067EB12 /* CaseIterable+Init.swift in Sources */,
 				89541918251CD1670046464D /* UpdateServiceRepresentablesOperation.swift in Sources */,
 				893A4A352528D2B500DD02D0 /* CATransaction+Animation.swift in Sources */,
+				89D5947025DCD09600B16D59 /* PreferredContentSizeAutochanging.swift in Sources */,
 				89E8178025D875F500BA8927 /* TimeframeSelectionViewController.swift in Sources */,
 				89A4F31E259156A000767224 /* CreateLocalServiceOperation.swift in Sources */,
 				89F19D852569FCE10030AFE0 /* WarningView.swift in Sources */,
@@ -3794,6 +3799,7 @@
 				899C07172551E2E00005228E /* NavigationCoordinatorDelegate.swift in Sources */,
 				892DC0AC256074EC0067EB12 /* SettingsViewModel.swift in Sources */,
 				895A3B8225006D97000A7B50 /* AuthenticationProvidersViewModel.swift in Sources */,
+				89D5946F25DCD09600B16D59 /* PreferredContentSizeAutochanging.swift in Sources */,
 				89BF1ADE256229E300A9FD61 /* RegisterSuccessViewController.swift in Sources */,
 				892B413821C1D47A00D28ABE /* NotificationsEmptyStateView.swift in Sources */,
 				89D616AC2505A81B00287331 /* SSOAuthenticationProvider.swift in Sources */,

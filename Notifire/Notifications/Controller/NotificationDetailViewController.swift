@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NotificationDetailViewController: VMViewController<NotificationDetailViewModel>, NavigationBarDisplaying, NotifireAlertPresenting {
+class NotificationDetailViewController: VMViewController<NotificationDetailViewModel>, PreferredContentSizeAutochanging, NavigationBarDisplaying, NotifireAlertPresenting {
 
     // MARK: - Properties
     private var userInteractivePopObserver: NSKeyValueObservation?
@@ -27,9 +27,18 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
         return table
     }()
 
+    // MARK: PreferredContentSizeAutochanging
+    var preferredContentSizeObserver: NSKeyValueObservation?
+    var contentSizeView: UIScrollView { return tableView }
+
     // MARK: - View Lifecycle
+    deinit {
+        invalidatePreferredContentSizeObserver()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .compatibleSystemBackground
         setTitle()
         prepareViewModel()
         layout()
@@ -60,18 +69,34 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
 
         // Initial number of unread notifications in backbarbuttonitem
         updateBackBarButtonItem()
+
+        createAndSetPreferredContentSizeObserver()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        guard viewModel.notification.safeReference == nil else { return }
+        // Pop this VC if the notification has been deleted
+        viewModel.delegate?.onNotificationDeletion()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        invalidatePreferredContentSizeObserver()
     }
 
     // MARK: - Private
     private func updateBackBarButtonItem() {
+        guard let navigationController = navigationController else { return }
+
         // Make sure that the user is not interacting right now, otherwise flag this event
         guard !userInteractivePopInProgress else {
             self.userWasInteractingWithVCOnNavBarReload = true
             return
         }
         self.userWasInteractingWithVCOnNavBarReload = false
-
-        guard let navigationController = navigationController else { return }
 
         // Important
         // `popViewController` is used here as a hack to be able to change
