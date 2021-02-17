@@ -76,8 +76,25 @@ extension ServicesViewController: SkeletonTableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard indexPath.row == viewModel.services.count - 4 else { return }
-        viewModel.fetchNextPageOfUserServices()
+        // Highlight newly inserted cells
+        if newInsertedIndexPaths[indexPath] != nil {
+            // We have handled this indexPath cell animation, remove it
+            newInsertedIndexPaths.removeValue(forKey: indexPath)
+
+            UIView.animateKeyframes(withDuration: 1, delay: 0.1, options: [], animations: {
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.7) {
+                    cell.backgroundColor = UIColor.primary.withAlphaComponent(0.4)
+                }
+                UIView.addKeyframe(withRelativeStartTime: 0.6, relativeDuration: 0.4) {
+                    cell.backgroundColor = UIColor.compatibleSystemBackground
+                }
+            }, completion: nil)
+        }
+
+        // Pagination
+        if indexPath.row == viewModel.services.count - 4 {
+            viewModel.fetchNextPageOfUserServices()
+        }
     }
 
     func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {

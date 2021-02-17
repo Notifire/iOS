@@ -93,6 +93,8 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
         onViewDidAppear?()
     }
 
+    var newInsertedIndexPaths: [IndexPath: Bool] = [:]
+
     // MARK: - Private
     private func prepareViewModel() {
         viewModel.onViewStateChange = { [weak self] state, oldState in
@@ -105,6 +107,9 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
             switch changes {
             case .partial(let changes):
                 let currentOffset = self.tableView.contentOffset
+                for insertion in changes.insertions {
+                    self.newInsertedIndexPaths[insertion] = true
+                }
                 self.tableView.beginUpdates()
                 self.tableView.deleteRows(at: changes.deletions, with: .automatic)
                 self.tableView.insertRows(at: changes.insertions, with: .automatic)
