@@ -24,6 +24,7 @@ struct Size {
 
     struct Image {
         static let settingsImage: CGFloat = 29
+        static let tinyService: CGFloat = 16
         static let smallService: CGFloat = 36
         static let mediumService: CGFloat = 50
         static let normalService: CGFloat = 80

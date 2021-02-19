@@ -43,7 +43,7 @@ class RealmProvider: RealmProviding {
 class NotificationReadUnreadManager {
 
     static func markNotificationAsRead(notification: LocalNotifireNotification, realm: Realm) {
-        guard !notification.isRead else { return }
+        guard !notification.isInvalidated, !notification.isRead else { return }
         swapNotificationReadStatus(notification: notification, realm: realm)
     }
 

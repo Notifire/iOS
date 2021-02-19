@@ -20,14 +20,43 @@ class NotificationDetailHeaderCell: BaseTableViewCell, CellConfigurable {
 
     typealias DataType = NotificationDetailHeader
 
+    enum DateStyle {
+        case compact
+        case expanded
+
+        var formatStyle: DateFormatStyle {
+            switch self {
+            case .compact: return DateFormatStyle.completeNoSec
+            case .expanded: return DateFormatStyle.complete
+            }
+        }
+
+        mutating func swapStyle() {
+            switch self {
+            case .compact: self = .expanded
+            case .expanded: self = .compact
+            }
+        }
+    }
+
     // MARK: - Properties
+    var date = Date()
+    var dateStyle: DateStyle = .compact {
+        didSet {
+            UIView.transition(with: dateLabel, duration: 0.2, options: [.transitionCrossDissolve], animations: {
+                self.dateLabel.text = self.date.string(with: self.dateStyle.formatStyle)
+            }, completion: nil)
+        }
+    }
+
     // MARK: Views
-    let serviceImageView = RoundedEmojiImageView(image: nil)
-    let serviceNameLabel: UILabel = {
+    lazy var serviceImageView = RoundedEmojiImageView(image: nil)
+    lazy var serviceNameLabel: UILabel = {
         let label = UILabel(style: .title)
         label.numberOfLines = 0
         return label
     }()
+    lazy var dateLabel = UILabel(style: .cellSubtitle)
 
     override func setup() {
         layout()
@@ -37,6 +66,8 @@ class NotificationDetailHeaderCell: BaseTableViewCell, CellConfigurable {
         serviceImageView.roundedImageView.sd_setImage(with: data.serviceImageURL, placeholderImage: LocalService.defaultImage, options: [], completed: nil)
         serviceNameLabel.text = data.serviceName
         serviceImageView.set(level: data.notificationLevel)
+        dateStyle = .compact
+        date = data.notificationDate
     }
 
     private func layout() {
@@ -51,8 +82,12 @@ class NotificationDetailHeaderCell: BaseTableViewCell, CellConfigurable {
 
         contentView.add(subview: serviceNameLabel)
         serviceNameLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
-        serviceNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        serviceNameLabel.bottomAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         serviceNameLabel.trailingAnchor.constraint(equalTo: serviceImageView.leadingAnchor).isActive = true
+
+        contentView.add(subview: dateLabel)
+        dateLabel.leadingAnchor.constraint(equalTo: serviceNameLabel.leadingAnchor).isActive = true
+        dateLabel.topAnchor.constraint(equalTo: serviceNameLabel.bottomAnchor).isActive = true
     }
 }
 
@@ -60,10 +95,14 @@ struct NotificationDetailTitleBody {
     let body: String?
 }
 
-class NotificationDetailTitleBodyCell: BaseTableViewCell, CellConfigurable {
+class NotificationDetailTitleBodyCell: BaseTableViewCell, CellConfigurable, NotificationDetailOptionallyDisplaying {
     typealias DataType = NotificationDetailTitleBody
 
     // MARK: - Properties
+    // MARK: NotificationDetailOptionallyDisplaying
+    static var indicatorImage: UIImage { return UIImage() }
+    static var indicatorImageSystemName: String { return "text.bubble" }
+
     // MARK: Views
     let notificationBodyLabel = CopyableLabel(style: .informationHeader)
 
@@ -81,16 +120,20 @@ class NotificationDetailTitleBodyCell: BaseTableViewCell, CellConfigurable {
         notificationBodyLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         notificationBodyLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
         notificationBodyLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
+
+        addIndicatorImageView()
     }
 }
 
 protocol NotificationDetailOptionallyDisplaying {
     static var indicatorImage: UIImage { get }
+    static var indicatorImageSystemName: String { get }
 }
 
 extension NotificationDetailOptionallyDisplaying where Self: BaseTableViewCell {
     func addIndicatorImageView() {
-        let indicatorImageView = UIImageView(notifireImage: type(of: self).indicatorImage)
+        let selfType = type(of: self)
+        let indicatorImageView = UIImageView(systemName: selfType.indicatorImageSystemName, compatibleNotifireImage: selfType.indicatorImage)
         let imageWidth = Size.Image.indicator
         let distanceFromContentLeadingAnchor = (Size.Cell.wideSideMargin - imageWidth) / 2
         contentView.add(subview: indicatorImageView)
@@ -106,9 +149,9 @@ class NotificationDetailAdditionalTextCell: BaseTableViewCell, CellConfigurable,
 
     // MARK: - Properties
     // MARK: NotificationDetailIndicatorCell
-    static var indicatorImage: UIImage {
-        return #imageLiteral(resourceName: "doc.plaintext")
-    }
+    static var indicatorImage: UIImage { return #imageLiteral(resourceName: "doc.plaintext") }
+    static var indicatorImageSystemName: String { return "doc.plaintext" }
+
     // MARK: Views
     let additionalTextLabel = CopyableLabel(style: .informationHeader)
 
@@ -136,10 +179,11 @@ class NotificationDetailURLCell: BaseTableViewCell, CellConfigurable, Notificati
 
     // MARK: - Properties
     var url: DataType?
+
     // MARK: NotificationDetailIndicatorCell
-    static var indicatorImage: UIImage {
-        return #imageLiteral(resourceName: "link")
-    }
+    static var indicatorImage: UIImage { return #imageLiteral(resourceName: "link") }
+    static var indicatorImageSystemName: String { return "link" }
+
     // MARK: Views
     let urlLabel = TappableLabel()
 
@@ -203,11 +247,15 @@ class NotificationDetailViewModel: ViewModelRepresenting {
 
     // MARK: - Initialization
     /// - Parameters:
-    ///     - serviceUnreadCount: Whether to count the number of unread notifications for the notification's service or not.
-    init(realmProvider: RealmProviding, notification: LocalNotifireNotification, serviceUnreadCount: Bool) {
+    ///     - serviceUnreadCount: Whether to count the number of unread notifications for the notification's service or for notifications from all services.
+    ///     - markAsRead: Whether to mark the notification as read in the init of VM. Default value is `true`
+    init(realmProvider: RealmProviding, notification: LocalNotifireNotification, serviceUnreadCount: Bool, markAsRead: Bool) {
         self.realmProvider = realmProvider
         self.notification = notification
         self.items = NotificationDetailViewModel.createItems(from: notification)
+        if markAsRead {
+            NotificationReadUnreadManager.markNotificationAsRead(notification: notification, realm: realmProvider.realm)
+        }
         if let serviceID = notification.currentServiceID, serviceUnreadCount {
             // currentServiceID always contains a value.
             self.unreadNotificationsObserver = ServiceNotificationsUnreadCountObserver(realmProvider: realmProvider, serviceID: serviceID)

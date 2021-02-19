@@ -50,10 +50,15 @@ class NotificationsCoordinator: NavigatingChildCoordinator, TabbedCoordinator, P
         parentNavigatingCoordinator?.push(childCoordinator: notificationDetailCoordinator, animated: animated)
     }
 
-    func createNotificationDetailVC(notification: LocalNotifireNotification) -> NotificationDetailViewController {
+    func createNotificationDetailVC(notification: LocalNotifireNotification, markAsRead: Bool = true) -> NotificationDetailViewController {
         let realmProvider = notificationsViewController.viewModel.realmProvider
         let showServiceUnreadCount = notificationsViewController.viewModel is ServiceNotificationsViewModel
-        let notificationDetailVM = NotificationDetailViewModel(realmProvider: realmProvider, notification: notification, serviceUnreadCount: showServiceUnreadCount)
+        let notificationDetailVM = NotificationDetailViewModel(
+            realmProvider: realmProvider,
+            notification: notification,
+            serviceUnreadCount: showServiceUnreadCount,
+            markAsRead: markAsRead
+        )
         let notificationDetailVC = NotificationDetailViewController(viewModel: notificationDetailVM)
         notificationDetailVC.viewModel.delegate = self
         return notificationDetailVC
@@ -84,7 +89,8 @@ extension NotificationsCoordinator: NotificationsViewControllerDelegate {
     }
 
     func getNotificationDetailVC(notification: LocalNotifireNotification) -> NotificationDetailViewController {
-        return createNotificationDetailVC(notification: notification)
+        // Don't mark the notification as read when we are using the preview.
+        return createNotificationDetailVC(notification: notification, markAsRead: false)
     }
 }
 

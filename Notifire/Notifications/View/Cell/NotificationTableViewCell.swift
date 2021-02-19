@@ -9,7 +9,12 @@
 import UIKit
 
 protocol NotificationPresenting: class {
+    /// The object that is currently used as the ReadUnreadView (`CircleView`)
     var isNotificationReadView: UIView? { get set }
+    /// The Y axis anchor that this view will be centerY constrained to.
+    var centerYAnchorForNotificationReadView: NSLayoutYAxisAnchor { get }
+
+    /// Adds / removes the `isNotificationReadView` from the cell's contentView
     func updateNotificationReadView(from notification: LocalNotifireNotification)
 }
 
@@ -25,7 +30,7 @@ extension NotificationPresenting where Self: BaseTableViewCell {
             contentView.add(subview: circleView)
             circleView.heightAnchor.constraint(equalTo: circleView.widthAnchor).isActive = true
             circleView.widthAnchor.constraint(equalToConstant: Size.Image.unreadNotificationAlert).isActive = true
-            circleView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
+            circleView.centerYAnchor.constraint(equalTo: centerYAnchorForNotificationReadView).isActive = true
             let leadingSpace = (contentView.layoutMargins.left - Size.Image.unreadNotificationAlert) / 2
             circleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: leadingSpace).isActive = true
             isNotificationReadView = circleView
@@ -33,160 +38,156 @@ extension NotificationPresenting where Self: BaseTableViewCell {
     }
 }
 
-class NotificationBaseTableViewCell: BaseTableViewCell, NotificationPresenting {
+class NotificationBaseTableViewCell: BaseTableViewCell, NotificationPresenting, CellConfigurable {
 
+    typealias DataType = LocalNotifireNotification
+
+    // MARK: - Properties
+    var currentNotificationID: String?
+    // MARK: UI
     let indicatorStack = IndicatorStackView()
 
     var isNotificationReadView: UIView?
+    var centerYAnchorForNotificationReadView: NSLayoutYAxisAnchor { return levelLabel.centerYAnchor }
 
-    let bodyLabel: UILabel = {
-        let label = UILabel(style: .cellSubtitle)
+    lazy var levelLabel: UILabel = {
+        let label = UILabel(style: .emojiSmall)
         label.numberOfLines = 1
+        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         return label
     }()
 
-    let dateLabel: UILabel = {
-        let label = UILabel(style: .cellSubtitle)
-        label.numberOfLines = 1
-        label.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
-        label.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 999), for: .horizontal)
+    lazy var bodyLabel: UILabel = {
+        let label = UILabel(style: .cellInformation)
+        label.numberOfLines = 6
+        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return label
     }()
+
+    lazy var dateLabel: UILabel = {
+        let label = UILabel(style: .cellSubtitle)
+        label.numberOfLines = 1
+        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        return label
+    }()
+
+    lazy var dateAndIndicatorContainer: UIView = UIView()
 
     // MARK: - Inherited
     override open func setup() {
-        contentView.layoutMargins = UIEdgeInsets(top: Size.Cell.extendedSideMargin/2, left: Size.Cell.extendedSideMargin, bottom: Size.Cell.extendedSideMargin/2, right: 0)
+        contentView.layoutMargins = UIEdgeInsets(top: Size.Cell.extendedSideMargin/2, left: Size.Cell.extendedSideMargin + Size.smallestMargin, bottom: Size.Cell.extendedSideMargin/2, right: 0)
         accessoryType = .disclosureIndicator
         backgroundColor = .compatibleSystemBackground
         layout()
     }
 
-    func viewAboveIndicatorStack() -> UIView {
-        return UIView()
-    }
-
     // MARK: - Private
     func layout() {
-        let viewAboveStack = viewAboveIndicatorStack()
-        contentView.add(subview: viewAboveStack)
-        viewAboveStack.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
-        viewAboveStack.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        let bottomConstraint = viewAboveStack.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor)
-        bottomConstraint.priority = UILayoutPriority(999)
-        bottomConstraint.isActive = true
-        viewAboveStack.widthAnchor.constraint(equalTo: viewAboveStack.heightAnchor).isActive = true
-        viewAboveStack.heightAnchor.constraint(equalToConstant: Size.Image.smallService).isActive = true
+        // Almost .required priority Cell Height to guarantee at least `Size.Cell.heightExtended` in some cases
+        contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: Size.Cell.heightExtended).with(priority: .init(999)).isActive = true
 
-        let stackContainerView = UIView()
-        contentView.add(subview: stackContainerView)
-        stackContainerView.topAnchor.constraint(equalTo: viewAboveStack.bottomAnchor, constant: Size.Cell.extendedSideMargin/2).isActive = true
-        let stackBottomConstraint = stackContainerView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
-        stackBottomConstraint.priority = UILayoutPriority(rawValue: 999)
-        stackBottomConstraint.isActive = true
-        stackContainerView.leadingAnchor.constraint(equalTo: viewAboveStack.leadingAnchor).isActive = true
-        stackContainerView.trailingAnchor.constraint(equalTo: viewAboveStack.trailingAnchor).isActive = true
+        contentView.add(subview: dateAndIndicatorContainer)
+        dateAndIndicatorContainer.add(subview: dateLabel)
+        dateAndIndicatorContainer.add(subview: indicatorStack)
 
-        stackContainerView.add(subview: indicatorStack)
-        indicatorStack.centerXAnchor.constraint(equalTo: stackContainerView.centerXAnchor).isActive = true
-        indicatorStack.centerYAnchor.constraint(equalTo: stackContainerView.centerYAnchor).isActive = true
-        indicatorStack.heightAnchor.constraint(equalToConstant: Size.Image.indicator).isActive = true
+        dateLabel.topAnchor.constraint(equalTo: dateAndIndicatorContainer.topAnchor).isActive = true
+        dateLabel.trailingAnchor.constraint(equalTo: dateAndIndicatorContainer.trailingAnchor).isActive = true
+
+        indicatorStack.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: Size.smallestMargin).isActive = true
+        indicatorStack.bottomAnchor.constraint(equalTo: dateAndIndicatorContainer.bottomAnchor).isActive = true
+        indicatorStack.trailingAnchor.constraint(equalTo: dateAndIndicatorContainer.trailingAnchor).isActive = true
+
+        dateAndIndicatorContainer.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
+        dateAndIndicatorContainer.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).with(priority: .init(950)).isActive = true
+        dateAndIndicatorContainer.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor).with(priority: .init(850)).isActive = true
+        dateAndIndicatorContainer.widthAnchor.constraint(equalTo: dateLabel.widthAnchor).isActive = true
+
+        contentView.add(subview: levelLabel)
+        levelLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
+
+        contentView.add(subview: bodyLabel)
+        bodyLabel.leadingAnchor.constraint(equalTo: levelLabel.trailingAnchor, constant: Size.smallMargin).isActive = true
+        bodyLabel.trailingAnchor.constraint(equalTo: dateAndIndicatorContainer.leadingAnchor, constant: -Size.smallMargin).isActive = true
+        bodyLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor).with(priority: .init(860)).isActive = true
+        bodyLabel.bottomAnchor.constraint(greaterThanOrEqualTo: dateAndIndicatorContainer.bottomAnchor).isActive = true
+
+        // Baseline
+        levelLabel.firstBaselineAnchor.constraint(equalTo: bodyLabel.firstBaselineAnchor).with(priority: .init(900)).isActive = true
+    }
+
+    func configure(data: LocalNotifireNotification) {
+        currentNotificationID = data.notificationID
     }
 }
 
-class NotificationTableViewCell: NotificationBaseTableViewCell, CellConfigurable {
-    typealias DataType = LocalNotifireNotification
+class NotificationTableViewCell: NotificationBaseTableViewCell {
 
     // MARK: - Properties
-    var currentNotificationID: String?
-    // MARK: Views
-    let serviceImageView = RoundedEmojiImageView(image: nil, size: .normal)
+    override var centerYAnchorForNotificationReadView: NSLayoutYAxisAnchor { return serviceImageView.centerYAnchor }
 
-    let serviceInformationLabel: UILabel = {
-        let label = UILabel(style: .semiboldCellTitle)
+    // MARK: Views
+    lazy var serviceImageView = RoundedImageView()
+
+    lazy var serviceNameLabel: UILabel = {
+        let label = UILabel(style: .boldTinyCellTitle)
         label.numberOfLines = 1
         label.lineBreakMode = NSLineBreakMode.byTruncatingMiddle
         return label
     }()
 
-    override func viewAboveIndicatorStack() -> UIView {
-        return serviceImageView
-    }
-
     // MARK: - Inherited
     override func layout() {
         super.layout()
-        let serviceAndDateStack = UIStackView(arrangedSubviews: [serviceInformationLabel, dateLabel])
-        serviceAndDateStack.axis = .horizontal
-        serviceAndDateStack.distribution = .fill
-        serviceAndDateStack.alignment = .center
 
-        let labelStack = UIStackView(arrangedSubviews: [serviceAndDateStack, bodyLabel])
-        labelStack.axis = .vertical
-        labelStack.distribution = .fill
-        labelStack.alignment = .leading
-        labelStack.setCustomSpacing(Size.Cell.extendedSideMargin/4, after: serviceAndDateStack)
+        contentView.add(subview: serviceNameLabel)
+        serviceNameLabel.leadingAnchor.constraint(equalTo: bodyLabel.leadingAnchor).isActive = true
+        serviceNameLabel.trailingAnchor.constraint(equalTo: bodyLabel.trailingAnchor).isActive = true
+        serviceNameLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
 
-        contentView.add(subview: labelStack)
-        labelStack.leadingAnchor.constraint(equalTo: serviceImageView.trailingAnchor, constant: Size.Cell.extendedSideMargin/2).isActive = true
-        labelStack.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        labelStack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
-        labelStack.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
+        contentView.add(subview: serviceImageView)
+        serviceImageView.trailingAnchor.constraint(equalTo: levelLabel.trailingAnchor).isActive = true
+        serviceImageView.heightAnchor.constraint(equalToConstant: Size.Image.tinyService).isActive = true
+        serviceImageView.widthAnchor.constraint(equalTo: serviceImageView.heightAnchor).isActive = true
+        serviceImageView.centerYAnchor.constraint(equalTo: serviceNameLabel.centerYAnchor).isActive = true
 
-        serviceAndDateStack.widthAnchor.constraint(equalTo: labelStack.widthAnchor).isActive = true
+        bodyLabel.topAnchor.constraint(equalTo: serviceNameLabel.bottomAnchor, constant: Size.smallestMargin).isActive = true
+        dateLabel.firstBaselineAnchor.constraint(equalTo: serviceNameLabel.firstBaselineAnchor).isActive = true
     }
 
-    func configure(data notification: LocalNotifireNotification) {
+    override func configure(data notification: LocalNotifireNotification) {
+        super.configure(data: notification)
         guard let service: ServiceRepresentable = notification.service ?? notification.serviceSnippet else { return }
         // Local Service
         if let imageURL = service.imageURL {
-            serviceImageView.roundedImageView.sd_setImage(with: imageURL, placeholderImage: LocalService.defaultImage, options: [], completed: nil)
+            serviceImageView.sd_setImage(with: imageURL, placeholderImage: LocalService.defaultImage, options: [], completed: nil)
         } else {
             serviceImageView.image = LocalService.defaultImage
         }
-        serviceInformationLabel.text = "\(service.name)"
-        currentNotificationID = notification.notificationID
+        serviceNameLabel.text = "\(service.name)"
         bodyLabel.text = notification.body
         let dateString = notification.date.formatRelativeString()
         dateLabel.text = dateString
         indicatorStack.set(textVisible: notification.text != nil, imageVisible: notification.additionalURL != nil)
-        serviceImageView.set(level: notification.level)
+        levelLabel.text = notification.level.emoji
         updateNotificationReadView(from: notification)
     }
 }
 
-class ServiceNotificationTableViewCell: NotificationBaseTableViewCell, CellConfigurable {
-    typealias DataType = LocalNotifireNotification
+class ServiceNotificationTableViewCell: NotificationBaseTableViewCell {
 
     // MARK: Views
-    let levelLabel = UILabel(style: .emoji)
-
-    override func viewAboveIndicatorStack() -> UIView {
-        return levelLabel
-    }
-
     // MARK: - Inherited
-    override func setup() {
-        super.setup()
-
-        bodyLabel.set(style: .cellInformation)
-        bodyLabel.numberOfLines = 3
-    }
-
     override func layout() {
         super.layout()
 
-        contentView.add(subview: dateLabel)
-        dateLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        dateLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
-
-        contentView.add(subview: bodyLabel)
-        bodyLabel.leadingAnchor.constraint(equalTo: levelLabel.trailingAnchor, constant: Size.Cell.extendedSideMargin/2).isActive = true
-        bodyLabel.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor, constant: -Size.Cell.extendedSideMargin/2).isActive = true
         bodyLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        bodyLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
+        dateLabel.firstBaselineAnchor.constraint(equalTo: bodyLabel.firstBaselineAnchor).isActive = true
     }
 
-    func configure(data notification: LocalNotifireNotification) {
+    override func configure(data notification: LocalNotifireNotification) {
+        super.configure(data: notification)
         levelLabel.text = notification.level.emoji
         bodyLabel.text = notification.body
         let dateString = notification.date.formatRelativeString()

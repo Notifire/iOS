@@ -173,7 +173,6 @@ class NotificationsViewModel: RealmCollectionViewModel<LocalNotifireNotification
     }
 
     public func markAsRead(notification: LocalNotifireNotification) {
-        guard !notification.isInvalidated, !notification.isRead else { return }
         NotificationReadUnreadManager.markNotificationAsRead(notification: notification, realm: realmProvider.realm)
     }
 }

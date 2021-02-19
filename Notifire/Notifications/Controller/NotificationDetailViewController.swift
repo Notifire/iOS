@@ -19,7 +19,7 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
     lazy var tableView: UITableView = {
         let table = UITableView()
         table.dataSource = self
-        table.allowsSelection = false
+        table.delegate = self
         table.backgroundColor = .compatibleSystemBackground
         table.removeLastSeparatorAndDontShowEmptyCells()
         table.contentInsetAdjustmentBehavior = .always
@@ -39,7 +39,7 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .compatibleSystemBackground
-        setTitle()
+        title = "Notification"
         prepareViewModel()
         layout()
     }
@@ -112,22 +112,6 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
         navigationController.pushViewController(self, animated: false)
     }
 
-    private func setTitle() {
-        let date = viewModel.notification.date.string(with: .complete)
-        var dateComponents = date.components(separatedBy: ",")
-        guard dateComponents.count == 2 else { return }
-        let hhmm = dateComponents.removeFirst()
-        let yymmdd = dateComponents.removeFirst()
-        let dateText = NSMutableAttributedString(string: hhmm, attributes: [.font: UIFont.boldSystemFont(ofSize: 17),
-                                                                            .foregroundColor: UIColor.compatibleLabel])
-        dateText.append(NSAttributedString(string: ","))
-        dateText.append(NSAttributedString(string: yymmdd, attributes: [.font: UIFont.systemFont(ofSize: 14),
-                                                                        .foregroundColor: UIColor.compatibleLabel.withAlphaComponent(0.85)]))
-        let dateLabel = UILabel()
-        dateLabel.attributedText = dateText
-        navigationItem.titleView = dateLabel
-    }
-
     private func prepareViewModel() {
         // Register cells
         viewModel.items.forEach { tableView.register(type(of: $0).cellType, forCellReuseIdentifier: type(of: $0).reuseIdentifier)}
@@ -163,5 +147,14 @@ extension NotificationDetailViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.items.count
+    }
+}
+
+extension NotificationDetailViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = viewModel.items[indexPath.row]
+        if item is NotificationDetailHeaderConfiguration, let cell = tableView.cellForRow(at: indexPath) as? NotificationDetailHeaderCell {
+            cell.dateStyle.swapStyle()
+        }
     }
 }

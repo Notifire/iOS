@@ -31,14 +31,6 @@ extension UIView {
     }
 }
 
-extension UIImageView {
-    convenience init(notifireImage: UIImage) {
-        self.init()
-        self.image = notifireImage.withRenderingMode(.alwaysTemplate)
-        self.tintColor = .spinnerColor
-    }
-}
-
 extension UIEdgeInsets {
     init(everySide size: CGFloat) {
         self.init(top: size, left: size, bottom: size, right: size)

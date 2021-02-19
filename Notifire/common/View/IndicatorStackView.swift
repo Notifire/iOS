@@ -8,19 +8,40 @@
 
 import UIKit
 
+extension UIImageView {
+    /// Create a `UIImageView` that prefers iOS 13+ SFSymbols but falls back to UIImage for lower iOS versions.
+    convenience init(systemName: String, compatibleNotifireImage: UIImage, tintColor: UIColor = .spinnerColor) {
+        self.init()
+        let image: UIImage?
+        if #available(iOS 13, *) {
+            let imageConfig = UIImage.SymbolConfiguration(pointSize: Size.Image.indicator * 3/4)
+            image = UIImage(systemName: systemName, withConfiguration: imageConfig)
+        } else {
+            image = compatibleNotifireImage.resized(to: CGSize(equal: Size.Image.indicator))
+        }
+        self.image = image?.withRenderingMode(.alwaysTemplate)
+        self.tintColor = tintColor
+    }
+}
+
 class IndicatorStackView: UIStackView {
 
+    // MARK: - Properties
+    // MARK: Static
     private static let circleSeparatorWidth: CGFloat = 2
     private static let spacing: CGFloat = 4
 
-    private let textImageView = UIImageView(notifireImage: #imageLiteral(resourceName: "doc.plaintext"))
-    private let circleView: UIView = {
+    // MARK: UI
+    private lazy var textImageView = UIImageView(systemName: "doc.plaintext", compatibleNotifireImage: #imageLiteral(resourceName: "doc.plaintext"))
+
+    private lazy var circleView: UIView = {
         let view = UIView()
         view.backgroundColor = .spinnerColor
         view.layer.cornerRadius = IndicatorStackView.circleSeparatorWidth/2
         return view
     }()
-    private let urlImageView = UIImageView(notifireImage: #imageLiteral(resourceName: "link"))
+
+    private lazy var urlImageView = UIImageView(systemName: "link", compatibleNotifireImage: #imageLiteral(resourceName: "link"))
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,6 +49,11 @@ class IndicatorStackView: UIStackView {
     }
 
     required init(coder: NSCoder) { fatalError() }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        circleView.frame = CGRect(origin: circleView.frame.origin, size: CGSize(equal: Self.circleSeparatorWidth))
+    }
 
     private func setup() {
         axis = .horizontal
@@ -38,18 +64,10 @@ class IndicatorStackView: UIStackView {
         setupArrangedSubviews()
     }
 
-    private func add(imageView: UIImageView) {
-        addArrangedSubview(imageView)
-        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: Size.Image.indicator).isActive = true
-    }
-
     private func setupArrangedSubviews() {
-        add(imageView: textImageView)
+        addArrangedSubview(textImageView)
         addArrangedSubview(circleView)
-        circleView.heightAnchor.constraint(equalTo: circleView.widthAnchor).isActive = true
-        circleView.widthAnchor.constraint(equalToConstant: IndicatorStackView.circleSeparatorWidth).isActive = true
-        add(imageView: urlImageView)
+        addArrangedSubview(urlImageView)
     }
 
     public func set(textVisible: Bool, imageVisible: Bool) {

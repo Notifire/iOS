@@ -22,6 +22,7 @@ extension DateFormatter {
 enum DateFormatStyle: String {
     case dateOnly = "dd.MM.yyyy"
     case complete = "HH:mm:ss.SS, dd.MM.yyyy"
+    case completeNoSec = "HH:mm, dd.MM.yyyy"
     case completeDateFirst = "dd.MM.yyyy HH:mm"
     case completeSpaced = "dd.MM.yyyy\tHH:mm"
 }

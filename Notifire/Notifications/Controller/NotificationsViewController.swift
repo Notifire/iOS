@@ -105,7 +105,7 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
         title = viewModel.title()
     }
 
-    private func updateRightBarButtonItem() {
+    private func updateRightBarButtonItem(animated: Bool = false) {
         let filterImage: UIImage
         if #available(iOS 13, *) {
             let weight = viewModel.notificationsFilterData.isDefaultFilterData ? UIImage.SymbolWeight.regular : .bold
@@ -116,7 +116,7 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
         }
         let barButtonItem = ActionButton.createActionBarButtonItem(image: filterImage, target: self, action: #selector(didPressFilterButton))
         barButtonItem.tintColor = viewModel.notificationsFilterData.isDefaultFilterData ? .compatibleLabel : .primary
-        navigationItem.rightBarButtonItem = barButtonItem
+        navigationItem.setRightBarButton(barButtonItem, animated: animated)
     }
 
     private func layout() {
@@ -174,6 +174,7 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
             let emptyState = addEmptyStateView()
             emptyState?.set(title: viewModel.emptyTitle(), text: viewModel.emptyText())
         case .notifications:
+            updateRightBarButtonItem(animated: true)
             removeEmptyStateView()
         }
     }
@@ -181,10 +182,5 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
     // MARK: Event Handling
     @objc private func didPressFilterButton() {
         onFilterActionTapped?()
-    }
-
-    func showNotificationDetailVC(notification: LocalNotifireNotification) {
-        viewModel.markAsRead(notification: notification)
-        delegate?.didSelect(notification: notification)
     }
 }

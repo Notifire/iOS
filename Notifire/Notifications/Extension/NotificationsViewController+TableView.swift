@@ -12,7 +12,7 @@ extension NotificationsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let notification = viewModel.collection[indexPath.row]
-        showNotificationDetailVC(notification: notification)
+        delegate?.didSelect(notification: notification)
     }
 
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -22,10 +22,11 @@ extension NotificationsViewController: UITableViewDelegate {
             self?.viewModel.swapNotificationReadUnread(notification: notification)
             completion(true)
             (tableView.cellForRow(at: indexPath) as? NotificationPresenting)?.updateNotificationReadView(from: notification)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
         changeReadAction.backgroundColor = .primary
         if #available(iOS 13, *) {
-            changeReadAction.image = isRead ? UIImage(systemName: "envelope.badge") : UIImage(systemName: "envelope.open")
+            changeReadAction.image = isRead ? UIImage(systemName: "envelope.badge.fill") : UIImage(systemName: "envelope.open.fill")
         } else {
             changeReadAction.image = isRead ? #imageLiteral(resourceName: "baseline_email_black_48pt").withRenderingMode(.alwaysTemplate) :  #imageLiteral(resourceName: "baseline_drafts_black_48pt").withRenderingMode(.alwaysTemplate)
         }
@@ -42,7 +43,7 @@ extension NotificationsViewController: UITableViewDelegate {
         }
         deleteNotificationAction.backgroundColor = .compatibleRed
         if #available(iOS 13, *) {
-            deleteNotificationAction.image = UIImage(systemName: "trash")
+            deleteNotificationAction.image = UIImage(systemName: "trash.fill")
         }
         let config = UISwipeActionsConfiguration(actions: [deleteNotificationAction])
         config.performsFirstActionWithFullSwipe = false
@@ -74,7 +75,7 @@ extension NotificationsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         let notification = viewModel.collection[indexPath.row]
-        return heightDictionary[notification.notificationID] ?? UITableView.automaticDimension
+        return heightDictionary[notification.notificationID] ?? Size.Cell.heightExtended
     }
 }
 
@@ -109,6 +110,7 @@ extension NotificationsViewController {
                 image: shouldUseReadAction ? UIImage(systemName: "envelope.badge") : UIImage(systemName: "envelope.open")) { _ in
                 self.viewModel.swapNotificationReadUnread(notification: notification)
                 (tableView.cellForRow(at: indexPath) as? NotificationPresenting)?.updateNotificationReadView(from: notification)
+                tableView.deselectRow(at: indexPath, animated: true)
             }
             children.append(readUnreadAction)
             // Copy body
@@ -156,14 +158,14 @@ extension NotificationsViewController {
         guard let cell = getCellFrom(configuration: configuration), let indexPath = tableView.indexPath(for: cell) else { return }
         let notification = viewModel.collection[indexPath.row]
         animator.addCompletion { [weak self] in
-            self?.showNotificationDetailVC(notification: notification)
+            self?.delegate?.didSelect(notification: notification)
         }
     }
 
     private func getCellFrom(configuration: UIContextMenuConfiguration) -> UITableViewCell? {
         guard
             let notificationID = configuration.identifier as? String,
-            let cell = tableView.visibleCells.first(where: { ($0 as? NotificationTableViewCell)?.currentNotificationID == notificationID })
+            let cell = tableView.visibleCells.first(where: { ($0 as? NotificationBaseTableViewCell)?.currentNotificationID == notificationID })
         else {
             return nil
         }
