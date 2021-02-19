@@ -16,9 +16,20 @@ struct Service: Codable, Equatable {
     }
 
     struct Image: Codable, Equatable {
-        let small: String
-        let medium: String
-        let large: String
+        let small: URL
+        let medium: URL
+        let large: URL
+
+        init?(smallString: String?, mediumString: String?, largeString: String?) {
+            guard
+                let smallString = smallString, let small = URL(string: smallString),
+                let mediumString = mediumString, let medium = URL(string: mediumString),
+                let largeString = largeString, let large = URL(string: largeString)
+            else { return nil }
+            self.small = small
+            self.medium = medium
+            self.large = large
+        }
     }
 
     let name: String

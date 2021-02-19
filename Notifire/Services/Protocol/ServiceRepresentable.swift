@@ -8,10 +8,12 @@
 
 import Foundation
 
+/// Represents any object that can be displayed as a service.
 protocol ServiceRepresentable {
+    /// The name of the servic
     var name: String { get }
     var id: Int { get }
-    var imageURL: URL? { get }
+    var image: Service.Image? { get }
 }
 
 // MARK: Equatable
@@ -27,5 +29,13 @@ extension LocalService: ServiceRepresentable {
     var imageURL: URL? {
         guard let urlString = smallImageURLString else { return nil }
         return URL(string: urlString)
+    }
+
+    var image: Service.Image? {
+        return Service.Image(
+            smallString: smallImageURLString,
+            mediumString: mediumImageURLString,
+            largeString: largeImageURLString
+        )
     }
 }

@@ -8,15 +8,8 @@
 
 import Foundation
 
-struct ServiceSnippet: Codable {
+struct ServiceSnippet: Codable, ServiceRepresentable {
     var name: String
     var id: Int
     var image: Service.Image?
-}
-
-extension ServiceSnippet: ServiceRepresentable {
-    var imageURL: URL? {
-        guard let img = image else { return nil }
-        return URL(string: img.small)
-    }
 }

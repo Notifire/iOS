@@ -168,9 +168,9 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
         if let localServiceSnippet = localServiceSnippets.first(where: { $0.id == service.id }) {
             localServiceSnippet.name = service.name
             if let image = service.image {
-                localServiceSnippet.smallImageURLString = image.small
-                localServiceSnippet.mediumImageURLString = image.medium
-                localServiceSnippet.largeImageURLString = image.large
+                localServiceSnippet.smallImageURLString = image.small.absoluteString
+                localServiceSnippet.mediumImageURLString = image.medium.absoluteString
+                localServiceSnippet.largeImageURLString = image.large.absoluteString
             }
         }
 

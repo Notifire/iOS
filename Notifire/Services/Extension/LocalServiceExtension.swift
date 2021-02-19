@@ -22,9 +22,9 @@ extension LocalService {
         warning = service.levels.warning
         error = service.levels.error
         if let imageData = service.image {
-            smallImageURLString = imageData.small
-            mediumImageURLString = imageData.medium
-            largeImageURLString = imageData.large
+            smallImageURLString = imageData.small.absoluteString
+            mediumImageURLString = imageData.medium.absoluteString
+            largeImageURLString = imageData.large.absoluteString
         } else {
             smallImageURLString = nil
             mediumImageURLString = nil
@@ -40,9 +40,9 @@ extension LocalService {
     func updateDataExceptID(from serviceSnippet: ServiceSnippet) {
         name = serviceSnippet.name
         if let imageData = serviceSnippet.image {
-            smallImageURLString = imageData.small
-            mediumImageURLString = imageData.medium
-            largeImageURLString = imageData.large
+            smallImageURLString = imageData.small.absoluteString
+            mediumImageURLString = imageData.medium.absoluteString
+            largeImageURLString = imageData.large.absoluteString
         }
     }
 
@@ -51,13 +51,7 @@ extension LocalService {
     }
 
     var asService: Service {
-        let images: Service.Image?
-        if let small = smallImageURLString, let medium = mediumImageURLString, let large = largeImageURLString {
-            images = Service.Image(small: small, medium: medium, large: large)
-        } else {
-            images = nil
-        }
-        return Service(name: name, image: images, id: id, levels: Service.Levels(info: info, warning: warning, error: error), apiKey: serviceAPIKey, updatedAt: updatedAt)
+        return Service(name: name, image: image, id: id, levels: Service.Levels(info: info, warning: warning, error: error), apiKey: serviceAPIKey, updatedAt: updatedAt)
     }
 
     var levels: Service.Levels {

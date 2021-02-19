@@ -9,9 +9,8 @@
 import Foundation
 
 extension LocalServiceSnippet: ServiceRepresentable {
-    var imageURL: URL? {
-        guard let urlString = mediumImageURLString else { return nil }
-        return URL(string: urlString)
+    var image: Service.Image? {
+        return Service.Image(smallString: smallImageURLString, mediumString: mediumImageURLString, largeString: largeImageURLString)
     }
 }
 

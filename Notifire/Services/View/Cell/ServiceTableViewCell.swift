@@ -76,8 +76,8 @@ class ServiceTableViewCell: ReusableBaseTableViewCell {
 
     // MARK: Update model
     func configure(from representable: ServiceRepresentable) {
-        if let imageURL = representable.imageURL {
-            serviceImageView.sd_setImage(with: imageURL, placeholderImage: LocalService.defaultImage, options: [], context: [:])
+        if let image = representable.image {
+            serviceImageView.sd_setImage(with: image.medium, placeholderImage: LocalService.defaultImage, options: [], context: [:])
         } else {
             serviceImageView.image = LocalService.defaultImage
         }

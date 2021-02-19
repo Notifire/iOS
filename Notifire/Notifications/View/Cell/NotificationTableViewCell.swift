@@ -160,8 +160,8 @@ class NotificationTableViewCell: NotificationBaseTableViewCell {
         super.configure(data: notification)
         guard let service: ServiceRepresentable = notification.service ?? notification.serviceSnippet else { return }
         // Local Service
-        if let imageURL = service.imageURL {
-            serviceImageView.sd_setImage(with: imageURL, placeholderImage: LocalService.defaultImage, options: [], completed: nil)
+        if let image = service.image {
+            serviceImageView.sd_setImage(with: image.small, placeholderImage: LocalService.defaultImage, options: [], completed: nil)
         } else {
             serviceImageView.image = LocalService.defaultImage
         }
