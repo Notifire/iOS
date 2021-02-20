@@ -48,8 +48,8 @@ class CustomGradientLayer: CAGradientLayer {
         case .normal:
             startPoint = CGPoint(x: 0, y: 0.25)
             endPoint = CGPoint(x: 0, y: 1)
-            colors = [UIColor.black.withAlphaComponent(0.4).cgColor, UIColor.black.withAlphaComponent(0).cgColor]
-            opacity = 0.8
+            colors = [UIColor.black.withAlphaComponent(0.3).cgColor, UIColor.black.withAlphaComponent(0).cgColor]
+            opacity = 0.7
         }
 
         switch gradientDirection {

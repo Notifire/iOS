@@ -9,34 +9,6 @@
 import UIKit
 import SkeletonView
 
-class ServicesTableView: UITableView {
-
-    /// Whether this tableView is currently scrolling or not.
-    public var isScrolling: Bool = false
-
-    // MARK: - Initialization
-    override init(frame: CGRect, style: UITableView.Style) {
-        super.init(frame: frame, style: style)
-        setup()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
-    }
-
-    private func setup() {
-        rowHeight = Size.Cell.heightExtended
-        estimatedRowHeight = Size.Cell.heightExtended
-        removeLastSeparatorAndDontShowEmptyCells()
-        backgroundColor = .compatibleBackgroundAccent
-        contentInsetAdjustmentBehavior = .never
-        isSkeletonable = true
-        register(reusableHeaderFooter: ServicesTableViewFooterView.self)
-        register(cells: [ServiceTableViewCell.self, PaginationLoadingTableViewCell.self])
-    }
-}
-
 class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBarDisplaying, EmptyStatePresentable, TableViewReselectable, APIErrorPresenting, APIErrorResponding {
 
     // MARK: - Properties
@@ -51,8 +23,6 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
         tv.delegate = self
         return tv
     }()
-
-    var connectionStatusView: ServicesWebSocketConnectionStatusView?
 
     // MARK: EmptyStatePresentable
     typealias EmptyStateView = ServicesEmptyStateView
@@ -137,28 +107,6 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
             self?.tableView.reloadSections(IndexSet([1]), with: .automatic)
         }
 
-        viewModel.onConnectionViewStateChange = { [weak self] state in
-            guard let `self` = self else { return }
-
-            if self.connectionStatusView == nil {
-                self.addConnectionStatusView()
-            }
-
-            switch state {
-            case .connected:
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                    // Only remove the connected status view if we're still connected after 2s
-                    guard self.viewModel.connectionViewState == .connected else { return }
-                    self.connectionStatusView?.hideStatusViewAnimated()
-                    self.connectionStatusView = nil
-                })
-            case .connecting, .offline:
-                break
-            }
-
-            self.connectionStatusView?.updateStyle(from: state)
-        }
-
         viewModel.onServiceDeletion = { [weak self] id in
             self?.delegate?.didDeleteService(with: id)
         }
@@ -169,17 +117,6 @@ class ServicesViewController: VMViewController<ServicesViewModel>, NavigationBar
     private func layout() {
         view.add(subview: tableView)
         tableView.embedInVerticalSafeArea(in: view)
-    }
-
-    private func addConnectionStatusView() {
-        guard connectionStatusView == nil else { return }
-        let connectionStatusView = ServicesWebSocketConnectionStatusView()
-        self.connectionStatusView = connectionStatusView
-
-        view.add(subview: connectionStatusView)
-        connectionStatusView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        connectionStatusView.embedSides(in: view)
-        connectionStatusView.showStatusViewAnimated()
     }
 
     private func updateViewStateAppearance(state: ServicesViewModel.ViewState, oldState: ServicesViewModel.ViewState) {

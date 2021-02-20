@@ -61,8 +61,7 @@ class NotificationObserver: NotificationObserving {
     /// - Parameters:
     ///     - notificationNames: array of `NSNotification.Name` that this observer will observe
     ///     - notificationHandlers: dictionary of `NSNotification.Name` and `NotificationHandler`. Make sure the size of this dict matches the size of `notificationNames`
-    ///     - setupImmediately: if `true`, the `setupObservers()` method is called automatically in the initializer. Set this to false if you want to observe notifications later.
-    init(notificationNames: [NSNotification.Name], notificationHandlers: NotificationHandlers, setupImmediately: Bool = true) {
+    init(notificationNames: [NSNotification.Name], notificationHandlers: NotificationHandlers) {
         self.notificationNames = notificationNames
         self.notificationHandlers = notificationHandlers
         startObservingNotifications()
@@ -74,5 +73,39 @@ class NotificationObserver: NotificationObserving {
 
     deinit {
         stopObservingNotifications()
+    }
+}
+
+// MARK: - SpecificUserInfoNotificationObserver
+/// Extended implementation of NotificationObserving where this object automatically decodes the pre-definde userInfo data type.
+/// Used for one notification only
+class ExtendedNotificationObserver: NotificationObserving {
+
+    // MARK: - Properties
+    var observers: [NSObjectProtocol] = []
+    var notificationNames: [NSNotification.Name]
+    var notificationHandlers: NotificationHandlers
+
+    // MARK: Static
+    static let userInfoDataKey = "data"
+
+    // MARK: - Initialization
+    /// - Parameters:
+    ///     - notificationNames: array of `NSNotification.Name` that this observer will observe
+    ///     - notificationHandlers: dictionary of `NSNotification.Name` and `NotificationHandler`. Make sure the size of this dict matches the size of `notificationNames`
+    init<NotificationData>(notificationName: NSNotification.Name, notificationBlock: ((NotificationData) -> Void)?) {
+        self.notificationNames = [notificationName]
+        self.notificationHandlers = [
+            notificationName: { notification in
+                guard
+                    let notificationData = notification.userInfo?[Self.userInfoDataKey] as? NotificationData
+                else {
+                    Logger.log(.error, "ExtendedNotificationObserver couldn't find \(notification.name) data in userInfo")
+                    return
+                }
+                notificationBlock?(notificationData)
+            }
+        ]
+        startObservingNotifications()
     }
 }

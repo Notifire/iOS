@@ -629,6 +629,8 @@
 		89D616AD2505A81B00287331 /* SSOAuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616AB2505A81B00287331 /* SSOAuthenticationProvider.swift */; };
 		89D616B12505A86600287331 /* AuthenticationProvider+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616B02505A86600287331 /* AuthenticationProvider+Image.swift */; };
 		89D616B22505A86600287331 /* AuthenticationProvider+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D616B02505A86600287331 /* AuthenticationProvider+Image.swift */; };
+		89E4C72925E041690037179F /* ServicesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4C72825E041680037179F /* ServicesTableView.swift */; };
+		89E4C72A25E041690037179F /* ServicesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4C72825E041680037179F /* ServicesTableView.swift */; };
 		89E6B6BA24FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6B924FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift */; };
 		89E6B6BB24FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6B924FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift */; };
 		89E6B6BD24FF0E3E00F7A79C /* AppCoordinator+UserSessionHandlerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6B6BC24FF0E3E00F7A79C /* AppCoordinator+UserSessionHandlerDelegate.swift */; };
@@ -1141,6 +1143,7 @@
 		89D616A82505A81300287331 /* SSOAuthenticationProvider+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SSOAuthenticationProvider+Image.swift"; sourceTree = "<group>"; };
 		89D616AB2505A81B00287331 /* SSOAuthenticationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSOAuthenticationProvider.swift; sourceTree = "<group>"; };
 		89D616B02505A86600287331 /* AuthenticationProvider+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthenticationProvider+Image.swift"; sourceTree = "<group>"; };
+		89E4C72825E041680037179F /* ServicesTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesTableView.swift; sourceTree = "<group>"; };
 		89E6B6B924FF0E2900F7A79C /* AppCoordinator+NotifireUserSessionCreationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+NotifireUserSessionCreationDelegate.swift"; sourceTree = "<group>"; };
 		89E6B6BC24FF0E3E00F7A79C /* AppCoordinator+UserSessionHandlerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+UserSessionHandlerDelegate.swift"; sourceTree = "<group>"; };
 		89E6B6BF24FF0E5300F7A79C /* AppCoordinator+DeeplinkedVMViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+DeeplinkedVMViewControllerDelegate.swift"; sourceTree = "<group>"; };
@@ -1929,6 +1932,7 @@
 				893FE02521962DC0002CD846 /* ServiceHeaderView.swift */,
 				894AB6832512608100F2CBF5 /* Cell */,
 				893A4A482529207200DD02D0 /* ServicesWebSocketConnectionStatusView.swift */,
+				89E4C72825E041680037179F /* ServicesTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3309,6 +3313,7 @@
 				895637C225575989005E4A4E /* AppVersionManager.swift in Sources */,
 				89576AB624FD412A0097BF87 /* NotifireAPIDecodable.swift in Sources */,
 				89E817C625DAC85D00BA8927 /* FullScreenBackGesturePanAltering.swift in Sources */,
+				89E4C72A25E041690037179F /* ServicesTableView.swift in Sources */,
 				89D616AA2505A81300287331 /* SSOAuthenticationProvider+Image.swift in Sources */,
 				8915FB382526107700BD36B2 /* WebSocketDisconnectContext.swift in Sources */,
 				89F19D672566C1590030AFE0 /* DLChangeEmailViewModel.swift in Sources */,
@@ -3768,6 +3773,7 @@
 				8933F0C02141329500645B3A /* ComponentRule.swift in Sources */,
 				895418F4251BF5BD0046464D /* ConcurrentOperation.swift in Sources */,
 				892DC0C725609BA40067EB12 /* SettingsRows.swift in Sources */,
+				89E4C72925E041690037179F /* ServicesTableView.swift in Sources */,
 				8933F0DF2143379700645B3A /* HTTPHeader.swift in Sources */,
 				89F19D90256B802B0030AFE0 /* UIHyperTextView.swift in Sources */,
 				892DC0B725607B3D0067EB12 /* CaseIterable+Init.swift in Sources */,

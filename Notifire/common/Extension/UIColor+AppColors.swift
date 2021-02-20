@@ -83,7 +83,7 @@ extension UIColor {
     }()
 
     public static var compatibleShadow: UIColor = {
-        return from(light: UIColor.black, dark: UIColor(same: 150))
+        return from(light: UIColor.black, dark: UIColor(same: 150).withAlphaComponent(0.6))
     }()
 
     public static var compatibleSystemGroupedBackground: UIColor = {

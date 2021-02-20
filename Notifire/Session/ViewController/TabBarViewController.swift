@@ -36,6 +36,8 @@ class TabBarViewController: VMViewController<TabBarViewModel>, AppRevealing {
     var notificationsAlertView: UIView?
     var notificationsButton: UIButton?
 
+    var connectionStatusView: ServicesWebSocketConnectionStatusView?
+
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +80,29 @@ class TabBarViewController: VMViewController<TabBarViewModel>, AppRevealing {
                 UIApplication.shared.applicationIconBadgeNumber = numberOfUnreadNotifications
             }
         }
+
+        viewModel.webSocketConnectionViewModel.onConnectionViewStateChange = { [weak self] state in
+            guard let `self` = self else { return }
+
+            if self.connectionStatusView == nil {
+                self.addConnectionStatusViewIfNeeded()
+            }
+
+            switch state {
+            case .connected:
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                    // Only remove the connected status view if we're still connected after 2s
+                    guard self.viewModel.webSocketConnectionViewModel.connectionViewState == .connected else { return }
+                    self.connectionStatusView?.hideStatusViewAnimated()
+                    self.connectionStatusView = nil
+                })
+            case .connecting, .offline:
+                break
+            }
+
+            self.connectionStatusView?.updateStyle(from: state)
+        }
+
         viewModel.setupResultsTokenIfNeeded()
     }
 
@@ -113,6 +138,17 @@ class TabBarViewController: VMViewController<TabBarViewModel>, AppRevealing {
             activeAlertView.removeFromSuperview()
             self?.notificationsAlertView = nil
         }))
+    }
+
+    private func addConnectionStatusViewIfNeeded() {
+        guard connectionStatusView == nil else { return }
+        let connectionStatusView = ServicesWebSocketConnectionStatusView()
+        self.connectionStatusView = connectionStatusView
+
+        view.insertSubview(connectionStatusView, belowSubview: buttonsContainerView)
+        connectionStatusView.bottomAnchor.constraint(equalTo: buttonsContainerView.topAnchor).isActive = true
+        connectionStatusView.embedSides(in: view)
+        connectionStatusView.showStatusViewAnimated()
     }
 
     // MARK: Layout

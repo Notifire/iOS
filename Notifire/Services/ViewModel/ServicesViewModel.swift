@@ -10,6 +10,65 @@ import UIKit
 import RealmSwift
 import Starscream
 
+class WebSocketConnectionViewModel {
+
+    /// Enumeration representing the connection status to the websocket
+    enum ViewState: Equatable {
+        case offline
+        case connecting
+        case connected
+    }
+
+    // MARK: - Properties
+    var connectionViewState: ViewState? = nil {
+        didSet {
+            guard
+                !isFirstAttemptToConnect,    // don't show connection state on first connect
+                let newState = connectionViewState,
+                oldValue != newState
+            else { return }
+            onConnectionViewStateChange?(newState)
+        }
+    }
+
+    lazy var connectionStatusObserver: ExtendedNotificationObserver = ExtendedNotificationObserver(notificationName: .didChangeWebSocketConnectionStatus) { [weak self] (statusChange: WebSocketConnectionStatus.Change) in
+        // Make sure that the attempt is not the first one after disconnecting
+        // Used to show the connection status view...
+        if case .disconnected = statusChange.new, self?.isFirstAttemptToConnect ?? false {
+            self?.isFirstAttemptToConnect = false
+        }
+        // Update the model
+        self?.updateConnectionViewState(statusChange.new)
+    }
+
+    /// `true` if the websocket is connecting for the first time
+    var isFirstAttemptToConnect: Bool = true
+
+    // MARK: Callback
+    /// Called  when `connectionViewState` changes
+    var onConnectionViewStateChange: ((ViewState) -> Void)?
+
+    // MARK: - Initialization
+    init() {
+        // Compute the lazy var
+        _ = connectionStatusObserver
+    }
+
+    // MARK: - Private
+    private func updateConnectionViewState(_ status: WebSocketConnectionStatus) {
+        let newViewState: ViewState
+        switch (connectionViewState, status) {
+        case (nil, .connecting), (.connecting, .connecting), (_, .connected), (_, .disconnected(context: .disconnect(_, code: .expiredSessionID))), (_, .disconnected(context: .disconnect(_, code: .invalidAccessToken))), (_, .disconnected(context: .disconnect(_, code: .appWillResignActive))):
+            newViewState = .connecting
+        case (_, .disconnected), (_, .connecting): newViewState = .offline
+        case (_, .authorized): newViewState = .connected
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.connectionViewState = newViewState
+        }
+    }
+}
+
 /// The services view ViewModel
 class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
 
@@ -20,17 +79,12 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
         case emptyState
     }
 
-    /// Enumeration representing the connection status to the websocket
-    enum WebSocketConnectionViewState: Equatable {
-        case offline
-        case connecting
-        case connected
-    }
-
     // MARK: - Properties
     let userSessionHandler: UserSessionHandler
     private let websocketManager: ServiceWebSocketManager
     let synchronizationManager: ServicesSynchronizationManager
+
+    var connectionStatusObserver: ExtendedNotificationObserver?
 
     /// queue for CRUD on LocalService + GET /services
     lazy var synchronizedDispatchQueue = DispatchQueue(label: "\(Config.bundleID).ServicesViewModel.synchronizedQueue")
@@ -58,9 +112,6 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
         return synchronizationManager.paginationHandler.noPagesFetched
     }
 
-    /// `true` if the websocket is connecting for the first time
-    var isFirstAttemptToConnect: Bool = true
-
     // MARK: APIErrorProducing
     var onError: ((NotifireAPIError) -> Void)?
 
@@ -68,17 +119,6 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
     var viewState: ViewState = .skeleton {
         didSet {
             onViewStateChange?(viewState, oldValue)
-        }
-    }
-
-    var connectionViewState: WebSocketConnectionViewState? = nil {
-        didSet {
-            guard
-                !isFirstAttemptToConnect,    // don't show connection state on first connect
-                let newState = connectionViewState,
-                oldValue != newState
-            else { return }
-            onConnectionViewStateChange?(newState)
         }
     }
 
@@ -124,8 +164,6 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
 
     /// Called when `viewState` changes
     var onViewStateChange: ((ViewState, OldViewState) -> Void)?
-    /// Called  when `connectionViewState` changes
-    var onConnectionViewStateChange: ((WebSocketConnectionViewState) -> Void)?
     /// Called on `services` change
     var onServicesChange: ((ServiceRepresentableChanges) -> Void)?
     /// Called when `isFetching` changes
@@ -153,18 +191,8 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
     func start() {
         // WebSocket
         // Connection status
-        websocketManager.onWebSocketConnectionStatusChange = { [weak self] old, new in
-            self?.handleWebSocketConnectionStatusChange(old, new)
-        }
-
-        // Service Event handling
-        websocketManager.onServiceEvent = { [weak self] eventData in
-            self?.handleServiceEvent(data: eventData)
-        }
-
-        // Replay event handling
-        websocketManager.onReplayEvent = { [weak self] events in
-            self?.handleReplayEvent(eventsData: events)
+        connectionStatusObserver = ExtendedNotificationObserver(notificationName: .didChangeWebSocketConnectionStatus) { [weak self] (statusChange: WebSocketConnectionStatus.Change) in
+            self?.handleWebSocketConnectionStatusChange(statusChange.old, statusChange.new)
         }
 
         // Connect to the socket
@@ -385,19 +413,6 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
     }
 
     // MARK: - Private
-    private func updateConnectionViewState(_ status: WebSocketConnectionStatus) {
-        let newViewState: WebSocketConnectionViewState
-        switch (connectionViewState, status) {
-        case (nil, .connecting), (.connecting, .connecting), (_, .connected), (_, .disconnected(context: .disconnect(_, code: .expiredSessionID))), (_, .disconnected(context: .disconnect(_, code: .invalidAccessToken))), (_, .disconnected(context: .disconnect(_, code: .appWillResignActive))):
-            newViewState = .connecting
-        case (_, .disconnected), (_, .connecting): newViewState = .offline
-        case (_, .authorized): newViewState = .connected
-        }
-        DispatchQueue.main.async { [weak self] in
-            self?.connectionViewState = newViewState
-        }
-    }
-
     private func updateViewState(to new: ViewState) {
         DispatchQueue.main.async { [weak self] in
             self?.viewState = new
@@ -421,16 +436,13 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
                 synchronizeLocalServicesWithRemote()
             }
         case (_, .disconnected):
-            if isFirstAttemptToConnect { isFirstAttemptToConnect = false }
             // Swap to offline mode if needed
             if !synchronizationManager.isOfflineModeActive {
                 swapOnlineOfflineMode(to: .toOffline)
             }
-
         default:
             break
         }
-        updateConnectionViewState(new)
     }
 
     /// Handles `viewState` changes and updates `services`
@@ -507,5 +519,13 @@ extension ServicesViewModel: ServiceWebSocketManagerDelegate {
     func didRequestFreshConnect() {
         // Make sure to do a SyncAllServicesOperation again
         areLocalServicesSynchronized = false
+    }
+
+    func didReceiveServiceEvent(data eventData: NotifireWebSocketServiceEventData) {
+        handleServiceEvent(data: eventData)
+    }
+
+    func didReceiveReplayEvent(data eventData: NotifireWebSocketReplayEventData) {
+        handleReplayEvent(eventsData: eventData)
     }
 }

@@ -37,6 +37,9 @@ class TabBarViewModel: RealmCollectionViewModel<LocalNotifireNotification> {
     var notificationPermissionsObserver: NotificationObserver?
     weak var notificationPermissionPrompt: UserAttentionPrompt?
 
+    // MARK: WebSocketConnection
+    let webSocketConnectionViewModel = WebSocketConnectionViewModel()
+
     // MARK: Callbacks
     var onTabChange: ((Tab) -> Void)?
     /// Called when a `Tab` is reselected. `Bool` = animated.

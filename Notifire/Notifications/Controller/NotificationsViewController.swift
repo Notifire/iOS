@@ -65,8 +65,10 @@ class NotificationsViewController: UIViewController, NavigationBarDisplaying, Em
         table.estimatedRowHeight = UITableView.automaticDimension
         table.estimatedSectionFooterHeight = 0
         table.estimatedSectionHeaderHeight = 0
+        table.contentInsetAdjustmentBehavior = .never
         table.backgroundColor = .compatibleBackgroundAccent
-        table.dontShowEmptyCells()
+        table.tableFooterView = ServicesTableViewFooterView(frame: CGRect(origin: .zero, size: CGSize(width: 0, height: Size.footerHeight)))
+        table.register(headerFooters: [ServicesTableViewFooterView.self])
         return table
     }()
 

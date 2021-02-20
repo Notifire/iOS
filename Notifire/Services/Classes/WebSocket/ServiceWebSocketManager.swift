@@ -14,6 +14,10 @@ protocol ServiceWebSocketManagerDelegate: class {
     /// Invoked whenever the websocket server enforces the client to do a new connect operation (not reconnect)
     /// e.g. `expiredSessionID`
     func didRequestFreshConnect()
+    /// Called when ServiceWebSocketManager receives service event data.
+    func didReceiveServiceEvent(data: NotifireWebSocketServiceEventData)
+    /// Called when ServiceWebSocketManager receives replay event data.
+    func didReceiveReplayEvent(data: NotifireWebSocketReplayEventData)
 }
 
 /// Class reponsible for connecting to the websocket and observing Services changes
@@ -62,13 +66,6 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
     /// - Note: used for reconnecting to the socket.
     var lastSessionID: String?
 
-    // MARK: Callbacks
-    var onWebSocketConnectionStatusChange: ((WebSocketConnectionStatus, WebSocketConnectionStatus) -> Void)?
-
-    var onServiceEvent: ((NotifireWebSocketServiceEventData) -> Void)?
-
-    var onReplayEvent: ((NotifireWebSocketReplayEventData) -> Void)?
-
     // MARK: Static
     static let reconnectDelay: TimeInterval = 1
 
@@ -107,10 +104,13 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
     }
 
     func disconnect(code: WebSocketErrorCode = .noInternetConnection) {
+        // Make sure we're not disconnected right now
         guard !isDisconnected else { return }
 
+        // Change the status
         webSocketConnectionStatus = .disconnected(context: .disconnect(reason: "No internet connection", code: code))
 
+        // Actually disconnect
         socket.disconnect()
     }
 
@@ -236,7 +236,7 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
         guard isAuthorized else { return }
 
         // Callback
-        onServiceEvent?(event.data)
+        delegate?.didReceiveServiceEvent(data: event.data)
     }
 
     // MARK: Replay Event
@@ -244,7 +244,8 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
         Logger.logNetwork(.debug, "\(self) handling replay event=<\(event)>")
 
         guard isAuthorized else { return }
-        onReplayEvent?(event.data)
+        // Callback
+        delegate?.didReceiveReplayEvent(data: event.data)
     }
 
     // MARK: Error Event
@@ -295,8 +296,15 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
             break
         }
 
-        // Notify the listener if needed
-        onWebSocketConnectionStatusChange?(old, new)
+        // Notify observers
+        let change = WebSocketConnectionStatus.Change(old: old, new: new)
+        NotificationCenter.default.post(name: .didChangeWebSocketConnectionStatus, object: nil, userInfo: [ExtendedNotificationObserver.userInfoDataKey: change])
     }
 
+}
+
+// MARK: - Notification
+extension Notification.Name {
+    /// Posted when ServiceWebSocketManager changes its connection status
+    static let didChangeWebSocketConnectionStatus = Notification.Name("didChangeWebSocketConnectionStatus")
 }

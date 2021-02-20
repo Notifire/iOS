@@ -153,7 +153,7 @@ class ServicesWebSocketConnectionStatusView: ConstrainableView {
     }
 
     // MARK: - Methods
-    func updateStyle(from connectionStatus: ServicesViewModel.WebSocketConnectionViewState) {
+    func updateStyle(from connectionStatus: WebSocketConnectionViewModel.ViewState) {
         let duration: TimeInterval = 0.4
         let maybeOldLabel = currentLabel
         let newLabel = addLabel()

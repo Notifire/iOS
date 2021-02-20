@@ -14,3 +14,12 @@ enum WebSocketConnectionStatus: Equatable {
     case connected(headers: [String: String])
     case authorized(sessionID: String)
 }
+
+extension WebSocketConnectionStatus {
+
+    /// Represent the change of WebSocketConnectionStatus
+    struct Change {
+        let old: WebSocketConnectionStatus
+        let new: WebSocketConnectionStatus
+    }
+}
