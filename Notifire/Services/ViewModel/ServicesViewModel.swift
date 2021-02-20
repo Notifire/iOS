@@ -435,7 +435,7 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
                 // POST /services/sync after connecting to the socket
                 synchronizeLocalServicesWithRemote()
             }
-        case (_, .disconnected):
+        case (_, .disconnected(.disconnect(_, code: .noInternetConnection))):
             // Swap to offline mode if needed
             if !synchronizationManager.isOfflineModeActive {
                 swapOnlineOfflineMode(to: .toOffline)
