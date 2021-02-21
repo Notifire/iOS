@@ -56,6 +56,7 @@ class NotificationsCoordinator: NavigatingChildCoordinator, TabbedCoordinator, P
         let notificationDetailVM = NotificationDetailViewModel(
             realmProvider: realmProvider,
             notification: notification,
+            userSession: notificationsViewController.viewModel.userSession,
             serviceUnreadCount: showServiceUnreadCount,
             markAsRead: markAsRead
         )

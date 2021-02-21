@@ -20,6 +20,8 @@ class NotificationsViewModel: RealmCollectionViewModel<LocalNotifireNotification
     }
 
     // MARK: - Properties
+    let userSession: UserSession
+
     // MARK: Model
     var viewState: ViewState = .empty {
         didSet {
@@ -68,7 +70,8 @@ class NotificationsViewModel: RealmCollectionViewModel<LocalNotifireNotification
     var onNotificationsFilterDataChange: (() -> Void)?
 
     // MARK: - Initialization
-    override init(realmProvider: RealmProviding) {
+    init(realmProvider: RealmProviding, userSession: UserSession) {
+        self.userSession = userSession
         super.init(realmProvider: realmProvider)
         setupResultsTokenIfNeeded()
     }
@@ -184,9 +187,9 @@ class ServiceNotificationsViewModel: NotificationsViewModel {
         return realmProvider.realm.object(ofType: LocalService.self, forPrimaryKey: serviceID)
     }
 
-    init(realmProvider: RealmProviding, serviceID: Int) {
+    init(realmProvider: RealmProviding, serviceID: Int, userSession: UserSession) {
         self.serviceID = serviceID
-        super.init(realmProvider: realmProvider)
+        super.init(realmProvider: realmProvider, userSession: userSession)
     }
 
     override func resultsFilterPredicate() -> NSPredicate? {

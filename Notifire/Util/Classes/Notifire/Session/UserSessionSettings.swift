@@ -12,13 +12,22 @@ class UserSessionSettings: NSObject {
 
     /// Enum describing keys used in the UserDefaults
     /// Note: User specific
-    private enum DefaultsKey: String, UserDefaultsKey {
+    enum DefaultsKey: String, UserDefaultsKey {
+        // MARK: Bool
         /// A boolean flag that is `true` if the user has  turned on app update alerts
         case appUpdateReminderEnabled
         /// A boolean flag that is `true` if user wants to receive prefixed titles.
         case prefixNotificationTitleWithServiceName
         /// A boolean flag that is `true` if user prefers URLs to open directly without warnings.
         case openLinksWarningEnabled
+
+        // MARK: Int
+        /// Used to prompt the user for an App Store review.
+        case numberOfOpenedNotifications
+
+        // MARK: String
+        /// The string of the last version prompted for review
+        case lastVersionPromptedForReview
     }
 
     // MARK: User Preferences
@@ -28,11 +37,19 @@ class UserSessionSettings: NSObject {
     @UserDefaultBool(key: DefaultsKey.prefixNotificationTitleWithServiceName, initialValue: true)
     var prefixNotificationTitleEnabled: Bool
 
+    @UserDefaultInt(key: DefaultsKey.numberOfOpenedNotifications, initialValue: 0)
+    var numberOfOpenedNotifications: Int
+
+    @UserDefault<String, DefaultsKey>(key: .lastVersionPromptedForReview)
+    var lastVersionPromptedForReview: String?
+
     // MARK: - Init
     /// - Important: Always set the `.identifier` of each `Bool` value.
     init(identifier: String) {
         self._appUpdateReminderEnabled.identifier = identifier
         self._prefixNotificationTitleEnabled.identifier = identifier
+        self._numberOfOpenedNotifications.identifier = identifier
+        self._lastVersionPromptedForReview.identifier = identifier
 
         // Don't touch. Need to keep this as is. For more information check `isFirstLaunchAfterLogin`
         self._isFirstLaunchAfterLogin.identifier = identifier
@@ -60,6 +77,8 @@ class UserSessionSettings: NSObject {
         for keyPath in keyPaths {
             self[keyPath: keyPath].wrappedValue = self[keyPath: keyPath].initialValue
         }
+
+        self._numberOfOpenedNotifications.wrappedValue = self._numberOfOpenedNotifications.initialValue
     }
 
     /// Used to set the default values for the User's settings.

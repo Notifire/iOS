@@ -76,6 +76,8 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        viewModel.bumpNumberOfReadNotificationsInSettings()
+
         guard viewModel.notification.safeReference == nil else { return }
         // Pop this VC if the notification has been deleted
         viewModel.delegate?.onNotificationDeletion()

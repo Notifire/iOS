@@ -231,12 +231,13 @@ typealias NotificationDetailURLConfiguration = CellConfiguration<NotificationDet
 protocol NotificationDetailViewModelDelegate: class {
     func onNotificationDeletion()
 }
-
+import StoreKit
 class NotificationDetailViewModel: ViewModelRepresenting {
 
     // MARK: - Properties
     let realmProvider: RealmProviding
     let unreadNotificationsObserver: NotificationsUnreadCountObserver?
+    let userSession: UserSession
 
     let notification: LocalNotifireNotification
     var items: [CellConfiguring] = []
@@ -245,13 +246,17 @@ class NotificationDetailViewModel: ViewModelRepresenting {
 
     weak var delegate: NotificationDetailViewModelDelegate?
 
+    // MARK: Static
+    static let numberOfOpenedNotificationsForReview = 250
+
     // MARK: - Initialization
     /// - Parameters:
     ///     - serviceUnreadCount: Whether to count the number of unread notifications for the notification's service or for notifications from all services.
     ///     - markAsRead: Whether to mark the notification as read in the init of VM. Default value is `true`
-    init(realmProvider: RealmProviding, notification: LocalNotifireNotification, serviceUnreadCount: Bool, markAsRead: Bool) {
+    init(realmProvider: RealmProviding, notification: LocalNotifireNotification, userSession: UserSession, serviceUnreadCount: Bool, markAsRead: Bool) {
         self.realmProvider = realmProvider
         self.notification = notification
+        self.userSession = userSession
         self.items = NotificationDetailViewModel.createItems(from: notification)
         if markAsRead {
             NotificationReadUnreadManager.markNotificationAsRead(notification: notification, realm: realmProvider.realm)
@@ -306,5 +311,22 @@ class NotificationDetailViewModel: ViewModelRepresenting {
         }
 
         return result
+    }
+
+    /// Bump the number of read notifications in `UserSessionSettings`
+    func bumpNumberOfReadNotificationsInSettings() {
+        userSession.settings.numberOfOpenedNotifications += 1
+        
+        if userSession.settings.numberOfOpenedNotifications >= Self.numberOfOpenedNotificationsForReview &&
+            userSession.settings.lastVersionPromptedForReview != Config.appVersion {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                guard let `self` = self else { return }
+                SKStoreReviewController.requestReview()
+                // Set the last prompt version
+                self.userSession.settings.lastVersionPromptedForReview = Config.appVersion
+                // Reset counter
+                self.userSession.settings.numberOfOpenedNotifications = 0
+            }
+        }
     }
 }

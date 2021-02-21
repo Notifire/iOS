@@ -76,3 +76,19 @@ struct UserDefaultBool<Key: UserDefaultsKey>: UserDefaultSessionEditing {
         }
     }
 }
+
+@propertyWrapper
+struct UserDefaultInt<Key: UserDefaultsKey>: UserDefaultSessionEditing {
+    let key: Key
+    var initialValue: Int = 0
+    var identifier: String?
+
+    var wrappedValue: Int {
+        get {
+            return UserSessionManager.userDefaults.integer(forKey: defaultsKey)
+        }
+        set {
+            UserSessionManager.userDefaults.set(newValue, forKey: defaultsKey)
+        }
+    }
+}

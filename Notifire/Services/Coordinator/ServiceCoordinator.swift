@@ -389,7 +389,7 @@ class ServiceCoordinator: ChildCoordinator, NavigatingChildCoordinator, Presenti
     @discardableResult
     func showNotifications(serviceID: Int, animated: Bool = true) -> NotificationsCoordinator {
         let realmProvider = serviceViewController.viewModel.userSessionHandler
-        let serviceNotificationsViewModel = ServiceNotificationsViewModel(realmProvider: realmProvider, serviceID: serviceID)
+        let serviceNotificationsViewModel = ServiceNotificationsViewModel(realmProvider: realmProvider, serviceID: serviceID, userSession: realmProvider.userSession)
         let notificationsCoordinator = NotificationsCoordinator(notificationsViewModel: serviceNotificationsViewModel)
         parentNavigatingCoordinator?.push(childCoordinator: notificationsCoordinator, animated: animated)
         return notificationsCoordinator

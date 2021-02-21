@@ -35,7 +35,7 @@ class SessionCoordinator: SectioningCoordinator {
         let navigationController = NotifireNavigationController()
         switch section {
         case .notifications:
-            let notificationsViewModel = NotificationsViewModel(realmProvider: userSessionHandler)
+            let notificationsViewModel = NotificationsViewModel(realmProvider: userSessionHandler, userSession: userSessionHandler.userSession)
             let notificationsCoordinator = NotificationsCoordinator(notificationsViewModel: notificationsViewModel)
             childCoordinator = NavigationCoordinator(rootChildCoordinator: notificationsCoordinator, navigationController: navigationController)
         case .services:
