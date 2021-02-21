@@ -111,8 +111,14 @@ class TabBarViewController: VMViewController<TabBarViewModel>, AppRevealing {
         let circleView = CircleView()
         circleView.backgroundColor = .primary
         buttonsContainerView.add(subview: circleView)
-        circleView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -8).isActive = true
-        circleView.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 8).isActive = true
+        if #available(iOS 13, *) {
+            circleView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -Size.Image.unreadNotificationAlert / 2).isActive = true
+            circleView.topAnchor.constraint(equalTo: imageView.topAnchor).isActive = true
+        } else {
+            // Fallback for earlier versions where the icon is a bit different in size.
+            circleView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -8).isActive = true
+            circleView.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 8).isActive = true
+        }
         circleView.heightAnchor.constraint(equalTo: circleView.widthAnchor).isActive = true
         circleView.widthAnchor.constraint(equalToConstant: Size.Image.unreadNotificationAlert).isActive = true
         buttonsContainerView.layoutIfNeeded()
