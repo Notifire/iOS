@@ -10,8 +10,8 @@ import UIKit
 
 struct AppRevealAnimation {
     static let delay: TimeInterval = 0.2
-    static let scaleDownDuration: TimeInterval = 0.28
-    static let finalDuration: TimeInterval = 0.32
+    static let scaleDownDuration: TimeInterval = 0.34
+    static let finalDuration: TimeInterval = 0.22
 }
 
 protocol AppRevealing {
@@ -32,7 +32,7 @@ extension AppRevealing where Self: UIViewController {
     }
 
     func revealContent(completion: (() -> Void)? = nil) {
-        view.transform = CGAffineTransform.identity.scaledBy(x: 1.2, y: 1.2)
+        view.transform = CGAffineTransform.identity.scaledBy(x: 1.12, y: 1.12)
 
         // Create a new UIWindow for the app reveal in order to display the animation over any Deeplink induced VC / Alert VC
         let splashVC = UIViewController()
@@ -47,15 +47,15 @@ extension AppRevealing where Self: UIViewController {
         splashVC.view.add(subview: splashView)
         splashView.embed(in: splashVC.view)
         let scaleDownAnimator = UIViewPropertyAnimator(duration: AppRevealAnimation.scaleDownDuration, curve: .easeOut) {
-            splashView.iconImageView.transform = CGAffineTransform.identity.scaledBy(x: 0.84, y: 0.84)
+            splashView.iconImageView.transform = CGAffineTransform.identity.scaledBy(x: 0.86, y: 0.86)
         }
         scaleDownAnimator.addCompletion { _ in
-            let delay: TimeInterval = 0.2
+            let delay: TimeInterval = 0.1
             UIView.animateKeyframes(withDuration: AppRevealAnimation.finalDuration, delay: 0, options: [UIView.KeyframeAnimationOptions(animationOptions: .curveEaseIn)], animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.8, animations: {
                     splashView.iconImageView.transform = CGAffineTransform.identity.scaledBy(x: 14, y: 14)
                 })
-                UIView.addKeyframe(withRelativeStartTime: delay, relativeDuration: 0.5, animations: {
+                UIView.addKeyframe(withRelativeStartTime: delay, relativeDuration: 0.6, animations: {
                     splashView.alpha = 0
                 })
             }, completion: { [unowned self] finished in
@@ -64,7 +64,7 @@ extension AppRevealing where Self: UIViewController {
                 completion?()
                 _ = self.customRevealContentCompletion()
             })
-            UIView.animate(withDuration: AppRevealAnimation.finalDuration * (1 - delay), delay: AppRevealAnimation.finalDuration * delay + 0.04, options: [.curveEaseOut], animations: {
+            UIView.animate(withDuration: AppRevealAnimation.finalDuration * (1 - delay) + 0.1, delay: AppRevealAnimation.finalDuration * delay, options: [.curveEaseOut], animations: {
                 self.view.transform = .identity
             }, completion: nil)
         }
