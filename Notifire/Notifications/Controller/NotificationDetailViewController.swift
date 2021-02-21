@@ -138,8 +138,14 @@ extension NotificationDetailViewController: UITableViewDataSource {
         cell.separatorInset.left = newLayoutMargins.left
         cell.backgroundColor = .compatibleSystemBackground
         if let urlCell = cell as? NotificationDetailURLCell {
+            // Default tap
             urlCell.onURLTap = { url in
                 URLOpener.open(url: url)
+            }
+            // Context Interaction
+            if #available(iOS 13, *) {
+                let urlInteraction = UIContextMenuInteraction(delegate: self)
+                urlCell.urlLabel.addInteraction(urlInteraction)
             }
         }
         return cell
@@ -155,6 +161,40 @@ extension NotificationDetailViewController: UITableViewDelegate {
         let item = viewModel.items[indexPath.row]
         if item is NotificationDetailHeaderConfiguration, let cell = tableView.cellForRow(at: indexPath) as? NotificationDetailHeaderCell {
             cell.dateStyle.swapStyle()
+        }
+    }
+}
+
+@available(iOS 13, *)
+extension NotificationDetailViewController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(
+            identifier: nil,
+            previewProvider: createURLPreviewProvider,
+            actionProvider: { _ in
+                // Copy URL
+                let copyURLAction = UIAction(
+                    title: "Copy URL",
+                    image: UIImage(systemName: "doc.on.doc")) { [weak self] _ in
+                    guard let urlString = self?.viewModel.notification.urlString else { return }
+                    UIPasteboard.general.string = urlString
+                }
+                return UIMenu(title: "", image: nil, children: [copyURLAction])
+            }
+        )
+    }
+
+    func createURLPreviewProvider() -> UIViewController? {
+        let viewController = PrivacyPolicyViewController()
+        guard let url = viewModel.notification.additionalURL else { return nil }
+        viewController.request = URLRequest(url: url)
+        return viewController
+    }
+
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        animator.addCompletion { [weak self] in
+            guard let url = self?.viewModel.notification.additionalURL else { return }
+            URLOpener.open(url: url)
         }
     }
 }
