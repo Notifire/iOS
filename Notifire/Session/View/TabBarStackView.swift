@@ -66,10 +66,6 @@ class TabBarStackView: UIStackView {
             button.imageView?.isUserInteractionEnabled = false
             // Add it to our stack of views
             addArrangedSubview(button)
-            // Set the imageView height
-//            button.imageView?.translatesAutoresizingMaskIntoConstraints = false
-//            button.imageView?.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
-//            button.imageView?.heightAnchor.constraint(equalToConstant: Size.Image.tabBarIcon).isActive = true
             // Add the button to our button array
             buttons.append(button)
         }

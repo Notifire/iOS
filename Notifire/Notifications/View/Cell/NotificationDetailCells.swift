@@ -316,7 +316,7 @@ class NotificationDetailViewModel: ViewModelRepresenting {
     /// Bump the number of read notifications in `UserSessionSettings`
     func bumpNumberOfReadNotificationsInSettings() {
         userSession.settings.numberOfOpenedNotifications += 1
-        
+
         if userSession.settings.numberOfOpenedNotifications >= Self.numberOfOpenedNotificationsForReview &&
             userSession.settings.lastVersionPromptedForReview != Config.appVersion {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
