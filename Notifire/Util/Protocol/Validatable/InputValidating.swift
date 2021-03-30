@@ -14,6 +14,8 @@ protocol InputValidating {
 
 extension InputValidating {
     func validate(component: ValidatableComponent) {
-        componentValidator?.validate(component: component)
+        DispatchQueue.global(qos: .background).async {
+            componentValidator?.validate(component: component)
+        }
     }
 }

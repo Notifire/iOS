@@ -60,17 +60,23 @@ class ForgotPasswordViewController: VMViewController<ForgotPasswordViewModel>, N
 
         // Reuse the loginVC email  if possible, `viewModel.email` will contain the email if it is valid
         emailTextInput.updateText(with: viewModel.email)
+
+        // To prevent the stackView from animating on viewWillAppear
+        // iOS ... :^)
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // Observers
         startObservingNotifications()
-        emailTextInput.textField.becomeFirstResponder()
+        //emailTextInput.textField.becomeFirstResponder()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        // Prevent keyboard jumping animations
         stopObservingNotifications()
     }
 

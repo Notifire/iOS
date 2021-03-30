@@ -8,17 +8,22 @@
 
 import UIKit
 
-class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
+class ValidatableTextInput: ConstrainableView, ValidatableComponent {
 
     // MARK: - Properties
-    let textField: CustomTextField
-    var errorLabel: UILabel?
-
     private var maximumLength: Int?
     var validatingViewModelBinder: ValidatingViewModelBinder?
 
-    // MARK: Constraints
-    var textFieldToViewBottomConstraint: NSLayoutConstraint!
+    // MARK: UI
+    let textField: CustomTextField
+
+    lazy var tooltipErrorLabel = TooltipErrorLabelView()
+
+    var currentSpinner: UIActivityIndicatorView?
+
+    // MARK: Constraint
+    var errorLabelBottomConstraint: NSLayoutConstraint?
+    var textFieldBottomConstraint: NSLayoutConstraint?
 
     // MARK: ValidatableComponent
     var showsValidState = false
@@ -38,9 +43,7 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
         }
     }
 
-    var validatableInput: String {
-        return textField.text ?? textField.attributedText?.string ?? ""
-    }
+    var validatableInput: String = ""
 
     var neutralStateValid: Bool
 
@@ -65,14 +68,24 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
 
     // MARK: - Inherited
     override func setupSubviews() {
+        clipsToBounds = true
         textField.addTarget(self, action: #selector(didChangeTextField), for: .editingChanged)
 
+        add(subview: tooltipErrorLabel)
         add(subview: textField)
         textField.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         textField.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         textField.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        textFieldToViewBottomConstraint = textField.bottomAnchor.constraint(equalTo: bottomAnchor)
-        textFieldToViewBottomConstraint.isActive = true
+        textField.heightAnchor.constraint(equalToConstant: Size.componentHeight).isActive = true
+        let textFieldBottom = textField.bottomAnchor.constraint(equalTo: bottomAnchor)
+        textFieldBottom.isActive = true
+        textFieldBottomConstraint = textFieldBottom
+
+        tooltipErrorLabel.embedSides(in: textField)
+        tooltipErrorLabel.topAnchor.constraint(equalTo: textField.bottomAnchor).isActive = true
+
+        let errorLabelBottom = tooltipErrorLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+        errorLabelBottomConstraint = errorLabelBottom
     }
 
     // MARK: - Private
@@ -80,24 +93,22 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
         let newAppearance: CustomTextField.Appearance?
         switch validityState {
         case .neutral:
-            removeErrorLabel()
-            removeSpinner()
+            hideErrorLabel()
             newAppearance = .neutral
         case .validating:
-            addSmallSpinner()
-            //layoutIfNeeded()
-            newAppearance = nil
+            hideErrorLabel()
+            newAppearance = .loading
         case .invalid(let rule):
-            removeSpinner()
-            guard rule.showIfBroken else { return }
-            let label = errorLabel ?? addErrorLabel()
-            //layoutIfNeeded()
-            setNeedsLayout()
-            label.text = rule.brokenRuleDescription ?? rule.description
-            newAppearance = .negative
+            if rule.showIfBroken {
+                showErrorLabel()
+                tooltipErrorLabel.errorLabel.text = rule.brokenRuleDescription ?? rule.description
+                newAppearance = .negative
+            } else {
+                hideErrorLabel()
+                newAppearance = .neutral
+            }
         case .valid:
-            removeErrorLabel()
-            removeSpinner()
+            hideErrorLabel()
 
             // This is necessary to enable the return key after a delayed response from the API
             // Otherwise the UIKeyboard gets the textField.hasText property too soon (before the real value is relevant).
@@ -108,64 +119,32 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
             newAppearance = showsValidState ? .positive : .neutral
         }
         if let appearance = newAppearance {
-            UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState, .curveEaseOut], animations: {
-                self.textField.set(new: appearance)
-            }, completion: nil)
+            self.textField.set(new: appearance, animated: true)
         }
     }
 
-    var errorLabelBottomConstraint: NSLayoutConstraint?
-
-    private func addErrorLabel() -> UILabel {
-        textFieldToViewBottomConstraint.isActive = false
-        let label = UILabel(style: .negative)
-        label.adjustsFontSizeToFitWidth = true
-        label.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(label)
-        label.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: Size.textFieldSpacing*0.75).isActive = true
-        let bottomConstraint = label.bottomAnchor.constraint(equalTo: bottomAnchor)
-        bottomConstraint.isActive = true
-        errorLabelBottomConstraint = bottomConstraint
-        label.leadingAnchor.constraint(equalTo: textField.leadingAnchor, constant: Size.smallMargin).isActive = true
-        label.trailingAnchor.constraint(equalTo: textField.trailingAnchor, constant: Size.smallMargin).isActive = true
-        let height = label.heightAnchor.constraint(equalToConstant: 0)
-        height.priority = UILayoutPriority(rawValue: 980)
-        height.isActive = true
-        errorLabel = label
-        self.layoutIfNeeded()
-        height.isActive = false
-        UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState, .curveEaseOut], animations: {
-            self.layoutIfNeeded()
+    private func showErrorLabel() {
+        layoutIfNeeded()
+        textFieldBottomConstraint?.isActive = false
+        errorLabelBottomConstraint?.isActive = true
+        tooltipErrorLabel.setNeedsDisplay()
+        UIView.animate(withDuration: 0.24, delay: 0, options: [.beginFromCurrentState], animations: {
+            self.superview?.layoutIfNeeded()
         }, completion: nil)
-        return label
     }
 
-    private func removeErrorLabel() {
-        if let label = errorLabel {
-            label.heightAnchor.constraint(equalToConstant: 0).isActive = true
-            errorLabelBottomConstraint?.isActive = false
-            textFieldToViewBottomConstraint.isActive = true
-            UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState], animations: {
-                self.layoutIfNeeded()
-            }, completion: ({ finished in
-                guard finished else { return }
-                label.removeFromSuperview()
-                self.errorLabel = nil
-            }))
-        }
-    }
-
-    private func addSmallSpinner() {
-        guard let spinner = startLoading() else { return }
-        spinner.color = .spinnerColor
-        spinner.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-    }
-
-    private func removeSpinner() {
-        stopLoading()
+    private func hideErrorLabel() {
+        layoutIfNeeded()
+        errorLabelBottomConstraint?.isActive = false
+        textFieldBottomConstraint?.isActive = true
+        tooltipErrorLabel.setNeedsDisplay()
+        UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
+            self.superview?.layoutIfNeeded()
+        }, completion: nil)
     }
 
     @objc private func didChangeTextField(textField: UITextField) {
+        validatableInput = textField.text ?? ""
         validatingViewModelBinder?.updateKeyPathAndValidate(component: self)
     }
 
@@ -173,6 +152,7 @@ class ValidatableTextInput: ConstrainableView, ValidatableComponent, Loadable {
     /// This function updates the `text` property of the `UITextField` and triggers the component validation.
     public func updateText(with value: String) {
         textField.text = value
+        validatableInput = value
         validatingViewModelBinder?.updateKeyPathAndValidate(component: self)
     }
 }

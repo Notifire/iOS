@@ -22,7 +22,7 @@ class BorderedTextField: CustomTextField {
         super.set(new: appearance, animated: animated)
         // FIXME: Animated ?
         switch appearance {
-        case .neutral:
+        case .neutral, .loading:
             layer.borderWidth = 1
             layer.borderColor = UIColor.compatibleTextFieldBorder.cgColor
         case .positive:

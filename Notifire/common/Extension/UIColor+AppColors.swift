@@ -69,6 +69,8 @@ extension UIColor {
         dark: UIColor(r: 64, g: 63, b: 47)
     )
 
+    public static let compatibleLighterRedColor = UIColor(r: 199, g: 56, b: 84)
+
     // MARK: Backgrounds
     // Sub iOS 13.0 backwards compatible colors
     public static var compatibleSystemBackground: UIColor = {

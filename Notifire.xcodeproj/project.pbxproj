@@ -469,6 +469,8 @@
 		895A3B9925008C8C000A7B50 /* SSOManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B9825008C8C000A7B50 /* SSOManagerDelegate.swift */; };
 		895A3B9A25008C8C000A7B50 /* SSOManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895A3B9825008C8C000A7B50 /* SSOManagerDelegate.swift */; };
 		895E4019204046EA0062D5FC /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895E4018204046EA0062D5FC /* Config.swift */; };
+		895FCFB32613C4C60029E91F /* TooltipErrorLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895FCFB22613C4C60029E91F /* TooltipErrorLabelView.swift */; };
+		895FCFB42613C4C60029E91F /* TooltipErrorLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895FCFB22613C4C60029E91F /* TooltipErrorLabelView.swift */; };
 		896167CF25011709007BF3F1 /* NotifireButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167CE25011709007BF3F1 /* NotifireButton.swift */; };
 		896167D02501170B007BF3F1 /* NotifireButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167CE25011709007BF3F1 /* NotifireButton.swift */; };
 		896167D22501182D007BF3F1 /* SignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896167D12501182D007BF3F1 /* SignInButton.swift */; };
@@ -1035,6 +1037,7 @@
 		895A3B9525008C73000A7B50 /* SSOAuthenticationAttempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSOAuthenticationAttempt.swift; sourceTree = "<group>"; };
 		895A3B9825008C8C000A7B50 /* SSOManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSOManagerDelegate.swift; sourceTree = "<group>"; };
 		895E4018204046EA0062D5FC /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		895FCFB22613C4C60029E91F /* TooltipErrorLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipErrorLabelView.swift; sourceTree = "<group>"; };
 		896167CE25011709007BF3F1 /* NotifireButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifireButton.swift; sourceTree = "<group>"; };
 		896167D12501182D007BF3F1 /* SignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButton.swift; sourceTree = "<group>"; };
 		896167D525012F05007BF3F1 /* NotifireBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotifireBackgroundView.swift; sourceTree = "<group>"; };
@@ -2485,6 +2488,7 @@
 				897069E62134A36700D798AA /* TappableLabel.swift */,
 				896167D525012F05007BF3F1 /* NotifireBackgroundView.swift */,
 				89E6B6D6250049F700F7A79C /* VMView.swift */,
+				895FCFB22613C4C60029E91F /* TooltipErrorLabelView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3397,6 +3401,7 @@
 				89576ADA24FD412A0097BF87 /* ScrollViewReselectable.swift in Sources */,
 				892DC0C525609B840067EB12 /* SettingsSection.swift in Sources */,
 				892DC0C825609BA40067EB12 /* SettingsRows.swift in Sources */,
+				895FCFB42613C4C60029E91F /* TooltipErrorLabelView.swift in Sources */,
 				893AD7B325717532000ADFEC /* Config+Sentry.swift in Sources */,
 				89FAFD452566012B00D1A64C /* DeeplinkedVMViewController.swift in Sources */,
 				89576ADB24FD412A0097BF87 /* NotificationObserving.swift in Sources */,
@@ -3795,6 +3800,7 @@
 				89E8178525D8764200BA8927 /* UITableView+Init.swift in Sources */,
 				893995A32170EDA900687A79 /* Tab.swift in Sources */,
 				8954190B251CB8B40046464D /* ServicesSynchronizationManager.swift in Sources */,
+				895FCFB32613C4C60029E91F /* TooltipErrorLabelView.swift in Sources */,
 				892683B92593F9B500346275 /* JSONDecoder.DateDecodingStrategy+Timestamp.swift in Sources */,
 				8933F0AE2140421700645B3A /* NotifireBackgroundLayer.swift in Sources */,
 				8920CA702171377900A72BD0 /* RegisterCoordinator.swift in Sources */,

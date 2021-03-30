@@ -11,19 +11,16 @@ import Foundation
 class ValidatingViewModelBinder {
 
     private let updateViewModelKeyPath: ((String, ValidatableComponent) -> Void)
-    let willUpdateKeyPathValue: ((String) -> Void)?
 
-    init<VM: InputValidatingViewModel>(viewModel: VM, for keyPath: ReferenceWritableKeyPath<VM, String>, onUpdate: ((String) -> Void)? = nil) {
+    init<VM: InputValidatingViewModel>(viewModel: VM, for keyPath: ReferenceWritableKeyPath<VM, String>) {
         self.updateViewModelKeyPath = { string, component in
             viewModel[keyPath: keyPath] = string
             viewModel.validate(component: component)
         }
-        self.willUpdateKeyPathValue = onUpdate
     }
 
     func updateKeyPathAndValidate(component: ValidatableComponent) {
         let string = component.validatableInput
-        willUpdateKeyPathValue?(string)
         updateViewModelKeyPath(string, component)
     }
 }

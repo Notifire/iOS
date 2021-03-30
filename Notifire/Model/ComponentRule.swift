@@ -43,6 +43,15 @@ struct ComponentRule {
     let showIfBroken: Bool
     var brokenRuleDescription: String?
 
+    var showsLoadingIndicator: Bool {
+        switch kind {
+        case .validity:
+            return true
+        default:
+            return false
+        }
+    }
+
     static let passwordRules: [ComponentRule] = {
         return [
             ComponentRule(kind: .minimum(length: Settings.Text.minimumPasswordLength), showIfBroken: false),
@@ -60,7 +69,7 @@ struct ComponentRule {
     /// email length + email regex
     static let emailRules: [ComponentRule] = {
         return emailBaseRules + [
-            ComponentRule.init(kind: .regex(Regex.email), showIfBroken: true, brokenRuleDescription: "You haven't entered a valid e-mail address.")
+            ComponentRule.init(kind: .regex(Regex.email), showIfBroken: false)
         ]
     }()
 

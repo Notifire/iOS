@@ -16,6 +16,7 @@ class CustomTextField: UITextField {
         case neutral
         case negative
         case positive
+        case loading
     }
 
     // MARK: - Properties
@@ -25,7 +26,7 @@ class CustomTextField: UITextField {
     weak var parentValidatableTextInput: ValidatableTextInput?
 
     // MARK: Private
-    private var lastAppearance: Appearance?
+    var lastAppearance: Appearance?
 
     // MARK: - Inherited
     required init() {

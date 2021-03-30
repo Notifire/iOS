@@ -42,10 +42,11 @@ class ComponentValidator {
         let currentText = component.validatableInput
         func setComponent(state: ValidatableComponentState) {
             guard component.validatableInput == currentText else { return }
-            component.validityState = state
-            self.updateComponentsValidity()
+            DispatchQueue.main.async { [weak self] in
+                component.validityState = state
+                self?.updateComponentsValidity()
+            }
         }
-        setComponent(state: .validating)
         guard !component.rules.isEmpty else {
             setComponent(state: .valid)
             return
@@ -56,9 +57,14 @@ class ComponentValidator {
                 setComponent(state: .invalid(rule: rule))
                 return
             }
+            guard component.validatableInput == currentText else { return }
             guard let nextRule = ruleIterator.next() else {
                 setComponent(state: .valid)
                 return
+            }
+            // Enable loading indicator if needed
+            if nextRule.showsLoadingIndicator {
+                setComponent(state: .validating)
             }
             isRuleObeyed(rule: nextRule, in: currentText, completion: handler)
         }
@@ -67,38 +73,50 @@ class ComponentValidator {
             return
         }
         guard let firstRule = ruleIterator.next() else { return }
+        // Enable loading indicator if needed
+        if firstRule.showsLoadingIndicator {
+            setComponent(state: .validating)
+        }
         isRuleObeyed(rule: firstRule, in: currentText, completion: handler)
     }
 
     ///
-    /// returns:
+    /// - Returns:
     ///    - `true` if the rule is obeyed, false otherwise
     func isRuleObeyed(rule: ComponentRule, in string: String, completion: @escaping ((ComponentRule, Bool) -> Void)) {
+        let mainQueueCompletion: ((ComponentRule, Bool) -> Void) = { rule, valid in
+            DispatchQueue.main.async {
+                completion(rule, valid)
+            }
+        }
         switch rule.kind {
         case .minimum(let minLength):
-            completion(rule, string.count >= minLength)
+            mainQueueCompletion(rule, string.count >= minLength)
         case .maximum(let maxLength):
-            completion(rule, string.count <= maxLength)
+            mainQueueCompletion(rule, string.count <= maxLength)
         case .regex(let regularExpression):
             let expressionTest = NSPredicate(format: "SELF MATCHES %@", regularExpression)
-            completion(rule, expressionTest.evaluate(with: string))
+            mainQueueCompletion(rule, expressionTest.evaluate(with: string))
         case .equalToString(let equalString):
-            completion(rule, string == equalString)
+            mainQueueCompletion(rule, string == equalString)
         case .notEqualToString(let notEqualString):
-            completion(rule, string != notEqualString)
+            mainQueueCompletion(rule, string != notEqualString)
         case .equalToComponent(let component):
-            completion(rule, string == component.validatableInput)
+            mainQueueCompletion(rule, string == component.validatableInput)
         case .notEqualToComponent(let component):
-            completion(rule, string != component.validatableInput)
+            mainQueueCompletion(rule, string != component.validatableInput)
         case .validity(let option):
-            apiManager.checkValidity(option: option, input: string) { result in
-                switch result {
-                case .error:
-                    completion(rule, false)
-                case .success(let response):
-                    completion(rule, response.valid)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.34) { [weak self] in
+                self?.apiManager.checkValidity(option: option, input: string) { result in
+                    switch result {
+                    case .error:
+                        mainQueueCompletion(rule, false)
+                    case .success(let response):
+                        mainQueueCompletion(rule, response.valid)
+                    }
                 }
             }
+
         }
     }
 }
