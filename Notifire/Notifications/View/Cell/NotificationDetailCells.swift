@@ -91,38 +91,45 @@ class NotificationDetailHeaderCell: BaseTableViewCell, CellConfigurable {
     }
 }
 
-struct NotificationDetailTitleBody {
-    let body: String?
-}
-
-class NotificationDetailTitleBodyCell: BaseTableViewCell, CellConfigurable, NotificationDetailOptionallyDisplaying {
-    typealias DataType = NotificationDetailTitleBody
+class NotificationDetailTextCell: BaseTableViewCell, CellConfigurable, NotificationDetailOptionallyDisplaying {
+    typealias DataType = String
 
     // MARK: - Properties
     // MARK: NotificationDetailOptionallyDisplaying
-    static var indicatorImage: UIImage { return UIImage() }
-    static var indicatorImageSystemName: String { return "text.bubble" }
+    class var indicatorImage: UIImage { return UIImage() }
+    class var indicatorImageSystemName: String { return "text.bubble" }
 
     // MARK: Views
-    let notificationBodyLabel = CopyableLabel(style: .informationHeader)
+    lazy var notificationBodyTextView: UITextView = {
+        let view = UITextView()
+        view.isEditable = false
+        view.isScrollEnabled = false
+        view.textColor = .compatibleLabel
+        view.font = UIFont.systemFont(ofSize: 16)
+        return view
+    }()
 
     override func setup() {
         layout()
     }
 
     func configure(data: DataType) {
-        notificationBodyLabel.text = data.body
+        notificationBodyTextView.text = data
     }
 
     private func layout() {
-        contentView.add(subview: notificationBodyLabel)
-        notificationBodyLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
-        notificationBodyLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        notificationBodyLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
-        notificationBodyLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
+        contentView.add(subview: notificationBodyTextView)
+        notificationBodyTextView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
+        notificationBodyTextView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
+        notificationBodyTextView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
+        notificationBodyTextView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
 
         addIndicatorImageView()
     }
+}
+
+class NotificationDetailAdditionalTextCell: NotificationDetailTextCell {
+    override class var indicatorImageSystemName: String { return "doc.plaintext" }
 }
 
 protocol NotificationDetailOptionallyDisplaying {
@@ -141,36 +148,6 @@ extension NotificationDetailOptionallyDisplaying where Self: BaseTableViewCell {
         indicatorImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         indicatorImageView.heightAnchor.constraint(equalTo: indicatorImageView.widthAnchor).isActive = true
         indicatorImageView.widthAnchor.constraint(equalToConstant: imageWidth).isActive = true
-    }
-}
-
-class NotificationDetailAdditionalTextCell: BaseTableViewCell, CellConfigurable, NotificationDetailOptionallyDisplaying {
-    typealias DataType = String
-
-    // MARK: - Properties
-    // MARK: NotificationDetailIndicatorCell
-    static var indicatorImage: UIImage { return #imageLiteral(resourceName: "doc.plaintext") }
-    static var indicatorImageSystemName: String { return "doc.plaintext" }
-
-    // MARK: Views
-    let additionalTextLabel = CopyableLabel(style: .informationHeader)
-
-    override func setup() {
-        layout()
-    }
-
-    func configure(data: DataType) {
-        additionalTextLabel.text = data
-    }
-
-    private func layout() {
-        contentView.add(subview: additionalTextLabel)
-        additionalTextLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
-        additionalTextLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        additionalTextLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
-        additionalTextLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
-
-        addIndicatorImageView()
     }
 }
 
@@ -224,7 +201,7 @@ class NotificationDetailURLCell: BaseTableViewCell, CellConfigurable, Notificati
 }
 
 typealias NotificationDetailHeaderConfiguration = CellConfiguration<NotificationDetailHeaderCell, DefaultCellAppearance>
-typealias NotificationDetailTitleBodyConfiguration = CellConfiguration<NotificationDetailTitleBodyCell, DefaultCellAppearance>
+typealias NotificationDetailTitleBodyConfiguration = CellConfiguration<NotificationDetailTextCell, DefaultCellAppearance>
 typealias NotificationDetailAdditionalTextConfiguration = CellConfiguration<NotificationDetailAdditionalTextCell, DefaultCellAppearance>
 typealias NotificationDetailURLConfiguration = CellConfiguration<NotificationDetailURLCell, DefaultCellAppearance>
 
@@ -299,8 +276,7 @@ class NotificationDetailViewModel: ViewModelRepresenting {
             return []
         }
 
-        let notificationTitleBody = NotificationDetailTitleBody(body: notification.body)
-        result.append(NotificationDetailTitleBodyConfiguration(item: notificationTitleBody))
+        result.append(NotificationDetailTitleBodyConfiguration(item: notification.body ?? ""))
 
         if let additionalText = notification.text {
             result.append(NotificationDetailAdditionalTextConfiguration(item: additionalText))

@@ -26,7 +26,7 @@ class TooltipErrorLabelView: ConstrainableView {
 
     // MARK: - Overrides
     override func setupSubviews() {
-        directionalLayoutMargins = NSDirectionalEdgeInsets(top: Size.smallestMargin, leading: Size.smallestMargin, bottom: Size.smallestMargin, trailing: Size.smallestMargin)
+        directionalLayoutMargins = NSDirectionalEdgeInsets(top: Size.standardMargin, leading: Size.standardMargin, bottom: Size.standardMargin, trailing: Size.standardMargin)
 
         add(subview: errorLabel)
         NSLayoutConstraint.activate([

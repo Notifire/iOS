@@ -40,6 +40,12 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
         super.viewDidLoad()
         view.backgroundColor = .compatibleSystemBackground
         title = "Notification"
+
+        // Add gestureRecognizer to view to deselect textview selections
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+
         prepareViewModel()
         layout()
     }
@@ -126,6 +132,11 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
     private func layout() {
         view.add(subview: tableView)
         tableView.embed(in: view)
+    }
+
+    // MARK: Event Handlers
+    @objc private func didTapView() {
+        view.endEditing(true)
     }
 }
 
