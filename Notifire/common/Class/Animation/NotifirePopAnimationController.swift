@@ -141,6 +141,7 @@ class NotifireAlertViewController: NotifirePoppableViewController {
         imageView.topAnchor.constraint(equalTo: containerView.layoutMarginsGuide.topAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -Size.extendedMargin).isActive = true
         imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: Size.Image.alertSuccessFailImage).isActive = true
         imageView.setContentCompressionResistancePriority(.init(1000), for: .vertical)
     }
 
