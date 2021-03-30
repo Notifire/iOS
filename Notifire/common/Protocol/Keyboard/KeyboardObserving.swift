@@ -58,9 +58,6 @@ extension KeyboardObserving where Self: UIViewController {
         let keyboardEndHeight = keyboardEndFrame.cgRectValue.height
         let lastNotification = keyboardObserverHandler.lastKeyboardNotification
         keyboardObserverHandler.lastKeyboardNotification = notification
-        if let lastNotification = lastNotification, let lastHeight = keyboardObserverHandler.keyboardHeight(from: lastNotification) {
-            guard lastHeight < keyboardEndHeight else { return }
-        }
         handle(
             notification: notification,
             expanding: true,
