@@ -66,8 +66,8 @@ class NotificationDetailHeaderCell: BaseTableViewCell, CellConfigurable {
         serviceImageView.roundedImageView.sd_setImage(with: data.serviceImageURL, placeholderImage: LocalService.defaultImage, options: [], completed: nil)
         serviceNameLabel.text = data.serviceName
         serviceImageView.set(level: data.notificationLevel)
-        dateStyle = .compact
         date = data.notificationDate
+        dateStyle = .compact
     }
 
     private func layout() {
