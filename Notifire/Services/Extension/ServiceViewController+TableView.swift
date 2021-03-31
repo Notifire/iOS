@@ -199,7 +199,9 @@ extension ServiceViewController: UITableViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let yPos = parentScrollView.contentOffset.y + parentScrollView.adjustedContentInset.top
-        // sticky ServiceHeaderView
+        let buttonY = view.convert(CGPoint.zero, from: notificationsHeaderView.notificationsButton).y
+
+        // sticky ServiceHeaderView (image)
         if yPos >= 0 {
             serviceHeaderView.floatingTopToTopConstraint.constant = yPos
         } else {
@@ -220,18 +222,48 @@ extension ServiceViewController: UITableViewDelegate {
         }
         notificationsHeaderView.gradientVisible = shouldStickNotificationsHeaderView
 
-        // titleLabel displaying
-        let buttonY = view.convert(CGPoint.zero, from: notificationsHeaderView.notificationsButton).y
+        // titleLabel transition
         let labelY = view.convert(CGPoint.zero, from: serviceHeaderView.serviceNameLabel).y
         let labelHeight = serviceHeaderView.serviceNameLabel.bounds.height
-        let alphaStartHeight = labelHeight/2
-        let overlap = min(max(0, buttonY - labelY), alphaStartHeight)
-        let serviceNameUnreadableFractionComplete = 1 - (overlap / alphaStartHeight)
+        let buttonYOffset: CGFloat = 8
+        let alphaStartHeight = 0.9 * labelHeight
+        let titleButtonOverlap = min(max(0, buttonY + buttonYOffset - labelY), alphaStartHeight + buttonYOffset)
+        let serviceNameUnreadableFractionComplete = 1 - (titleButtonOverlap / (alphaStartHeight + buttonYOffset))
         let shouldStartShowingTitleLabel = serviceNameUnreadableFractionComplete > 0
         if shouldStartShowingTitleLabel {
-            titleLabel.alpha = 0.2 + 0.8 * serviceNameUnreadableFractionComplete
+            titleLabel.transform = CGAffineTransform.identity.translatedBy(x: 0, y: 8 - 8 * serviceNameUnreadableFractionComplete)
+            titleLabel.alpha = serviceNameUnreadableFractionComplete
         } else {
+            titleLabel.transform = CGAffineTransform.identity
             titleLabel.alpha = 0
+        }
+
+        //print(yPos)
+        // ServiceHeaderView (image) transforms
+        if yPos < 0 {
+            // Expanding
+            let imageWidth = serviceHeaderView.serviceImageView.bounds.width
+            let maxScaledWidth = view.bounds.width - 2*Size.doubleMargin
+            let maxScale = maxScaledWidth / imageWidth
+            let scaleProgress = min(max(maxScaledWidth + yPos, 0), maxScaledWidth)
+            let scaleFractionComplete = 1 - (scaleProgress / maxScaledWidth)
+            let scale = 1 + (maxScale - 1) * scaleFractionComplete
+            let yOffset = 1/scale * (-0.5)*imageWidth + imageWidth/2
+            serviceHeaderView.serviceImageView.transform = CGAffineTransform(scaleX: scale, y: scale).translatedBy(x: 0, y: -yOffset)
+        } else if yPos > 0 {
+            // Shrinking
+            let imageHeight = serviceHeaderView.serviceImageView.bounds.height
+            let imageY = view.convert(CGPoint.zero, from: serviceHeaderView.serviceImageView).y
+            let imageButtonOverlap = min(max(0, buttonY - 10 - 0.2 * imageHeight - imageY), 0.8*imageHeight)
+            let serviceImageOverlapFractionComplete = 1 - (imageButtonOverlap / (0.8*imageHeight))
+            let scale: CGFloat = 1 - 0.3 * serviceImageOverlapFractionComplete
+            let yOffset = 1/scale * (-0.5)*imageHeight + imageHeight/2
+            serviceHeaderView.serviceImageView.transform = CGAffineTransform(scaleX: scale, y: scale).translatedBy(x: 0, y: yOffset)
+            serviceHeaderView.serviceImageView.alpha = 1 - serviceImageOverlapFractionComplete
+        } else {
+            // Still
+            serviceHeaderView.serviceImageView.transform = .identity
+            serviceHeaderView.serviceImageView.alpha = 1
         }
 
         // gradient

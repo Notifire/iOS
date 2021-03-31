@@ -300,8 +300,8 @@ class SettingsViewModel: ViewModelRepresenting, StaticTableViewViewModel {
                 sessionFlagKeypath: \.appUpdateReminderEnabled,
                 shouldObserveFlag: true,
                 text: "Receive new version alerts",
-                switchedOnDescriptionText: "You will receive in-app alerts when a new version of the app is available to download from the App Store.",
-                switchedOffDescriptionText: "You won't receive in-app alerts for new versions of the application.",
+                switchedOnDescriptionText: "You will receive in-app alerts when a new version of the app is available.",
+                switchedOffDescriptionText: "You won't receive in-app alerts for new versions of the app.",
                 session: userSession
             )
             newConfiguration = SettingsSwitchCellConfiguration(item: data)

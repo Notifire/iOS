@@ -9,19 +9,6 @@
 import UIKit
 import Photos
 
-protocol SectionDefining {
-    func numberOfRows() -> Int
-    func heightForRow() -> Int
-    var asIndexPath: IndexPath { get }
-}
-
-enum ServiceSection {
-    case notificationLevels
-    case serviceAPIKey
-    case deleteNotifications
-    case deleteService
-}
-
 protocol ServiceViewControllerDelegate: class {
     func shouldShowNotifications(for service: LocalService)
     func shouldPresentEditServiceView(for service: LocalService)
