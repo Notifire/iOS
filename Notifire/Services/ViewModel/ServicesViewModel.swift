@@ -189,6 +189,7 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
     ///     - Fetches first page of services
     ///     - Attempts to /sync local services
     func start() {
+        websocketManager.delegate = self
         // WebSocket
         // Connection status
         connectionStatusObserver = ExtendedNotificationObserver(notificationName: .didChangeWebSocketConnectionStatus) { [weak self] (statusChange: WebSocketConnectionStatus.Change) in
