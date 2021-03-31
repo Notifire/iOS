@@ -238,7 +238,6 @@ extension ServiceViewController: UITableViewDelegate {
             titleLabel.alpha = 0
         }
 
-        //print(yPos)
         // ServiceHeaderView (image) transforms
         if yPos < 0 {
             // Expanding

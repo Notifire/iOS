@@ -156,7 +156,12 @@ class ServiceEditViewController: VMViewController<ServiceEditViewModel>, APIErro
         return input
     }()
 
-    lazy var serviceNameLabel = UILabel(style: .informationHeader)
+    lazy var serviceNameLabel: UILabel = {
+        let label = UILabel(style: .informationHeader)
+        label.text = "Service name"
+        label.numberOfLines = 1
+        return label
+    }()
 
     // MARK: NavBar buttons
     lazy var saveBarButton: UIBarButtonItem = {
@@ -186,7 +191,6 @@ class ServiceEditViewController: VMViewController<ServiceEditViewModel>, APIErro
         // View
         setupTitleLabel()
         view.backgroundColor = .compatibleSystemBackground
-        serviceNameLabel.text = "Service name"
 
         setupSubviews()
 
@@ -222,10 +226,12 @@ class ServiceEditViewController: VMViewController<ServiceEditViewModel>, APIErro
         separator.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: Size.componentSpacing).isActive = true
 
         view.add(subview: serviceNameLabel)
+        serviceNameLabel.setContentHuggingPriority(.init(1000), for: .horizontal)
         serviceNameLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
         serviceNameLabel.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: Size.componentSpacing).isActive = true
 
         view.add(subview: editedServiceNameInput)
+        editedServiceNameInput.textField.setContentCompressionResistancePriority(.init(1000), for: .horizontal)
         editedServiceNameInput.textField.firstBaselineAnchor.constraint(equalTo: serviceNameLabel.firstBaselineAnchor).isActive = true
         editedServiceNameInput.leadingAnchor.constraint(equalTo: serviceNameLabel.trailingAnchor, constant: Size.standardMargin).isActive = true
         editedServiceNameInput.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
