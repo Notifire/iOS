@@ -249,6 +249,10 @@ extension ServiceViewController: UITableViewDelegate {
             let scale = 1 + (maxScale - 1) * scaleFractionComplete
             let yOffset = 1/scale * (-0.5)*imageWidth + imageWidth/2
             serviceHeaderView.serviceImageView.transform = CGAffineTransform(scaleX: scale, y: scale).translatedBy(x: 0, y: -yOffset)
+            // Fix alpha for fast scrolling
+            if serviceHeaderView.serviceImageView.alpha < 1 {
+                serviceHeaderView.serviceImageView.alpha = 1
+            }
         } else if yPos > 0 {
             // Shrinking
             let imageHeight = serviceHeaderView.serviceImageView.bounds.height
