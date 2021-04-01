@@ -8,7 +8,7 @@ platform :ios do
 
     sync_code_signing(
       type: "appstore",
-      app_identifier: ["com.dvdblk.Notifire.mock.tf","com.dvdblk.Notifire.mock.tf.NotificationServiceExtension"]
+      app_identifier: ["com.dvdblk.Notifire.mock.tf", "com.dvdblk.Notifire.mock.tf.NotificationServiceExtension"]
 
     )
 
@@ -27,36 +27,26 @@ platform :ios do
     upload_to_testflight
   end
 
-  lane :local_beta_mock_old do
-    get_certificates
-    get_provisioning_profile(
-      force: true,
-      app_identifier: "com.dvdblk.Notifire.mock.tf",
-      provisioning_name: "com.dvdblk.Notifire.mock.tf AppStore"
+  desc "Build and upload a new build of Notifire to TestFlight (locally - apple ID sign in needed)"
+  lane :local_beta do
+
+    sync_code_signing(
+      type: "appstore",
+      app_identifier: ["com.dvdblk.Notifire", "com.dvdblk.Notifire.NotificationServiceExtension"]
     )
-    get_provisioning_profile(
-      force: true,
-      app_identifier: "com.dvdblk.Notifire.mock.tf",
-      provisioning_name: "com.dvdblk.Notifire.mock.tf.Notification AppStore"
+
+    increment_build_number
+
+    build_app(
+      workspace: "Notifire.xcworkspace",
+      scheme: "Notifire",
     )
+
     update_code_signing_settings(
-      use_automatic_signing: false,
+      use_automatic_signing: true,
       path: "Notifire.xcodeproj"
     )
-    match(
-        app_identifier: ["com.dvdblk.Notifire.mock.tf","com.dvdblk.Notifire.mock.tf.NotificationServiceExtension"],
-        type: "appstore",
-    )
-    build_app(
-      workspace: "Notifire.xcworkspace", 
-      scheme: "Notifire Mock TF", 
-      export_method: "app-store",
-      export_options: {
-        provisioningProfiles: { 
-            "com.dvdblk.Notifire.mock.tf" => "com.dvdblk.Notifire.mock.tf AppStore",
-            "com.dvdblk.Notifire.mock.tf.NotificationServiceExtension" => "com.dvdblk.Notifire.mock.tf.Notification AppStore"
-          }
-      }
-    )
+
+    upload_to_testflight
   end
 end

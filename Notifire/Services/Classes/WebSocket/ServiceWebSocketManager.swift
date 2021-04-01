@@ -139,7 +139,7 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
                 handle(error: errorEvent)
             }
         } catch let error {
-            Logger.log(.default, "\(self) event handling error: <\(error.localizedDescription)>. Ignoring event.")
+            Logger.log(.default, "\(self) event handling error: <\(error.localizedDescription)>. Ignoring event with jsonData=\(jsonData)")
         }
     }
 

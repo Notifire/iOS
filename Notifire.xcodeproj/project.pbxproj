@@ -4199,7 +4199,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notifire/Notifire.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 6QH7E4QW2D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4522,7 +4522,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Notifire/Notifire-dev.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 6QH7E4QW2D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4551,7 +4551,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notifire/Notifire.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 6QH7E4QW2D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
