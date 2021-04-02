@@ -27,8 +27,19 @@ platform :ios do
     upload_to_testflight
   end
 
+  desc "Test lane"
+  lane :testicek do
+
+  end
+
   desc "Build and upload a new build of Notifire to TestFlight (locally - apple ID sign in needed)"
-  lane :local_beta do
+  lane :local_testflight do
+
+    ensure_git_branch(
+      branch: '^develop$'
+    )
+
+    ensure_git_status_clean
 
     sync_code_signing(
       type: "appstore",
@@ -48,5 +59,19 @@ platform :ios do
     )
 
     upload_to_testflight
+
+    build_number = get_build_number(xcodeproj: "Notifire.xcodeproj")
+
+    path = "."
+    git_add(
+      path: path
+    )
+
+    git_commit(
+      path: path,
+      message: "Upload to testflight (build " + build_number + ")"
+    )
+
+    push_to_git_remote
   end
 end

@@ -21,9 +21,14 @@ or alternatively using `brew install fastlane`
 fastlane ios local_beta_mock
 ```
 Build and upload a new build of Notifire Mock to TestFlight (locally - apple ID sign in needed)
-### ios local_beta
+### ios testicek
 ```
-fastlane ios local_beta
+fastlane ios testicek
+```
+Test lane
+### ios local_testflight
+```
+fastlane ios local_testflight
 ```
 Build and upload a new build of Notifire to TestFlight (locally - apple ID sign in needed)
 
