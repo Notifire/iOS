@@ -20,11 +20,24 @@ class URLOpener {
     }
 
     static func open(url: URL) {
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        guard let safeURL = url.safeToOpenWithSafari else { return }
+        UIApplication.shared.open(safeURL, options: [:], completionHandler: nil)
     }
 
     static func open(urlString: String) {
         guard let url = URL(string: urlString) else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        open(url: url)
+    }
+}
+
+extension URL {
+
+    /// Return a URL that contains "http" as the scheme if there is no scheme.
+    var safeToOpenWithSafari: URL? {
+        guard var components = URLComponents(url: self, resolvingAgainstBaseURL: false) else { return nil }
+        if components.scheme == nil {
+            components.scheme = "http"
+        }
+        return components.url
     }
 }

@@ -155,8 +155,15 @@ extension NotificationDetailViewController: UITableViewDataSource {
             urlCell.onURLTap = { url in
                 URLOpener.open(url: url)
             }
+
             // Context Interaction
-            if #available(iOS 13, *) {
+            if
+                #available(iOS 13, *),
+                let url = viewModel.notification.additionalURL,
+                let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+                components.scheme == "http" || components.scheme == "https" || components.scheme == nil
+            {
+                // Add ContextMenuInteraction if the URL can be opened via safari
                 let urlInteraction = UIContextMenuInteraction(delegate: self)
                 urlCell.urlLabel.addInteraction(urlInteraction)
             }
@@ -199,7 +206,7 @@ extension NotificationDetailViewController: UIContextMenuInteractionDelegate {
 
     func createURLPreviewProvider() -> UIViewController? {
         let viewController = PrivacyPolicyViewController()
-        guard let url = viewModel.notification.additionalURL else { return nil }
+        guard let url = viewModel.notification.additionalURL?.safeToOpenWithSafari else { return nil }
         viewController.request = URLRequest(url: url)
         return viewController
     }
