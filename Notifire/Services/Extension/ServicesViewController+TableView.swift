@@ -78,6 +78,14 @@ extension ServicesViewController: SkeletonTableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Highlight newly inserted cells
         if newInsertedIndexPaths[indexPath] != nil {
+            // But only if it contains a single cell, this way we can avoid
+            // the animation on pagination.
+            guard newInsertedIndexPaths.count == 1 else {
+                // Remove all inserted index paths so that the next one that might be added
+                // from the websocket will get proper orange animation.
+                newInsertedIndexPaths.removeAll()
+                return
+            }
             // We have handled this indexPath cell animation, remove it
             newInsertedIndexPaths.removeValue(forKey: indexPath)
 
