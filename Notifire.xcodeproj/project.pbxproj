@@ -39,6 +39,8 @@
 		8915FB322526106400BD36B2 /* WebSocketErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915FB302526106400BD36B2 /* WebSocketErrorCode.swift */; };
 		8915FB372526107700BD36B2 /* WebSocketDisconnectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915FB362526107700BD36B2 /* WebSocketDisconnectContext.swift */; };
 		8915FB382526107700BD36B2 /* WebSocketDisconnectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915FB362526107700BD36B2 /* WebSocketDisconnectContext.swift */; };
+		891A2A75261A0CAF00EE91E3 /* ScrollViewSeparatorAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A2A74261A0CAF00EE91E3 /* ScrollViewSeparatorAnimator.swift */; };
+		891A2A76261A0CAF00EE91E3 /* ScrollViewSeparatorAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A2A74261A0CAF00EE91E3 /* ScrollViewSeparatorAnimator.swift */; };
 		891D661B25653B54003BD7E1 /* UserSessionManager+CreateSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891D661A25653B54003BD7E1 /* UserSessionManager+CreateSession.swift */; };
 		891D661C25653B54003BD7E1 /* UserSessionManager+CreateSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891D661A25653B54003BD7E1 /* UserSessionManager+CreateSession.swift */; };
 		8920CA702171377900A72BD0 /* RegisterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8920CA6F2171377900A72BD0 /* RegisterCoordinator.swift */; };
@@ -841,6 +843,7 @@
 		8915FB2325260AB400BD36B2 /* WebSocketOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketOperation.swift; sourceTree = "<group>"; };
 		8915FB302526106400BD36B2 /* WebSocketErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketErrorCode.swift; sourceTree = "<group>"; };
 		8915FB362526107700BD36B2 /* WebSocketDisconnectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketDisconnectContext.swift; sourceTree = "<group>"; };
+		891A2A74261A0CAF00EE91E3 /* ScrollViewSeparatorAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewSeparatorAnimator.swift; sourceTree = "<group>"; };
 		891D661A25653B54003BD7E1 /* UserSessionManager+CreateSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserSessionManager+CreateSession.swift"; sourceTree = "<group>"; };
 		8920CA6F2171377900A72BD0 /* RegisterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCoordinator.swift; sourceTree = "<group>"; };
 		8920CA762171578900A72BD0 /* CenterStackPresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterStackPresenting.swift; sourceTree = "<group>"; };
@@ -1423,6 +1426,7 @@
 			children = (
 				8920CA8F2172BB1E00A72BD0 /* Animation.swift */,
 				8922E2482198AF8D001984C4 /* NotifirePopAnimationController.swift */,
+				891A2A74261A0CAF00EE91E3 /* ScrollViewSeparatorAnimator.swift */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -3431,6 +3435,7 @@
 				89576AE624FD412A0097BF87 /* NotifireNotificationHandler.swift in Sources */,
 				89E8178625D8764200BA8927 /* UITableView+Init.swift in Sources */,
 				8966C89425530F9C00F037C3 /* RepeatingTimer.swift in Sources */,
+				891A2A76261A0CAF00EE91E3 /* ScrollViewSeparatorAnimator.swift in Sources */,
 				89576AE724FD412A0097BF87 /* RoundedImageView.swift in Sources */,
 				89F19D702567190D0030AFE0 /* DeeplinkViewModelRepresenting.swift in Sources */,
 				89576AE824FD412A0097BF87 /* NotifireAPIStatusCode.swift in Sources */,
@@ -3645,6 +3650,7 @@
 				89F19D632566C1340030AFE0 /* UIActivityIndicatorView+Init.swift in Sources */,
 				89D4E2032139FDD100630790 /* FireLayerProperties.swift in Sources */,
 				89BDADDF217A520E000E38FC /* UserSessionHandler.swift in Sources */,
+				891A2A75261A0CAF00EE91E3 /* ScrollViewSeparatorAnimator.swift in Sources */,
 				895637C7255759AD005E4A4E /* Decodable+Dictionary.swift in Sources */,
 				893A4A2E2528D29300DD02D0 /* CALayer+Frame.swift in Sources */,
 				89399590217002AD00687A79 /* Revealing.swift in Sources */,

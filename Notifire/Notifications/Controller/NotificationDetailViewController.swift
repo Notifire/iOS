@@ -11,9 +11,8 @@ import UIKit
 class NotificationDetailViewController: VMViewController<NotificationDetailViewModel>, PreferredContentSizeAutochanging, NavigationBarDisplaying, NotifireAlertPresenting {
 
     // MARK: - Properties
-    private var userInteractivePopObserver: NSKeyValueObservation?
-    private var userInteractivePopInProgress: Bool = false
-    private var userWasInteractingWithVCOnNavBarReload: Bool = false
+    /// Used to update the back bar button image. Set during viewDidLoad.
+    private var previousNavigationItem: UINavigationItem?
 
     // MARK: Views
     lazy var tableView: UITableView = {
@@ -25,6 +24,20 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
         table.contentInsetAdjustmentBehavior = .always
         table.alwaysBounceVertical = false
         return table
+    }()
+
+    let navigationBarSeparator: HairlineView = {
+        let separator = HairlineView()
+        // Don't show the separator initially
+        separator.alpha = 0
+        return separator
+    }()
+
+    // MARK: SeparatorAnimation
+    lazy var separatorAnimator: ScrollViewSeparatorAnimator = {
+        let animator = ScrollViewSeparatorAnimator()
+        animator.separator = navigationBarSeparator
+        return animator
     }()
 
     // MARK: PreferredContentSizeAutochanging
@@ -40,6 +53,9 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
         super.viewDidLoad()
         view.backgroundColor = .compatibleSystemBackground
         title = "Notification"
+        if let prevNavigationItem = navigationController?.navigationBar.topItem {
+            previousNavigationItem = prevNavigationItem
+        }
 
         // Add gestureRecognizer to view to deselect textview selections
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView))
@@ -53,25 +69,6 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideNavigationBar()
-
-        if userInteractivePopObserver == nil {
-            userInteractivePopObserver = navigationController?.interactivePopGestureRecognizer?.observe(\.state, options: .new, changeHandler: { [weak self] (recognizer, _) in
-                guard let `self` = self else { return }
-                switch recognizer.state {
-                case .began, .changed, .possible:
-                    self.userInteractivePopInProgress = true
-                default:
-                    guard self.userInteractivePopInProgress, self.userWasInteractingWithVCOnNavBarReload else {
-                        self.userInteractivePopInProgress = false
-                        return
-                    }
-                    self.userInteractivePopInProgress = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                        self?.updateBackBarButtonItem()
-                    }
-                }
-            })
-        }
 
         // Initial number of unread notifications in backbarbuttonitem
         updateBackBarButtonItem()
@@ -97,27 +94,13 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
 
     // MARK: - Private
     private func updateBackBarButtonItem() {
-        guard let navigationController = navigationController else { return }
-
-        // Make sure that the user is not interacting right now, otherwise flag this event
-        guard !userInteractivePopInProgress else {
-            self.userWasInteractingWithVCOnNavBarReload = true
-            return
-        }
-        self.userWasInteractingWithVCOnNavBarReload = false
-
-        // Important
-        // `popViewController` is used here as a hack to be able to change
-        // the navigationBar's `topItem?.backBarButtonItem`
-        navigationController.popViewController(animated: false)
-        if let numberUnread = viewModel.unreadNotificationsObserver?.currentUnreadCount, numberUnread != 0 {
-            let image = UIImage.labelledImage(with: "\(numberUnread)", font: UIFont.systemFont(ofSize: 12, weight: .medium)).withRenderingMode(.alwaysOriginal)
-            let roundedBarButtonItem = UIBarButtonItem(image: image, style: UIBarButtonItem.Style.done, target: nil, action: nil)
-            navigationController.navigationBar.topItem?.backBarButtonItem = roundedBarButtonItem
-        } else {
-            navigationController.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(image: nil, style: .plain, target: nil, action: nil)
-        }
-        navigationController.pushViewController(self, animated: false)
+        guard let numberUnread = viewModel.unreadNotificationsObserver?.currentUnreadCount else { return }
+        previousNavigationItem?.backBarButtonItem = UIBarButtonItem(
+            image: UIImage.labelledImage(with: "\(numberUnread)", font: UIFont.systemFont(ofSize: 12, weight: .medium)).withRenderingMode(.alwaysOriginal),
+            style: .done,
+            target: nil,
+            action: nil
+        )
     }
 
     private func prepareViewModel() {
@@ -131,7 +114,12 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
 
     private func layout() {
         view.add(subview: tableView)
-        tableView.embed(in: view)
+        tableView.embedInVerticalSafeArea(in: view)
+        tableView.embedSides(in: view)
+
+        view.add(subview: navigationBarSeparator)
+        navigationBarSeparator.bottomAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
+        navigationBarSeparator.embedSides(in: view)
     }
 
     // MARK: Event Handlers
@@ -182,6 +170,11 @@ extension NotificationDetailViewController: UITableViewDelegate {
         if item is NotificationDetailHeaderConfiguration, let cell = tableView.cellForRow(at: indexPath) as? NotificationDetailHeaderCell {
             cell.dateStyle.swapStyle()
         }
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Animate the separator if needed
+        separatorAnimator.handleScrollViewDidScroll(scrollView)
     }
 }
 

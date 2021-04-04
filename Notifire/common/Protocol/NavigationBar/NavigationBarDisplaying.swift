@@ -47,7 +47,7 @@ extension NavigationBarDisplaying where Self: UIViewController {
     func hideNavigationBarBackButtonText(newBackBarText: String? = nil) {
         if #available(iOS 14, *) {
             if let newText = newBackBarText {
-                navigationItem.backButtonTitle = newBackBarText
+                navigationItem.backButtonTitle = newText
             }
             navigationItem.backButtonDisplayMode = .minimal
         } else {
