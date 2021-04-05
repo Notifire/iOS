@@ -8,6 +8,7 @@
 
 import Foundation
 import KeychainAccess
+import SDWebImage
 
 class UserSessionManager {
 
@@ -146,5 +147,20 @@ class UserSessionManager {
     static func removePreviousSessionIfNeeded() {
         guard let previousSession = previousUserSession() else { return }
         removeSession(userSession: previousSession)
+    }
+}
+
+// MARK: - Image Cache
+extension UserSessionManager {
+    static func createImageCache(from userSession: UserSession) -> SDImageCache? {
+        guard let imageCacheDirectoryURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: UserSessionManager.appGroupSuiteName)?.appendingPathComponent("images") else { return nil }
+        if !FileManager.default.fileExists(atPath: imageCacheDirectoryURL.path) {
+            do {
+                try FileManager.default.createDirectory(atPath: imageCacheDirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                Logger.log(.error, "UserSessionManager create directory error <\(error.localizedDescription)>")
+            }
+        }
+        return SDImageCache(namespace: String(userSession.userID), diskCacheDirectory: imageCacheDirectoryURL.path)
     }
 }

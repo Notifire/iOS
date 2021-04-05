@@ -46,7 +46,11 @@ class SettingsSwitchTableViewCell: ReusableBaseTableViewCell, CellConfigurable {
         return view
     }()
 
-    lazy var informationLabel = UILabel(style: .cellTitle)
+    lazy var informationLabel: UILabel = {
+        let label = UILabel(style: .cellTitle)
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
 
     lazy var descriptionLabel = UILabel(style: .cellSubtitle)
 
@@ -70,6 +74,12 @@ class SettingsSwitchTableViewCell: ReusableBaseTableViewCell, CellConfigurable {
         flagObserver?.invalidate()
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        descriptionLabel.preferredMaxLayoutWidth = contentView.bounds.inset(by: contentView.layoutMargins).width
+    }
+
     // MARK: - Private
     private func layout() {
         contentView.add(subview: toggleSwitch)
@@ -79,7 +89,7 @@ class SettingsSwitchTableViewCell: ReusableBaseTableViewCell, CellConfigurable {
         contentView.add(subview: informationLabel)
         informationLabel.centerYAnchor.constraint(equalTo: toggleSwitch.centerYAnchor).isActive = true
         informationLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
-        informationLabel.trailingAnchor.constraint(equalTo: toggleSwitch.leadingAnchor, constant: Size.smallMargin).isActive = true
+        informationLabel.trailingAnchor.constraint(equalTo: toggleSwitch.leadingAnchor, constant: -Size.smallestMargin).isActive = true
 
         contentView.add(subview: descriptionLabel)
         descriptionLabel.leadingAnchor.constraint(equalTo: informationLabel.leadingAnchor).isActive = true

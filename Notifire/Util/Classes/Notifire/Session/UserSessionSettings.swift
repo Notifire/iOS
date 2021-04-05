@@ -18,6 +18,8 @@ class UserSessionSettings: NSObject {
         case appUpdateReminderEnabled
         /// A boolean flag that is `true` if user wants to receive prefixed titles.
         case prefixNotificationTitleWithServiceName
+        /// A boolean flag that is `true` if user wants to see service images in notifications.
+        case showServiceImageInNotifications
         /// A boolean flag that is `true` if user prefers URLs to open directly without warnings.
         case openLinksWarningEnabled
 
@@ -37,6 +39,9 @@ class UserSessionSettings: NSObject {
     @UserDefaultBool(key: DefaultsKey.prefixNotificationTitleWithServiceName, initialValue: true)
     var prefixNotificationTitleEnabled: Bool
 
+    @UserDefaultBool(key: DefaultsKey.showServiceImageInNotifications, initialValue: true)
+    var showServiceImageInNotifications: Bool
+
     @UserDefaultInt(key: DefaultsKey.numberOfOpenedNotifications, initialValue: 0)
     var numberOfOpenedNotifications: Int
 
@@ -48,6 +53,7 @@ class UserSessionSettings: NSObject {
     init(identifier: String) {
         self._appUpdateReminderEnabled.identifier = identifier
         self._prefixNotificationTitleEnabled.identifier = identifier
+        self._showServiceImageInNotifications.identifier = identifier
         self._numberOfOpenedNotifications.identifier = identifier
         self._lastVersionPromptedForReview.identifier = identifier
 
@@ -65,20 +71,28 @@ class UserSessionSettings: NSObject {
     }
 
     private func setInitialValuesIfNeeded() {
-        guard isFirstLaunchAfterLogin else { return }
-        isFirstLaunchAfterLogin = false
-
-        // continue only if the user has logged in for the first time
-        Logger.log(.info, "\(self) initializing user defaults")
-
-        let keyPaths: [ReferenceWritableKeyPath<UserSessionSettings, UserDefaultBool<DefaultsKey>>] = [
-            \._appUpdateReminderEnabled, \._prefixNotificationTitleEnabled
-        ]
-        for keyPath in keyPaths {
-            self[keyPath: keyPath].wrappedValue = self[keyPath: keyPath].initialValue
+        if isFirstLaunchAfterLogin {
+            Logger.log(.info, "\(self) initializing user defaults")
+            isFirstLaunchAfterLogin = false
         }
 
-        self._numberOfOpenedNotifications.wrappedValue = self._numberOfOpenedNotifications.initialValue
+        // Bool
+        let boolKeyPaths: [ReferenceWritableKeyPath<UserSessionSettings, UserDefaultBool<DefaultsKey>>] = [
+            \._appUpdateReminderEnabled, \._prefixNotificationTitleEnabled, \._showServiceImageInNotifications
+        ]
+        for boolKeyPath in boolKeyPaths {
+            guard !self[keyPath: boolKeyPath].isValueSet else { continue }
+            self[keyPath: boolKeyPath].wrappedValue = self[keyPath: boolKeyPath].initialValue
+        }
+
+        // Int
+        let intKeyPaths: [ReferenceWritableKeyPath<UserSessionSettings, UserDefaultInt<DefaultsKey>>] = [
+            \._numberOfOpenedNotifications
+        ]
+        for intKeyPath in intKeyPaths {
+            guard !self[keyPath: intKeyPath].isValueSet else { continue }
+            self[keyPath: intKeyPath].wrappedValue = self[keyPath: intKeyPath].initialValue
+        }
     }
 
     /// Used to set the default values for the User's settings.

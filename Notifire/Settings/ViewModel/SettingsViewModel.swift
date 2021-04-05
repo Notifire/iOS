@@ -226,7 +226,7 @@ class SettingsViewModel: ViewModelRepresenting, StaticTableViewViewModel {
             newSections.append((.notificationStatus, [.notificationPermissionStatus, .goToSettingsButton]))
         }
         // Notifications
-        newSections.append((.notifications, [.notificationPrefixSetting]))
+        newSections.append((.notifications, [.notificationPrefixSetting, .notificationServiceImageSetting]))
         // General
         newSections.append((.general, [.applicationVersion, .applicationUpdateAlert]))
         // General Last
@@ -289,6 +289,16 @@ class SettingsViewModel: ViewModelRepresenting, StaticTableViewViewModel {
                 text: "Add notification level to title",
                 switchedOnDescriptionText: "All notifications will have their titles prefixed with their notification level.",
                 switchedOffDescriptionText: "Notification titles will only contain their service name.",
+                session: userSession
+            )
+            newConfiguration = SettingsSwitchCellConfiguration(item: data)
+        case .notificationServiceImageSetting:
+            let data = SettingsSwitchData(
+                sessionFlagKeypath: \.showServiceImageInNotifications,
+                shouldObserveFlag: false,
+                text: "Show service image in notifications",
+                switchedOnDescriptionText: "An image preview of the service image will be shown for notifications.",
+                switchedOffDescriptionText: "Notifications won't contain any image previews.",
                 session: userSession
             )
             newConfiguration = SettingsSwitchCellConfiguration(item: data)

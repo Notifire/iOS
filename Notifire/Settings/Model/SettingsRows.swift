@@ -26,6 +26,7 @@ enum SettingsSectionRow: Int, SectionAndRowRepresentable {
     case notificationPermissionStatus
     case goToSettingsButton
     case notificationPrefixSetting
+    case notificationServiceImageSetting
 
     // MARK: General
     case applicationVersion

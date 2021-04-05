@@ -45,6 +45,11 @@ extension UserDefaultSessionEditing {
             return key.rawValue
         }
     }
+
+    /// `true` if the value is currently non-nil. Used to set the initial value.
+    var isValueSet: Bool {
+        return UserSessionManager.userDefaults.value(forKey: defaultsKey) != nil
+    }
 }
 
 @propertyWrapper

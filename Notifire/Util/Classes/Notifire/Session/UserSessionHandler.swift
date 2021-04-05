@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import AuthenticationServices
+import SDWebImage
 
 protocol UserSessionHandlerDelegate: class {
     func shouldRemoveUser(session: UserSession, reason: UserSessionRemovalReason)
@@ -35,6 +36,7 @@ class UserSessionHandler: RealmProviding {
     let deviceTokenManager: DeviceTokenManager
     let userSession: UserSession
     let notifireProtectedApiManager: NotifireProtectedAPIManager
+    let imageCache: SDImageCache
     private let realmProvider: RealmProvider
     var realm: Realm {
         return realmProvider.realm
@@ -52,6 +54,10 @@ class UserSessionHandler: RealmProviding {
         self.deviceTokenManager = DeviceTokenManager(userSession: session, apiManager: notifireProtectedApiManager)
         guard let realmProvider = RealmProvider(userSession: session) else { return nil }
         self.realmProvider = realmProvider
+        // Image Cache
+        guard let imageCache = UserSessionManager.createImageCache(from: session) else { return nil }
+        self.imageCache = imageCache
+        SDWebImageManager.defaultImageCache = imageCache
         startObservingNotifications()
     }
 
