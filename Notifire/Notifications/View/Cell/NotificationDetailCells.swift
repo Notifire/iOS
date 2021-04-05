@@ -193,8 +193,7 @@ class NotificationDetailURLCell: BaseTableViewCell, CellConfigurable, Notificati
         let bottomConstraint = urlLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
         bottomConstraint.priority = UILayoutPriority(999)
         bottomConstraint.isActive = true
-        urlLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
-        urlLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: Size.componentHeight).isActive = true
+        urlLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
 
         addIndicatorImageView()
     }
