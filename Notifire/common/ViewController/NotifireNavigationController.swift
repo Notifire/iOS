@@ -15,6 +15,9 @@ class NotifireNavigationController: UINavigationController {
 
     private lazy var fullWidthBackGestureRecognizer = UIPanGestureRecognizer()
 
+    // MARK: NavigationReselectable
+    weak var navigatingCoordinator: NavigatingCoordinator?
+
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,13 +50,19 @@ class NotifireNavigationController: UINavigationController {
 }
 
 // MARK: - NotifireNavigationController+Reselectable
-extension NotifireNavigationController: Reselectable {
+protocol NavigationReselectable: Reselectable {
+    var navigatingCoordinator: NavigatingCoordinator? { get set }
+}
+
+extension NavigationReselectable where Self: UINavigationController {
     func reselect(animated: Bool) -> Bool {
         guard viewControllers.count > 1 else { return false }
-        popToRootViewController(animated: animated)
+        navigatingCoordinator?.popToRootCoordinator(animated: animated)
         return true
     }
 }
+
+extension NotifireNavigationController: NavigationReselectable {}
 
 // MARK: - NotifireNavigationController+UIGestureRecognizerDelegate
 extension NotifireNavigationController: UIGestureRecognizerDelegate {

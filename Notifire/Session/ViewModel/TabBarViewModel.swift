@@ -77,14 +77,14 @@ class TabBarViewModel: RealmCollectionViewModel<LocalNotifireNotification> {
     }
 
     // MARK: - Internal
-    func updateTab(to tab: Tab, animated: Bool = true) {
+    func updateTab(to newTab: Tab, animated: Bool = true) {
         let oldValue = currentTab
-        currentTab = tab
-        guard oldValue != tab else {
-            onTabReselect?(tab, animated)
+        currentTab = newTab
+        guard oldValue != newTab else {
+            onTabReselect?(newTab, animated)
             return
         }
-        onTabChange?(tab)
+        onTabChange?(newTab)
     }
 
     override func onResults(change: RealmCollectionChange<Results<LocalNotifireNotification>>) {

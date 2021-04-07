@@ -26,6 +26,9 @@ class NotifireNotificationsHandler: NSObject {
 
     var activeRealmProvider: RealmProviding?
 
+    /// `true` if a notification tap is currently being handled by this object. Used to avoid multiple handlings at the same time.
+    var currentlyHandlingNotificationTap = false
+
     // MARK: Callback
     /// Called when the user taps on a notification. Parameter is `notificationID`.
     var onNotificationTap: ((String) -> Void)?
@@ -101,8 +104,12 @@ extension NotifireNotificationsHandler: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         // Check if the notification contains notificationID
-        if let notificationID = userInfo[NotifireNotificationsHandler.notificationIDKey] as? String {
+        if !currentlyHandlingNotificationTap, let notificationID = userInfo[NotifireNotificationsHandler.notificationIDKey] as? String {
+            currentlyHandlingNotificationTap = true
             onNotificationTap?(notificationID)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                self?.currentlyHandlingNotificationTap = false
+            }
         }
     }
 }

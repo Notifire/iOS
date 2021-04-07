@@ -12,7 +12,7 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
 
     // MARK: - Properties
     /// Used to update the back bar button image. Set during viewDidLoad.
-    private var previousNavigationItem: UINavigationItem?
+    weak var previousNavigationItem: UINavigationItem?
 
     // MARK: Views
     lazy var tableView: UITableView = {
@@ -53,9 +53,6 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
         super.viewDidLoad()
         view.backgroundColor = .compatibleSystemBackground
         title = "Notification"
-        if let prevNavigationItem = navigationController?.navigationBar.topItem {
-            previousNavigationItem = prevNavigationItem
-        }
 
         // Add gestureRecognizer to view to deselect textview selections
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView))

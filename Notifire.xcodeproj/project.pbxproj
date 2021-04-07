@@ -314,6 +314,8 @@
 		895637C8255759AD005E4A4E /* Decodable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895637C6255759AD005E4A4E /* Decodable+Dictionary.swift */; };
 		895637CB255759C3005E4A4E /* AppVersionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895637CA255759C3005E4A4E /* AppVersionData.swift */; };
 		895637CC255759C3005E4A4E /* AppVersionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895637CA255759C3005E4A4E /* AppVersionData.swift */; };
+		8956BBA8261E110400A72848 /* UINavigationController+Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8956BBA7261E110300A72848 /* UINavigationController+Pop.swift */; };
+		8956BBA9261E110400A72848 /* UINavigationController+Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8956BBA7261E110300A72848 /* UINavigationController+Pop.swift */; };
 		89576AA024FD412A0097BF87 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89399580216FE4E900687A79 /* AppCoordinator.swift */; };
 		89576AA124FD412A0097BF87 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BDADE2217A5693000E38FC /* Service.swift */; };
 		89576AA224FD412A0097BF87 /* FireLayerProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4E2022139FDD100630790 /* FireLayerProperties.swift */; };
@@ -1026,6 +1028,7 @@
 		895637C32557599A005E4A4E /* Encodable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Dictionary.swift"; sourceTree = "<group>"; };
 		895637C6255759AD005E4A4E /* Decodable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decodable+Dictionary.swift"; sourceTree = "<group>"; };
 		895637CA255759C3005E4A4E /* AppVersionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionData.swift; sourceTree = "<group>"; };
+		8956BBA7261E110300A72848 /* UINavigationController+Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Pop.swift"; sourceTree = "<group>"; };
 		89576B3B24FD412A0097BF87 /* Notifire Mock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Notifire Mock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89576B3D24FD42FD0097BF87 /* TestFlight.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = TestFlight.xcconfig; sourceTree = "<group>"; };
 		895A3B762500609B000A7B50 /* BottomNavigatorLabelContaining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigatorLabelContaining.swift; sourceTree = "<group>"; };
@@ -2470,6 +2473,7 @@
 				89CAB8BB25D22D9D001133A4 /* UIDevice+modelName.swift */,
 				89E8178425D8764200BA8927 /* UITableView+Init.swift */,
 				89E817BE25D9B7D000BA8927 /* RealmObject+SafeHandle.swift */,
+				8956BBA7261E110300A72848 /* UINavigationController+Pop.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -3387,6 +3391,7 @@
 				897B77C325250576008602BB /* SwapOnlineOfflineRepresentablesOperation.swift in Sources */,
 				8936E3C2256333E7007424A7 /* ViewModelled.swift in Sources */,
 				894AB6822512607B00F2CBF5 /* ServicesViewControllerDelegate.swift in Sources */,
+				8956BBA9261E110400A72848 /* UINavigationController+Pop.swift in Sources */,
 				89FAFD342566008900D1A64C /* EmailTokenError.swift in Sources */,
 				894B1F992505DA4300D0D671 /* TableViewReselectable.swift in Sources */,
 				89576AD324FD412A0097BF87 /* ServiceNotificationsViewController.swift in Sources */,
@@ -3733,6 +3738,7 @@
 				89E6B6C424FF0FBD00F7A79C /* UIColor+AppColors.swift in Sources */,
 				8936E3C82563594E007424A7 /* TitleProviding.swift in Sources */,
 				89541911251CB92F0046464D /* Logger+Init.swift in Sources */,
+				8956BBA8261E110400A72848 /* UINavigationController+Pop.swift in Sources */,
 				895637B6255517A0005E4A4E /* ServiceChangeEvent.swift in Sources */,
 				892DC07F255DDAD30067EB12 /* UserDefault.swift in Sources */,
 				89017CA52526BF1900EC9DC8 /* ServicesViewController+AppRevealing.swift in Sources */,

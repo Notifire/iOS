@@ -65,13 +65,27 @@ extension NavigatingCoordinator {
     /// Removes the last coordinator that was added to the childCoordinator hierarchy.
     /// - Parameter animated: if the pop should be animated. Default value is `true`.
     func popChildCoordinator(animated: Bool = true) {
-        navigationController.popViewController(animated: animated)
+        guard childCoordinators.count > 1, let lastChildCoordinator = childCoordinators.last else {
+            Logger.log(.default, "\(self) attempted to pop a child coordinator when only the root coordinator is presented.")
+            return
+        }
+        navigationController.popViewController(animated: animated) { [weak self] in
+            guard let `self` = self else { return }
+            // Remove the childCoordinator from the array
+            self.childCoordinators = self.childCoordinators.filter({ $0.viewController != lastChildCoordinator.viewController })
+        }
     }
 
     /// Pops all childCoordinators except for the root one.
     /// - Parameter animated: if the pop should be animated. Default value is `true`.
     func popToRootCoordinator(animated: Bool = true) {
-        navigationController.popToRootViewController(animated: animated)
+        guard childCoordinators.count > 1, let rootCoordinator = childCoordinators.first else {
+            Logger.log(.default, "\(self) attempted to pop to root coordinator while it is already presenting only the root coordinator.")
+            return
+        }
+        navigationController.popToRootViewController(animated: animated) { [weak self] in
+            self?.childCoordinators = [rootCoordinator]
+        }
     }
 
     /// Default implementation for `navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool)`
@@ -118,6 +132,10 @@ class NavigationCoordinator<RootChildCoordinator: ChildCoordinator>: NSObject, N
     init(rootChildCoordinator: RootChildCoordinator, navigationController: UINavigationController = UINavigationController()) {
         self.navigationController = navigationController
         self.rootChildCoordinator = rootChildCoordinator
+        super.init()
+        if let reselectableNavigation = navigationController as? NavigationReselectable {
+            reselectableNavigation.navigatingCoordinator = self
+        }
     }
 
     // MARK: - Lifecycle

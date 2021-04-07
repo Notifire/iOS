@@ -47,7 +47,9 @@ class NotificationsCoordinator: NavigatingChildCoordinator, TabbedCoordinator, P
 
     func showDetailed(notificationDetailVC: NotificationDetailViewController, animated: Bool) {
         let notificationDetailCoordinator = GenericCoordinator(viewController: notificationDetailVC)
-        parentNavigatingCoordinator?.navigationController.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(image: nil, style: .plain, target: nil, action: nil)
+        if let prevNavigationItem = parentNavigatingCoordinator?.navigationController.navigationBar.topItem {
+            notificationDetailVC.previousNavigationItem = prevNavigationItem
+        }
         parentNavigatingCoordinator?.push(childCoordinator: notificationDetailCoordinator, animated: animated)
     }
 
