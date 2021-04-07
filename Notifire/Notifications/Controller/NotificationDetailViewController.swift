@@ -95,12 +95,18 @@ class NotificationDetailViewController: VMViewController<NotificationDetailViewM
     // MARK: - Private
     private func updateBackBarButtonItem() {
         guard let numberUnread = viewModel.unreadNotificationsObserver?.currentUnreadCount else { return }
-        previousNavigationItem?.backBarButtonItem = UIBarButtonItem(
-            image: UIImage.labelledImage(with: "\(numberUnread)", font: UIFont.systemFont(ofSize: 12, weight: .medium)).withRenderingMode(.alwaysOriginal),
-            style: .done,
-            target: nil,
-            action: nil
-        )
+        if numberUnread > 0 {
+            // Show labelled image
+            previousNavigationItem?.backBarButtonItem = UIBarButtonItem(
+                image: UIImage.labelledImage(with: "\(numberUnread)", font: UIFont.systemFont(ofSize: 12, weight: .medium)).withRenderingMode(.alwaysOriginal),
+                style: .done,
+                target: nil,
+                action: nil
+            )
+        } else {
+            // Hide labelled image
+            previousNavigationItem?.backBarButtonItem = nil
+        }
     }
 
     private func prepareViewModel() {
