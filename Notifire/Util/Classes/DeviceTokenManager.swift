@@ -128,9 +128,10 @@ class DeviceTokenManager {
         protectedApiManager.register(deviceToken: deviceToken) { [weak self] result in
             guard let `self` = self, case .registeredRemoteNotifications = self.stateModel.state else { return }
             switch result {
-            case .error:
+            case .error(let err):
                 Logger.log(.debug, "\(self) failed to register deviceToken=\(deviceToken)")
-                // Retry later
+                if case NotifireAPIError.invalidStatusCode(NotifireAPIStatusCode.forbidden.rawValue, _) = err { return }
+                // Retry later if the error status code isn't 403
                 DispatchQueue.main.asyncAfter(deadline: .now() + Self.registerDeviceFailureRetryTime) { [weak self] in
                     self?.registerDeviceWithNotifireApi()
                 }

@@ -68,6 +68,9 @@ class NotifireProtectedAPIManager: NotifireAPIBaseManager {
             guard let `self` = self else { return }
             switch result {
             case .error(let err):
+                if case .invalidStatusCode(NotifireAPIStatusCode.forbidden.rawValue, _) = err {
+                    self.onRefreshTokenInvalidation?()
+                }
                 completion(.error(err))
             case .success(let accessTokenResponse):
                 if let newAccessToken = accessTokenResponse.accessToken {

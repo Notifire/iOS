@@ -54,6 +54,10 @@ class SettingsViewController: VMViewController<SettingsViewModel>, NavigationBar
             self?.tableView.reloadData()
         }
 
+        viewModel.shouldReloadAccountSection = { [weak self] in
+            self?.tableView.reloadSections(IndexSet([0]), with: .none)
+        }
+
         // Navigation
         hideNavigationBarBackButtonText()
         showNavigationBar()

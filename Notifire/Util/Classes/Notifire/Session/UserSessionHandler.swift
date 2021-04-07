@@ -70,18 +70,23 @@ class UserSessionHandler: RealmProviding {
     /// - Parameters:
     ///     - reason: the event that triggered this logout
     public func exitUserSession(reason: UserSessionRemovalReason) {
-        // Logout via the Notifire API = stops sending notifications to this deviceToken
-        deviceTokenManager.unregisterDeviceFromNotifireApi()
+        if reason != .refreshTokenInvalidated {
+            // Logout via the Notifire API = stops sending notifications to this deviceToken
+            deviceTokenManager.unregisterDeviceFromNotifireApi()
+        }
         deviceTokenManager.unregisterFromPushNotifications()
         // Inform the delegate about the removal
         sessionDelegate?.shouldRemoveUser(session: userSession, reason: reason)
     }
 
-    public func updateUserSession(refreshToken: String, accessToken: String) {
+    public func updateUserSession(refreshToken: String, accessToken: String?, email: String? = nil) {
+        if let email = email {
+            userSession.providerData.email = email
+        }
         userSession.refreshToken = refreshToken
         userSession.accessToken = accessToken
         // Save the new refresh token to the keychain
-        UserSessionManager.saveSessionInParts(session: userSession, email: false, refreshToken: true, providerData: false, deviceToken: false)
+        UserSessionManager.saveSessionInParts(session: userSession, email: true, refreshToken: true, providerData: false, deviceToken: false)
     }
 }
 

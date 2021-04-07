@@ -190,6 +190,11 @@ class SettingsViewModel: ViewModelRepresenting, StaticTableViewViewModel {
     // MARK: Callback
     /// Called when the tableView should be reloaded.
     public var shouldReloadData: (() -> Void)?
+    /// Called when the first section of the tableView should be reloaded. (e.g. on account's email change)
+    public var shouldReloadAccountSection: (() -> Void)?
+
+    // MARK: KVO
+    var emailChangeObserver: NSKeyValueObservation?
 
     // MARK: - Initialization
     init(sessionHandler: UserSessionHandler) {
@@ -208,6 +213,16 @@ class SettingsViewModel: ViewModelRepresenting, StaticTableViewViewModel {
             self.updateSections()
             self.shouldReloadData?()
         })
+
+        // Email change KVO
+        emailChangeObserver = userSession.providerData.observe(\.email, options: [.new, .old], changeHandler: { [weak self] (_, _) in
+            guard let `self` = self else { return }
+            self.shouldReloadAccountSection?()
+        })
+    }
+
+    deinit {
+        emailChangeObserver?.invalidate()
     }
 
     // MARK: - StaticTableViewModel
@@ -320,8 +335,10 @@ class SettingsViewModel: ViewModelRepresenting, StaticTableViewViewModel {
         case .contact:
             newConfiguration = SettingsDisclosureCellConfiguration(item: "Contact us")
         }
-        // Save it for later
-        cellConfigurations[settingsRow] = newConfiguration
+        // Save it for later except email
+        if settingsRow != .accountProviderEmail {
+            cellConfigurations[settingsRow] = newConfiguration
+        }
         return newConfiguration
     }
     // swiftlint:enable function_body_length

@@ -108,7 +108,7 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
         guard !isDisconnected else { return }
 
         // Change the status
-        webSocketConnectionStatus = .disconnected(context: .disconnect(reason: "No internet connection", code: code))
+        webSocketConnectionStatus = .disconnected(context: .disconnect(reason: "Force disconnect", code: code))
 
         // Actually disconnect
         socket.disconnect()
@@ -139,7 +139,7 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
                 handle(error: errorEvent)
             }
         } catch let error {
-            Logger.log(.default, "\(self) event handling error: <\(error.localizedDescription)>. Ignoring event with jsonData=\(jsonData)")
+            Logger.logNetwork(.default, "\(self) event handling error: <\(error.localizedDescription)>. Ignoring event with jsonData=\(jsonData)")
         }
     }
 
@@ -168,6 +168,9 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
             apiManager.fetchNewAccessToken { [weak self] result in
                 guard let `self` = self, self.isConnected else { return }
                 switch result {
+                case .error(.invalidStatusCode(NotifireAPIStatusCode.forbidden.rawValue, _)):
+                    // Need to stop reconnecting to the socket, the user has to logout.
+                    self.disconnect(code: .forbiddenAccess)
                 case .error:
                     // Delay for next fetch
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
@@ -279,6 +282,8 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
                     delegate?.didRequestFreshConnect()
                 case .invalidAccessToken:
                     shouldGenerateNewAccessToken = true
+                case .forbiddenAccess:
+                    shouldGenerateNewAccessToken = false
                 case .noInternetConnection, .appWillResignActive, .invalidFormat, .unknown:
                     break
                 }
@@ -287,7 +292,8 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
 
             heartbeatManager.stopSendingHeartbeat()
 
-            // Reconnect after some delay
+            if case .disconnect(_, WebSocketErrorCode.forbiddenAccess) = context { return }
+            // Reconnect after some delay if the access isn't forbidden
             DispatchQueue.main.asyncAfter(deadline: .now() + ServiceWebSocketManager.reconnectDelay) { [weak self] in
                 guard let `self` = self, self.isDisconnected else { return }
                 self.connect()

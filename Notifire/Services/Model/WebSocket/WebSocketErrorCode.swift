@@ -15,6 +15,8 @@ enum WebSocketErrorCode: Int {
     case noInternetConnection = 1
     /// The user moved the app from Foreground Active to Foreground Inactive
     case appWillResignActive = 2
+    /// The user has changed his refreshToken. This WebSocketErrorCode indicates that the websocket should stop reconnecting automatically.
+    case forbiddenAccess
     /// Formatting error, usually invoked from Cerberus.
     case invalidFormat = 1000
     /// User's access token is no longer valid.

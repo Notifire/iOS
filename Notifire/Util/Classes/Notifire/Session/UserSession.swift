@@ -8,12 +8,18 @@
 
 import UIKit
 
-struct AuthenticationProviderData {
+class AuthenticationProviderData: NSObject {
     let provider: AuthenticationProvider
-    let email: String
+    @objc dynamic var email: String
 
     // The user id of the user returned by the external auth providers
     let userID: String?
+
+    init(provider: AuthenticationProvider, email: String, userID: String? = nil) {
+        self.provider = provider
+        self.email = email
+        self.userID = userID
+    }
 }
 
 class UserSession {
@@ -24,7 +30,7 @@ class UserSession {
     /// Used to obtain the access token
     var refreshToken: String
     /// The data from the login provider (e.g. email / userID)
-    let providerData: AuthenticationProviderData
+    var providerData: AuthenticationProviderData
     /// Current device token
     var deviceToken: String?
     /// Current access token

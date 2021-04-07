@@ -13,6 +13,7 @@ enum NotifireAPIStatusCode: HTTPStatusCode {
     case accepted = 202
     case badRequest = 400
     case unauthorized = 401
+    case forbidden = 403
     case methodNotAllowed = 405
     case internalServerError = 500
 }
