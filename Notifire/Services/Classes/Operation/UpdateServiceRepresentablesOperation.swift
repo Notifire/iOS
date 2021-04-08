@@ -242,6 +242,11 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
             }
             return (serviceRepresentables, changes)
         } else if let localService = localServices.first(where: { $0.id == service.id }) {
+            guard localService.updatedAt < service.updatedAt else {
+                Logger.log(.default, "\(self) ignoring update of service (id=\(service.id)) because the date is older (\(service.updatedAt)) than on the local service (\(localService.updatedAt)).")
+                return (serviceRepresentables, nil)
+            }
+
             // updated service is in local services but hasn't been presented yet
             synchronizationManager.update(localService: localService, from: service)
 
