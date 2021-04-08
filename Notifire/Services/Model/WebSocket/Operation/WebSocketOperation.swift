@@ -45,7 +45,7 @@ extension WebSocketConnectOperation where OperationData == WebSocketConnectOpera
 
 // MARK: - WebSocketReconnectOperation
 struct WebSocketReconnectOperationData: Codable {
-    let token: String
+    let accessToken: String
     let sessionID: String
 }
 
@@ -53,7 +53,7 @@ typealias WebSocketReconnectOperation = WebSocketOperation<WebSocketReconnectOpe
 
 extension WebSocketReconnectOperation where OperationData == WebSocketReconnectOperationData {
     init(authorizationToken: String, sessionID: String) {
-        self.init(operation: .identifyReconnect, data: WebSocketReconnectOperationData(token: authorizationToken, sessionID: sessionID))
+        self.init(operation: .identifyReconnect, data: WebSocketReconnectOperationData(accessToken: authorizationToken, sessionID: sessionID))
     }
 }
 

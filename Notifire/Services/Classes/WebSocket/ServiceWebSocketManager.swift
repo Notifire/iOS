@@ -25,8 +25,12 @@ protocol ServiceWebSocketManagerDelegate: class {
 class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
 
     // MARK: - Properties
-    let socket: WebSocket
+    /// The currently used WebSocket.
+    /// Need to keep this as an optional and switch it after every disconnect to avoid reconnect bugs from Starscream.
+    var socket: WebSocket?
+
     let apiManager: NotifireProtectedAPIManager
+
     /// networkMonitor has type `NWPathMonitor` but `AnyObject` is used to avoid iOS 11 unavailability
     weak var networkMonitor: AnyObject?
 
@@ -75,9 +79,6 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
     // MARK: - Initialization
     init(apiManager: NotifireProtectedAPIManager) {
         self.apiManager = apiManager
-        let socket = NotifireAPIFactory.createWebSocket()
-        self.socket = socket
-        socket.delegate = self
     }
 
     // MARK: - Methods
@@ -99,8 +100,15 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
 
         webSocketConnectionStatus = .connecting
 
+        // Create socket if needed
+        if socket == nil {
+            let newSocket = NotifireAPIFactory.createWebSocket()
+            newSocket.delegate = self
+            socket = newSocket
+        }
+
         // Attempt to connect
-        socket.connect()
+        socket?.connect()
     }
 
     func disconnect(code: WebSocketErrorCode = .noInternetConnection) {
@@ -111,7 +119,14 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
         webSocketConnectionStatus = .disconnected(context: .disconnect(reason: "Force disconnect", code: code))
 
         // Actually disconnect
+        guard let socket = socket else {
+            Logger.logNetwork(.error, "\(self) socket was nil during a disconnect.")
+            return
+        }
+
         socket.disconnect()
+        socket.delegate = nil
+        self.socket = nil
     }
 
     // MARK: - Private
@@ -194,7 +209,7 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
             return
         }
         Logger.logNetwork(.debug, "\(self) sending operation=<\(operation)>")
-        socket.write(stringData: jsonOperationData, completion: nil)
+        socket?.write(stringData: jsonOperationData, completion: nil)
     }
 
     // MARK: - Event Handlers
@@ -228,6 +243,7 @@ class ServiceWebSocketManager: WebSocketDelegate, WebSocketOperationSending {
         // Update connection status to Authorized
         guard isConnected else { return }
         webSocketConnectionStatus = .authorized(sessionID: event.data.sessionID)
+        lastSessionID = event.data.sessionID
 
         heartbeatManager.startSendingHeartbeat(interval: event.data.heartbeatInterval)
     }

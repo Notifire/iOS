@@ -248,7 +248,6 @@ class ServiceNameCreationViewController: VMViewController<ServiceNameCreationVie
     }
 
     // MARK: - Private
-
     private func setupSubviews() {
         view.add(subview: titleAndInformationView)
         titleAndInformationView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Size.componentSpacing).isActive = true
