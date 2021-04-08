@@ -247,6 +247,7 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
 
         //
         // Update services operation
+        updateServicesOperation.servicesViewModel = self
         updateServicesOperation.completionHandler = { [weak self] threadSafeRepresentables, maybeChanges in
             guard let `self` = self else { return }
             let newServiceRepresentables = self.synchronizationManager.createServiceRepresentables(from: threadSafeRepresentables)
@@ -269,8 +270,6 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
             case .success(let services):
                 updateServicesOperation.action = .add(batch: services)
             }
-
-            updateServicesOperation.threadSafeServiceRepresentables = self.threadSafeServices
         }
 
         // Enqueue
@@ -310,6 +309,7 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
 
         //
         // Update services operation
+        updateServicesOperation.servicesViewModel = self
         updateServicesOperation.completionHandler = { [weak self] _, _ in
             self?.areLocalServicesSynchronized = true
 
@@ -328,7 +328,7 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
                 updateServicesOperation.action = action
             }
 
-            updateServicesOperation.setThreadSafe(serviceRepresentables: [])
+            //updateServicesOperation.setThreadSafe(serviceRepresentables: [])
         }
 
         // Enqueue
@@ -493,7 +493,7 @@ class ServicesViewModel: ViewModelRepresenting, APIErrorProducing {
     private func handleServiceEvent(data: NotifireWebSocketServiceEventData) {
         let updateServicesOperation = UpdateServiceRepresentablesOperation(synchronizationManager: synchronizationManager)
         updateServicesOperation.action = .changeSingleService(data)
-        updateServicesOperation.threadSafeServiceRepresentables = threadSafeServices
+        updateServicesOperation.servicesViewModel = self
         updateServicesOperation.completionHandler = { [weak self] threadSafeRepresentables, maybeChanges in
             guard let `self` = self else { return }
             let newServiceRepresentables = self.synchronizationManager.createServiceRepresentables(from: threadSafeRepresentables)

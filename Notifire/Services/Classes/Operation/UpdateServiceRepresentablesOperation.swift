@@ -31,7 +31,11 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
     var action: LocalRemoteServicesAction?
 
     // MARK: ThreadSafeServiceRepresentableOperation
-    var threadSafeServiceRepresentables: ThreadSafeServiceRepresentables?
+    /// Used to access the ThreadSafeServiceRepresentables array in real-time to get the latest / current version of services.
+    weak var servicesViewModel: ServicesViewModel?
+    var threadSafeServiceRepresentables: ThreadSafeServiceRepresentables? {
+        return servicesViewModel?.threadSafeServices
+    }
     let synchronizationManager: ServicesSynchronizationManager
 
     // MARK: Completion

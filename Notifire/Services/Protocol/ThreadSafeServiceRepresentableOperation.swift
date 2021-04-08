@@ -25,7 +25,7 @@ protocol ThreadSafeServiceRepresentableOperation: class {
 
     /// An array of `ServiceSnippet` and `ThreadSafeReference<LocalService>` (referenced from another thread)
     /// - Important: Always set this value by calling `setThreadSafeServiceRepresentables(from:)` which ensures thread safety
-    var threadSafeServiceRepresentables: ThreadSafeServiceRepresentables? { get set }
+    var threadSafeServiceRepresentables: ThreadSafeServiceRepresentables? { get }
 
     /// Resolved `threadSafeServiceRepresentables` on the current thread.
     var serviceRepresentables: [ServiceRepresentable]? { get }
@@ -35,11 +35,6 @@ extension ThreadSafeServiceRepresentableOperation {
     var serviceRepresentables: [ServiceRepresentable]? {
         guard let threadSafeServiceRepresentables = self.threadSafeServiceRepresentables else { return nil }
         return synchronizationManager.createServiceRepresentables(from: threadSafeServiceRepresentables)
-    }
-
-    /// Sets the `threadSafeServiceRepresentables` from the main `DispatchQueue`.
-    func setThreadSafe(serviceRepresentables: [ServiceRepresentable]) {
-        self.threadSafeServiceRepresentables = synchronizationManager.createThreadSafeRepresentables(from: serviceRepresentables)
     }
 
     func finishOperation(representables resultRepresentables: [ServiceRepresentable], resolvedHandler: @escaping ((ThreadSafeServiceRepresentables) -> Void)) {
