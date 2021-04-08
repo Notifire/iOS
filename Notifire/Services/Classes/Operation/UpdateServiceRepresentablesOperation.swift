@@ -140,22 +140,31 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
         // Create new ServiceSnippet
         let newServiceSnippet = service.asServiceSnippet
 
-        // Get the index of this new service inside a sorted array of ServiceRepresentables
-        serviceRepresentables.append(newServiceSnippet)
-        serviceRepresentables.sort { $0.name < $1.name }
-        guard let newIndex = serviceRepresentables.firstIndex(where: { $0.id == newServiceSnippet.id }) else {
+        // Create a new service representables array
+        var newServiceRepresentables = serviceRepresentables
+        newServiceRepresentables.append(newServiceSnippet)
+        newServiceRepresentables.sort(by: { $0.name < $1.name })
+
+        guard let newIndex = newServiceRepresentables.firstIndex(where: { $0.id == newServiceSnippet.id }) else {
             Logger.log(.fault, "\(self) couldn't get index of newly created LocalService")
             return nil
         }
 
-        let representableChanges = ServiceRepresentableChangesData(
-            deletions: [],
-            insertions: [newIndex.asIndexPath],
-            modifications: [],
-            moves: []
-        )
+        let newIndexIsLastRow = newIndex == newServiceRepresentables.count - 1
 
-        return (serviceRepresentables, .partial(changesData: representableChanges))
+        if newIndexIsLastRow, !synchronizationManager.paginationHandler.isFullyPaginated {
+            // Don't add the new service, the sorting might have broken the overall service order
+            Logger.log(.default, "\(self) ignoring creation of new service because it would be placed in the last row.")
+            return (serviceRepresentables, .partial(changesData: ServiceRepresentableChangesData(deletions: [], insertions: [], modifications: [], moves: [])))
+        } else {
+            let representableChanges = ServiceRepresentableChangesData(
+                deletions: [],
+                insertions: [newIndex.asIndexPath],
+                modifications: [],
+                moves: []
+            )
+            return (newServiceRepresentables, .partial(changesData: representableChanges))
+        }
     }
 
     func update(service: Service) -> Result? {
@@ -197,25 +206,36 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
             let changes: ServiceRepresentableChanges
             if nameChanged {
                 // if the name has changed, move the updated service to the correct row
-                serviceRepresentables.sort(by: { $0.name < $1.name })
-                guard let newIndex = serviceRepresentables.firstIndex(where: { $0.id == service.id }) else { return nil }
+                let newSortedServiceRepresentables = serviceRepresentables.sorted(by: { $0.name < $1.name })
+                //FIX serviceRepresentables.sort(by: { $0.name < $1.name })
+                guard let newIndex = newSortedServiceRepresentables.firstIndex(where: { $0.id == service.id }) else { return nil }
 
-                if newIndex == serviceRepresentables.count - 1 && !synchronizationManager.paginationHandler.isFullyPaginated {
+                let newIndexIsLastRow = newIndex == newSortedServiceRepresentables.count - 1
+
+                if newIndexIsLastRow, !synchronizationManager.paginationHandler.isFullyPaginated {
                     // the newIndex is the last row
-                    // we can't be sure if this sorted array is correct, because there might be other services between our last service and second-to-last service
-                    // thus, delete the last (newly updated) service and paginate from second-to-last to avoid
-                    changes = .partial(changesData: ServiceRepresentableChangesData(deletions: [newIndex.asIndexPath], insertions: [], modifications: [], moves: []))
+                    // We can't be sure that the new sorted array is correctly sorted because there might be other services in the 'next page'
+                    // which would break sorting.
+                    // Thus, we need to: delete this renamed service and updated our pagination state
+                    serviceRepresentables.remove(at: representable.offset)
+
+                    changes = .partial(changesData: ServiceRepresentableChangesData(deletions: [representable.offset.asIndexPath], insertions: [], modifications: [], moves: []))
+
+                    if let lastServiceID = serviceRepresentables.last?.id {
+                        synchronizationManager.paginationHandler.paginationState = .partiallyPaginated(lastServiceID: lastServiceID)
+                    }
+                    return (serviceRepresentables, changes)
                 } else {
                     // the newIndex is properly sorted in our already loaded array of ServiceRepresentable
                     // thus, we can just move it accordingly
                     let move = (representable.offset.asIndexPath, newIndex.asIndexPath)
                     changes = .partial(changesData: ServiceRepresentableChangesData(deletions: [], insertions: [], modifications: [], moves: [move]))
+                    return (newSortedServiceRepresentables, changes)
                 }
             } else {
                 // otherwise just reload the row
                 changes = .partial(changesData: ServiceRepresentableChangesData(deletions: [], insertions: [], modifications: [representable.offset.asIndexPath], moves: []))
             }
-
             return (serviceRepresentables, changes)
         } else if let localService = localServices.first(where: { $0.id == service.id }) {
             // updated service is in local services but hasn't been presented yet
@@ -230,6 +250,11 @@ class UpdateServiceRepresentablesOperation: Operation, ThreadSafeServiceRepresen
                 if let localServiceIndex = representableWithUpdatedLocal.firstIndex(where: { $0.id == localService.id }), localServiceIndex < representableWithUpdatedLocal.count - 1 {
                     // insert the service into representables
                     let changes = ServiceRepresentableChangesData(deletions: [], insertions: [localServiceIndex.asIndexPath], modifications: [], moves: [])
+
+                    // Update the last paginated state in case it's needed
+                    if !synchronizationManager.paginationHandler.isFullyPaginated, let lastServiceID = representableWithUpdatedLocal.last?.id {
+                        synchronizationManager.paginationHandler.paginationState = .partiallyPaginated(lastServiceID: lastServiceID)
+                    }
 
                     return (representableWithUpdatedLocal, .partial(changesData: changes))
                 }
